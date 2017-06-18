@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اریس رایانه</title>
+    <link href="assets/styles/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/styles/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/styles/chart.css" rel="stylesheet">
+    <link href="assets/styles/fullcalendar.css" rel="stylesheet">
+    <link href="assets/styles/print.css" rel="stylesheet">
+    <link href="assets/styles/main.css" rel="stylesheet">
+    <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
+    <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/bundle.js"></script>
+    <script src="assets/scripts/chart.js"></script>
+    <script src="assets/scripts/moment.js"></script>
+    <script src="assets/scripts/fullcalendar.js"></script>
+    <script src="assets/scripts/main.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="text" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label>لغایت</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="text" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label> تاریخ یادداشت</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="number" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label>لغایت</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="number" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label>شماره یادداشت</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="number" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label style="margin-right: -13px">مبلغ سند</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="number" style="margin-right: 18px;" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label>شماره سند</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <select style="height: 35px;" tabindex="7" class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                            <label style="margin-right: -30px;">نوع یادداشت</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <select style="height: 35px;" tabindex="7" class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                            <label style="margin-right: 31px;">نام الگو</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 my-margin-top center">
+                        <button class="btn btn-info">
+                            <i class="fa fa-file-text"></i>
+                            تهیه گزارش
+                        </button>
+                    </div>
+                    <div class="col-sm-3 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <select style="height: 35px;" tabindex="7" class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                            <label style="margin-right: -12px;">منابع تامین اعتبار</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class=" my-padding right-align">
+                            <input type="text" style="margin-right: 18px;width: 80% !important" tabindex="1" placeholder="1" class="form-control my-form">
+                            <label>شرح سند</label>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered right-align">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px;">ردیف</th>
+                                        <th style="width: 110px;">شماره یادداشت</th>
+                                        <th style="width: 110px;">تاریخ یادداشت</th>
+                                        <th style="width: 330px;">شرح
+
+                                        </th>
+                                        <th style="width: 150px">مبلغ سند</th>
+                                        <th style="width: 150px">نام الگو</th>
+                                        <th style="width: 100px">مبلغ تامین اعتبار</th>
+                                        <th style="width: 100px">شماره سند</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>table.row</td>
+                                        <td>table.title</td>
+                                        <td>table.description</td>
+                                        <td>table.owe</td>
+                                        <td>table.borrow</td>
+                                        <td>table.situation</td>
+                                        <td>table.remain</td>
+                                        <td>table.remain</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+footer ul {
+  margin: 0;
+  padding: 12px;
+  list-style: none; }
+
+footer li {
+  display: inline-block; }
+
+footer a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+  background-color: white;
+  color: purple; }
+
+footer img {
+  width: 50%;
+  display: block !important;
+  margin: 0 auto; }
+
+nav ul {
+  margin: 0;
+  padding: 12px;
+  list-style: none; }
+
+nav li {
+  display: inline-block; }
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+  background-color: green;
+  color: red; }
+
+nav img {
+  width: 50%;
+  display: block !important;
+  margin: 0 auto; }

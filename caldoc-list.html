@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اریس رایانه</title>
+    <link href="assets/styles/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/styles/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/styles/chart.css" rel="stylesheet">
+    <link href="assets/styles/fullcalendar.css" rel="stylesheet">
+    <link href="assets/styles/print.css" rel="stylesheet">
+    <link href="assets/styles/main.css" rel="stylesheet">
+    <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/bundle.js"></script>
+    <script src="assets/scripts/chart.js"></script>
+    <script src="assets/scripts/moment.js"></script>
+    <script src="assets/scripts/fullcalendar.js"></script>
+    <script src="assets/scripts/main.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="my-margin-top">
+                    <form class="form-inline">
+                        <div class="row">
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <select style="height: 35px;margin-right: 17px" tabindex="7"  class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                                    <label>بهره بردار</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="number" tabindex="1" class="form-control my-form">
+                                    <label>لغایت</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="number" tabindex="1" class="form-control my-form">
+                                    <label>شماره سند</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <select style="height: 35px;margin-right: 19px" tabindex="7"  class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                                    <label>نوع سند</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="number" tabindex="1" class="form-control my-form">
+                                    <label>لغایت</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="number" style="margin-right: 5px;" tabindex="1" class="form-control my-form">
+                                    <label>تاریخ سند</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <select style="height: 35px" tabindex="7"  class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                                    <label>وضعیت سند</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="text" style="width: 90% !important;" tabindex="1" class="form-control my-form">
+                                    <label>شرح سند</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-4 right-align">
+                                <div class=" my-padding right-align">
+                                    <select style="height: 35px;margin-right: 9px" tabindex="7"  class="form-control my-form" name="kindDocument">
+                                            <option value="" disabled selected>همه علائم</option>
+                                            <option value="">2همه علائم</option>
+                                        </select>
+                                    <label>فیلتر اسناد</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="number" style="width: 86% !important;margin-right: 4px;" tabindex="1" class="form-control my-form">
+                                    <label>جمع بدهکار سند</label>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-4 my-margin-top">
+                                <button class="btn btn-info" tabindex="9" style="margin-top: -15px">
+                                    <i class="fa fa-info"></i>
+                                    نوشته مربوطه
+                                </button>
+                                <button class="btn btn-info" tabindex="10" style="margin-top: -15px">
+                                    <i class="fa fa-tree"></i>
+                                    نوشته مربوطه
+                                </button>
+                                <button class="btn btn-info" tabindex="11" style="margin-top: -15px">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    نوشته مربوطه
+                                </button>
+                            </div>
+                            <div class="col-sm-8 right-align">
+                                <div class=" my-padding right-align">
+                                    <input type="number" style="width: 86% !important;" tabindex="1" class="form-control my-form">
+                                    <label>جمع بستانکار سند</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive" style="text-align: center">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered right-align">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px;">ردیف</th>
+                                            <th style="width: 110px;">شماره سند</th>
+                                            <th style="width: 110px;">تاریخ سند</th>
+                                            <th style="width: 330px;">شرح
+
+                                            </th>
+                                            <th style="width: 150px">بدهکار</th>
+                                            <th style="width: 150px">بستانکار</th>
+                                            <th style="width: 100px">شماره پیش نویس</th>
+                                            <th style="width: 100px">وضعیت سند</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr >
+                                            <td>table.row</td>
+                                            <td>table.title</td>
+                                            <td>table.description</td>
+                                            <td>table.owe</td>
+                                            <td>table.borrow</td>
+                                            <td>table.situation</td>
+                                            <td>table.remain</td>
+                                            <td>table.remain</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <ul class="pagination">
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+{
+    "system": [
+        {
+            "title": "مدیریت امور مالی",
+            "path": "system-page.html",
+            "id": 1,
+            "parent": null,
+            "style": {
+                "background-color": "#27A9E1",
+                "animation-duration": "0.5s"
+            },
+            "style2": {
+                "background-color": "#F16521"
+            },
+            "icon": "fa-calculator",
+            "iconStyle":"col-sm-6",
+            "children": [
+                {
+                    "title": "سیستم 11",
+                    "id": "11",
+                    "origin": 1,
+                    "parent": 1,
+                    "style": {
+                        "background-color": "#27A9E1",
+                        "animation-duration": "0.5s"
+                    },
+                    "style2": {
+                        "background-color": "#F16521"
+                    },
+                    "icon": "fa-calculator",
+                    "children": [
+                        {
+                            "title": "سیستم 111",
+                            "id": "111",
+                            "origin": 1,
+                            "parent": "11",
+                            "children": [
+                                {
+                                    "title": "زیر بچه",
+                                    "id": "111_1",
+                                    "parent": "111",
+                                    "origin": 1,
+                                    "children": [
+                                        {
+                                            "title": "برگ",
+                                            "id": "leaf",
+                                            "parent": "111_1",
+                                            "origin": 1,
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "title": "سیستم 112",
+                            "id": "112",
+                            "origin": 1,
+                            "parent": "11",
+                            "children": [
+                                {
+                                    "title": "زیر بچه",
+                                    "id": "111_2",
+                                    "parent": "11",
+                                    "origin": 1,
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "title": "سیستم 113",
+                            "id": "113",
+                            "origin": 1,
+                            "parent": "11",
+                            "children": [
+                                {
+                                    "title": "زیر بچه",
+                                    "id": "111_3",
+                                    "parent": "11",
+                                    "origin": 1,
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "سیستم 12",
+                    "id": "12",
+                    "parent": 1,
+                    "origin": 1,
+                    "style": {
+                        "background-color": "#27A9E1",
+                        "animation-duration": "0.5s"
+                    },
+                    "style2": {
+                        "background-color": "#F16521"
+                    },
+                    "icon": "fa-calculator",
+                    "children": [
+                        {
+                            "title": "سیستم 112",
+                            "id": "112",
+                            "origin": 1,
+                            "parent": "12",
+                            "children": [
+                                {
+                                    "title": "زیر بچه",
+                                    "id": "111_2",
+                                    "origin": 1,
+                                    "parent": "113",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "سیستم 13",
+                    "id": "13",
+                    "parent": 1,
+                    "origin": 1,
+                    "style": {
+                        "background-color": "#27A9E1",
+                        "animation-duration": "0.5s"
+                    },
+                    "style2": {
+                        "background-color": "#F16521"
+                    },
+                    "icon": "fa-calculator",
+                    "children": [
+                        {
+                            "title": "سیستم 113",
+                            "id": "113",
+                            "origin": 1,
+                            "parent": "12",
+                            "children": [
+                                {
+                                    "title": "زیر بچه",
+                                    "id": "111_3",
+                                    "origin": 1,
+                                    "parent": "113",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "مدیریت منابع انسانی",
+            "path": "system-page.html",
+            "id": "2",
+            "parent": null,
+            "style": {
+                "background-color": "#27A9E1",
+                "animation-duration": "0.5s"
+            },
+            "style2": {
+                "background-color": "#7aab40"
+            },
+            "icon": "fa-map-signs",
+            "iconStyle":"col-sm-6",
+            "children": [
+                {
+                    "title": "سیستم 21",
+                    "id": "21",
+                    "origin": 2,
+                    "parent": "2",
+                    "style": {
+                        "background-color": "#27A9E1",
+                        "animation-duration": "1.5s"
+                    },
+                    "style2": {
+                        "background-color": "#7aab40"
+                    },
+                    "icon": "fa-map-signs",
+                    "children": [
+                        {
+                            "title": "سیستم 211",
+                            "id": "211",
+                            "origin": 2,
+                            "parent": "21",
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "امور اداری و لجستیک",
+            "path": "system-page.html",
+            "id": 3,
+            "parent": null,
+            "style": {
+                "background-color": "#27A9E1",
+                "animation-duration": "0.5s"
+            },
+            "style2": {
+                "background-color": "#08a5be"
+            },
+            "icon": "fa-archive",
+            "iconStyle":"col-sm-6",
+            "children": [
+                {
+                    "title": "سیستم 31",
+                    "id": "31",
+                    "origin": 3,
+                    "parent": "3",
+                    "style": {
+                        "background-color": "#27A9E1",
+                        "animation-duration": "2.5s"
+                    },
+                    "style2": {
+                        "background-color": "#08a5be"
+                    },
+                    "icon": "fa-archive",
+                    "children": [
+                        {
+                            "title": "سیستم 311",
+                            "id": "311",
+                            "origin": 3,
+                            "parent": "31",
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

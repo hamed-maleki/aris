@@ -1,0 +1,11 @@
+{
+    "message":[
+        {"sender":"فرد لااول","content":"پیغام فرستاده شده","type":"recive","reciver":""},
+        {"sender":"فرد لااول","content":"پیغام فرستاده شده","type":"recive","reciver":""},
+        {"sender":"name","content":"پیغام فرستاده شده","type":"send","reciver":"فرد لااول"},
+        {"sender":"فرد لااول","content":"پیغام فرستاده شده","type":"recive","reciver":""},
+        {"sender":"فرد لااول","content":"پیغام فرستاده شده","type":"recive","reciver":""},  
+        {"sender":"name","content":"پیغام فرستادده","type":"send","reciver":"فرد لااول"},
+        {"sender":"name","content":"پیغام فرستادده","type":"send","reciver":"فردیفغ اول"}
+    ]
+}

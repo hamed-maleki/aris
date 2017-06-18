@@ -1,0 +1,24 @@
+$padding: 6px;
+$color :purple;
+footer {
+  ul {
+    margin: 0;
+    padding: 2 * $padding;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: $padding 12px;
+    text-decoration: none;
+    background-color: white;
+    color:$color;
+  }
+  img {
+    width: 50%;
+    display: block !important;
+    margin: 0 auto;
+  }
+}

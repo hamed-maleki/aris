@@ -1,0 +1,32 @@
+{
+    "users": [
+        {
+            "username": "ahadi",
+            "password": "hayeknstar"
+        },
+        {
+            "username": "ahadi1",
+            "password": "hayeknstar1"
+        },
+        {
+            "username": "ahadi2",
+            "password": "hayeknstar2"
+        },
+        {
+            "username": "ahadi3",
+            "password": "hayeknstar3"
+        },
+        {
+            "username": "ahadi4",
+            "password": "hayeknstar4"
+        },
+        {
+            "username": "ahadi5",
+            "password": "hayeknstar5"
+        },
+        {
+            "username": "ahadi6",
+            "password": "hayeknstar6"
+        }
+    ]
+}

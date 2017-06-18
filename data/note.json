@@ -1,0 +1,86 @@
+{
+    "note": [
+        {
+            "content": "پیغام اول",
+            "id": "note1",
+            "title": "شماره1"
+        },
+        {
+            "content": "پیغام دوم",
+            "id": "note2",
+            "title": "نمره2"
+        },
+        {
+            "content": "second message",
+            "id": "note3",
+            "title": "no3"
+        },
+        {
+            "content": "second message1",
+            "id": "note4",
+            "title": "no4"
+        },
+        {
+            "content": "second message2",
+            "id": "note5",
+            "title": "no5"
+        },
+        {
+            "content": "second message3",
+            "id": "note6",
+            "title": "no6"
+        }
+    ],
+    "message": [
+        "اولین پیام شما باشد که این باشد",
+        "دومین پیام",
+        "سومین پیام"
+    ],
+    "alarm": [
+        {
+            "style":{
+                "background-image":"url(media/1.jpg)"
+            },
+            "styleP":{
+                "top":"40px",
+                "left":"20px"
+            },
+            "content":"1",
+            "class":"animation1"
+        },
+        {
+            "style":{
+                "background-image":"url(media/2.jpg)"
+            },
+            "styleP":{
+                "bottom":"15px",
+                "left":"20px"
+            },
+            "content":"2",
+            "class":"animation2"
+        },
+        {
+            "style":{
+                "background-image":"url(media/3.jpg)"
+            },
+            "styleP":{
+                "bottom":"15px",
+                "right":"20px"
+            },
+            "content":"3",
+            "class":"animation1"
+        },
+        {
+            "style":{
+                "background-image":"url(media/3.jpg)"
+            },
+            "styleP":{
+                "bottom":"15px",
+                "right":"20px"
+            },
+            "content":"4",
+            "class":"animation2"
+        }
+
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "subsystem" :[
+        {"title":"سیستم یک","path":"system-pagehtml","id":1,"parent":null,
+        "children":[
+            {
+                "title":"سیستم 11","id":"11","parent":"1","children":[
+                    {
+                "title":"سیستم 111","id":"111","parent":"11","children":[
+                ]
+            }
+                ]
+            }
+        ]
+        },
+        {"title":"سیستم دو","path":"system-pagehtml","id":2,"parent":null,
+        "children":[
+            {
+                "title":"سیستم 21","id":"21","parent":"2","children":[
+                    {
+                "title":"سیستم 211","id":"211","parent":"21","children":[
+                ]
+            }
+                ]
+            }
+        ]
+        }
+    ]
+}

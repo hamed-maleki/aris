@@ -1,0 +1,283 @@
+<!doctype html >
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#435761" data-react-helmet="true">
+    <title>اریس رایانه</title>
+    <link href="assets/styles/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/styles/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/styles/chart.css" rel="stylesheet">
+    <link href="assets/styles/fullcalendar.css" rel="stylesheet">
+    <link href="assets/styles/print.css" rel="stylesheet">
+    <link href="assets/styles/persianDatepicker-default.css" rel="stylesheet">
+    <link href="assets/styles/main.css" rel="stylesheet">
+    <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
+    <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/bundle.js"></script>
+    <script src="assets/scripts/chart.js"></script>
+    <script src="assets/scripts/moment.min.js"></script>
+    <script src="assets/scripts/moment-jalaali.js"></script>
+    <script src="assets/scripts/fullcalendar.js"></script>
+    <script src="assets/scripts/persianDatepicker.min.js"></script>
+    <script src="assets/scripts/locale-all.js"></script>
+    <script src="assets/scripts/main.js"></script>
+</head>
+
+<body id="body" ng-app="myApp" ng-controller="myCtrl">
+    <nav class="border first-color color" ng-include="'modules/navigation.html'">
+
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="clearfix"></div>
+            <div class="col-sm-3 my-padding" style="padding-left: 26px !important;">
+                <div class="border sub-system white-background" style=" margin-bottom: 20px;padding: 5px">
+                    <div id='calendar'></div>
+                </div>
+                <div class="border white-background aris-animation sub-system" ng-include="'modules/alarm.html'" id="system-message">
+
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-3 my-padding right-float animation" ng-repeat="system in system" ng-include="'modules/system.html'">
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12 my-padding" ng-include="'modules/charts.html'">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-12" ng-include="'modules/link.html'">
+                    </div>
+                    <div class="col-sm-12" ng-include="'modules/note.html'">
+                    </div>
+                    <div class="col-sm-12" ng-include="'modules/message.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <footer class="container-fluid" ng-include="'modules/footer.html'">
+        </footer>
+    </div>
+    <div id="chatbox">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" onclick="showing()">
+                    <div class="row pointer">
+                        <div class="col-sm-3">
+                            <i class="fa fa-comment"></i>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="fontchange">محل ارتباط شما</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 hide" id="chat">
+                    <div class="border white-background" ng-if="reciver != undefined || reciver != null" style="max-height: 200px;min-height: 200px;overflow-x: hidden"
+                        id="chatscroll">
+                        <div class="row" ng-repeat="chat in chat" ng-if="chat.reciver == reciver || chat.sender == reciver" id="chatarea">
+                            <div class="clearfix"></div>
+                            <div class="row" ng-if="chat.type == 'recive'">
+                                <div class="col-sm-8" style="text-align: left">
+                                    <p class="chatresponse">
+                                        {{chat.content}}<br>
+                                        <span style="font-size: 8px;text-align: left">{{chat.sender}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row" ng-if="chat.type == 'send'">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-7">
+                                    <p class='chat'>
+                                        {{chat.content}}
+                                    </p>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input list="people" id="reciver" ng-model="reciver" class="form-control form-control1" placeholder="انتخاب فرد" style="width: 100%;margin: 10px auto;">
+                            <datalist id="people">
+                                <option value="فرد اول" />
+                                <option value="فرد لااول" />
+                                <option value="فردیفغ اول" />
+                                <option value="فرد ایباول" />
+                            </datalist>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="my-textarea" id="chattext" style="margin-bottom: 5px;"></textarea>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn my-button first-color color" ng-click="chatting(reciver)">ارسال</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        fetch('data/chart.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (users) {
+
+                var data1 = {
+                    labels: users.map(function (user) {
+                        return user.name;
+                    }),
+                    series: users.map(function (user) {
+                        return user.value;
+                    })
+                };
+                new Chartist.Bar('#chart1', data1, {
+                    distributeSeries: true
+                });
+            });
+        fetch('data/piechart.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (users) {
+
+                var data = {
+                    labels: users.map(function (user) {
+                        return user.name;
+                    }),
+                    series: users.map(function (user) {
+                        return user.value;
+                    })
+                };
+                new Chartist.Pie('#chart3', data, options, responsiveOptions);
+                var options = {
+                    labelInterpolationFnc: function (value) {
+                        return value[0]
+                    }
+                };
+                var responsiveOptions = [
+                    ['screen and (min-width: 640px)', {
+                        chartPadding: 35,
+                        labelOffset: 90,
+                        labelDirection: 'explode',
+                        labelInterpolationFnc: function (value) {
+                            return value;
+                        }
+                    }],
+                    ['screen and (min-width: 1024px)', {
+                        labelOffset: 80,
+                        chartPadding: 35
+                    }]
+                ]
+            });
+        fetch('data/semibar.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (users) {
+
+                var data2 = {
+                    labels: users.map(function (user) {
+                        return user.name;
+                    }),
+                    serie1: users.map(function (user) {
+                        return user.value1
+                    }),
+                    serie2: users.map(function (user) {
+                        return user.value2
+                    }),
+                    serie3: users.map(function (user) {
+                        return user.value3
+                    }),
+                    serie4: users.map(function (user) {
+                        return user.value4
+                    }),
+
+
+                };
+                var series = [data2.serie1, data2.serie2, data2.serie3, data2.serie4]
+                // Initialize a Line chart in the container with the ID chart2
+                new Chartist.Line('#chart2', {
+                    labels: data2.labels,
+                    series: series
+                }, {
+                        showArea: true,
+                        showLine: false,
+                        showPoint: true,
+                        fullWidth: true,
+                        axisX: {
+                            showLabel: true,
+                            showGrid: false
+                        }
+                    });
+            });
+    </script>
+    <script>
+        // var initialLocaleCode = 'fa';
+        var myevent
+        $.getJSON("data/events.json").success(function (response) {
+            $('[data-toggle="tooltip"]').tooltip();
+            myevent = response
+            var firstLoad = true;
+            $('#calendar').fullCalendar({
+
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                events: myevent,
+                isRTL: false,
+                isJalaali: true,
+                defaultDate: '2017-04-27',
+                locale: 'fa',
+                firstDay: 6,
+                height: 520,
+                Timezone: "Asia/Tehran",
+                slotDuration: "01:00:00",
+                slotLabelFormat: "LT",
+                slotEventOverlap: true,
+                nowIndicator: true,
+                timeFormat: "H:m",
+                buttonIcons: true, // show the prev/next text
+                weekNumbers: true,
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+            });
+        });
+        $.each($.fullCalendar.locales, function (localeCode) {
+            $('#locale-selector').append(
+                $('<option/>')
+                    .attr('value', localeCode)
+                    .prop('selected', localeCode == initialLocaleCode)
+                    .text(localeCode)
+            );
+        });
+
+        // when the selected option changes, dynamically change the calendar option
+        $('#locale-selector').on('change', function () {
+            if (this.value) {
+                $('#calendar').fullCalendar('option', 'locale', this.value);
+                $('#calendar').fullCalendar('option', 'isJalaali', (this.value == 'fa' ? true : false));
+            }
+        });
+    </script>
+
+</body>
+
+</html>

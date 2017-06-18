@@ -1,0 +1,24 @@
+{
+    "buttons":[
+        {
+            "name":"چاپ درختواره",
+            "id":12,
+            "situation":1
+        },
+        {
+            "name":"چاپه",
+            "id":13,
+            "situation":0
+        },
+        {
+            "name":"چاپ ره",
+            "id":14,
+            "situation":1
+        },
+        {
+            "name":"چاپ داره",
+            "id":15,
+            "situation":1
+        }
+    ]
+}
