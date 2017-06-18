@@ -62,7 +62,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-
     $scope.number = "unload.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
