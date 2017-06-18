@@ -49,13 +49,6 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid rgba(77,99,111,0.5);
   border-radius: 10px;
 }
-/*body.modal-open .container-filter,body .modal-open nav,body.modal-open .effect {
-    -webkit-filter: blur(20px) grayscale(50%);
-    -moz-filter: blur(20px) grayscale(50%);
-    -o-filter: blur(20px) grayscale(50%);
-    -ms-filter: blur(20px) grayscale(50%);
-    filter: blur(20px) grayscale(50%);
-}*/
 a {
     text-decoration: none;
 }

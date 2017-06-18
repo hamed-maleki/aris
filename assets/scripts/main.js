@@ -128,7 +128,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
             $scope.alarm = response.data.alarm;
             $scope.sliderAlarm = $scope.alarm[0];
             sliderLength = $scope.alarm.length
-            // console.log($scope.sliderAlarm)
             $scope.carousel();
         });
     // carsoule
@@ -161,7 +160,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         $(".pause").removeClass("hide");
     }
     $scope.pause = function () {
-        console.log(sliderTime);
         clearTimeout(sliderTime);
         $(".pause").addClass("hide");
         $(".play").removeClass("hide");
@@ -535,7 +533,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         switch (x) {
             case 12: 
             var firstItem = $("#firstInput").val();
-            console.log(firstItem)
             $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
             case 13: console.log("second function"); break;
             case 14: console.log("third function"); break;
@@ -710,7 +707,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
     }
     $scope.font = function () {
-        console.log("that is happening")
         $(".theme-check").addClass("hide");
         $(".fa-pencil").removeClass("hide");
         if ($scope.fontTheme[0] == 1) {
