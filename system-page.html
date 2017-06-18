@@ -46,19 +46,19 @@
         <div class="row">
             <div class="col-sm-2 col-sm-push-10 right-align">
                 <div class="white-background my-padding border container-filter" style="padding-bottom: 15px !important;margin-top: -20px"
-                    ng-if="systemslider.length != undefined">
+                    ng-if="systemslider.length != undefined" ng-init="font()">
                     <h3 class="fontchange">زیر سیستم ها</h3>
                     <hr>
-                    <div ng-repeat="sub in systemslider">
+                    <div ng-repeat="sub in systemslider" >
                         <h4 class="fontchange pointer" ng-model="show" ng-click="headerSlide(sub.id,sub.title,sub.children,sub.origin)">
                             {{sub.title}}
                         </h4>
-                        <div id="{{sub.id}}" style="display: none">
-                            <div ng-repeat="item in sub.children" class="system-li first-color color">
-                                <h4 class="fontchange pointer my-margin-top first-color color" ng-click="list_slide(item.title,item.id,item.children,item.origin)">
+                        <div id="{{sub.id}}" style="display: none" ng-init="font()">
+                            <div ng-repeat="item in sub.children" class="system-li first-color color" ng-init="theme()">
+                                <h4 class="fontchange pointer my-margin-top first-color color" ng-click="list_slide(item.title,item.id,item.children,item.origin)" ng-init="font()">
                                     {{item.title}}
                                 </h4>
-                                <div ng-repeat="item1 in item.children" class="system-li fontchange" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px">
+                                <div ng-repeat="item1 in item.children" class="system-li fontchange" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px" ng-init="font()">
 
                                     <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.children,item1.origin)" style="margin-bottom: 0;padding-right: 7px">
                                         {{item1.title}}

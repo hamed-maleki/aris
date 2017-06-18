@@ -533,7 +533,10 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
 
     $scope.genral = function (x) {
         switch (x) {
-            case 12: $scope.dataLoad(1, 1, 1, 1, 1); break;
+            case 12: 
+            var firstItem = $("#firstInput").val();
+            console.log(firstItem)
+            $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
             case 13: console.log("second function"); break;
             case 14: console.log("third function"); break;
             case 15: console.log("forth function"); break;
@@ -591,6 +594,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
                 $scope.error[0] = "خطا در دستیابی به اطلاعات";
                 $("#error").modal();
             })
+            
     }
     // chat controller
     $interval(function () {
@@ -706,6 +710,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
     }
     $scope.font = function () {
+        console.log("that is happening")
         $(".theme-check").addClass("hide");
         $(".fa-pencil").removeClass("hide");
         if ($scope.fontTheme[0] == 1) {
