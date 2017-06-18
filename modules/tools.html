@@ -1,0 +1,108 @@
+<div class="row effect" >
+    <!--calendar link container-->
+    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(2)">
+        <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
+            <!--<p class="myMonth center"></p>-->
+            <i class="fa fa-calendar-o system-icon"></i>
+            <div class="badging" ng-if="eventNumber != 0">{{eventNumber}}</div>
+            <span class=" myday fontchange">{{myday}}</span>
+        </div>
+    </div>
+    <!--note link container-->
+    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(1)">
+        <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
+            <i class="fa fa-file-text-o system-icon"></i>
+            <div ng-if="note.length != 0" class="badging">{{note.length}}</div>
+        </div>
+    </div>
+    <!--top-links link container-->
+    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(3)">
+        <div class="border sub-system transform  center pointer tools" style="background-color: #F16521; margin-top: 10px">
+            <i class="fa fa-random system-icon"></i>
+
+        </div>
+    </div>
+    
+    <!--chat link container-->
+    <div class="col-sm-6 my-col-sm-6" onclick="display('chatbox')">
+        <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
+            <i class="fa fa-comments system-icon"></i>
+        </div>
+    </div>
+</div>
+<!--aside part-->
+<div class="side-filter"></div>
+<div class="side-tool">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p style="text-align: left">
+                    <i class="fa fa-close" style="color: white" ng-click="sideBarClose()"></i>
+                </p>
+            </div>
+            <sidebar></sidebar>
+        </div>
+    </div>
+</div>
+<!--chat area part-->
+<div id="chatbox">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" onclick="showing()">
+                <div class="row pointer">
+                    <div class="col-sm-3">
+                        <i class="fa fa-comment"></i>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="fontchange">محل ارتباط شما</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 hide" id="chat">
+                <div class="border white-background" ng-if="reciver != undefined || reciver != null" style="max-height: 200px;min-height: 200px;overflow-x: hidden"
+                    id="chatscroll">
+                    <div class="row" ng-repeat="chat in chat" ng-if="chat.reciver == reciver || chat.sender == reciver" id="chatarea">
+                        <div class="clearfix"></div>
+                        <div class="row" ng-if="chat.type == 'recive'">
+                            <div class="col-sm-8" style="text-align: left">
+                                <p class="chatresponse">
+                                    {{chat.content}}<br>
+                                    <span style="font-size: 8px;text-align: left">{{chat.sender}}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row" ng-if="chat.type == 'send'">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-7">
+                                <p class='chat'>
+                                    {{chat.content}}
+                                </p>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input list="people" id="reciver" ng-model="reciver" class="form-control form-control1" placeholder="انتخاب فرد" style="width: 100%;margin: 10px auto;">
+                        <datalist id="people">
+                            <option value="فرد اول" />
+                            <option value="فرد لااول" />
+                            <option value="فردیفغ اول" />
+                            <option value="فرد ایباول" />
+                        </datalist>
+                    </div>
+                    <div class="col-sm-8">
+                        <textarea class="my-textarea" id="chattext" style="margin-bottom: 5px;"></textarea>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn my-button first-color color" ng-click="chatting(reciver)">ارسال</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

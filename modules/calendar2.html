@@ -1,0 +1,111 @@
+<div class="filter">
+    <div class="container aris-animation">
+        <div class="row">
+            <div class="col-sm-12">
+                <!--full calendar part-->
+                <div id='calendar'></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 side-tool-calendar">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!--calendar event adding function-->
+                        <div class="col-sm-4 col-sm-push-8 fontchange" style="color: white;font-size: 16px;text-align: right">
+                            تاریخ شروع
+                        </div>
+                        <div class="col-sm-8 col-sm-pull-4">
+                            <input id="finish1" ng-model="start1" type="text" class="form-control" />
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-12 calendar-margin">
+                        <div class="col-sm-4 col-sm-push-8" style="color: white;font-size: 16px;text-align: right">
+                            تاریخ پایان
+                        </div>
+                        <div class="col-sm-8 col-sm-pull-4">
+                            <input id="start1" type="text" ng-model="finish1" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-4" style="color: white;font-size: 16px;text-align: right;padding-right: 28px;">
+                                عنوان رویداد
+                            </div>
+                        </div>
+                        <textarea class="my-textarea" ng-model="title1" style="width: 97%;float: right"></textarea>
+                        <button class="btn btn-danger my-margin-top" style="margin-bottom: 5px;margin-left: 13px;" ng-click="calendarsubmit(start1,finish1,title1)">ثبت</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // datepicker function
+    $(function () {
+        $("#elementId, .elementClass").persianDatepicker();
+        $("#pdpDefault").persianDatepicker({ alwaysShow: false, showGregorianDate: true });
+        $("#start1").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18, showGregorianDate: true });
+        $("#finish1").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18, showGregorianDate: true });
+    });
+
+</script>
+<script>
+    // full calendar plug in calling
+    var myevent
+    $.getJSON("data/events.json").success(function (response) {
+        $('[data-toggle="tooltip"]').tooltip();
+        myevent = response
+        var firstLoad = true;
+        $('#calendar').fullCalendar({
+
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            events: myevent,
+            isRTL: false,
+            isJalaali: true,
+
+            locale: 'fa',
+            firstDay: 6,
+            height: 520,
+            Timezone: "Asia/Tehran",
+            slotDuration: "01:00:00",
+            slotLabelFormat: "LT",
+            slotEventOverlap: true,
+            nowIndicator: true,
+            timeFormat: "H:m",
+            buttonIcons: true,
+            weekNumbers: true,
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+        });
+    });
+    // $.each($.fullCalendar.locales, function (localeCode) {
+    //     $('#locale-selector').append(
+    //         $('<option/>')
+    //             .attr('value', localeCode)
+    //             .prop('selected', localeCode == initialLocaleCode)
+    //             .text(localeCode)
+    //     );
+    // });
+
+
+    // $('#locale-selector').on('change', function () {
+    //     if (this.value) {
+    //         $('#calendar').fullCalendar('option', 'locale', this.value);
+    //         $('#calendar').fullCalendar('option', 'isJalaali', (this.value == 'fa' ? true : false));
+    //     }
+    // });
+
+</script>

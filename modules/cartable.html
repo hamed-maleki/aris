@@ -1,0 +1,35 @@
+
+    <div class="table-container" id="myDemo">
+        <table class="table table-hover my-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>فرستنده</th>
+                    <th>عنوان</th>
+                    <th>وضعیت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}" ng-click="showContext(cartable.title,cartable.context,$index,cartable.id)">
+                    <td>
+                        <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input">
+                        <i ng-if="cartable.read == 1" class="fa fa-check"></i>
+                    </td>
+                    <td class="fontchange">{{cartable.author}}</td>
+                    <td class="fontchange">{{cartable.title}}</td>
+                    <td class="fontchange">{{cartable.situation}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+<script>
+    $(function () {
+        Ps.initialize(document.getElementById('myDemo'));
+    });
+    $(function () {
+        prettyPrint();
+    });
+
+</script>

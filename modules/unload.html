@@ -1,0 +1,172 @@
+<div class="row">
+    <div class="col-sm-12" style="min-height: 424px">
+        <!--<button class="btn btn-info" onclick="infography()">مشاهده اینفوگرافی</button>
+        <canvas width="1250" height="400" id="arisInfo" style="display: none"></canvas>-->
+        <!--<img src="media/ArmAris.jpg" id="newone" width="145" height="126" alt="Planets" usemap="#planetmap">
+        <map name="planetmap">
+            <area shape="rect" coords="0,0,282,300" alt="Sun" onmouseover="newone()">
+            <area shape="circle" coords="300,358,30" alt="Mercury" href="mercur.htm">
+            <area shape="circle" coords="358,458,38" alt="Venus" href="venus.htm">
+        </map>-->
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <img src="media/cartoon.gif" style="height: auto">
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        
+    </div>
+</div>
+<script>
+    var id = null;
+    var timing = true;
+    setTimeout(function () {
+        timing = false;
+    }, 10000)
+    window.requestAnimFrame = (function (callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+    function drawRectangle(myRectangle, context, startPoint) {
+        context.moveTo(startPoint.x, startPoint.y);
+        context.lineTo(myRectangle.x, myRectangle.y);
+        context.lineWidth = 2;
+        context.strokeStyle = "darkgray";
+        context.stroke();
+    }
+    function animate(myRectangle, canvas, context, startTime, startPoint, endPoint) {
+        for (var i = 0; i < startPoint.length; i++) {
+            var time = (new Date()).getTime() - startTime;
+            var linearSpeedx = -100;
+            var linearSpeed = 100;
+            if (startPoint[i].y == endPoint[i].y) {
+                var newX = ((linearSpeedx * time / 1000) + startPoint[i].x);
+                if (newX > endPoint[i].x) {
+                    myRectangle[i].x = newX;
+                }
+            }
+            else if (startPoint[i].x == endPoint[i].x) {
+
+                var newy = ((linearSpeed * time / 1000) + startPoint[i].y);
+                if (newy < endPoint[i].y) {
+                    myRectangle[i].y = newy;
+                }
+            }
+            else {
+                var newX = ((linearSpeedx * time / 500) + startPoint[i].x);
+                var newy = ((linearSpeed * time / 500) + startPoint[i].y);
+                if (newX > endPoint[i].x || newy < endPoint[i].y) {
+                    myRectangle[i].x = newX;
+                    myRectangle[i].y = newy;
+                }
+            }
+            drawRectangle(myRectangle[i], context, startPoint[i]);
+        }
+        if (timing) {
+            requestAnimFrame(function () {
+                animate(myRectangle, canvas, context, startTime, startPoint, endPoint);
+            });
+        }
+    }
+    var canvas = document.getElementById('arisInfo');
+    var context = canvas.getContext('2d');
+    setTimeout(function () {
+        cancelAnimationFrame(id)
+    }, 10000)
+    var myRectangle = [
+        {
+            x: 1014,
+            y: 36
+        },
+        {
+            x: 1164,
+            y: 36
+        },
+        {
+            x: 1200,
+            y: 74
+        }
+        ,
+        {
+            x: 1200,
+            y: 74
+        }
+    ];
+    var startPoint = [
+        {
+            x: 1014,
+            y: 36
+        },
+        {
+            x: 1164,
+            y: 36
+        },
+
+        {
+            x: 1200,
+            y: 74
+        },
+        {
+            x: 1200,
+            y: 74
+        }
+    ]
+    var endPoint = [
+        {
+            x: 985,
+            y: 36
+        },
+        {
+            x: 1086,
+            y: 36
+        },
+
+        {
+            x: 1200,
+            y: 160
+        }
+        ,
+        {
+            x: 999,
+            y: 201
+        }
+    ]
+    for (var i = 0; i < startPoint.length; i++) {
+        drawRectangle(myRectangle[i], context, startPoint[i]);
+    }
+    function infography() {
+        $("#arisInfo").css("display", "block")
+        setTimeout(function () {
+            var startTime = (new Date()).getTime();
+            animate(myRectangle, canvas, context, startTime, startPoint, endPoint);
+        }, 1000);
+    }
+    // wait one second before starting animation
+    context.fillStyle = "red";
+    var c = document.getElementById("arisInfo");
+    var context = c.getContext("2d");
+    draw(1200, 196);
+    draw(1200, 38);
+    draw(1050, 38);
+    draw(969, 291);
+    draw(950, 38);
+    function draw(x, y) {
+        context.fillStyle = "red";
+        context.beginPath();
+        context.arc(x, y, 36, 0, 2 * Math.PI);
+        context.fill();
+    }
+    context.fill();
+    context.fillStyle = "white";
+    context.font = 20 + "px iran-sans";
+    context.fillText('شروع', 1185, 40);
+    context.fillText(" اریس", 1025, 40);
+    context.fillText(" پایان", 925, 42);
+    context.fillText(" اریس", 1180, 200);
+    context.fillText(" اریس", 948, 295);
+
+</script>
+<!--first container which will be showed in system-page.html and it will change totally-->

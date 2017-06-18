@@ -1,0 +1,29 @@
+<div class="sub-system aris-animation" style="background-color: #7d97a5;color: white;padding-bottom: 15px;" id="user-message">
+    <div class="row">
+        <div class="col-sm-2">
+            <i class="fa fa-close pointer" data-toggle="tooltip" data-placement="right" title="حذف" onclick="hidding('user-message')"></i>
+        </div>
+        <div class="col-sm-10" style="text-align: right">
+            <h4 class="my-padding fontchange">
+                پیامهای شما
+            </h4>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-12" ng-repeat="message in message">
+            <div class="row">
+                <div class="col-sm-2">
+                    <i title="حذف پیام" class="fa fa-close pointer message-icon" ng-click="removeItem(1,$index)"></i>
+                </div>
+                <div class="col-sm-9 message pointer">
+                    <p class="fontchange">{{message}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

@@ -1,0 +1,69 @@
+<div class="dropdown">
+    <div class="row ">
+        <div class="col-sm-1 col-sm-push-11 container-filter">
+            <i class="fa fa-bars pointer" ng-click="mainSystem()"></i>
+        </div>
+        <div class="col-sm-11 col-sm-pull-1">
+            <div class="row">
+                <div ng-repeat="system in subsystem" class="col-sm-2 my-margin-top right-float " style="padding-right: 25px">
+                    <div class="border transform">
+                        <div class="col-sm-4 col-sm-push-8 shadow center container-filter" ng-style="system.style2">
+                            <i class="fa system-icon" ng-class="system.icon"></i>
+                        </div>
+                        <div ng-click="drop(system.id)" class="col-sm-8 col-sm-pull-4 shadow center pointer container-filter" ng-style="system.style">
+                            <p style="font-size: 15px">{{system.title}}
+                                <i class="fa fa-angle-down " style="vertical-align: middle"></i>
+                            </p>
+                        </div>
+                        <!--<div class="clearfix"></div>-->
+                        <div class="col-sm-8 right-align subsystem" id="dropdown{{system.id}}" ng-style="system.style">
+                            <p ng-repeat="subsystem in system.children" class="pointer" ng-click="subSystem(subsystem.parent,subsystem.id)">
+                                {{subsystem.title}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal for access to main systems-->
+<div class="modal fade" id="mainSystems" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content my-modal" >
+            <div class="modal-body center" style="min-height:0px">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class=" my-margin-top"  ng-repeat="system in system" ng-class="system.iconStyle"   style="padding: 15px;" >
+                        <div class="row" >
+                            <div class="modal-container transform pointer" ng-style="system.style" ng-click="gettingSystem(system.id)">
+                                <i class="fa system-icon" ng-class="system.icon"></i>
+                                <h5 class="pointer fontchange">{{system.title}}</h5>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#mainSystems').on('show.bs.modal', function () {
+        $("nav").addClass("nav-filter")
+        $(".effect").css("filter", "blur(10px)")
+        $(".container-filter").css("filter", "blur(10px)")
+        $(".container-filter a").css("pointer-events", 'none')
+        $("nav a").css("pointer-events", 'none')
+        $("nav i").css("pointer-events", 'none')
+})
+
+$('#mainSystems').on('hide.bs.modal', function () {
+        $("nav").removeClass("nav-filter")
+        $(".effect").css("filter", "none")
+        $(".container-filter").css("filter", "none")
+        $(".container-filter a").css("pointer-events", '')
+        $("nav a").css("pointer-events", '')
+        $("nav i").css("pointer-events", '')
+        $(".effect").css("filter","none")
+})
+</script>

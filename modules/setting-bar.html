@@ -1,0 +1,46 @@
+<div class="container">
+    <!--<div style="position: relative;filter: blur(10px);width: 100%;height: 100%;top: 0;right: 0"></div>-->
+    <div class="row">
+        <div class="col-sm-12">
+            <!--font choosing part-->
+            <h4 class="fontchange">
+                <i class="fa fa-pencil" style="margin-left: 10px;"></i>انتخاب قلم
+            </h4>
+            <ul>
+                <li class="pointer " ng-click="fontChanger('1')">
+                    <i class="fa fa-pencil" id="first"></i>
+                    <i class="fa fa-check hide theme-check" id="firstcheck"></i>قلم اول
+                </li>
+                <li class="pointer" ng-click="fontChanger('2')">
+                    <i class="fa fa-check theme-check" id="secondcheck"></i>
+                    <i class="fa fa-pencil hide " id="second"></i>قلم بعدی
+                </li>
+                <li class="pointer" ng-click="fontChanger('3')">
+                    <i class="fa fa-check hide theme-check" id="thirdcheck"></i>
+                    <i class="fa fa-pencil" id="third"></i>قلم بعدی
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-12">
+            <!--color choosing part-->
+            <h4 class="fontchange">
+                <i class="fa fa-paint-brush"></i>انتخاب رنگ
+            </h4>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="color-select" style="background-color: #037BC0" ng-click="colorChanger('1')"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="color-select" style="background-color: #3eb65c" ng-click="colorChanger('2')"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="color-select" style="background-color: #b194f1" ng-click="colorChanger('3')"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12 center my-margin-top">
+                    <p class="pointer fontchange setting" data-toggle="modal" data-target="#advanced-setting">تنظیمات جداول <i class="fa fa-cogs my-padding"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

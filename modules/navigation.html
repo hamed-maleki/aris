@@ -1,0 +1,160 @@
+<div class="container-fluid effect">
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="row">
+                <div class="col-sm-1 logo-holder">
+                    <a href="#">
+                        <!--logo part-->
+                        <img src="media/ArmAris.jpg" id="aris-logo" onmouseover="transform3d()" onmouseout="deleteTransform()">
+                    </a>
+                    <div class="aris-badge">10</div>
+                </div>
+                <div class="col-sm-5">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="z-index:10"> 
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <span class="border-right">
+                        <!--user information part-->
+                        <img data-toggle="tooltip" data-placement="bottom" title="تنظیمات پروفایل" src="media/1.jpg" alt="user photo" class="rounded-pic pointer"
+                            onclick="fade()" />
+                        </span>
+                        <span class="border-right right-align">
+                            <a href="table.html">
+                                <!--cartable part-->
+                                <i data-toggle="tooltip" data-placement="bottom" title="کارتابل" class="fa fa-envelope-o font" style="margin-right: 0px !important"></i>
+                                <div class="badge">{{reading}}</div>
+                            </a>
+                        </span>
+                        <span class="border-right right-align">
+                            <!--setting part-->
+                            <i data-toggle="tooltip" data-placement="bottom" title="تنظیمات پوسته" id="setting" class="fa fa-gear font rotate-back pointer"
+                            onclick="setting()"></i>
+                        </span>
+                        <span class="border-right right-align" style="margin-right: 5px;">
+                            <i data-toggle="tooltip" data-placement="bottom" title="جستجو" class="fa fa-search font pointer" onclick="searching()"></i>
+                        </span>
+                        <span>
+                            <input type="text" class="form-control form-control1 hide" id="search" />
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 my-margin-top" style="text-align: right">
+                    <span class="border-right border-left">
+                        <!--lik to first page-->
+                        <a href="new_design_firstpage.html" class="fontchange">
+                            شرکت ملی گاز ایران
+                        </a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--informaton dropdown-->
+<div style="color: black" id="user-info" class="dropdown-border" ng-include="'modules/user-info.html'">
+</div>
+<!--setting dropdown-->
+<div style="color: black" id="setting-bar" class="dropdown-border" ng-include="'modules/setting-bar.html'">
+</div>
+<!--advanced setting modal-->
+<div class="modal fade" id="advanced-setting" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!--<div class="modal-header">
+                
+            </div>-->
+            <div class="modal-body center">
+                <h4 class="modal-title right-align my-padding font fontchange" style="color: red">تنظیمات پیشرفته</h4>
+                <h3 class="fontchange">نوع نمایش اعداد</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <form>
+                                <!--<div class="col-sm-3"></div>-->
+                                <div class="col-sm-4">
+                                    <label class="radio-inline"><input type="radio" ng-click="radio(3)" name="optradio" >میلیون ریال</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="radio-inline"><input type="radio" ng-click="radio(2)" name="optradio" >هزار ریال</label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="radio-inline"><input type="radio" ng-click="radio(1)" name="optradio">ریال</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="fontchange">سایز نمایش اعداد جداول</h3>
+                <div class="row">
+                    <div class="col-sm-12 center my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-3" style="padding-left: 60px">
+                                14px<br>|
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 55px;">
+                                16px<br>|
+                            </div>
+                            <div class="col-sm-3" style="padding-left: 50px">
+                                18px<br>|
+                            </div>
+                            <div class="col-sm-4"></div>
+                        </div>
+                        <form>
+                            <input type="range" name="foo" id="points-font" min="14" max="18" step="2" style="width: 60%" ng-model="size" ng-change="tablefontChange(size)">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--error modal-->
+<div class="modal fade" id="error" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body center" style="min-height:0px">
+                <div class="row">
+                    <div class="col-sm-4 ieMessage">
+                        <p><i class="fa fa-exclamation-triangle fa-5x " style="font-size: 5em !important"></i></p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p ng-repeat="error in error">{{error}}</p>
+                        <span class="btn btn-danger" data-dismiss="modal" style="background-color:#A72D2A !important">متوجه شدم</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+
+</script>
+<script>
+    $('#error').on('show.bs.modal', function () {
+        $(".effect").css("filter", "blur(40px)")
+        $(".container-filter").css("filter", "blur(40px)")
+        $(".container-filter a").css("pointer-events", 'none')
+        $("nav a").css("pointer-events", 'none')
+        $("nav i").css("pointer-events", 'none')
+    })
+
+    $('#error').on('hide.bs.modal', function () {
+        $(".effect").css("filter", "none")
+        $(".container-filter").css("filter", "none")
+        $(".container-filter a").css("pointer-events", '')
+        $("nav a").css("pointer-events", '')
+        $("nav i").css("pointer-events", '')
+        $(".effect").css("filter", "none")
+    })
+
+</script>

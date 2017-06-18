@@ -527,25 +527,17 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     $scope.eventNumber = 0;
     // button example
     $http.get("data/buttonTest.json")
-    .then(function(response){
-        $scope.buttons = response.data.buttons;
-        $scope.showingbutton();
-    })
-    
-    $scope.showingbutton = function(){
-        for(var i = 0; i< $scope.buttons.length; i++){
-            if($scope.buttons[i].situation == 0){
-               $("#buttons"+$scope.buttons[i].id).css("display","none");
-            }
-        }
-    }
-    $scope.genral = function(x){
-        switch(x){
-            case 12: $scope.dataLoad(1,1,1,1,1); break;
+        .then(function (response) {
+            $scope.buttons = response.data.buttons;
+        })
+
+    $scope.genral = function (x) {
+        switch (x) {
+            case 12: $scope.dataLoad(1, 1, 1, 1, 1); break;
             case 13: console.log("second function"); break;
             case 14: console.log("third function"); break;
             case 15: console.log("forth function"); break;
-            default: console.log("no function fund");break;
+            default: console.log("no function fund"); break;
         }
     }
     // event of day declaring
@@ -749,8 +741,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     // aside opening
     $scope.sideBar = function (x) {
         $scope.sidecontainer(x);
-        $(".side-tool").animate({ width: "400px" },'slow');
-        $(".side-filter").animate({ width: "400px" },'slow');
+        $(".side-tool").animate({ width: "400px" }, 'slow');
+        $(".side-filter").animate({ width: "400px" }, 'slow');
         $(".container-filter a").css("pointer-events", 'none');
         $("nav a").css("pointer-events", 'none');
         $("nav i").css("pointer-events", 'none');
@@ -925,7 +917,7 @@ function checkCookie() {
 var is_iPad = navigator.userAgent.match(/iPad/i) != null;
 function appleCheck() {
     if (is_iPad) {
-       screen.orientation.lock('landscape');
+        screen.orientation.lock('landscape');
     }
 }
 appleCheck();

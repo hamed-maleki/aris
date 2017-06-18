@@ -1,0 +1,21 @@
+<div class="my-margin-top" ng-class="sliderAlarm.class" id="alarm" ng-style="sliderAlarm.style">
+    <div class="message">
+        <br>
+        <br>
+        <p class="fontchange" ng-style="sliderAlarm.styleP">{{sliderAlarm.content }}</p>
+    </div>
+</div>
+    <script>
+        $(function () {
+            Ps.initialize(document.getElementById('alarm'));
+        });
+        $(function () {
+            prettyPrint();
+        });
+    </script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>

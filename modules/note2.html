@@ -1,0 +1,39 @@
+<div class="col-sm-12 aris-animation">
+    <form>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <input class="form-control my-margin-top right-align" id="notetitle" ng-model="mytitle" placeholder="عنوان یادداشت" />
+                    <textarea class="my-textarea" id="notearea" ng-model="mytext"></textarea>
+                </div>
+                <div class="col-sm-4">
+                    <button class="my-margin-top btn btn-info fontchange" style="color: white" ng-click="addThis(mytext,mytitle)">ذخیره </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div style="max-height: 500px;position: relative" id="side-scroll">
+    <div class="col-sm-12" style="padding: 0 30px;">
+        <div class="border sub-system transform  pointer" ng-repeat="note in note" style="background-color: rgba(255,255,255,0.5);min-height: 50px">
+            <div class="row">
+                <div class="col-sm-2">
+                    <i class="fa fa-close" ng-click="removeItem(2,$index)"></i>
+                </div>
+                <div class="col-sm-10">
+                    <h4 style="text-align: right;padding-right: 15px">{{note.title}}</h4>
+                </div>
+            </div>
+            <p>{{note.content}}</p>
+        </div>
+    </div>
+</div>
+<script>
+        $(function () {
+            Ps.initialize(document.getElementById('side-scroll'));
+        });
+        $(function () {
+            prettyPrint();
+        });
+    </script>
+    <!--aside methode note maker and displayer-->
