@@ -423,7 +423,7 @@ color: white !important;
 }
 .my-col-sm-6 i {
     font-size: 41px;
-    margin: 27px auto;
+    margin: 33px auto;
 }
 .my-col-sm-6 a {
     color: white;
@@ -1241,7 +1241,7 @@ tfoot tr td {
 }
 .myday {
     position: absolute;
-    top: 38%;
+    top: 40%;
     text-align: center;
     right: 40%;
 }
@@ -1451,6 +1451,31 @@ tfoot tr td {
 .icon-bar {
     background-color: white;
 }
+.searchResult {
+    position: absolute;
+    background-color: white;
+    color: #037BC0;
+    right: -14px;
+    width: 100%;
+    top: 29px;
+    border-radius: 5px;
+    z-index: 5;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.12);
+}
+.searchLink {
+    padding: 0 5px;
+    margin: 0 -15px;
+}
+.searchLink:hover {
+    background-color: #088FCE;
+    color: white;
+    border-radius: 5px;
+}
+.searchContainer{
+    display: inline-block;
+    position: relative;
+    width: 40%;
+}
 @media screen and (max-width: 1316px){
     #setting-bar{
         width: 25%;
@@ -1594,6 +1619,14 @@ tfoot tr td {
 }
 
 @media screen and (max-width:765px) {
+    .searchContainer{
+        position: static;
+    }
+    .searchResult {
+        width: 35%;
+        right: 206px;
+        top: 85px;
+    }
     .footer-margin {
         margin: 0px 15px 76px 3px;
      }

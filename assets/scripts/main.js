@@ -117,6 +117,52 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         $scope.cartable[x].read = 1;
     }
+    // searching in navigation
+    $scope.searching = function (x) {
+        if (x == 0) {
+            $scope.searchSystem = []
+        }
+        else if ($("#search").val()) {
+            $scope.searchSystem = $scope.system;
+            $(".searchResult").css("display", "block")
+            $scope.searchItem = $("#search").val();
+
+        }
+        else {
+            $scope.searchSystem = [];
+        }
+
+    }
+    $scope.cookieForSide = function(x,y){
+        var now = new Date();
+        var time = now.getTime();
+        time += 3600 * 1000;
+        now.setTime(time);
+        var searchParent = x
+        var searchId = y;
+        document.cookie = "searchParent = " + searchParent + ";expires=" + now.toUTCString() + ";path =/";
+        document.cookie = "searchId = " + searchId + ";expires=" + now.toUTCString() + ";path =/";
+    }
+    $scope.searchClick = function(x, y){
+        $scope.cookieForSide(x,y);
+        for(var i = 0; i< $scope.system.length; i++){
+            for(var z = 0; z < $scope.system[i].children.length; z++){
+                if($scope.system[i].children[z].id == x){
+                    var item = $scope.system[i].id
+                }
+            }
+        }
+        $scope.gettingSystem(item,0)
+            
+    }
+    $scope.getSearchCookie = function(){
+        var x  = $scope.getCookieValue('searchParent')
+        var y = $scope.getCookieValue('searchId')
+        $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
+        if(x != 0 && y != 0){
+            $scope.subSystem(x,y);
+        }
+    }
     //    note json loader
     var sliderTime;
     var sliderLength;
@@ -175,13 +221,13 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         $scope.system = response.system;
     })
     // cookie system transfer for system page
-    $http.get("data/subsystem.json")
-        .then(function (response) {
-            $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
-            $("#nav").html($scope.subsystem[0].title);
-        }).catch(function () {
-            $scope.error[0] = "خطا در دستیابی به اطلاعات";
-        })
+    // $http.get("data/subsystem.json")
+    //     .then(function (response) {
+    //         $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
+    //         $("#nav").html($scope.subsystem[0].title);
+    //     }).catch(function () {
+    //         $scope.error[0] = "خطا در دستیابی به اطلاعات";
+    //     })
     $scope.getCookieValue = function (a) {
         var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
         return b ? b.pop() : '';
@@ -206,6 +252,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     }
     // putting subsystem in cookie
     $scope.subSystem = function (x, y) {
+        console.log(x+","+y)
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
@@ -236,7 +283,10 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
     }
     // first page cookie for system page
-    $scope.gettingSystem = function (x) {
+    $scope.gettingSystem = function (x , y) {
+        if(y == 1){
+            $scope.cookieForSide(0,0)
+        }
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
@@ -252,7 +302,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     // top link part
     $scope.topLinking = function (x, path) {
         if (path == "system-page.html") {
-            $scope.gettingSystem(x);
+            $scope.gettingSystem(x,1);
         }
         else {
             var win = window.open(path, '_blank');
@@ -530,9 +580,9 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
 
     $scope.genral = function (x) {
         switch (x) {
-            case 12: 
-            var firstItem = $("#firstInput").val();
-            $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
+            case 12:
+                var firstItem = $("#firstInput").val();
+                $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
             case 13: console.log("second function"); break;
             case 14: console.log("third function"); break;
             case 15: console.log("forth function"); break;
@@ -590,7 +640,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
                 $scope.error[0] = "خطا در دستیابی به اطلاعات";
                 $("#error").modal();
             })
-            
+
     }
     // chat controller
     $interval(function () {
@@ -871,7 +921,7 @@ function searching() {
     $("#search").toggleClass("flag");
     if ($("#search").hasClass("flag")) {
         $("#search").removeClass("hide")
-        $("#search").delay(10).animate({ width: "40%" });
+        $("#search").delay(10).animate({ width: "100%" });
 
     }
     else {
@@ -882,7 +932,6 @@ function searching() {
         }, 300);
 
     }
-
 }
 function hidding(el) {
     $("#" + el).css("display", "none");

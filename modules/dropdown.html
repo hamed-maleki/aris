@@ -36,7 +36,7 @@
                     <div class="col-sm-3"></div>
                     <div class=" my-margin-top"  ng-repeat="system in system" ng-class="system.iconStyle"   style="padding: 15px;" >
                         <div class="row" >
-                            <div class="modal-container transform pointer" ng-style="system.style" ng-click="gettingSystem(system.id)">
+                            <div class="modal-container transform pointer" ng-style="system.style" ng-click="gettingSystem(system.id,1)">
                                 <i class="fa system-icon" ng-class="system.icon"></i>
                                 <h5 class="pointer fontchange">{{system.title}}</h5>
                             </div>

@@ -36,9 +36,30 @@
                         <span class="border-right right-align" style="margin-right: 5px;">
                             <i data-toggle="tooltip" data-placement="bottom" title="جستجو" class="fa fa-search font pointer" onclick="searching()"></i>
                         </span>
-                        <span>
-                            <input type="text" class="form-control form-control1 hide" id="search" />
-                        </span>
+                        <div class="searchContainer">
+                            <span>
+                            <input type="text" class="form-control form-control1 hide"  autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(1)"/>
+                            </span>
+                            <div class="searchResult" ng-if="searchSystem.length != 0" ng-blur="searching(0)">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-12" ng-repeat="link in searchSystem">
+                                            <div  ng-repeat="x in link.children|filter:{title : searchItem}">
+                                                <p class="searchLink pointer" ng-click="gettingSystem(x.parent,1)">
+                                                    {{x.title}}
+                                                </p>
+                                                <div ng-repeat="y in x.children">
+                                                    <p class="searchLink pointer" style="padding: 0 20px 0 0" ng-click="searchClick(y.parent, y.id)">
+                                                        {{y.title}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-sm-6 my-margin-top" style="text-align: right">
@@ -130,6 +151,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
