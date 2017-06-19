@@ -119,7 +119,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     }
     // searching in navigation
     $scope.searching = function (x) {
-        if (x == 0) {
+        if (x == 1) {
             $scope.searchSystem = []
         }
         else if ($("#search").val()) {
@@ -131,9 +131,42 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         else {
             $scope.searchSystem = [];
         }
-
     }
-    $scope.cookieForSide = function(x,y){
+    // $scope.checkingP = function () {
+    //     var $listItems = $(".se")
+    //     $(".se:first-child").addClass("selected")
+    //     $('input').keydown(function (e) {
+    //         var key = e.keyCode,
+    //             $selected = $listItems.filter('.selected'),
+    //             $current;
+
+    //         if (key != 40 && key != 38) return;
+
+    //         $listItems.removeClass('selected');
+
+    //         if (key == 40) // Down key
+    //         {
+    //             if (!$selected.length || $selected.is(':last-child')) {
+    //                 $current = $listItems.eq(0);
+    //             }
+    //             else {
+    //                 $current = $selected.next();
+    //             }
+    //         }
+    //         else if (key == 38) // Up key
+    //         {
+    //             if (!$selected.length || $selected.is(':first-child')) {
+    //                 $current = $listItems.last();
+    //             }
+    //             else {
+    //                 $current = $selected.prev();
+    //             }
+    //         }
+
+    //         $current.addClass('selected');
+    //     });
+    // }
+    $scope.cookieForSide = function (x, y) {
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
@@ -143,24 +176,23 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         document.cookie = "searchParent = " + searchParent + ";expires=" + now.toUTCString() + ";path =/";
         document.cookie = "searchId = " + searchId + ";expires=" + now.toUTCString() + ";path =/";
     }
-    $scope.searchClick = function(x, y){
-        $scope.cookieForSide(x,y);
-        for(var i = 0; i< $scope.system.length; i++){
-            for(var z = 0; z < $scope.system[i].children.length; z++){
-                if($scope.system[i].children[z].id == x){
+    $scope.searchClick = function (x, y) {
+        $scope.cookieForSide(x, y);
+        for (var i = 0; i < $scope.system.length; i++) {
+            for (var z = 0; z < $scope.system[i].children.length; z++) {
+                if ($scope.system[i].children[z].id == x) {
                     var item = $scope.system[i].id
                 }
             }
         }
-        $scope.gettingSystem(item,0)
-            
+        $scope.gettingSystem(item, 0)
     }
-    $scope.getSearchCookie = function(){
-        var x  = $scope.getCookieValue('searchParent')
+    $scope.getSearchCookie = function () {
+        var x = $scope.getCookieValue('searchParent')
         var y = $scope.getCookieValue('searchId')
         $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
-        if(x != 0 && y != 0){
-            $scope.subSystem(x,y);
+        if (x != 0 && y != 0) {
+            $scope.subSystem(x, y);
         }
     }
     //    note json loader
@@ -220,14 +252,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     }).then(function (response) {
         $scope.system = response.system;
     })
-    // cookie system transfer for system page
-    // $http.get("data/subsystem.json")
-    //     .then(function (response) {
-    //         $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
-    //         $("#nav").html($scope.subsystem[0].title);
-    //     }).catch(function () {
-    //         $scope.error[0] = "خطا در دستیابی به اطلاعات";
-    //     })
     $scope.getCookieValue = function (a) {
         var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
         return b ? b.pop() : '';
@@ -282,9 +306,9 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
     }
     // first page cookie for system page
-    $scope.gettingSystem = function (x , y) {
-        if(y == 1){
-            $scope.cookieForSide(0,0)
+    $scope.gettingSystem = function (x, y) {
+        if (y == 1) {
+            $scope.cookieForSide(0, 0)
         }
         var now = new Date();
         var time = now.getTime();
@@ -301,7 +325,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     // top link part
     $scope.topLinking = function (x, path) {
         if (path == "system-page.html") {
-            $scope.gettingSystem(x,1);
+            $scope.gettingSystem(x, 1);
         }
         else {
             var win = window.open(path, '_blank');
@@ -576,7 +600,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         .then(function (response) {
             $scope.buttons = response.data.buttons;
         })
-
     $scope.genral = function (x) {
         switch (x) {
             case 12:

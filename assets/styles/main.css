@@ -1476,6 +1476,10 @@ tfoot tr td {
     position: relative;
     width: 40%;
 }
+.selected {
+    background-color: #088FCE;
+    color: white;
+}
 @media screen and (max-width: 1316px){
     #setting-bar{
         width: 25%;
