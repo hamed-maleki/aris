@@ -16,7 +16,7 @@
             "iconStyle":"col-sm-6",
             "children": [
                 {
-                    "title": "سیستم 11",
+                    "title": "برگ 1",
                     "id": "11",
                     "origin": 1,
                     "parent": 1,
@@ -30,7 +30,7 @@
                     "icon": "fa-calculator",
                     "children": [
                         {
-                            "title": "سیستم 111",
+                            "title": "برگ 11",
                             "id": "111",
                             "origin": 1,
                             "parent": "11",

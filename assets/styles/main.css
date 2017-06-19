@@ -1460,7 +1460,7 @@ tfoot tr td {
     top: 29px;
     border-radius: 5px;
     z-index: 5;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.12);
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
 }
 .searchLink {
     padding: 0 5px;
@@ -1619,6 +1619,12 @@ tfoot tr td {
 }
 
 @media screen and (max-width:765px) {
+    .my-padding ,.alarm-con{
+        padding: 0 44px !important;
+    }
+    .my-col-sm-6 {
+        padding: 0px 32px 0px 28px;
+    }
     .searchContainer{
         position: static;
     }
