@@ -252,7 +252,6 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     }
     // putting subsystem in cookie
     $scope.subSystem = function (x, y) {
-        console.log(x+","+y)
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
