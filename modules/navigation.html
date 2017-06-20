@@ -38,24 +38,29 @@
                         </span>
                         <div class="searchContainer">
                             <span>
-                            <input type="text" class="form-control form-control1 hide"  autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-keydown="searching(1)"/>
+                            <input type="text" class="form-control form-control1 hide" list="browsers" autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-keydown="searching(1)"/>
+                            <!--<datalist id="browsers" >
+                                <optgroup ng-repeat="link in system">
+
+                                    <option ng-repeat="x in link.children|filter:{title : searchItem}" value="{{x.title}}" ng-click="gettingSystem(x.parent,1)">
+                                    <optgroup ng-repeat="z in link.children">
+                                        <option ng-repeat="y in z.children|filter:{title : searchItem}"  value="{{y.title}}" ng-click="searchClick(y.parent, y.id)">
+                                    </optgroup>
+                                </optgroup>
+                            </datalist>-->
                             </span>
-                            <div class="searchResult" ng-if="searchSystem.length != 0" >
+                            <div class="searchResult" ng-if="searchSystem.length != 0">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-sm-12" ng-repeat="link in searchSystem " >
-                                            <div  ng-repeat="x in link.children|filter:{title : searchItem}">
-                                                <p class="searchLink pointer fontchange" ng-click="gettingSystem(x.parent,1)">
+                                        <div class="col-sm-12" ng-repeat="link in searchSystem ">
+                                            <div ng-repeat="x in link.children|filter:{title : searchItem}">
+                                                <li class="searchLink pointer fontchange" value="{{x.parent}}" ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
                                                     {{x.title}}
-                                                </p>
-                                                
-                                            </div>
-                                            <div ng-repeat="x in link.children">
-                                                <div ng-repeat="y in x.children|filter:{title : searchItem}" ng-init="font()">
-                                                    <p class="searchLink pointer fontchange" ng-click="searchClick(y.parent, y.id)">
-                                                        {{y.title}}
-                                                    </p>
-                                                </div>
+                                                </li>
+                                                <li ng-repeat="y in x.children|filter:{title : searchItem}" value="{{y.parent}}" name="{{y.id}}" class="searchLink pointer child fontchange" style="text-align: right;" ng-click="searchClick(y.parent, y.id)"
+                                                    ng-init="checkingP()">
+                                                    {{y.title}}
+                                                </li>
                                             </div>
                                         </div>
                                     </div>

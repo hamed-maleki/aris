@@ -119,10 +119,10 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     }
     // searching in navigation
     $scope.searching = function (x) {
-        if (x == 1) {
-            $scope.searchSystem = []
-        }
-        else if ($("#search").val()) {
+        // if (x == 1) {
+        //     $scope.searchSystem = []
+        // }
+        if ($("#search").val()) {
             $scope.searchSystem = $scope.system;
             $(".searchResult").css("display", "block")
             $scope.searchItem = $("#search").val();
@@ -130,42 +130,63 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         else {
             $scope.searchSystem = [];
+            count = 0;
         }
     }
-    // $scope.checkingP = function () {
-    //     var $listItems = $(".se")
-    //     $(".se:first-child").addClass("selected")
-    //     $('input').keydown(function (e) {
-    //         var key = e.keyCode,
-    //             $selected = $listItems.filter('.selected'),
-    //             $current;
+    document.onkeydown = checkKey;
+    // document.onkeydown = $scope.checkKey;
+    var count = 0;
+    function checkKey(e) {
 
-    //         if (key != 40 && key != 38) return;
+        e = e || window.event;
+        if (e.keyCode == '38') {
 
-    //         $listItems.removeClass('selected');
+            if (count < 1) {
+                count = ($scope.listItems.length) - 1
+            }
+            else {
+                count--
+            }
+        }
+        else if (e.keyCode == '40') {
+            if (count > ($scope.listItems.length) - 2) {
+                count = 0
+            }
+            else {
+                count++
+            }
+        }
+        else if (e.keyCode == '37') {
+            console.log("left")
+        }
+        else if (e.keyCode == '39') {
+            console.log("right")
+        }
+        else if (e.keyCode == '13') {
+            for (var i = 0; i < $scope.listItems.length; i++) {
+                if ($($scope.listItems[i]).hasClass("selected")) {
+                    if (!$($scope.listItems[i]).hasClass("child")) {
+                        var valueLink = $($scope.listItems[i]).attr('value')
+                        $scope.gettingSystem(valueLink, 1)
+                    }
+                    else{
+                        var valueLink = $($scope.listItems[i]).attr('value');
+                        var nameLink = $($scope.listItems[i]).attr('name');
+                        $scope.searchClick(valueLink, nameLink)
+                    }
 
-    //         if (key == 40) // Down key
-    //         {
-    //             if (!$selected.length || $selected.is(':last-child')) {
-    //                 $current = $listItems.eq(0);
-    //             }
-    //             else {
-    //                 $current = $selected.next();
-    //             }
-    //         }
-    //         else if (key == 38) // Up key
-    //         {
-    //             if (!$selected.length || $selected.is(':first-child')) {
-    //                 $current = $listItems.last();
-    //             }
-    //             else {
-    //                 $current = $selected.prev();
-    //             }
-    //         }
+                }
+            }
+        }
+        $(".searchLink").removeClass("selected")
+        $($scope.listItems[count]).addClass("selected")
+    }
+    $scope.checkingP = function () {
 
-    //         $current.addClass('selected');
-    //     });
-    // }
+        $scope.listItems = $(".searchLink")
+        $scope.testing = $(".testing")
+        $($scope.listItems[0]).addClass("selected")
+    }
     $scope.cookieForSide = function (x, y) {
         var now = new Date();
         var time = now.getTime();
@@ -909,6 +930,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         $scope.myMonth = months[month - 1];
     }
+
 })
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){
