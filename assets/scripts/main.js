@@ -133,12 +133,17 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
             count = 0;
         }
     }
-    document.onkeydown = checkKey;
+    
     // document.onkeydown = $scope.checkKey;
+    document.onkeydown = checkKey;
     var count = 0;
     function checkKey(e) {
-
+        // that works when search get smaller or bigger
+        if($(".searchLink").length != 0){
+            $scope.listItems = $(".searchLink")
+        }
         e = e || window.event;
+        // it reduce count when kry up is pressed
         if (e.keyCode == '38') {
 
             if (count < 1) {
@@ -148,6 +153,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
                 count--
             }
         }
+        // it increase count when key down is pressed
         else if (e.keyCode == '40') {
             if (count > ($scope.listItems.length) - 2) {
                 count = 0
@@ -156,15 +162,20 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
                 count++
             }
         }
+        // it does nothing
         else if (e.keyCode == '37') {
             console.log("left")
         }
+        // it does nothing
         else if (e.keyCode == '39') {
             console.log("right")
         }
+        // it got executed when enter key is pressed
         else if (e.keyCode == '13') {
+            // looking for selected list
             for (var i = 0; i < $scope.listItems.length; i++) {
                 if ($($scope.listItems[i]).hasClass("selected")) {
+                    // cheking if that is a child leef
                     if (!$($scope.listItems[i]).hasClass("child")) {
                         var valueLink = $($scope.listItems[i]).attr('value')
                         $scope.gettingSystem(valueLink, 1)
@@ -178,15 +189,17 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
                 }
             }
         }
+        // adding selected class 
         $(".searchLink").removeClass("selected")
         $($scope.listItems[count]).addClass("selected")
     }
+    // first time list detecting
     $scope.checkingP = function () {
-
         $scope.listItems = $(".searchLink")
         $scope.testing = $(".testing")
         $($scope.listItems[0]).addClass("selected")
     }
+    // pushing in cookie
     $scope.cookieForSide = function (x, y) {
         var now = new Date();
         var time = now.getTime();
@@ -197,6 +210,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         document.cookie = "searchParent = " + searchParent + ";expires=" + now.toUTCString() + ";path =/";
         document.cookie = "searchId = " + searchId + ";expires=" + now.toUTCString() + ";path =/";
     }
+    // putting side bar cookie to be loaded in system page later
     $scope.searchClick = function (x, y) {
         $scope.cookieForSide(x, y);
         for (var i = 0; i < $scope.system.length; i++) {
@@ -208,6 +222,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         $scope.gettingSystem(item, 0)
     }
+    // system page on load to chek if there is any cookie
     $scope.getSearchCookie = function () {
         var x = $scope.getCookieValue('searchParent')
         var y = $scope.getCookieValue('searchId')
@@ -296,7 +311,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
     }
     // putting subsystem in cookie
-    $scope.subSystem = function (x, y) {
+    $scope.subSystem = function (x, y , z) {
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;

@@ -20,6 +20,9 @@
                         <!--user information part-->
                         <img data-toggle="tooltip" data-placement="bottom" title="تنظیمات پروفایل" src="media/1.jpg" alt="user photo" class="rounded-pic pointer"
                             onclick="fade()" />
+                            <!--informaton dropdown-->
+                            <div style="color: black" id="user-info" class="dropdown-border" ng-include="'modules/user-info.html'">
+                            </div>
                         </span>
                         <span class="border-right right-align">
                             <a href="table.html">
@@ -39,15 +42,6 @@
                         <div class="searchContainer">
                             <span>
                             <input type="text" class="form-control form-control1 hide" list="browsers" autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-keydown="searching(1)"/>
-                            <!--<datalist id="browsers" >
-                                <optgroup ng-repeat="link in system">
-
-                                    <option ng-repeat="x in link.children|filter:{title : searchItem}" value="{{x.title}}" ng-click="gettingSystem(x.parent,1)">
-                                    <optgroup ng-repeat="z in link.children">
-                                        <option ng-repeat="y in z.children|filter:{title : searchItem}"  value="{{y.title}}" ng-click="searchClick(y.parent, y.id)">
-                                    </optgroup>
-                                </optgroup>
-                            </datalist>-->
                             </span>
                             <div class="searchResult" ng-if="searchSystem.length != 0">
                                 <div class="container">
@@ -57,6 +51,9 @@
                                                 <li class="searchLink pointer fontchange" value="{{x.parent}}" ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
                                                     {{x.title}}
                                                 </li>
+                                                
+                                            </div>
+                                            <div ng-repeat="x in link.children">
                                                 <li ng-repeat="y in x.children|filter:{title : searchItem}" value="{{y.parent}}" name="{{y.id}}" class="searchLink pointer child fontchange" style="text-align: right;" ng-click="searchClick(y.parent, y.id)"
                                                     ng-init="checkingP()">
                                                     {{y.title}}
@@ -82,9 +79,7 @@
         </div>
     </div>
 </div>
-<!--informaton dropdown-->
-<div style="color: black" id="user-info" class="dropdown-border" ng-include="'modules/user-info.html'">
-</div>
+
 <!--setting dropdown-->
 <div style="color: black" id="setting-bar" class="dropdown-border" ng-include="'modules/setting-bar.html'">
 </div>
