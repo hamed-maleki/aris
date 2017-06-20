@@ -133,13 +133,13 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
             count = 0;
         }
     }
-    
+
     // document.onkeydown = $scope.checkKey;
     document.onkeydown = checkKey;
     var count = 0;
     function checkKey(e) {
         // that works when search get smaller or bigger
-        if($(".searchLink").length != 0){
+        if ($(".searchLink").length != 0) {
             $scope.listItems = $(".searchLink")
         }
         e = e || window.event;
@@ -180,7 +180,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
                         var valueLink = $($scope.listItems[i]).attr('value')
                         $scope.gettingSystem(valueLink, 1)
                     }
-                    else{
+                    else {
                         var valueLink = $($scope.listItems[i]).attr('value');
                         var nameLink = $($scope.listItems[i]).attr('name');
                         $scope.searchClick(valueLink, nameLink)
@@ -311,7 +311,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
     }
     // putting subsystem in cookie
-    $scope.subSystem = function (x, y , z) {
+    $scope.subSystem = function (x, y, z) {
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
@@ -946,6 +946,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         $scope.myMonth = months[month - 1];
     }
 
+
 })
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){
@@ -981,7 +982,8 @@ function searching() {
     if ($("#search").hasClass("flag")) {
         $("#search").removeClass("hide")
         $("#search").delay(10).animate({ width: "100%" });
-
+        $("#search").focus();
+        $(".searchResult").css("display","block");
     }
     else {
 
@@ -989,7 +991,7 @@ function searching() {
         setTimeout(function () {
             $("#search").addClass("hide");
         }, 300);
-
+         $(".searchResult").css("display","none");
     }
 }
 function hidding(el) {
@@ -1034,3 +1036,12 @@ function showCookieFail() {
 }
 // within a window load,dom ready or something like that place your:
 checkCookie();
+window.onkeypress = function (e) {
+    e = e || window.event;
+    console.log(e)
+    // use e.keyCode
+    if (e.keyCode == 36) {
+        searching();
+        
+    }
+};
