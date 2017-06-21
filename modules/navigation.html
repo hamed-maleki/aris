@@ -34,14 +34,14 @@
                         <span class="border-right right-align">
                             <!--setting part-->
                             <i data-toggle="tooltip" data-placement="bottom" title="تنظیمات پوسته" id="setting" class="fa fa-gear font rotate-back pointer"
-                            onclick="setting()"></i>
+                            onclick="setting()" ></i>
                         </span>
                         <span class="border-right right-align" style="margin-right: 5px;">
                             <i data-toggle="tooltip" data-placement="bottom" title="جستجو" class="fa fa-search font pointer" onclick="searching()"></i>
                         </span>
                         <div class="searchContainer">
                             <span>
-                            <input type="text" class="form-control form-control1 hide" list="browsers" autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-keydown="searching(1)"/>
+                            <input type="text" class="form-control form-control1 hide" list="browsers" autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-blur="closingSearch()" ng-keydown="searching(1)"/>
                             </span>
                             <div class="searchResult" ng-if="searchSystem.length != 0">
                                 <div class="container">

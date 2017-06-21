@@ -117,6 +117,12 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         $scope.cartable[x].read = 1;
     }
+    // closing search results
+    $scope.closingSearch = function () {
+        if (!$("#search").hasClass("flag")) {
+            $scope.searchSystem = []
+        }
+    }
     // searching in navigation
     $scope.searching = function (x) {
         // if (x == 1) {
@@ -231,6 +237,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
             $scope.subSystem(x, y);
         }
     }
+
     //    note json loader
     var sliderTime;
     var sliderLength;
@@ -963,13 +970,14 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
 // function hide() {
 //     $(this).parent().find("i").toggleClass("hide")
 // }
-function setting() {
-    $("#setting").toggleClass("rotate");
-    $("#setting").toggleClass("rotate-back");
-    $("#user-info").css("display", "none");
-    $("#note").css("display", "none");
-    $("#event").css("display", "none");
-    $("#setting-bar").slideToggle();
+function setting(x) {
+
+        $("#setting").toggleClass("rotate");
+        $("#setting").toggleClass("rotate-back");
+        $("#user-info").css("display", "none");
+        $("#note").css("display", "none");
+        $("#event").css("display", "none");
+        $("#setting-bar").slideToggle();
 }
 function fade() {
     $("#event").css("display", "none");
@@ -983,15 +991,16 @@ function searching() {
         $("#search").removeClass("hide")
         $("#search").delay(10).animate({ width: "100%" });
         $("#search").focus();
-        $(".searchResult").css("display","block");
+
     }
     else {
-
+        
         $("#search").animate({ width: "0%" });
         setTimeout(function () {
             $("#search").addClass("hide");
         }, 300);
-         $(".searchResult").css("display","none");
+        $("#search").val("");
+        $(".searchResult").css('display', "none");
     }
 }
 function hidding(el) {
@@ -1036,12 +1045,11 @@ function showCookieFail() {
 }
 // within a window load,dom ready or something like that place your:
 checkCookie();
-window.onkeypress = function (e) {
+window.onkeydown = function (e) {
     e = e || window.event;
-    console.log(e)
     // use e.keyCode
-    if (e.keyCode == 36) {
+    if (e.keyCode == 45) {
         searching();
-        
+
     }
 };
