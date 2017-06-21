@@ -128,6 +128,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         // if (x == 1) {
         //     $scope.searchSystem = []
         // }
+
         if ($("#search").val()) {
             $scope.searchSystem = $scope.system;
             $(".searchResult").css("display", "block")
@@ -143,6 +144,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     // document.onkeydown = $scope.checkKey;
     document.onkeydown = checkKey;
     var count = 0;
+    var page = 1;
     function checkKey(e) {
         // that works when search get smaller or bigger
         if ($(".searchLink").length != 0) {
@@ -150,22 +152,41 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         e = e || window.event;
         // it reduce count when kry up is pressed
+        // console.log(count)
         if (e.keyCode == '38') {
-
             if (count < 1) {
+                page = Math.floor($scope.listItems.length / 5)
+                $('.searchResult').animate({ scrollTop: 300 * page }, 'fast');
                 count = ($scope.listItems.length) - 1
             }
             else {
                 count--
+                if (count % 4 == 0) {
+                    if (count - 4 < 1) {
+                        $('.searchResult').animate({ scrollTop: 0 }, 'slow');
+                        page = 1
+                    }
+                    else {
+                        page--
+                        $('.searchResult').animate({ scrollTop: 300 * page }, 'slow');
+                    }
+                }
             }
         }
         // it increase count when key down is pressed
         else if (e.keyCode == '40') {
             if (count > ($scope.listItems.length) - 2) {
                 count = 0
+                page = 1;
+                $('.searchResult').animate({ scrollTop: 0 }, 'fast');
             }
             else {
                 count++
+                if (count % 5 == 0 && count != 0) {
+                    $('.searchResult').animate({ scrollTop: 300 * page }, 'slow');
+                    page++
+                }
+
             }
         }
         // it does nothing
@@ -201,9 +222,11 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
     }
     // first time list detecting
     $scope.checkingP = function () {
+        $(".searchResult").css("overflow-y", "scroll")
         $scope.listItems = $(".searchLink")
         $scope.testing = $(".testing")
         $($scope.listItems[0]).addClass("selected")
+        $scope.font();
     }
     // pushing in cookie
     $scope.cookieForSide = function (x, y) {
@@ -972,12 +995,12 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
 // }
 function setting(x) {
 
-        $("#setting").toggleClass("rotate");
-        $("#setting").toggleClass("rotate-back");
-        $("#user-info").css("display", "none");
-        $("#note").css("display", "none");
-        $("#event").css("display", "none");
-        $("#setting-bar").slideToggle();
+    $("#setting").toggleClass("rotate");
+    $("#setting").toggleClass("rotate-back");
+    $("#user-info").css("display", "none");
+    $("#note").css("display", "none");
+    $("#event").css("display", "none");
+    $("#setting-bar").slideToggle();
 }
 function fade() {
     $("#event").css("display", "none");
@@ -991,10 +1014,9 @@ function searching() {
         $("#search").removeClass("hide")
         $("#search").delay(10).animate({ width: "100%" });
         $("#search").focus();
-
     }
     else {
-        
+
         $("#search").animate({ width: "0%" });
         setTimeout(function () {
             $("#search").addClass("hide");

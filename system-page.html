@@ -63,7 +63,7 @@
                                 <div ng-repeat="item1 in item.children" class="system-li fontchange" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px"
                                     ng-init="font()">
 
-                                    <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.children,item1.origin)" style="margin-bottom: 0;padding-right: 7px">
+                                    <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.children,item1.origin)" style="margin-bottom: 0;padding-right: 7px;padding-bottom: 5px">
                                         {{item1.title}}
                                     </p>
                                     <div ng-repeat="item2 in item1.children" id="{{item1.id}}" style="display: none">

@@ -43,7 +43,7 @@
                             <span>
                             <input type="text" class="form-control form-control1 hide" list="browsers" autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-blur="closingSearch()" ng-keydown="searching(1)"/>
                             </span>
-                            <div class="searchResult" ng-if="searchSystem.length != 0">
+                            <div class="searchResult" id="search-con" tabindex="1" ng-if="searchSystem.length != 0">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-12" ng-repeat="link in searchSystem ">
@@ -51,11 +51,11 @@
                                                 <li class="searchLink pointer fontchange" value="{{x.parent}}" ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
                                                     {{x.title}}
                                                 </li>
-                                                
+
                                             </div>
                                             <div ng-repeat="x in link.children">
-                                                <li ng-repeat="y in x.children|filter:{title : searchItem}" value="{{y.parent}}" name="{{y.id}}" class="searchLink pointer child fontchange" style="text-align: right;" ng-click="searchClick(y.parent, y.id)"
-                                                    ng-init="checkingP()">
+                                                <li ng-repeat="y in x.children|filter:{title : searchItem}" value="{{y.parent}}" name="{{y.id}}" class="searchLink pointer child fontchange"
+                                                    style="text-align: right;" ng-click="searchClick(y.parent, y.id)" ng-init="checkingP()">
                                                     {{y.title}}
                                                 </li>
                                             </div>
@@ -154,13 +154,21 @@
         </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
 
 </script>
+<!--<script>
+        $(function () {
+            // $('#Demo').perfectScrollbar();
+            Ps.initialize(document.getElementById('search-con'));
+        });
+        $(function () {
+            prettyPrint();
+        });
+    </script>-->
 <script>
     $('#error').on('show.bs.modal', function () {
         $(".effect").css("filter", "blur(40px)")
