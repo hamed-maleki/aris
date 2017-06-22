@@ -82,7 +82,7 @@
     </div>
 </form>
 <div class="row " style="min-height: 232px;">
-    <div class="col-sm-12 table-responsive"  style="text-align: center">
+    <div class="col-sm-12 table-responsive" style="text-align: center">
         <div class="table-responsive" ng-show="! loading">
             <!--data table-->
             <table class="table table-hover table-striped table-bordered right-align">
@@ -147,12 +147,12 @@
             </table>
         </div>
         <div class="col-sm-12" ng-show="loading" style="text-align: center">
-            <div class="spinner">
-                <div class="rect1"></div>
-                <div class="rect2"></div>
-                <div class="rect3"></div>
-                <div class="rect4"></div>
-                <div class="rect5"></div>
+            <div class="showbox">
+                <div class="loader">
+                    <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="100" />
+                    </svg>
+                </div>
             </div>
             <!--<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>-->
         </div>
