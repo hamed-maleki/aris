@@ -27,7 +27,7 @@ app.directive("sidebar", function () {
         }
     }
 });
-app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) {
+app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile) {
     // log in demo log in. it should be removed later
     $scope.login = function (user, pass) {
         $http.get("data/users.json")
@@ -975,8 +975,42 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval) 
         }
         $scope.myMonth = months[month - 1];
     }
+    $scope.treeToShow = []
+    $scope.gettingTree = function () {
+        $http.get("data/tree.json").then(function (response) {
+            $scope.tree = response.data.tree;
+            for(var i = 0; i< $scope.tree.length; i ++){
+                if($scope.tree[i].parent == null){
+                    $scope.treeToShow.push($scope.tree[i])
+                } 
+            }
+        })
+    }
+    $scope.creatingTree = function (x) {
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if($scope.tree[i].parent == x){
+                $("#tree"+x).append($compile("<div class='tree-view' >" + $scope.tree[i].name + "<input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon"+$scope.tree[i].id+"' ng-click='treeSlide("+$scope.tree[i].id+")'></i><div id='tree"+$scope.tree[i].id+"'></div></div>")($scope))
+            }
+        }
+    }
 
-
+    $scope.treeSlide = function (x) {
+        if($("#tree" + x).hasClass("flag")){
+            $("#tree" + x).slideToggle();
+        }
+        else{
+            $scope.creatingTree(x);
+            $("#tree" + x).addClass("flag");
+        }
+        $("#treeIcon" + x).toggleClass("flag")
+        if ($("#treeIcon" + x).hasClass("flag")) {
+            $("#treeIcon" + x).removeClass("fa-angle-down")
+            $("#treeIcon" + x).addClass("fa-angle-up")
+        } else {
+            $("#treeIcon" + x).removeClass("fa-angle-up")
+            $("#treeIcon" + x).addClass("fa-angle-down")
+        }
+    }
 })
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){

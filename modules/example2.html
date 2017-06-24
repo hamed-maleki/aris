@@ -1,56 +1,70 @@
-<form style="min-height: 427px" ng-init="font()">
+<div class="container" ng-init="gettingTree()" style="min-height: 424px">
     <div class="row">
-        <div class="col-sm-3 my-margin-top">
-            <button class="btn btn-info">
-                <i class="fa fa-gear"></i>
-                تنظیمات تفصیلی شناور
-            </button>
-        </div>
-        <div class="col-sm-3 my-margin-top">
-            <div class=" my-padding right-align">
-                <select  tabindex="3" style="height: 35px" class="form-control my-form" name="option">
-                    <option value="" disabled selected>همه علائم</option>
-                    <option value="">2همه علائم</option>
-                    <option value="">3همه علائم</option>
-                </select>
-                <label>شماره پیش نویس</label>
-            </div>
-        </div>
-        <div class="col-sm-3 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px" type="text" tabindex="2" class="form-control my-form">
-                <label>نام حساب طبقه حساب</label>
-            </div>
-        </div>
-        <div class="col-sm-3 my-margin-top ">
-            <div class=" my-padding right-align">
-                <input style="height: 35px" type="number" tabindex="2" class="form-control my-form">
-                <label>نام حساب طبقه حساب</label>
-            </div>
+        <div class="col-sm-4" style="margin-top: -33px;font-size: 24px">
+            <i class="fa fa-plus pointer" data-toggle="tooltip" data-placement="left" title="اضافه کردن"></i>
+            <i class="fa fa-pencil-square-o pointer" data-toggle="tooltip" data-placement="left" title="ویرایش"></i>
         </div>
         <div class="clearfix"></div>
-        <hr>
-        <div class="col-sm-12 my-margin-top">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered right-align">
-                    <thead>
-                        <tr>
-                            <th style="width: 10px;">
-                                <input type="checkbox">
-                            </th>
-                            <th style="width: 110px;">کد حساب</th>
-                            <th style="width: 330px;">نام حساب</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>table.row</td>
-                            <td>table.title</td>
-                            <td>table.description</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-sm-8 my-margin-top" style="direction: rtl">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8 well aris-animation">
+                    <form>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <select   class="form-control" name="option">
+                                    <option value="" disabled selected>همه علائم</option>
+                                    <option value="">2همه علائم</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>وضعیت واحد:</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <input type="number" min="0" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <label>کد واحد :</label>
+                            </div>                            
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <label>عنوان واحد :</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <label>موقعیت جغرافیایی :</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger">ثبت
+                            <i class="fa fa-save" style="padding-right: 15px"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
+        <div class="col-sm-4 my-margin-top">
+            <div class="tree-border" ng-repeat="tree in treeToShow">
+                <input type="checkbox" style="display: none"> {{tree.name}}
+                <i class="fa fa-angle-down" id="treeIcon{{tree.id}}" ng-click="treeSlide(tree.id)"></i>
+                <hr>
+                <div id="tree{{tree.id}}"></div>
             </div>
         </div>
     </div>
-</form>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
