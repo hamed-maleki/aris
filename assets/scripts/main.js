@@ -1,4 +1,4 @@
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['angular.filter']);
 // loading form depond on sussystem
 app.directive("aris", function () {
     return {
@@ -979,26 +979,98 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
     $scope.gettingTree = function () {
         $http.get("data/tree.json").then(function (response) {
             $scope.tree = response.data.tree;
-            for(var i = 0; i< $scope.tree.length; i ++){
-                if($scope.tree[i].parent == null){
+            for (var i = 0; i < $scope.tree.length; i++) {
+                if ($scope.tree[i].parent == null) {
                     $scope.treeToShow.push($scope.tree[i])
-                } 
+                }
             }
         })
     }
     $scope.creatingTree = function (x) {
         for (var i = 0; i < $scope.tree.length; i++) {
-            if($scope.tree[i].parent == x){
-                $("#tree"+x).append($compile("<div class='tree-view' >" + $scope.tree[i].name + "<input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon"+$scope.tree[i].id+"' ng-click='treeSlide("+$scope.tree[i].id+")'></i><div id='tree"+$scope.tree[i].id+"'></div></div>")($scope))
+            if ($scope.tree[i].parent == x) {
+                $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='treeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div>")($scope))
             }
         }
     }
-
+    $scope.treeToEdit = [];
+    $scope.selectingTree = function (x) {
+        $("#treeRow" + x).toggleClass("treeBackground");
+        if ($("#treeRow" + x).hasClass("treeBackground")) {
+            $(".tree-span").removeClass("treeBackground");
+            $("#treeRow" + x).addClass("treeBackground");
+            for (var i = 0; i < $scope.tree.length; i++) {
+                if ($scope.tree[i].id == x) {
+                    $scope.treeToEdit = []
+                    $scope.treeToEdit.push($scope.tree[i])
+                    $("#treeCode").val($scope.tree[i].code)
+                    $("#treeName").val($scope.tree[i].name)
+                    $(".editAlarm").html(" ");
+                }
+            }
+        }
+        else {
+            $(".tree-span").removeClass("treeBackground");
+            $scope.treeToEdit = [];
+            $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
+            $("#treeCode").val("")
+            $("#treeName").val("")
+        }
+    }
+    $scope.deletingTree = function () {
+        var flag = 0;
+        if ($scope.treeToEdit.length == 0) {
+            $scope.error[0] = "ابتدا شاخه ایی را انتخاب کنید";
+            $("#error").modal();
+        }
+        else {
+            for (var i = 0; i < $scope.tree.length; i++) {
+                if ($scope.tree[i].parent == $scope.treeToEdit[0].id) {
+                    flag = flag + 1;
+                }
+            }
+            if (flag == 0) {
+                for (var i = 0; i < $scope.tree.length; i++) {
+                    if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
+                        $("#treeRow" + $scope.treeToEdit[0].id).html("");
+                        $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-down");
+                        $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-up");
+                        $scope.tree.splice(i, 1)
+                    }
+                }
+            }
+            else {
+                $scope.error[0] = "شما نمیتوانید سرشاخه را حذف کنید";
+                $("#error").modal();
+            }
+        }
+    }
+    $scope.editingTree = function () {
+        if ($scope.treeToEdit.length == 0) {
+            $(".editAlarm").append("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
+        }
+        $(".editingTree").toggleClass("flag");
+        if ($(".editingTree").hasClass("flag")) {
+            $(".editingTree").css("display", "inline-block")
+        }
+        else {
+            $(".editingTree").css("display", "none")
+        }
+    }
+    $scope.editRegister = function(x, y){
+        for(var i =0; i< $scope.tree.length; i++){
+            if($scope.tree[i].id == $scope.treeToEdit[0].id){
+                $scope.tree[i].code = x;
+                $scope.tree[i].name = y;
+            }
+        }
+        $("#treeRow"+$scope.treeToEdit[0].id).html(y);
+    }
     $scope.treeSlide = function (x) {
-        if($("#tree" + x).hasClass("flag")){
+        if ($("#tree" + x).hasClass("flag")) {
             $("#tree" + x).slideToggle();
         }
-        else{
+        else {
             $scope.creatingTree(x);
             $("#tree" + x).addClass("flag");
         }

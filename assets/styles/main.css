@@ -508,8 +508,7 @@ color: white !important;
     color: green;
 }
 .color-select {
-    height: 40px;
-    margin: 5px;
+    height: 25px;
     border-radius: 5px;
 }
 .search-bar {
@@ -589,10 +588,11 @@ color: white !important;
     box-shadow: 10px 15px 20px rgba(0,0,0,0.5);
 }
 .geometric {
-    background-image: url("../../media/4.png");
+    /*background-image: url("../../media/4.png");*/
     background-size: cover;
     color: white;
     padding-bottom: 15px;
+    background-color: #1079bb;
 }
 .chat {
     background-color: #00bfff;
@@ -742,8 +742,9 @@ color: white !important;
     margin-right: 5px;
     background-color: #F5F7F8;
 }
-#user-info li a{
+#user-info  a{
     color: black;
+    background-color: #F1F2F3;
 }
 #user-info li a:hover{
     color: #00bfff;
@@ -1277,7 +1278,7 @@ tfoot tr td {
 /*user info*/
 #user-info {
     box-shadow: 2px 4px 12px gray;
-    width: 50%;
+    width: 40%;
     position: absolute;
     top: 65px;
     left: 22px;
@@ -1289,7 +1290,7 @@ tfoot tr td {
     content: " ";
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-bottom: 15px solid #B78600;
+    border-bottom: 15px solid #1079bb;
     position: absolute;
     left: 19px;
     top: -10px;
@@ -1297,6 +1298,28 @@ tfoot tr td {
 
 /*end of user info*/
 /*setting*/
+.setting-info-bar {
+    background-color: #F16521;
+}
+.setting-info-bar i {
+    font-size: 18px !important;
+    color: white;
+    margin: 0 !important;
+}
+.font-selector {
+    margin: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+.font-selector i{
+    float: left;
+    font-size: 18px !important;
+    margin-top: 3px !important;
+}
+.setting-info-bar i:hover {
+    color: white !important;
+}
 #setting-bar{
     width: 15%;
     box-shadow: 2px 4px 12px gray;
@@ -1309,12 +1332,12 @@ tfoot tr td {
 }
 #setting-bar:before {
     content: " ";
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 15px solid #f5f7f8;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(255,255,255,0.9);
     position: absolute;
-    left: 15px;
-    top: -10px;
+    left: 20px;
+    top: -9.6px;
 }
 .setting:hover {
     color:#037BC0;
@@ -1357,6 +1380,21 @@ tfoot tr td {
 }
 .tree-view input {
     padding-left: 5px;
+}
+.treeBackground {
+    background-color: #00bfff;
+    color: white;
+    border-radius: 5px;
+}
+.editingTree {
+    display: none;
+}
+.tree-span {
+    padding: 0 20px;
+}
+.editAlarm {
+    color: red;
+    animation: testing 0.5s infinite alternate;
 }
 /*.tree-view::before{
     border-right: 1px dotted #00bfff;
@@ -1413,7 +1451,7 @@ tfoot tr td {
 }
 /*end of tabs*/
 .dropdown-border {
-    background-color: #f5f7f8;
+    background-color: rgba(255,255,255,0.9);
     border-radius: 5px;
 }
 .rotate {

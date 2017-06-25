@@ -1,12 +1,44 @@
 <div class="container">
     <!--<div style="position: relative;filter: blur(10px);width: 100%;height: 100%;top: 0;right: 0"></div>-->
     <div class="row">
+        <div style="padding: 5px;">
+            <div class="col-sm-12 setting-info-bar">
+                <div class="row">
+                    <div class="col-sm-4" style="text-align: left">
+                        <i class="fa fa-gear"></i>
+                    </div>
+                    <div class="col-sm-8 right-align">
+                        <i class="fa fa-close" onclick="setting()" ></i>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-12">
             <!--font choosing part-->
-            <h4 class="fontchange">
+            <h5 class="fontchange">
                 <i class="fa fa-pencil" style="margin-left: 10px;"></i>انتخاب قلم
-            </h4>
-            <ul>
+            </h5>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="font-selector" ng-click="fontChanger('1')">
+                        <!--<i class="fa fa-pencil" id="first"></i>-->
+                        <i class="fa fa-check hide theme-check" id="firstcheck"></i>قلم اول
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="font-selector" ng-click="fontChanger('2')">
+                        <i class="fa fa-check theme-check" id="secondcheck"></i>
+                        قلم بعدی
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="font-selector" ng-click="fontChanger('3')">
+                        <i class="fa fa-check hide theme-check" id="thirdcheck"></i>
+                        قلم بعدی
+                    </div>
+                </div>
+            </div>
+            <!--<ul>
                 <li class="pointer " ng-click="fontChanger('1')">
                     <i class="fa fa-pencil" id="first"></i>
                     <i class="fa fa-check hide theme-check" id="firstcheck"></i>قلم اول
@@ -19,13 +51,13 @@
                     <i class="fa fa-check hide theme-check" id="thirdcheck"></i>
                     <i class="fa fa-pencil" id="third"></i>قلم بعدی
                 </li>
-            </ul>
+            </ul>-->
         </div>
         <div class="col-sm-12">
             <!--color choosing part-->
-            <h4 class="fontchange">
+            <h5 class="fontchange">
                 <i class="fa fa-paint-brush"></i>انتخاب رنگ
-            </h4>
+            </h5>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="color-select pointer" style="background-color: #037BC0" ng-click="colorChanger('1')"></div>
@@ -38,7 +70,14 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-12 center my-margin-top">
-                    <p class="pointer fontchange setting" data-toggle="modal" data-target="#advanced-setting">تنظیمات جداول <i class="fa fa-cogs my-padding"></i></p>
+                    <div class="row">
+                        <div class="col-sm-4">
+                             <i class="fa fa-cogs setting pointer" style="color: #F16521" data-toggle="modal" data-target="#advanced-setting"></i>
+                        </div>
+                        <div class="col-sm-8">
+                            <p class="pointer fontchange setting" data-toggle="modal" data-target="#advanced-setting">تنظیمات جداول</p>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
