@@ -74,7 +74,7 @@
                         <span class="button-color first-color color my-margin-top span" style="color: white;padding: 4px 0px;">
                             <i class="fa fa-check-square"></i>
                                 اتنخاب همه
-                            <input id="select" type="checkbox"  ng-click="inboxing()">
+                            <input id="select" type="checkbox"  ng-click="inboxing()" />
                                 
                         </span>
                         <button class="my-button btn button-color first-color color">
@@ -95,7 +95,7 @@
                             <tbody>
                                 <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}" ng-click="showContext(cartable.title,cartable.context,$index,cartable.id)">
                                     <td>
-                                        <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input">
+                                        <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input"/>
                                         <i ng-if="cartable.read == 1" class="fa fa-check"></i>
                                     </td>
                                     <td class="fontchange">{{cartable.author}}</td>
@@ -137,10 +137,10 @@
                         <fa class="fa fa-close" style="color: white" onclick="mail()"></fa>
                     </div>
                     <div class="col-sm-12 form-group ">
-                        <input class="form-control right-align" placeholder="نام گیرنده">
+                        <input class="form-control right-align" placeholder="نام گیرنده"/>
                     </div>
                     <div class="col-sm-12 form-group">
-                        <input class="form-control right-align" placeholder="عنوان نامه">
+                        <input class="form-control right-align" placeholder="عنوان نامه"/>
                     </div>
                     <div class="col-sm-12 form-group">
                         <textarea class="my-textarea"></textarea>

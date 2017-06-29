@@ -1386,7 +1386,15 @@ tfoot tr td {
     color: white;
     border-radius: 5px;
 }
+.redNode {
+    background-color: #d62d20;
+    color: white;
+    border-radius: 5px;
+}
 .editingTree {
+    display: none;
+}
+.plusNode {
     display: none;
 }
 .tree-span {

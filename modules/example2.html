@@ -1,9 +1,9 @@
 <div class="container" ng-init="gettingTree()" style="min-height: 424px">
     <div class="row">
         <div class="col-sm-4" style="margin-top: -33px;font-size: 24px">
-            <i class="fa fa-plus pointer" data-toggle="tooltip" data-placement="left" title="اضافه کردن"></i>
-            <i class="fa fa-pencil-square-o pointer" data-toggle="tooltip" data-placement="left" title="ویرایش" ng-click="editingTree()"></i>
-            <i class="fa fa-trash-o pointer" data-toggle="tooltip" data-placement="left" title="حذف" ng-click="deletingTree()"></i>
+            <i class="fa fa-plus pointer" data-toggle="tooltip" data-placement="left" title="اضافه کردن" ng-click="addingNode()"></i>
+            <i class="fa fa-pencil-square-o pointer" data-toggle="tooltip" data-placement="left" title="ویرایش" ng-click="editingNode()"></i>
+            <i class="fa fa-trash-o pointer" data-toggle="tooltip" data-placement="left" title="حذف" ng-click="deletingNode()"></i>
         </div>
         <div class="clearfix"></div>
         <div class="col-sm-8 my-margin-top" style="direction: rtl">
@@ -14,9 +14,9 @@
                     <form>
                         <div class="form-group row">
                             <div class="col-sm-8">
-                                <select   class="form-control" name="option">
-                                    <option value="" disabled selected>همه علائم</option>
-                                    <option value="" ng-repeat="x in tree|unique: 'name'" ng-if="x.parent != null">{{x.name}}</option>
+                                <select   class="form-control" name="option" id="parent">
+                                    <option class="my-option" value="" disabled selected>همه علائم</option>
+                                    <option class="my-option" value="{{x.id}}" id="option{{x.id}}" ng-repeat="x in tree|unique: 'name'" >{{x.name}}</option>
                                 </select>
                             </div>
                             <div class="col-sm-4">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-8">
-                                <input type="number" min="0" id="treeCode" ng-model="newCode" class="form-control">
+                                <input type="text" id="treeCode" class="form-control" />
                             </div>
                             <div class="col-sm-4">
                                 <label>کد واحد :</label>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-8">
-                                <input type="text" id="treeName" ng-model="newName" class="form-control">
+                                <input type="text" id="treeName" class="form-control" />
                             </div>
                             <div class="col-sm-4">
                                 <label>عنوان واحد :</label>
@@ -41,13 +41,62 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-8">
-                                <input type="text" class="form-control">
+                                <select   class="form-control" name="option">
+                                    <option value="" disabled selected>همه علائم</option>
+                                    <option  value="{{x.location}}" id="location"  ng-repeat="x in tree|unique: 'location'" >{{x.location}}</option>
+                                </select>
                             </div>
                             <div class="col-sm-4">
                                 <label>موقعیت جغرافیایی :</label>
                             </div>
                         </div>
-                        <button class="btn btn-danger" ng-click="editRegister(newCode,newName)">ثبت
+                        <button class="btn btn-danger" ng-click="editRegister()">ثبت
+                            <i class="fa fa-save" style="padding-right: 15px"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-sm-8 well aris-animation plusNode">
+                    <p class="center">پر کردن تمام فیلد ها الزامی است</p>
+                    <form>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <select   class="form-control" id="plusBranch" name="option" ng-model="nodeParent">
+                                    <option class="my-option" value="" disabled selected>انتخاب سرشاخه</option>
+                                    <option class="my-option" id="plus{{x.id}}" value="{{x.id}}" ng-repeat="x in tree|unique: 'name'" >{{x.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>انتخاب سرشاخه:</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <input type="text"  ng-model="nodeCode" class="form-control" required />
+                            </div>
+                            <div class="col-sm-4">
+                                <label>کد واحد :</label>
+                            </div>                            
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <input type="text"  ng-model="nodeName" class="form-control" required />
+                            </div>
+                            <div class="col-sm-4">
+                                <label>عنوان واحد :</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-8">
+                                <select   class="form-control" name="option" ng-model="nodeCity" required>
+                                    <option value="" disabled selected>همه علائم</option>
+                                    <option  value="{{x.location}}" ng-model="nodeCity"  ng-repeat="x in tree|unique: 'location'" >{{x.location}}</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>موقعیت جغرافیایی :</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" ng-click="addingRegister(nodeCode,nodeName,nodeParent,nodeCity)">ثبت
                             <i class="fa fa-save" style="padding-right: 15px"></i>
                         </button>
                     </form>
@@ -57,8 +106,8 @@
         </div>
         <div class="col-sm-4 my-margin-top">
             <div class="tree-border" ng-repeat="tree in treeToShow">
-                <input type="checkbox" style="display: none"> {{tree.name}}
-                <i class="fa fa-angle-down" id="treeIcon{{tree.id}}" ng-click="treeSlide(tree.id)"></i>
+                <input type="checkbox" style="display: none" /> {{tree.name}}
+                <i class="fa fa-angle-down" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
                 <hr>
                 <div id="tree{{tree.id}}"></div>
             </div>

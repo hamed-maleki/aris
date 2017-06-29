@@ -986,38 +986,94 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
         })
     }
-    $scope.creatingTree = function (x) {
+    $scope.nodeSlide = function (x) {
+        if ($("#tree" + x).hasClass("flag")) {
+            $("#tree" + x).slideToggle();
+        }
+        else {
+            // $http.get("data/node"+x).then(function(response){
+            //     $scope.node = response.data.node;
+            //     for(var i = 0; i < $scope.node.length ; i++){
+            //         $scope.tree.push($scope.node[i]);
+            //     }
+            // })
+            $scope.creatingNode(x);
+            $("#tree" + x).addClass("flag");
+        }
+        $("#treeIcon" + x).toggleClass("flag")
+        if ($("#treeIcon" + x).hasClass("flag")) {
+            $("#treeIcon" + x).removeClass("fa-angle-down")
+            $("#treeIcon" + x).addClass("fa-angle-up")
+        } else {
+            $("#treeIcon" + x).removeClass("fa-angle-up")
+            $("#treeIcon" + x).addClass("fa-angle-down")
+        }
+    }
+    $scope.creatingNode = function (x) {
+        $("#tree" + x).html("")
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].parent == x) {
-                $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='treeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div>")($scope))
+                $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
             }
         }
     }
     $scope.treeToEdit = [];
     $scope.selectingTree = function (x) {
-        $("#treeRow" + x).toggleClass("treeBackground");
-        if ($("#treeRow" + x).hasClass("treeBackground")) {
-            $(".tree-span").removeClass("treeBackground");
-            $("#treeRow" + x).addClass("treeBackground");
-            for (var i = 0; i < $scope.tree.length; i++) {
-                if ($scope.tree[i].id == x) {
-                    $scope.treeToEdit = []
-                    $scope.treeToEdit.push($scope.tree[i])
-                    $("#treeCode").val($scope.tree[i].code)
-                    $("#treeName").val($scope.tree[i].name)
-                    $(".editAlarm").html(" ");
+        var flag = 0;
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if (($("#treeRow" + $scope.tree[i].id).hasClass("treeBackground"))) {
+                flag = flag + 1;
+                var id = $scope.tree[i].id;
+            }
+        }
+        if ($(".editingTree").is(":visible") && flag != 0) {
+            if (x == id) {
+                $("#treeRow" + x).toggleClass("treeBackground");
+            }
+            else {
+
+                $("#treeRow" + x).toggleClass("redNode");
+                if ($("#treeRow" + x).hasClass("redNode")) {
+                    $(".tree-span").removeClass("redNode");
+                    $("#treeRow" + x).addClass("redNode");
+                    for (var i = 0; i < $scope.tree.length; i++){
+                        if ($scope.tree[i].id == x) {
+                            $(".my-option").prop("selected", false);
+                           $("#option" + $scope.tree[i].id).prop("selected", true); 
+                        }
+                    }
                 }
             }
         }
         else {
-            $(".tree-span").removeClass("treeBackground");
-            $scope.treeToEdit = [];
-            $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
-            $("#treeCode").val("")
-            $("#treeName").val("")
+            $(".tree-span").removeClass("redNode");
+            $("#treeRow" + x).toggleClass("treeBackground");
+            if ($("#treeRow" + x).hasClass("treeBackground")) {
+                $(".tree-span").removeClass("treeBackground");
+                $("#treeRow" + x).addClass("treeBackground");
+                for (var i = 0; i < $scope.tree.length; i++) {
+                    if ($scope.tree[i].id == x) {
+                        $scope.treeToEdit = []
+                        $scope.treeToEdit.push($scope.tree[i])
+                        $("#treeCode").val($scope.tree[i].code)
+                        $("#treeName").val($scope.tree[i].name)
+                        $(".my-option").prop("selected", false);
+                        $("#option" + $scope.tree[i].parent).prop("selected", true);
+                        $("#plus" + $scope.tree[i].id).prop("selected", true);
+                        $(".editAlarm").html(" ");
+                    }
+                }
+            }
+            else {
+                $(".tree-span").removeClass("treeBackground");
+                $scope.treeToEdit = [];
+                $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
+                $("#treeCode").val("")
+                $("#treeName").val("")
+            }
         }
     }
-    $scope.deletingTree = function () {
+    $scope.deletingNode = function () {
         var flag = 0;
         if ($scope.treeToEdit.length == 0) {
             $scope.error[0] = "ابتدا شاخه ایی را انتخاب کنید";
@@ -1032,7 +1088,10 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             if (flag == 0) {
                 for (var i = 0; i < $scope.tree.length; i++) {
                     if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
-                        $("#treeRow" + $scope.treeToEdit[0].id).html("");
+                        $("#treeRow" + $scope.treeToEdit[0].id).remove();
+                        $("#tree" + $scope.treeToEdit[0].id).remove();
+                        // $("#tree" + $scope.treeToEdit[0].id).empty();
+                        // $("#treeRow" + $scope.treeToEdit[0].id).css("color","red")
                         $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-down");
                         $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-up");
                         $scope.tree.splice(i, 1)
@@ -1045,43 +1104,69 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
         }
     }
-    $scope.editingTree = function () {
+    $scope.editingNode = function () {
+        $(".tree-span").removeClass("treeBackground");
+        $(".tree-span").removeClass("redNode");
         if ($scope.treeToEdit.length == 0) {
-            $(".editAlarm").append("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
+            $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
         }
+        $(".plusNode").css("display", "none");
+        $(".plusNode").removeClass("flag")
         $(".editingTree").toggleClass("flag");
         if ($(".editingTree").hasClass("flag")) {
+
             $(".editingTree").css("display", "inline-block")
         }
         else {
             $(".editingTree").css("display", "none")
         }
     }
-    $scope.editRegister = function(x, y){
-        for(var i =0; i< $scope.tree.length; i++){
-            if($scope.tree[i].id == $scope.treeToEdit[0].id){
-                $scope.tree[i].code = x;
-                $scope.tree[i].name = y;
-            }
-        }
-        $("#treeRow"+$scope.treeToEdit[0].id).html(y);
-    }
-    $scope.treeSlide = function (x) {
-        if ($("#tree" + x).hasClass("flag")) {
-            $("#tree" + x).slideToggle();
+    $scope.addingNode = function () {
+        $(".editingTree").css("display", "none")
+        $(".editingTree").removeClass("flag")
+        $(".plusNode").toggleClass("flag");
+        if ($(".plusNode").hasClass("flag")) {
+            $(".plusNode").css("display", "inline-block")
         }
         else {
-            $scope.creatingTree(x);
-            $("#tree" + x).addClass("flag");
+            $(".plusNode").css("display", "none")
         }
-        $("#treeIcon" + x).toggleClass("flag")
-        if ($("#treeIcon" + x).hasClass("flag")) {
-            $("#treeIcon" + x).removeClass("fa-angle-down")
-            $("#treeIcon" + x).addClass("fa-angle-up")
-        } else {
-            $("#treeIcon" + x).removeClass("fa-angle-up")
-            $("#treeIcon" + x).addClass("fa-angle-down")
+    }
+    $scope.editRegister = function () {
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
+                $scope.tree[i].code = $("#treeCode").val();
+                $scope.tree[i].name = $("#treeName").val();
+                var oldParent = $scope.tree[i].parent
+                if ($("#parent").val() != undefined) {
+                    $scope.tree[i].parent = $("#parent").val();
+                    $scope.creatingNode($("#parent").val());
+                }
+                if ($("#location").val() != undefined) {
+                    $scope.tree[i].location = $("#location").val();
+                }
+            }
         }
+        $scope.creatingNode(oldParent);
+        // $("#treeRow" + $scope.treeToEdit[0].id).html(y);
+        $scope.editingNode()
+    }
+    $scope.addingRegister = function (nodeCode, nodeName, nodeParent, nodeCity) {
+        if (nodeCode == undefined || nodeName == undefined || nodeCity == undefined) {
+            $scope.error[0] = "پر کردن همه فیلد ها الزامی است";
+            $("#error").modal();
+        }
+        else {
+            var newNode = {
+                name: nodeName,
+                code: nodeCode,
+                parent: $("#plusBranch").val(),
+                id: nodeCode
+            }
+            $scope.tree.push(newNode);
+            $scope.creatingNode(nodeParent);
+        }
+
     }
 })
 // right click and f12 and other ways to open inspect element preventer

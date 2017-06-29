@@ -12,7 +12,7 @@
             <tbody>
                 <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}" ng-click="showContext(cartable.title,cartable.context,$index,cartable.id)">
                     <td>
-                        <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input">
+                        <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
                         <i ng-if="cartable.read == 1" class="fa fa-check"></i>
                     </td>
                     <td class="fontchange">{{cartable.author}}</td>
