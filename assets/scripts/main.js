@@ -1164,9 +1164,10 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
                 id: nodeCode
             }
             $scope.tree.push(newNode);
-            $scope.creatingNode(nodeParent);
+            $scope.creatingNode($("#plusBranch").val());
         }
-
+         $(".tree-span").removeClass("treeBackground");
+         $(".plus-form").val("");
     }
 })
 // right click and f12 and other ways to open inspect element preventer
