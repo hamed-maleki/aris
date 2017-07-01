@@ -976,6 +976,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $scope.myMonth = months[month - 1];
     }
     $scope.treeToShow = []
+    // first level of showing tree's nodes
     $scope.gettingTree = function () {
         $http.get("data/tree.json").then(function (response) {
             $scope.tree = response.data.tree;
@@ -986,6 +987,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
         })
     }
+    // slideing next level of tree for first time it get data from sever and in next steps it just slide 
     $scope.nodeSlide = function (x) {
         if ($("#tree" + x).hasClass("flag")) {
             $("#tree" + x).slideToggle();
@@ -1009,15 +1011,19 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             $("#treeIcon" + x).addClass("fa-angle-down")
         }
     }
+    // creating second level and deeper levels by using laoded data
     $scope.creatingNode = function (x) {
         $("#tree" + x).html("")
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].parent == x) {
-                $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
+                $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
             }
         }
     }
+    var parent = 0;//variable to check main branch of moving node
+    var selected = 0;//variable to check children of mving node
     $scope.treeToEdit = [];
+    // add selected node id and its parent id to forms
     $scope.selectingTree = function (x) {
         var flag = 0;
         for (var i = 0; i < $scope.tree.length; i++) {
@@ -1036,10 +1042,11 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
                 if ($("#treeRow" + x).hasClass("redNode")) {
                     $(".tree-span").removeClass("redNode");
                     $("#treeRow" + x).addClass("redNode");
-                    for (var i = 0; i < $scope.tree.length; i++){
+                    selected = x;
+                    for (var i = 0; i < $scope.tree.length; i++) {
                         if ($scope.tree[i].id == x) {
                             $(".my-option").prop("selected", false);
-                           $("#option" + $scope.tree[i].id).prop("selected", true); 
+                            $("#option" + $scope.tree[i].id).prop("selected", true);
                         }
                     }
                 }
@@ -1051,6 +1058,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             if ($("#treeRow" + x).hasClass("treeBackground")) {
                 $(".tree-span").removeClass("treeBackground");
                 $("#treeRow" + x).addClass("treeBackground");
+                parent = x;
                 for (var i = 0; i < $scope.tree.length; i++) {
                     if ($scope.tree[i].id == x) {
                         $scope.treeToEdit = []
@@ -1073,6 +1081,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
         }
     }
+    // deleting selected node
     $scope.deletingNode = function () {
         var flag = 0;
         if ($scope.treeToEdit.length == 0) {
@@ -1104,6 +1113,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
         }
     }
+    // editing selected node 
     $scope.editingNode = function () {
         $(".tree-span").removeClass("treeBackground");
         $(".tree-span").removeClass("redNode");
@@ -1121,6 +1131,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             $(".editingTree").css("display", "none")
         }
     }
+    // adding new node to selected node children
     $scope.addingNode = function () {
         $(".editingTree").css("display", "none")
         $(".editingTree").removeClass("flag")
@@ -1132,25 +1143,35 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             $(".plusNode").css("display", "none")
         }
     }
+    // editing form button event
     $scope.editRegister = function () {
-        for (var i = 0; i < $scope.tree.length; i++) {
-            if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
-                $scope.tree[i].code = $("#treeCode").val();
-                $scope.tree[i].name = $("#treeName").val();
-                var oldParent = $scope.tree[i].parent
-                if ($("#parent").val() != undefined) {
-                    $scope.tree[i].parent = $("#parent").val();
-                    $scope.creatingNode($("#parent").val());
-                }
-                if ($("#location").val() != undefined) {
-                    $scope.tree[i].location = $("#location").val();
+        console.log($("#tree"+parent).find($("#treeRow"+selected)).length)
+        if ($("#tree"+parent).find($("#treeRow"+selected)).length > 0) {
+            $scope.error[0] = "ابتدا زیر شاخه را به سطح بالاتر انتقال دهید";
+            $("#error").modal();
+        }
+        else {
+            for (var i = 0; i < $scope.tree.length; i++) {
+                if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
+                    $scope.tree[i].code = $("#treeCode").val();
+                    $scope.tree[i].name = $("#treeName").val();
+                    var oldParent = $scope.tree[i].parent
+                    if ($("#parent").val() != undefined) {
+                        $scope.tree[i].parent = $("#parent").val();
+                        $scope.creatingNode($("#parent").val());
+                    }
+                    if ($("#location").val() != undefined) {
+                        $scope.tree[i].location = $("#location").val();
+                    }
                 }
             }
+            $scope.creatingNode(oldParent);
+            $scope.editingNode()
+            $scope.nodeSlide(oldParent)
+            $scope.nodeSlide($("#parent").val())
         }
-        $scope.creatingNode(oldParent);
-        // $("#treeRow" + $scope.treeToEdit[0].id).html(y);
-        $scope.editingNode()
     }
+    // cehcking adding form button event
     $scope.addingRegister = function (nodeCode, nodeName, nodeParent, nodeCity) {
         if (nodeCode == undefined || nodeName == undefined || nodeCity == undefined) {
             $scope.error[0] = "پر کردن همه فیلد ها الزامی است";
@@ -1165,9 +1186,12 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
             $scope.tree.push(newNode);
             $scope.creatingNode($("#plusBranch").val());
+            if(!$("#tree"+$("#plusBranch").val()).hasClass('flag')){
+                $scope.nodeSlide($("#plusBranch").val())
+            }
         }
-         $(".tree-span").removeClass("treeBackground");
-         $(".plus-form").val("");
+        $(".tree-span").removeClass("treeBackground");
+        $(".plus-form").val("");
     }
 })
 // right click and f12 and other ways to open inspect element preventer

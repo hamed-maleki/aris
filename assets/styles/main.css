@@ -197,6 +197,18 @@ nav a:hover {
 #subnav i {
     padding:0px 10px;
 }
+#aris-logo {
+        width: 31%;
+        margin: 2px auto 5px;
+        display: inline-block;
+        height: auto;
+    }
+#aris-typo {
+    width: 45%;
+    display: inline-block;
+    height: 19px;
+    margin-top: 15px;
+}
 #search {
     height: 25px;
     border-radius: 5px !important;
@@ -726,6 +738,10 @@ color: white !important;
 .footer-margin {
     margin-bottom: 67px;
 }
+.tools-logo {
+    width: 39%;
+    margin-top: 24px;
+}
 /*end of grid system*/
 
 /*lists and tables and forms*/
@@ -1206,12 +1222,13 @@ tfoot tr td {
 
 .aris-badge {
     position: relative;
-    bottom: 28px;
-    left: 26px;
-    font-size: 12px;
-    background-color: red;
+    bottom: 53px;
+    left: 76px;
+    font-size: 14px;
+    background-color: white;
     border-radius: 50%;
-    color: white;
+    color: #F16521;
+    font-weight: normal;
     padding: 1px 7px;
     animation: aris;
     animation-duration: 1s;
@@ -1244,7 +1261,7 @@ tfoot tr td {
     position: absolute;
     top: 42%;
     text-align: center;
-    right: 45%;
+    right: 40%;
 }
 /*end of fonts and badges*/
 /*note*/
@@ -1669,10 +1686,11 @@ body {
         padding: 9px !important;
     }
     .logo-holder {
-        height: 55px;
+        height: 85px;
+        margin-right: -5px;
     }
     .aris-badge {
-        bottom: 31px;
+        bottom: 0px;
         left: 17px;
     }
     .shadow {
@@ -1780,7 +1798,10 @@ body {
 }
 
 @media screen and (max-width:765px) {
-    
+    .tools-logo{
+        width: 21%;
+        margin-top: 2px;
+    }
     .my-padding ,.alarm-con{
         padding: 0 44px !important;
     }
@@ -1942,9 +1963,10 @@ body {
         margin: 0 6px !important;
     }
     #aris-logo {
-        width: 60%;
+        width: 35%;
         margin: 0 auto;
-        display: block;
+        display: inline-block;
+        height: 52px;
     }
 }
 .fa-power-off {

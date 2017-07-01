@@ -6,7 +6,7 @@
             <i class="fa fa-trash-o pointer" data-toggle="tooltip" data-placement="left" title="حذف" ng-click="deletingNode()"></i>
         </div>
         <div class="clearfix"></div>
-        <div class="col-sm-8 my-margin-top" style="direction: rtl">
+        <div class="col-sm-7 my-margin-top" style="direction: rtl">
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8 well aris-animation editingTree">
@@ -104,8 +104,8 @@
                 <div class="col-sm-2"></div>
             </div>
         </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class="tree-border" ng-repeat="tree in treeToShow">
+        <div class="col-sm-5 my-margin-top">
+            <div class="tree-border fontchange" ng-repeat="tree in treeToShow" ng-init="font()">
                 <input type="checkbox" style="display: none" /> {{tree.name}}
                 <i class="fa fa-angle-down" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
                 <hr>
