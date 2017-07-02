@@ -85,59 +85,6 @@
 <!--setting dropdown-->
 <div style="color: black" id="setting-bar" class="dropdown-border" ng-include="'modules/setting-bar.html'">
 </div>
-<!--advanced setting modal-->
-<div class="modal fade" id="advanced-setting" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <!--<div class="modal-header">
-                
-            </div>-->
-            <div class="modal-body center">
-                <h4 class="modal-title right-align my-padding font fontchange" style="color: red">تنظیمات پیشرفته</h4>
-                <h3 class="fontchange">نوع نمایش اعداد</h3>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <form>
-                                <!--<div class="col-sm-3"></div>-->
-                                <div class="col-sm-4">
-                                    <label class="radio-inline"><input type="radio" ng-click="radio(3)" name="optradio" />میلیون ریال</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="radio-inline"><input type="radio" ng-click="radio(2)" name="optradio" />هزار ریال</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="radio-inline"><input type="radio" ng-click="radio(1)" name="optradio" />ریال</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <h3 class="fontchange">سایز نمایش اعداد جداول</h3>
-                <div class="row">
-                    <div class="col-sm-12 center my-margin-top">
-                        <div class="row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-3" style="padding-left: 60px">
-                                14px<br>|
-                            </div>
-                            <div class="col-sm-3" style="padding-left: 55px;">
-                                16px<br>|
-                            </div>
-                            <div class="col-sm-3" style="padding-left: 50px">
-                                18px<br>|
-                            </div>
-                            <div class="col-sm-4"></div>
-                        </div>
-                        <form>
-                            <input type="range" name="foo" id="points-font" min="14" max="18" step="2" style="width: 60%" ng-model="size" ng-change="tablefontChange(size)" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!--error modal-->
 <div class="modal fade" id="error" role="dialog">
     <div class="modal-dialog">

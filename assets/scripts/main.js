@@ -789,6 +789,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $scope.font();
     }
     $scope.colorChanger = function (element) {
+        $(".color-icon").css("display","none");
+        $("#color"+element).css("display","inline-block");
         $scope.colorTheme = element;
         $scope.theme();
     }
@@ -796,6 +798,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $("table").find(".table-number").css("font-size", $scope.tableFont[0] + "px");
     }
     $scope.theme = function () {
+        $("#color"+$scope.colorTheme[0]).css("display","inline-block")
         if ($scope.colorTheme[0] == 1) {
             $(".color").removeClass("second-color");
             $(".color").removeClass("third-color");

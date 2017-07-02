@@ -23,7 +23,6 @@
 	font-style: normal;
 }
 /*generals*/
-
 body, html {
     padding:0px;
     font-family: "iran-sans" !important;
@@ -110,6 +109,7 @@ footer {
     bottom: 15px;
     right: 0;
     width: 100%;
+    z-index: 2;
 }
 footer a {
     color: white;
@@ -226,8 +226,8 @@ nav a:hover {
 .fc-unthemed .fc-today {
     background-color: #00bfff !important;
 }
-.fc .fc-toolbar > * > :first-child{
-    color: white;
+.fc .fc-toolbar > *{
+    color: #037BC0;
 }
 .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
     float: none;
@@ -302,11 +302,10 @@ nav a:hover {
     border-radius: 0 !important;
 }
 .fc-button {
-    border: none !important;
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0);
     box-shadow: none !important;
-    color: white !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #037BC0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
 .fc-state-default {
     background-image: none !important;
@@ -401,11 +400,20 @@ color: white !important;
 .side-tool {
     position: fixed;
     height: 100em;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(255,255,255,0.6);
     width: 0px;
     top: 0;
     right: 0;
     z-index: 100;
+}
+.side-tool .border h4,.side-tool .border i {
+    color: #037BC0;
+}
+.side-tool .border i:hover,.side-tool .border p{
+    color: #F16521;
+}
+.side-tool hr {
+    border-bottom: 1px solid #F16521;
 }
 .side-filter {
     position: fixed;
@@ -468,7 +476,7 @@ color: white !important;
 .transform {
     transition: box-shadow 1s;
 }
-.transform .system-icon,.transform h4 {
+.transform .system-icon,.transform h4, .transform img {
 -webkit-transition:  text-shadow 1s,transform 1s; 
     transition:  text-shadow 1s,transform 1s;
 }
@@ -478,7 +486,7 @@ color: white !important;
 .transform:hover h4 {
     text-shadow: 7px 12px 12px rgba(0,0,0,0.7);  
 }
-.transform:hover .system-icon {
+.transform:hover .system-icon, .transform:hover img {
     transform: rotateY(180deg);
     text-shadow: -10px 15px 20px rgba(0,0,0,0.7); 
 }
@@ -520,8 +528,15 @@ color: white !important;
     color: green;
 }
 .color-select {
-    height: 25px;
+    height: 100px;
     border-radius: 5px;
+}
+.color-select i {
+    color: white;
+    font-size: 71px;
+    margin-top: 15px;
+    display: none;
+    animation: transform3d 3s infinite;
 }
 .search-bar {
     direction: rtl;
@@ -605,6 +620,8 @@ color: white !important;
     color: white;
     padding-bottom: 15px;
     background-color: #1079bb;
+    width: 96%;
+    margin: 5px auto;
 }
 .chat {
     background-color: #00bfff;
@@ -1206,17 +1223,17 @@ tfoot tr td {
     font-weight: normal;
 }
 .top-link {
-    color: white ;
+    color: #037BC0;
     margin-right: 2px;
     display: inline-block;
     font-size: 14px;
     margin-top: 10px !important;
     direction: rtl;
-    padding: 10px;
-    background-color: rgba(255,255,255,0.3);
+    padding: 5px 10px;
+    border-left: 1px dashed #037BC0;
 }
 .top-link:hover {
-    color: white;
+    color: #037BC0;
     text-decoration: none;
 }
 
@@ -1307,7 +1324,7 @@ tfoot tr td {
     content: " ";
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
-    border-bottom: 15px solid #1079bb;
+    border-bottom: 15px solid white;
     position: absolute;
     left: 19px;
     top: -10px;
@@ -1317,6 +1334,20 @@ tfoot tr td {
 /*setting*/
 .setting-info-bar {
     background-color: #F16521;
+}
+.setting-link {
+    color: #F16521;
+    border-bottom: 1px solid #F16521;
+    display: block;
+    font-size: 14px;
+    margin: 15px 0 0;
+}
+.radio-inline input {
+    float: right !important;
+    margin-left: 15px !important;
+}
+.setting-link:hover {
+    color: #F16521;
 }
 .setting-info-bar i {
     font-size: 18px !important;
@@ -1331,14 +1362,15 @@ tfoot tr td {
 }
 .font-selector i{
     float: left;
-    font-size: 18px !important;
+    font-size: 27px !important;
     margin-top: 3px !important;
+    animation: transform3d 3s infinite;
 }
 .setting-info-bar i:hover {
     color: white !important;
 }
 #setting-bar{
-    width: 15%;
+    width: 13%;
     box-shadow: 2px 4px 12px gray;
     position: absolute;
     top: 65px;
@@ -1477,11 +1509,10 @@ tfoot tr td {
 /*end of tabs*/
 .dropdown-border {
     background-color: rgba(255,255,255,0.9);
-    border-radius: 5px;
 }
 .rotate {
     animation: rotate;
-    animation-duration: 0.65s;
+    animation-duration: 0.3s;
 }
 .rotate-back {
     animation: rotate-back;
@@ -1800,7 +1831,7 @@ body {
 @media screen and (max-width:765px) {
     .tools-logo{
         width: 21%;
-        margin-top: 2px;
+        margin-top: 5px;
     }
     .my-padding ,.alarm-con{
         padding: 0 44px !important;
