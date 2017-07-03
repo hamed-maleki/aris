@@ -801,7 +801,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $("table").find(".table-number").css("font-size", $scope.tableFont[0] + "px");
     }
     $scope.theme = function () {
-        $("#color"+$scope.colorTheme[0]).css("display","inline-block")
+
+            $("#color"+$scope.colorTheme[0]).css("display","inline-block")
         if ($scope.colorTheme[0] == 1) {
             $(".color").removeClass("second-color");
             $(".color").removeClass("third-color");
@@ -848,6 +849,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             $(".pagination > .active > a ").css("background-color", "#b194f1");
 
         }
+ 
+        
     }
     $scope.font = function () {
         $(".theme-check").addClass("hide");
