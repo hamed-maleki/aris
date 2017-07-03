@@ -49,6 +49,15 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             // $scope.responseData="Error " + err.status;
         });;
     }
+    $scope.tokenCheck = function(){
+        if(sessionStorage.accessToken == undefined){
+            window.location.href = 'login.html'
+        }
+        else {
+            
+            $scope.theme();
+        }
+    }
     // document page data loader it may have changes in back-end matching level
     fetch("data/document.json").then(function (response) {
         return response.json();
