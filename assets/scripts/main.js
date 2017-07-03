@@ -30,21 +30,24 @@ app.directive("sidebar", function () {
 app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile) {
     // log in demo log in. it should be removed later
     $scope.login = function (user, pass) {
-        $http.get("data/users.json")
-            .then(function (response) {
-                $scope.users = response.data.users;
-                for (var i = 0; i < $scope.users.length; i++) {
-                    if (user == $scope.users[i].username && pass == $scope.users[i].password) {
-                        window.location.href = "new_design_firstpage.html";
-                        break;
-                    }
-                    else {
-                        if (i == $scope.users.length - 1) {
-                            alert("رمز یا نام کاربری اشتباه میباشد");
-                        }
-                    }
-                }
-            })
+        $http({
+            url: "/TOKEN",
+            method: "POST",
+            data: $.param({ grant_type: 'password', username: user, password:  sha256_digest(pass)}),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        }).then(function (response) {
+             
+            $scope.userName = response.data.userName;
+            //Store the token information in the SessionStorage
+            //So that it can be accessed for other views
+            sessionStorage.setItem('userName', response.data.userName);
+            sessionStorage.setItem('accessToken', response.data.access_token);
+            sessionStorage.setItem('refreshToken', response.data.refresh_token);
+            window.location.href = 'new_design_firstpage.html';
+        }, function (err) {
+             alert("رمز یا نام کاربری اشتباه میباشد")
+            // $scope.responseData="Error " + err.status;
+        });;
     }
     // document page data loader it may have changes in back-end matching level
     fetch("data/document.json").then(function (response) {

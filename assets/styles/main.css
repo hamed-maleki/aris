@@ -29,7 +29,7 @@ body, html {
     color: black;
     line-height: 1.8;
     cursor: context-menu;
-    background-color: #F1F2F3;
+    background-color: #F1F2F3 !important;
     font-size: 18px;
      min-height: 100vh;
 }
@@ -400,7 +400,7 @@ color: white !important;
 .side-tool {
     position: fixed;
     height: 100em;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255,255,255,0.8);
     width: 0px;
     top: 0;
     right: 0;
@@ -1928,9 +1928,10 @@ body {
         top: -53px;
         left: 16px;  
     }
-    .aris-badge {
+    /*.aris-badge {
         left: 221px;
-    }
+    }*/
+    
     #chatbox{
         width: 90%;
         z-index: 100;
@@ -1974,7 +1975,9 @@ body {
         right: 43% !important;
     }
     .modal-container{
-        padding: 72px 0;
+        padding: 47px 0;
+        margin: 10px 112px !important;
+        width: 41%;
     }
     .col-sm-push-11{
         text-align: right;
