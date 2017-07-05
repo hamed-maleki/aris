@@ -1,3 +1,12 @@
+if (localStorage.accessToken == undefined) {
+    window.location.href = 'login.html'
+}
+setInterval(function () {
+    if (localStorage.accessToken == undefined) {
+        window.location.href = 'login.html'
+    }
+}, 500)
+
 var app = angular.module('myApp', ['angular.filter']);
 // loading form depond on sussystem
 app.directive("aris", function () {
@@ -27,37 +36,13 @@ app.directive("sidebar", function () {
         }
     }
 });
-app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile) {
+app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
+    console.log(sessionStorage.accessToken)
     // log in demo log in. it should be removed later
-    $scope.login = function (user, pass) {
-        $http({
-            url: "/TOKEN",
-            method: "POST",
-            data: $.param({ grant_type: 'password', username: user, password:  sha256_digest(pass)}),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        }).then(function (response) {
-             
-            $scope.userName = response.data.userName;
-            //Store the token information in the SessionStorage
-            //So that it can be accessed for other views
-            sessionStorage.setItem('userName', response.data.userName);
-            sessionStorage.setItem('accessToken', response.data.access_token);
-            sessionStorage.setItem('refreshToken', response.data.refresh_token);
-            window.location.href = 'new_design_firstpage.html';
-        }, function (err) {
-             alert("رمز یا نام کاربری اشتباه میباشد")
-            // $scope.responseData="Error " + err.status;
-        });;
-    }
-    $scope.tokenCheck = function(){
-        if(sessionStorage.accessToken == undefined){
-            window.location.href = 'login.html'
-        }
-        else {
-            
-            $scope.theme();
-        }
-    }
+    $scope.logout = function () {
+        window.localStorage.removeItem('accessToken');
+        window.location.href = 'login.html';
+    };
     // document page data loader it may have changes in back-end matching level
     fetch("data/document.json").then(function (response) {
         return response.json();
@@ -801,8 +786,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $scope.font();
     }
     $scope.colorChanger = function (element) {
-        $(".color-icon").css("display","none");
-        $("#color"+element).css("display","inline-block");
+        $(".color-icon").css("display", "none");
+        $("#color" + element).css("display", "inline-block");
         $scope.colorTheme = element;
         $scope.theme();
     }
@@ -810,8 +795,13 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $("table").find(".table-number").css("font-size", $scope.tableFont[0] + "px");
     }
     $scope.theme = function () {
+        if (localStorage.accessToken == 'hi') {
+            window.localStorage.removeItem('accessToken');
 
-            $("#color"+$scope.colorTheme[0]).css("display","inline-block")
+            // window.location.href = "login.html"
+            // console.log("the key has been identified")
+        }
+        $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
         if ($scope.colorTheme[0] == 1) {
             $(".color").removeClass("second-color");
             $(".color").removeClass("third-color");
@@ -858,8 +848,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             $(".pagination > .active > a ").css("background-color", "#b194f1");
 
         }
- 
-        
+
+
     }
     $scope.font = function () {
         $(".theme-check").addClass("hide");
@@ -1163,8 +1153,8 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
     }
     // editing form button event
     $scope.editRegister = function () {
-        console.log($("#tree"+parent).find($("#treeRow"+selected)).length)
-        if ($("#tree"+parent).find($("#treeRow"+selected)).length > 0) {
+        console.log($("#tree" + parent).find($("#treeRow" + selected)).length)
+        if ($("#tree" + parent).find($("#treeRow" + selected)).length > 0) {
             $scope.error[0] = "ابتدا زیر شاخه را به سطح بالاتر انتقال دهید";
             $("#error").modal();
         }
@@ -1204,7 +1194,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             }
             $scope.tree.push(newNode);
             $scope.creatingNode($("#plusBranch").val());
-            if(!$("#tree"+$("#plusBranch").val()).hasClass('flag')){
+            if (!$("#tree" + $("#plusBranch").val()).hasClass('flag')) {
                 $scope.nodeSlide($("#plusBranch").val())
             }
         }
@@ -1227,6 +1217,22 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
 // function hide() {
 //     $(this).parent().find("i").toggleClass("hide")
 // }
+// var element = new Image();
+// // var element = document.createElement('any');
+// element.__defineGetter__('id', function() {
+//     checkStatus = 'on';
+// });
+
+// setInterval(function() {
+//     checkStatus = 'off';
+//     console.log(element);
+//     console.clear();
+//     if(checkStatus == "on"){
+
+//         window.location.href = 'login.html'
+//     }
+//     // document.querySelector('#devtool-status').innerHTML = checkStatus;
+// }, 1000)
 function setting(x) {
 
     $("#setting").toggleClass("rotate");
