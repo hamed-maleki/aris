@@ -36,6 +36,7 @@ app.directive("sidebar", function () {
         }
     }
 });
+
 app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     // log in demo log in. it should be removed later
     $scope.logout = function () {
