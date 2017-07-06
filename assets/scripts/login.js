@@ -1,42 +1,47 @@
-// var element = new Image();
-// // var element = document.createElement('any');
-// element.__defineGetter__('id', function() {
-//     checkStatus = 'on';
-// });
+var element = new Image();
+// var element = document.createElement('any');
+element.__defineGetter__('id', function() {
+    checkStatus = 'on';
+});
 
-// setInterval(function() {
-//     checkStatus = 'off';
-//     console.log(element);
-//     console.clear();
-//     if(checkStatus == "on"){
-//         $("button").off("click");
-//     }
-//     // document.querySelector('#devtool-status').innerHTML = checkStatus;
-// }, 1000);
-
-var app = angular.module('myApp', ['angular.filter']);
-app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile) {
-    $scope.fox = function(){
-        // $("#fox").delay(1200).css("display","none")
-        $(".loading-login").delay(2000).fadeOut(1000);
-        
+setInterval(function() {
+    checkStatus = 'off';
+    console.log(element);
+    console.clear();
+    if(checkStatus == "on"){
+        $("button").off("click");
     }
-    // console.log(sha256_digest(pass))
-    $scope.login = function (user, pass) {
-            // rng_seed_time()
-            // var before = new Date();
-            // var rsa = new RSAKey();
-            // rsa.setPublic("a5261939975948bb7a58dffe5ff54e65f0498f9175f5a09288810b8975871e99af3b5dd94057b0fc07535f5f97444504fa35169d461d0d30cf0192e307727c065168c788771c561a9400fb49175e9e6aa4e23fe11af69e9412dd23b0cb6684c4c2429bce139e848ab26d0829073351f4acd36074eafd036a5eb83359d2a698d3", "10001");
-            // var res = rsa.encrypt(pass);
-            // var after = new Date();
-            // console.log(res)
-            // if (res) {
-            //     pass= linebrk(res, 64);
-            //     // document.rsatest.ciphertext.value = linebrk(res, 64);
-            //     // pass = linebrk(hex2b64(res), 64);
-            //     // pass = "Time: " + (after - before) + "ms";
-            // }
-        console.log(pass)
+}, 1000);
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile) {
+    $scope.fox = function () {
+        $(".loading-login").delay(2000).fadeOut(1000);
+    }
+    $scope.login = function (username, pass) {
+        // Text to encrypt and decrypt.
+        var s = pass;
+        var sb = System.Text.Encoding.UTF8.GetBytes(s);
+        var sha256 = new System.Security.Cryptography.SHA256CryptoServiceProvider();
+        pass = System.BitConverter.ToString(sha256.ComputeHash(sb), "");
+        var text = pass;
+        // Use OAEP padding (PKCS#1 v2).
+        var doOaepPadding = true;
+        // RSA 512-bit key: Public (Modulus), Private (D) and CRT (P, Q, DP, DQ, InverseQ).
+        var xmlParams =
+            "<RSAKeyValue><Modulus>333NosVjZKPLtI76s9C1Bc4Tk+9liYwVOvJ2Qf3sGfU6dbSrg/F/HB2IXxYrK4Ic5EMDH76iPZwiDLpxYK8I0SE0ZOVxFFwt8sVziQ7wn56TzopCB6/Cr9So14UBkZrcfmTP68inzf3i7yt0+aYO6SkSZow03B5w22RrkvAWBD0ir05ZPPyyCs0itVfAtUKAp9PiWv1uzaCg8dMSBXD/SWwp4rurfb1TegpOb5XdF1u9AUlb87UF0enbhv3h3YscMfLZDioe6sG/vAbwhq+uNa4t5agiwcPb0gY3Xn9g2pRXwtdwFcdGM02mXgAj1ppCRYfOvOrgUh2l7Q4yvYDTm0nXhDYC1ltfx6+v156rbjGD4fWs6if/y5ytYy1KnbuJahVAKjJEmbE/HyIweaI1iUdAQyu21PKkMPg33JZsMVnZIkRiubmN40KmV+KU3tiIgLAbqY4bf13yyTGqos5du3bTVynYYrp1R3f+fyN/7c2AAywTqAcprb5lK7ZIU+Tl3rlbsnPedQPqnEzuzf+DujMpcIqXqj2PtHjHbEqtbj/1wRfiRjn14bFwlF1u2BAOuEPnA3SqvD37xQQkh/CNpSNIQKHj+1HQVk/67tUsYKyHg9Yx0FNuC+LEiewBGB+y62h3ywaTO2W2BzoBErLKfcaVtYqOaFE3O4rs/Zv9NCE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+        // ------------------------------------------------
+        // RSA Keys
+        // ------------------------------------------------
+        var rsa = new System.Security.Cryptography.RSACryptoServiceProvider(4096);
+        // Import parameters from XML string.
+        rsa.FromXmlString(xmlParams);
+        // ------------------------------------------------
+        // Encrypt
+        // ------------------------------------------------
+        var decryptedBytes = System.Text.Encoding.UTF8.GetBytes(text);
+        var encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
+        // Convert bytes to base64 string.
+        var encryptedString = System.Convert.ToBase64String(encryptedBytes);
         localStorage.setItem('accessToken', "response.data.access_token");
         window.location.href = 'index.html';
         // $http({
@@ -60,31 +65,15 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
     }
 })
 // right click and f12 and other ways to open inspect element preventer
-// $(document).keydown(function(event){
-//     if(event.keyCode==123){
-//     return false;
-//    }
-// else if(event.ctrlKey && event.shiftKey && event.keyCode==73){        
-//       return false;  //Prevent from ctrl+shift+i
-//    }
-// });
-// $(document).on("contextmenu",function(e){        
-//    e.preventDefault();
-// });
-// ther
-// function set_512e3() {
-//   document.rsatest.n.value="BC86E3DC782C446EE756B874ACECF2A115E613021EAF1ED5EF295BEC2BED899D\n26FE2EC896BF9DE84FE381AF67A7B7CBB48D85235E72AB595ABF8FE840D5F8DB";
-//   document.rsatest.e.value="3";
-// }
-// function set_512f4() {
-//   document.rsatest.n.value="C4E3F7212602E1E396C0B6623CF11D26204ACE3E7D26685E037AD2507DCE82FC\n28F2D5F8A67FC3AFAB89A6D818D1F4C28CFA548418BD9F8E7426789A67E73E41";
-//   document.rsatest.e.value="10001";
-// }
-// function set_1024e3() {
-//   document.rsatest.n.value="ABC30681295774F7CECA691EC17F4E762DA6DE70F198EAEE3CCE3A435FC006B9\n71DC24E55904F1D2705758C041C2B0B18E8BFAE2C9CD96B50082D7D8C7342CBA\nB7F6E0622DA53B8B56DBDB24174F00173263CFECAE604795CDA2A037BC3A69B7\nC0090AA2DE1568998BCD6D70CC2E0574755B9F7986AE01CE8714A26144279CDB";
-//   document.rsatest.e.value="3"
-// }
-// function set_1024f4() {
-//   document.rsatest.n.value="a5261939975948bb7a58dffe5ff54e65f0498f9175f5a09288810b8975871e99\naf3b5dd94057b0fc07535f5f97444504fa35169d461d0d30cf0192e307727c06\n5168c788771c561a9400fb49175e9e6aa4e23fe11af69e9412dd23b0cb6684c4\nc2429bce139e848ab26d0829073351f4acd36074eafd036a5eb83359d2a698d3";
-//   document.rsatest.e.value="10001";
-// }
+$(document).keydown(function(event){
+    if(event.keyCode==123){
+    return false;
+   }
+else if(event.ctrlKey && event.shiftKey && event.keyCode==73){        
+      return false;  //Prevent from ctrl+shift+i
+   }
+});
+$(document).on("contextmenu",function(e){        
+   e.preventDefault();
+});
+

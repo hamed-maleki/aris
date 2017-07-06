@@ -12,13 +12,16 @@
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
-    <script src="assets/scripts/unique.min.js"></script>
-    <script src="assets/scripts/hash.js"></script>
-    <!--<script src="assets/scripts/jsbn.js"></script>
-    <script src="assets/scripts/prng4.js"></script>
-    <script src="assets/scripts/rng.js"></script>
-    <script src="assets/scripts/rsa.js"></script>
-    <script src="assets/scripts/base64.js"></script>-->
+    <script src="assets/scripts/rsa/System.debug.js"></script>
+    <script src="assets/scripts/rsa/System.IO.debug.js"></script>
+    <script src="assets/scripts/rsa/System.Text.debug.js"></script>
+    <script src="assets/scripts/rsa/System.Convert.debug.js"></script>
+    <script src="assets/scripts/rsa/System.BitConverter.debug.js"></script>
+    <script src="assets/scripts/rsa/System.BigInt.debug.js"></script>
+    <script src="assets/scripts/rsa/System.Security.Cryptography.SHA1.debug.js"></script>
+    <script src="assets/scripts/rsa/System.Security.Cryptography.debug.js"></script>
+    <script src="assets/scripts/rsa/System.Security.Cryptography.SHA256.debug.js"></script>
+    <script src="assets/scripts/rsa/System.Security.Cryptography.RSA.debug.js"></script>
     <script src="assets/scripts/login.js"></script>
 
 </head>
@@ -30,12 +33,11 @@
     <div class="container">
         <canvas id="canvas"></canvas>
     </div>
-    <div class="color log-form"  style="background-color: rgba(0,0,0,0) !important">
+    <div class="color log-form" style="background-color: rgba(0,0,0,0) !important">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-
                     <div class="container log">
                         <div class="row">
                             <div class="col-sm-4"></div>
@@ -50,7 +52,7 @@
                                 <p>کاربر گرامی برای استفاده از نرم افزار از مرورگرهای دیگر استفاده کنید</p>
                                 <a href="#" style="color: white"> دریافت نرم افزار کروم</a>,<a href="#" style="color: white"> دریافت نرم افزار فایرفاکس</a>
                             </div>
-                            <form class="form-horizontal" name="rsatest" onSubmit='do_encrypt();return false;'>
+                            <form class="form-horizontal">
                                 <div class="form-group">
                                     <div class="col-sm-8">
                                         <input class="form-control right-align login-input" ng-model="user" required type="text" id="lg" placeholder=" نام کاربری"
@@ -65,43 +67,13 @@
                                     </div>
                                     <label style="color: white; font-size: 24px" class="col-sm-4 control-label" for="lg">رمز ورود</label>
                                 </div>
-                                <!--<div class="form-group">
-                                    <div class="col-sm-8">
-                                        <input name="e"  value="3" size=20 class="form-control right-align login-input" required type="text"
-                                             />
-                                    </div>
-                                    <label style="color: white; font-size: 24px" class="col-sm-4 control-label" for="lg">p.exponent</label>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-8">
-                                        <textarea name="n" type="text" rows=4 ></textarea>
-                                    </div>
-                                    <label style="color: white; font-size: 24px" class="col-sm-4 control-label" for="lg">Modulus (hex):</label>
-                                </div>-->
                                 <div class="row my-margin-top">
-                                    <!--<div class="col-sm-3">
-                                        <button class="btn btn-info fontchange" style="width: 100%" onClick='set_1024f4();'>1024 bit</button>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button class="btn btn-info fontchange" style="width: 100%" onClick='set_1024e3();'>1024 bit(e =3)</button>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button class="btn btn-info fontchange" style="width: 100%" onClick='set_512f4();'>512 bit</button>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button class="btn btn-info fontchange" style="width: 100%" onClick='set_512e3();'>512(e= 3) bit</button>
-                                    </div>-->
-                                    <!--<div class="col-sm-3">
-                                </div>-->
                                     <div class="col-sm-6 my-margin-top">
                                         <button class="btn btn-info fontchange" style="width: 100%" tabindex="4">اطلاعات فردی برای ثبت در سامانه</button>
                                     </div>
                                     <div class="col-sm-6 my-margin-top">
                                         <button class="btn btn-info fontchange" style="width: 100%" ng-click="login(user,pass)" tabindex="3">ورود</button>
                                     </div>
-                                    <!--<div class="clearfix"></div>
-                                <div class="col-sm-3"></div>-->
-
                                 </div>
                             </form>
                         </div>

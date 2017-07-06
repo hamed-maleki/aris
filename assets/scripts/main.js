@@ -37,7 +37,6 @@ app.directive("sidebar", function () {
     }
 });
 app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
-    console.log(sessionStorage.accessToken)
     // log in demo log in. it should be removed later
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
@@ -1315,3 +1314,11 @@ window.onkeydown = function (e) {
 
     }
 };
+var timeout;
+$(document).on("mousemove keydown click", function () {
+    $(".loading-login").fadeOut(1000)
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+        $(".loading-login").fadeIn(2000);
+    },  2 * 60 * 1000);
+}).click();

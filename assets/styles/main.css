@@ -1649,7 +1649,7 @@ tfoot tr td {
     width: 100%;
     height: 100em;
     background-color: #F16521;
-    z-index: 3;
+    z-index: 6;
 }
 .loading-login img {
     width: 25%;
@@ -1657,6 +1657,9 @@ tfoot tr td {
     display: block;
     margin: 80px auto;
     animation: aris 2s;
+}
+.fox {
+    animation: transform3d 3s infinite !important;
 }
 /*end of log in page*/
 /*tabs*/
