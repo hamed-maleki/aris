@@ -1,8 +1,8 @@
 {
     "link" :[
-        {"title":"سیستم یک","path":"system-page.html","pathId":1},
-        {"title":"سیستم دو","path":"system-page.html","pathId":3},
-        {"title":"سیستم اول","path":"system-page.html","pathId":2},
-        {"title":"صدور سند","path":"document.html","pathId":2}
+        {"title":"سیستم یک","path":"system-page.min.html","pathId":1},
+        {"title":"سیستم دو","path":"system-page.min.html","pathId":3},
+        {"title":"سیستم اول","path":"system-page.min.html","pathId":2},
+        {"title":"صدور سند","path":"document.min.html","pathId":2}
     ]
 }

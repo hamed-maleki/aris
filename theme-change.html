@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 my-margin-top right-align" style="margin-bottom: 55px">
+            <div class="col-sm-12 my-margin-top right-align" >
                 <h3 class="fontchange">انتخاب فونت نرم افزار</h3>
                 <hr>
                 <div class="row">
@@ -71,6 +71,22 @@
                         <div class="font-selector" ng-click="fontChanger('3')" style="font-family: 'dubai'">
                             <i class="fa fa-check-circle-o hide theme-check" id="thirdcheck"></i> نمونه متن
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 my-margin-top right-align" style="margin-bottom: 100px">
+                <h3 class="fontchange">اسکرین سیور</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-push-8">
+                        مدت زمان اسکرین سیور
+                    </div>
+                    <div class="col-sm-8 col-sm-pull-4">
+                        <select style="width: 50%;font-size: 14px" ng-model="saver" ng-change="screen(saver)">
+                            <option>یک دقیقه</option>
+                            <option>دو دقیقه</option>
+                            <option>سه دقیقه</option>
+                        </select>
                     </div>
                 </div>
             </div>

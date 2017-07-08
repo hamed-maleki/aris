@@ -6,7 +6,6 @@ setInterval(function () {
         window.location.href = 'login.html'
     }
 }, 500)
-
 var app = angular.module('myApp', ['angular.filter']);
 // loading form depond on sussystem
 app.directive("aris", function () {
@@ -37,7 +36,7 @@ app.directive("sidebar", function () {
     }
 });
 
-app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
+app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$compile','$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     // log in demo log in. it should be removed later
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
@@ -383,11 +382,11 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
                 document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
             }
         }
-        window.location.href = "system-page.html";
+        window.location.href = "system-page.min.html";
     }
     // top link part
     $scope.topLinking = function (x, path) {
-        if (path == "system-page.html") {
+        if (path == "system-page.min.html") {
             $scope.gettingSystem(x, 1);
         }
         else {
@@ -769,10 +768,20 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
             $scope.fontTheme = response.data.font;
             $scope.tableFont = response.data.tableFont;
             $scope.numberType = response.data.numberType;
+            $scope.time = response.data.screensaver
             setTimeout(function () {
                 $scope.theme();
                 $scope.font();
             }, 200);
+            var timeout;
+            console.log($scope.time)
+            $(document).on("mousemove keydown click", function () {
+                $(".loading-login").fadeOut(1000)
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    $(".loading-login").fadeIn(2000);
+                },  60 * $scope.time);
+            }).click();
         }).catch(function () {
             $scope.error[0] = "خطا در برقراری ارتباطات";
             $("#error").modal();
@@ -784,6 +793,13 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
     $scope.fontChanger = function (element) {
         $scope.fontTheme = element;
         $scope.font();
+    }
+    $scope.screen = function(x){
+        switch(x){
+            case 'یک دقیقه': $scope.time = 1000; break;
+            case 'دو دقیقه': $scope.time = 2000; break;
+            case 'سه دقیقه': $scope.time = 3000; break
+        }
     }
     $scope.colorChanger = function (element) {
         $(".color-icon").css("display", "none");
@@ -1201,7 +1217,7 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         $(".tree-span").removeClass("treeBackground");
         $(".plus-form").val("");
     }
-})
+}])
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){
 //     if(event.keyCode==123){
@@ -1315,11 +1331,3 @@ window.onkeydown = function (e) {
 
     }
 };
-var timeout;
-$(document).on("mousemove keydown click", function () {
-    $(".loading-login").fadeOut(1000)
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
-        $(".loading-login").fadeIn(2000);
-    },  2 * 60 * 1000);
-}).click();

@@ -14,7 +14,7 @@
         ],
         "rebase": true,
         "restructuring": true,
-        "root": "${/assets/styles/main.css}",
+        "root": "${theme-change.html}",
         "roundingPrecision": 2,
         "semanticMerging": false,
         "shorthandCompacting": true
