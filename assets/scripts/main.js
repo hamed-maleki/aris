@@ -36,7 +36,7 @@ app.directive("sidebar", function () {
     }
 });
 
-app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$compile','$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
+app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     // log in demo log in. it should be removed later
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
@@ -186,13 +186,13 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
             }
         }
         // it does nothing
-        else if (e.keyCode == '37') {
-            console.log("left")
-        }
-        // it does nothing
-        else if (e.keyCode == '39') {
-            console.log("right")
-        }
+        // else if (e.keyCode == '37') {
+        //     console.log("left")
+        // }
+        // // it does nothing
+        // else if (e.keyCode == '39') {
+        //     console.log("right")
+        // }
         // it got executed when enter key is pressed
         else if (e.keyCode == '13') {
             // looking for selected list
@@ -222,7 +222,7 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
         $scope.listItems = $(".searchLink")
         $scope.testing = $(".testing")
         $($scope.listItems[0]).addClass("selected")
-        $scope.font();
+        $scope.theme();
     }
     // pushing in cookie
     $scope.cookieForSide = function (x, y) {
@@ -360,8 +360,8 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
     }
     // select all checkbox
     $scope.inboxing = function () {
-        if ($("#select").prop("checked") == true) {
-            $(".modal_input").prop("checked", true);
+        if ($(".select").prop("checked") == true) {
+            $(".modal_input").prop("checked", true); 
         }
         else {
             $(".modal_input").prop("checked", false);
@@ -547,7 +547,7 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
                     }
                 }
             }
-            $scope.font();
+            $scope.theme();
         }, 0);
         if (creditSum > debtSum) {
             $("#totalSituation").html("بستانکار");
@@ -771,16 +771,14 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
             $scope.time = response.data.screensaver
             setTimeout(function () {
                 $scope.theme();
-                $scope.font();
             }, 200);
             var timeout;
-            console.log($scope.time)
             $(document).on("mousemove keydown click", function () {
                 $(".loading-login").fadeOut(1000)
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                     $(".loading-login").fadeIn(2000);
-                },  60 * $scope.time);
+                }, 60 * $scope.time);
             }).click();
         }).catch(function () {
             $scope.error[0] = "خطا در برقراری ارتباطات";
@@ -792,10 +790,10 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
     }
     $scope.fontChanger = function (element) {
         $scope.fontTheme = element;
-        $scope.font();
+        $scope.theme();
     }
-    $scope.screen = function(x){
-        switch(x){
+    $scope.screen = function (x) {
+        switch (x) {
             case 'یک دقیقه': $scope.time = 1000; break;
             case 'دو دقیقه': $scope.time = 2000; break;
             case 'سه دقیقه': $scope.time = 3000; break
@@ -818,56 +816,51 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
             // console.log("the key has been identified")
         }
         $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
+        $(".color").removeClass("second-color");
+        $(".color").removeClass("third-color");
+        $(".color").removeClass("first-color");
+        $(".sub-color").removeClass("second-subcolor");
+        $(".sub-color").removeClass("third-subcolor");
+        $(".sub-color").removeClass("first-subcolor");
+        $(".system-color").removeClass("second-systemcolor");
+        $(".system-color").removeClass("third-systemcolor");
+        $(".system-color").removeClass("first-systemcolor");
         if ($scope.colorTheme[0] == 1) {
-            $(".color").removeClass("second-color");
-            $(".color").removeClass("third-color");
+            $(".sub-color").addClass("first-subcolor");
+            $(".system-color").addClass("first-systemcolor");
             $(".color").addClass("first-color");
-            $(".mycalendar").removeClass("calendar-second-color");
-            $(".mycalendar").removeClass("calendar-third-color");
-            $(".mycalendar").addClass("calendar-first-color");
             $(".top-link").css("color", "5BB0E2");
             $("button").css("background", "#5BB0E2");
-            $("#user-message").css("background-color", "5BB0E2");
             $("footer").css("background-color", "#5BB0E2");
-            // $(".system-li").css("background-color", "#5BB0E2");
             $(".system-li>h4").css("background-color", "#5BB0E2");
             $(".pagination > .active > a ").css("background-color", "5BB0E2");
+            $("hr").css("border-bottom","1px solid #F36548");
+            $(".setting-link").css("color", "#F36548")
         }
         else if ($scope.colorTheme[0] == 2) {
-            $(".color").removeClass("first-color");
-            $(".color").removeClass("third-color");
+            $(".sub-color").addClass("second-subcolor");
+            $(".system-color").addClass("second-systemcolor");
             $(".color").addClass("second-color");
-            $(".mycalendar").removeClass("calendar-first-color");
-            $(".mycalendar").removeClass("calendar-third-color");
-            $(".mycalendar").addClass("calendar-second-color");
-            $(".top-link").css("color", "#3eb65c");
+            $(".top-link").css("color", "#3eb65c !important");
             $("button").css("background-color", "#3eb65c");
-            $("#user-message").css("background-color", "#67cb80");
-            $("footer").css("background-color", "#67cb80");
-            // $(".system-li").css("background-color", "#67cb80");
+            $("footer").css("background-color", "#808284");
             $(".system-li>h4").css("background-color", "#67cb80");
             $(".pagination > .active > a ").css("background-color", "#3eb65c");
+            $("hr").css("border-bottom","1px solid #8cc63e")
+            $(".setting-link").css("color", "#8cc63e")
         }
         else {
-            $(".color").removeClass("second-color");
-            $(".color").removeClass("first-color");
+            $(".sub-color").addClass("third-subcolor");
+            $(".system-color").addClass("third-systemcolor");
             $(".color").addClass("third-color");
-            $(".mycalendar").removeClass("calendar-second-color");
-            $(".mycalendar").removeClass("calendar-first-color");
-            $(".mycalendar").addClass("calendar-third-color");
             $(".top-link").css("color", "#b194f1");
-            $("#user-message").css("background-color", "#cebbf6");
             $("button").css("background-color", "#b194f1");
-            $("footer").css("background-color", "#cebbf6");
-            // $(".system-li").css("background-color", "#cebbf6");
+            $("footer").css("background-color", "#c2b49b");
             $(".system-li>h4").css("background-color", "#cebbf6");
             $(".pagination > .active > a ").css("background-color", "#b194f1");
-
+            $("hr").css("border-bottom","1px solid #f7931d")
+            $(".setting-link").css("color", "#f7931d")
         }
-
-
-    }
-    $scope.font = function () {
         $(".theme-check").addClass("hide");
         $(".fa-pencil").removeClass("hide");
         if ($scope.fontTheme[0] == 1) {
@@ -900,6 +893,9 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
             $(".sub-system p").css("font-size", "13px");
         }
     }
+    // $scope.font = function () {
+        
+    // }
     // aside opening
     $scope.sideBar = function (x) {
         $scope.sidecontainer(x);
@@ -1169,7 +1165,6 @@ app.controller('myCtrl',['$scope','$http','$timeout','$filter','$interval','$com
     }
     // editing form button event
     $scope.editRegister = function () {
-        console.log($("#tree" + parent).find($("#treeRow" + selected)).length)
         if ($("#tree" + parent).find($("#treeRow" + selected)).length > 0) {
             $scope.error[0] = "ابتدا زیر شاخه را به سطح بالاتر انتقال دهید";
             $("#error").modal();

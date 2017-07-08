@@ -4,7 +4,7 @@
         <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
             <!--<p class="myMonth center"></p>-->
             <i class="fa fa-calendar-o system-icon"></i>
-            <div class="badging" ng-if="eventNumber != 0">{{eventNumber}}</div>
+            <div class="badging sub-color" ng-if="eventNumber != 0">{{eventNumber}}</div>
             <span class=" myday fontchange">{{myday}}</span>
         </div>
     </div>
@@ -12,12 +12,12 @@
     <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(1)">
         <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
             <i class="fa fa-file-text-o system-icon"></i>
-            <div ng-if="note.length != 0" class="badging">{{note.length}}</div>
+            <div ng-if="note.length != 0" class="badging sub-color">{{note.length}}</div>
         </div>
     </div>
     <!--top-links link container-->
     <div class="col-sm-6 my-col-sm-6" onclick="display('chatbox')" >
-        <div class="border sub-system transform  center pointer tools" style="background-color: #F16521; margin-top: 10px">
+        <div class="border sub-system transform  center pointer tools sub-color" style="margin-top: 10px">
             <!--<i class="fa fa-random system-icon"></i>-->
             <img src="media/logofox.png" class="tools-logo">
 
@@ -37,7 +37,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <p style="padding-right: 15px;background-color: #F16521;margin-top: 5px;">
+                <p class="sub-color" style="padding-right: 15px;margin-top: 5px;">
                     <i class="fa fa-close" style="color: white" ng-click="sideBarClose()"></i>
                 </p>
             </div>

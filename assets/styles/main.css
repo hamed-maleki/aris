@@ -25,6 +25,9 @@
 	font-style: normal;
 }
 /*generals*/
+*{
+    box-sizing: border-box;
+}
 body, html {
     padding:0px;
     font-family: "iran-sans" !important;
@@ -118,7 +121,6 @@ tfoot {
 }
 
 footer {
-    background-color: #7d97a5;
     margin-top: 154px;
     margin-bottom: -15px !important;
     padding: 15px;
@@ -171,7 +173,6 @@ nav .modal{
 
 .logo-holder {
     height: 55px;
-    background-color: #F16521;
     margin-left: -5px;
 }
 
@@ -460,7 +461,6 @@ nav a:hover {
 /*end od calendar*/
 /*grid system*/
 .badging{
-    background-color: rgba(241,101,33,1);
     position: absolute;
     top: 19px;
     right: 10%;
@@ -494,11 +494,6 @@ nav a:hover {
 .side-tool .border i:hover,.side-tool .border p{
     color: #F16521;
 }
-
-.side-tool hr {
-    border-bottom: 1px solid #F16521;
-}
-
 .side-filter {
     position: fixed;
     height: 100em;
@@ -540,7 +535,6 @@ nav a:hover {
 }
 
 .chart {
-    background-color: #F16521;
     color: white;
 }
 
@@ -748,7 +742,6 @@ nav a:hover {
     background-size: cover;
     color: white;
     padding-bottom: 15px;
-    background-color: #1079bb;
     width: 96%;
     margin: 5px auto;
 }
@@ -1341,10 +1334,28 @@ tfoot tr td {
     background-color: #037BC0 !important;
 }
 .second-color {
-    background-color: #3eb65c !important;
+    background-color: #8cc63e !important;
 }
 .third-color {
-    background-color: #b194f1 !important;
+    background-color: #f7931d !important;
+}
+.first-subcolor {
+    background-color: #F16521;
+}
+.second-subcolor {
+    background-color: #808284;
+}
+.third-subcolor {
+    background-color: #c2b49b;
+}
+.first-systemcolor {
+    background-color: #27A9E1;
+}
+.second-systemcolor {
+    background-color: #38B449;
+}
+.third-systemcolor {
+    background-color: #FBAF3F;
 }
 .font {
     font-size: 30px;
@@ -1358,7 +1369,6 @@ tfoot tr td {
     vertical-align: middle;
 }
 .badge {
-    background-color: #F16521;
     position: relative;
     top: -10px;
     left: -11px;
@@ -1457,7 +1467,7 @@ tfoot tr td {
 /*user info*/
 #user-info {
     box-shadow: 2px 4px 12px gray;
-    width: 40%;
+    width: 34%;
     position: absolute;
     top: 65px;
     left: 22px;
@@ -1477,11 +1487,7 @@ tfoot tr td {
 
 /*end of user info*/
 /*setting*/
-.setting-info-bar {
-    background-color: #F16521;
-}
 .setting-link {
-    color: #F16521;
     border-bottom: 1px solid #F16521;
     display: block;
     font-size: 14px;
@@ -1648,8 +1654,8 @@ tfoot tr td {
     right: 0;
     width: 100%;
     height: 100em;
-    background-color: #F16521;
-    z-index: 6;
+    z-index: 999;
+    display: none;
 }
 .loading-login img {
     width: 25%;
@@ -1731,7 +1737,7 @@ tfoot tr td {
     height: 222px;
 }
 .alarmTitle {
-    background-color: rgba(3,123,192,0.6);
+    background-color: rgba(0,0,0,0.3);
     border-radius: 5px;
     padding:0px 5px;
     margin: 0 5px;

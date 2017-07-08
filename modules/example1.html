@@ -88,6 +88,9 @@
             <table class="table table-hover table-striped table-bordered right-align">
                 <thead>
                     <tr>
+                        <th>
+                            <input  class="select" type="checkbox" ng-click="inboxing()" />
+                        </th>
                         <th style="width: 10px;" class="pointer" ng-click="orderBy('row')">
                             <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس ردیف">
                                 ردیف
@@ -125,6 +128,9 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="table in limitedEdition|orderBy:myorder" my-main-directive>
+                        <td>
+                            <input type="checkbox" class="modal_input"/>
+                        </td>
                         <td>{{table.row}}</td>
                         <td class="fontchange">{{table.title}}</td>
                         <td class="fontchange">{{table.description}}</td>
@@ -157,9 +163,17 @@
             <!--<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>-->
         </div>
         <!--pagination part it depond on develop process -->
-        <ul class="pagination" style="margin: 0">
-            <li ng-repeat="x in paginationNumber" id="pagination{{x}}"><a href="#" ng-click="pagination(x)">{{x}}</a></li>
-        </ul>
+        <div class="col-sm-4" style="text-align: left">
+            <i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="اضافه کردن"></i>
+            <i class="fa fa-edit" data-toggle="tooltip" data-placement="right" title="ویرایش"></i>
+            <i class="fa fa-trash-o" data-toggle="tooltip" data-placement="right" title="حذف"></i>
+        </div>
+        <div class="col-sm-4">
+            <ul class="pagination" style="margin: 0">
+                <li ng-repeat="x in paginationNumber" id="pagination{{x}}"><a href="#" ng-click="pagination(x)">{{x}}</a></li>
+            </ul>
+        </div>
+
     </div>
 </div>
 
