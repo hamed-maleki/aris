@@ -14,7 +14,7 @@
         ],
         "rebase": true,
         "restructuring": true,
-        "root": "${theme-change.html}",
+        "root": "${/assets/styles/doodlestyle.css}",
         "roundingPrecision": 2,
         "semanticMerging": false,
         "shorthandCompacting": true

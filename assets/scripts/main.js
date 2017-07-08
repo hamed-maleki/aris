@@ -336,6 +336,16 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             });
         }
     }
+    //deleting form a table and add to that and editing that
+    $scope.tableDeleting = function(){
+        console.log("that will delete for tables")
+    }
+    $scope.tablePlus = function(){
+        console.log("that will be adding to tables data")
+    }
+    $scope.tableEdit = function(){
+        console.log("that will be editing for tables")
+    }
     // putting subsystem in cookie
     $scope.subSystem = function (x, y, z) {
         var now = new Date();
