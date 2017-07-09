@@ -329,7 +329,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     var myid = this.value;
                     for (var i = 0; i < $scope.cartable.length; i++) {
                         if (myid == $scope.cartable[i].id) {
-                            $scope.cartable.splice(index, 1);
+                            $scope.cartable.splice(i, 1);
                         }
                     }
                 }
@@ -337,14 +337,60 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     //deleting form a table and add to that and editing that
-    $scope.tableDeleting = function(){
-        console.log("that will delete for tables")
+    $scope.tableDeleting = function () {
+
+        $('.modal_input').each(function (index) {
+            if (this.checked == true) {
+                 var myid = this.value;
+                for (var i = 0; i < $scope.limitedEdition.length; i++) {
+                    if (myid == $scope.limitedEdition[i].id) {
+                        $scope.limitedEdition.splice(i, 1);
+                    }
+                }
+            }
+        })
+
     }
-    $scope.tablePlus = function(){
-        console.log("that will be adding to tables data")
+    $scope.tablePlus = function (x, y, z, v) {
+        var item = {
+            "title": x,
+            "description": y,
+            "credit": z,
+            "debt": v,
+            "decimal": 1,
+            "row": 200,
+            "id": x
+        }
+        $scope.tabledata.push(item)
     }
-    $scope.tableEdit = function(){
-        console.log("that will be editing for tables")
+    var myid;
+    $scope.tableEdit = function () {
+        $(".editConfirm").css("display", "inline-block")
+        $('.modal_input').each(function (index) {
+            if (this.checked == true) {
+                myid = this.value;
+                $("#row" + myid).attr("contentEditable", "true")
+                $("#row" + myid).find("td").addClass("editTable")
+                // for (var i = 0; i < $scope.cartable.length; i++) {
+                //     if (myid == $scope.cartable[i].id) {
+                //         $scope.cartable.splice(index, 1);
+                //     }
+                // }
+            }
+        });
+    }
+    $scope.confirmEdit = function () {
+        $(".myrow").attr("contentEditable", "false")
+        $(".myrow").find("td").removeClass("editTable")
+        $(".modal_input").prop("checked", false);
+        $(".editConfirm").css("display", "none")
+    }
+    $scope.cancelEdit = function () {
+        $scope.pagination(currentpage)
+        $(".myrow").attr("contentEditable", "false")
+        $(".myrow").find("td").removeClass("editTable")
+        $(".modal_input").prop("checked", false);
+        $(".editConfirm").css("display", "none")
     }
     // putting subsystem in cookie
     $scope.subSystem = function (x, y, z) {
@@ -371,7 +417,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // select all checkbox
     $scope.inboxing = function () {
         if ($(".select").prop("checked") == true) {
-            $(".modal_input").prop("checked", true); 
+            $(".modal_input").prop("checked", true);
         }
         else {
             $(".modal_input").prop("checked", false);
@@ -494,7 +540,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         )
     }
     // pagination display (currently only work for table data loader but it can expand to other json data)
+    var currentpage
     $scope.pagination = function (x) {
+        currentpage = x;
         var creditSum = 0;
         var debtSum = 0;
         var totalSum = 0;
@@ -840,11 +888,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".system-color").addClass("first-systemcolor");
             $(".color").addClass("first-color");
             $(".top-link").css("color", "5BB0E2");
-            $("button").css("background", "#5BB0E2");
             $("footer").css("background-color", "#5BB0E2");
             $(".system-li>h4").css("background-color", "#5BB0E2");
-            $(".pagination > .active > a ").css("background-color", "5BB0E2");
-            $("hr").css("border-bottom","1px solid #F36548");
+            $("hr").css("border-bottom", "1px solid #F36548");
             $(".setting-link").css("color", "#F36548")
         }
         else if ($scope.colorTheme[0] == 2) {
@@ -852,11 +898,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".system-color").addClass("second-systemcolor");
             $(".color").addClass("second-color");
             $(".top-link").css("color", "#3eb65c !important");
-            $("button").css("background-color", "#3eb65c");
             $("footer").css("background-color", "#808284");
             $(".system-li>h4").css("background-color", "#67cb80");
-            $(".pagination > .active > a ").css("background-color", "#3eb65c");
-            $("hr").css("border-bottom","1px solid #8cc63e")
+            $("hr").css("border-bottom", "1px solid #8cc63e")
             $(".setting-link").css("color", "#8cc63e")
         }
         else {
@@ -864,25 +908,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".system-color").addClass("third-systemcolor");
             $(".color").addClass("third-color");
             $(".top-link").css("color", "#b194f1");
-            $("button").css("background-color", "#b194f1");
-            $("footer").css("background-color", "#c2b49b");
+            $("footer").css("background-color", "#879fab");
             $(".system-li>h4").css("background-color", "#cebbf6");
-            $(".pagination > .active > a ").css("background-color", "#b194f1");
-            $("hr").css("border-bottom","1px solid #f7931d")
+            $("hr").css("border-bottom", "1px solid #f7931d")
             $(".setting-link").css("color", "#f7931d")
         }
         $(".theme-check").addClass("hide");
         $(".fa-pencil").removeClass("hide");
         if ($scope.fontTheme[0] == 1) {
-            $("#first").addClass("hide");
             $("#firstcheck").removeClass("hide");
-            $(".fontchange").css("font-family", "far");
-            $("label").css("font-family", "far");
-            $("button").css("font-family", "far");
-            $("th").css("font-family", "far");
+            $(".fontchange").css("font-family", "samim");
+            $("label").css("font-family", "samim");
+            $("button").css("font-family", "samim");
+            $("th").css("font-family", "samim");
         }
         else if ($scope.fontTheme[0] == 2) {
-            $("#second").addClass("hide");
             $("#secondcheck").removeClass("hide");
             $(".fontchange").css("font-family", "iran-sans");
             $("label").css("font-family", "iran-sans");
@@ -891,8 +931,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".top-link").css("font-size", "15px");
             $(".sub-system p").css("font-size", "15px");
         }
-        else {
-            $("#third").addClass("hide");
+        else if ($scope.fontTheme[0] == 3) {
             $("#thirdcheck").removeClass("hide");
             $(".fontchange").css("font-family", "dubai");
             $("label").css("font-family", "dubai");
@@ -902,10 +941,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".top-link").css("font-size", "13px");
             $(".sub-system p").css("font-size", "13px");
         }
+        else if ($scope.fontTheme[0] == 4) {
+            $("#forthcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "shabnam");
+            $("label").css("font-family", "shabnam");
+            $("button").css("font-family", "shabnam");
+            $("th").css("font-family", "shabnam");
+            $(".top-link").css("font-size", "13px");
+            $(".sub-system p").css("font-size", "13px");
+        }
+        else {
+            $("#fifthcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "sahel");
+            $("label").css("font-family", "sahel");
+            $("button").css("font-family", "sahel");
+            $("th").css("font-family", "sahel");
+            $(".top-link").css("font-size", "13px");
+            $(".sub-system p").css("font-size", "13px");
+        }
     }
-    // $scope.font = function () {
-        
-    // }
     // aside opening
     $scope.sideBar = function (x) {
         $scope.sidecontainer(x);

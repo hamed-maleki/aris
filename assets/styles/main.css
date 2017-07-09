@@ -15,12 +15,27 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
 @font-face {
-	font-family: 'far';
-	src: url('font/far.eot') format('eot'),
-		url('font/far.woff') format('woff'),
-		url('font/far.ttf') format('ttf');
+	font-family: 'sahel';
+	src: url('font/sahel.eot') format('eot'),
+		url('font/sahel.woff') format('woff'),
+		url('font/sahel.ttf') format('ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'samim';
+	src: url('font/samim.eot') format('eot'),
+		url('font/samim.woff') format('woff'),
+		url('font/samim.ttf') format('ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'shabnam';
+	src: url('font/shabnam.eot') format('eot'),
+		url('font/shabnam.woff') format('woff'),
+		url('font/shabnam.ttf') format('ttf');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -1046,6 +1061,13 @@ tfoot tr td {
 }
 /*end lists tables and forms*/
 /*modals*/
+#tablePlus label{
+    font-size: 19px;
+}
+#tablePlus input{
+    height: 30px !important;
+    color: gray;
+}
 .modal-body {
     min-height: 440px;
     line-height: 0.5cm
@@ -1337,7 +1359,7 @@ tfoot tr td {
     background-color: #8cc63e !important;
 }
 .third-color {
-    background-color: #f7931d !important;
+    background-color: #4d636f!important;
 }
 .first-subcolor {
     background-color: #F16521;
@@ -1346,7 +1368,7 @@ tfoot tr td {
     background-color: #808284;
 }
 .third-subcolor {
-    background-color: #c2b49b;
+    background-color: #4CAF50;
 }
 .first-systemcolor {
     background-color: #27A9E1;
@@ -1355,7 +1377,10 @@ tfoot tr td {
     background-color: #38B449;
 }
 .third-systemcolor {
-    background-color: #FBAF3F;
+    background-color: #5e7987;
+}
+.editTable {
+    background-color: yellow !important;
 }
 .font {
     font-size: 30px;
@@ -1654,7 +1679,7 @@ tfoot tr td {
     right: 0;
     width: 100%;
     height: 100em;
-    z-index: 999;
+    z-index: 1500;
     display: none;
 }
 .loading-login img {

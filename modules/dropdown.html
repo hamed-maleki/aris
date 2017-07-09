@@ -11,11 +11,11 @@
                             <i class="fa system-icon" ng-class="system.icon"></i>
                         </div>
                         <div  class="col-sm-8 col-sm-pull-4 shadow center pointer container-filter" ng-style="system.style">
-                            <p style="font-size: 15px" ng-click="drop(system.id)">{{system.title}}
+                            <p class="fontchange" style="font-size: 15px" ng-click="drop(system.id)">{{system.title}}
                                 <i class="fa fa-angle-down " style="vertical-align: middle"></i>
                             </p>
                             <div class="col-sm-8 right-align subsystem" id="dropdown{{system.id}}" ng-style="system.style">
-                                <p ng-repeat="subsystem in system.children" class="pointer" ng-click="subSystem(subsystem.parent,subsystem.id)">
+                                <p ng-repeat="subsystem in system.children" class="pointer fontchange" ng-click="subSystem(subsystem.parent,subsystem.id)">
                                     {{subsystem.title}}
                                 </p>
                             </div>
