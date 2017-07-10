@@ -16,12 +16,15 @@
     <script src="assets/scripts/unique.min.js"></script>
     <script src="assets/scripts/main.js"></script>
     <style>
-        h3 {
-            color: #037bc0;
+        h4 {
+            text-align: right;
+            direction: rtl;
+            padding-right: 10px;
         }
 
-        hr {
-            border-bottom: 1px solid #F16521;
+        h4 i {
+            float: left;
+            padding-left: 5px;
         }
     </style>
 </head>
@@ -29,63 +32,130 @@
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
     <nav class="border color " ng-include="'modules/navigation.html'">
     </nav>
+    <div class="contianer">
+        <div class="row">
+            <div class="col-sm-2 col-sm-push-10 center">
+                <div class="row my-padding">
+                    <div class="col-sm-12 color my-padding-5 my-margin-top">
+                        <h4 class="pointer fontchange" style="color: white" ng-click="themeElemanChange(1)">
+                            انتخاب رنگ پس زمینه<i class="fa fa-paint-brush"></i>
+                        </h4>
+                        <h4 class="pointer fontchange" style="color: white" ng-click="themeElemanChange(2)">
+                            انتخاب فونت<i class="fa fa-text-width"></i>
+                        </h4>
+                        <h4 class="pointer fontchange" style="color: white">
+                            زمان خواب تصویر<i class="fa fa-tv"></i>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="my-margin-top col-sm-10 col-sm-pull-2">
+
+                <div style="box-sizing: border-box;margin-left: 65px">
+                    <div class="row">
+                        <div class="col-sm-12 row" ng-if="themeEleman == 1">
+                            <div class="col-sm-12">
+                                <div class="my-padding color-select center row" style="background-color: #037bc0" ng-click="colorChanger('1')">
+                                    <div class="col-sm-4" style="border-right: 1px dashed white">
+                                        <img src="media/pic.jpg">
+                                    </div>
+                                    <div class="col-sm-8 center">
+                                        <i class="fa fa-check-circle-o color-icon" id="color1"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12 my-margin-top">
+                                <div class="my-padding color-select center row" style="background-color: #8cc63e" ng-click="colorChanger('2')">
+                                    <div class="col-sm-4" style="border-right: 1px dashed white">
+                                        <img src="media/pic1.jpg">
+                                    </div>
+                                    <div class="col-sm-8 center">
+                                        <i class="fa fa-check-circle-o color-icon" id="color2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 my-margin-top">
+                                <div class="my-padding color-select center row" style="background-color: #4D636F" ng-click="colorChanger('3')">
+                                    <div class="col-sm-4" style="border-right: 1px dashed white">
+                                        <img src="media/pic2.jpg">
+                                    </div>
+                                    <div class="col-sm-8 center">
+                                        <i class="fa fa-check-circle-o color-icon" id="color3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12" ng-if="themeEleman == 2" ng-init="theme()">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="font-selector color row" ng-click="fontChanger('1')" style="font-family: 'samim'">
+                                        <div class="col-sm-2 center">
+
+                                            <i class="fa fa-check-circle-o hide theme-check" id="firstcheck"></i>
+                                        </div>
+                                        <div class="col-sm-10 right-align" style="border-left: 1px dashed white">
+                                            این متنی برای مشاهده نوع فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع
+                                            فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع فونت انتخابی شما میباشد
+                                        </div>
+                                        <!--<i class="fa fa-pencil" id="first"></i>-->
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="font-selector color row" ng-click="fontChanger('2')" style="font-family: 'iran-sans'">
+                                        <div class="col-sm-2 center">
+                                            <i class="fa fa-check-circle-o theme-check" id="secondcheck"></i>
+                                        </div>
+                                        <div class="col-sm-10 right-align" style="border-left: 1px dashed white">
+                                            این متنی برای مشاهده نوع فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع
+                                            فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع فونت انتخابی شما میباشد
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="font-selector color row" ng-click="fontChanger('3')" style="font-family: 'dubai'">
+                                        <div class="col-sm-2 center">
+                                            <i class="fa fa-check-circle-o hide theme-check" id="thirdcheck"></i>
+                                        </div>
+                                        <div class="col-sm-10 right-align" style="border-left: 1px dashed white">
+                                            این متنی برای مشاهده نوع فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع
+                                            فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع فونت انتخابی شما میباشد
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="font-selector row color" ng-click="fontChanger('4')" style="font-family: 'shabnam'">
+                                        <div class="col-sm-2 center">
+                                            <i class="fa fa-check-circle-o hide theme-check" id="forthcheck"></i>
+                                        </div>
+                                        <div class="col-sm-10 right-align" style="border-left: 1px dashed white">
+                                            این متنی برای مشاهده نوع فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع
+                                            فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع فونت انتخابی شما میباشد
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="font-selector color row" ng-click="fontChanger('5')" style="font-family: 'sahel'">
+                                        <div class="col-sm-2 center">
+                                            <i class="fa fa-check-circle-o hide theme-check" id="fifthcheck"></i>
+                                        </div>
+                                        <div class="col-sm-10 right-align" style="border-left: 1px dashed white">
+                                            این متنی برای مشاهده نوع فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع
+                                            فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع فونت انتخابی شما میباشد
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 my-margin-top right-align">
-                <h3 class="fontchange">انتخاب رنگ پس زمینه</h3>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-12 my-margin-top">
-                        <div class="my-padding color-select center" style="background-color: #037bc0" ng-click="colorChanger('1')">
-                            <i class="fa fa-check-circle-o color-icon" id="color1"></i>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 my-margin-top">
-                        <div class="my-padding color-select center" style="background-color: #8cc63e" ng-click="colorChanger('2')">
-                            <i class="fa fa-check-circle-o color-icon" id="color2"></i>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 my-margin-top">
-                        <div class="my-padding color-select center" style="background-color: #4D636F" ng-click="colorChanger('3')">
-                            <i class="fa fa-check-circle-o color-icon" id="color3"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 my-margin-top right-align" >
-                <h3 class="fontchange">انتخاب فونت نرم افزار</h3>
-                <hr>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="font-selector" ng-click="fontChanger('1')" style="font-family: 'samim'">
-                            <!--<i class="fa fa-pencil" id="first"></i>-->
-                            <i class="fa fa-check-circle-o hide theme-check" id="firstcheck"></i>نمونه متن
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="font-selector" ng-click="fontChanger('2')" style="font-family: 'iran-sans'">
-                            <i class="fa fa-check-circle-o theme-check" id="secondcheck"></i> نمونه متن
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="font-selector" ng-click="fontChanger('3')" style="font-family: 'dubai'">
-                            <i class="fa fa-check-circle-o hide theme-check" id="thirdcheck"></i> نمونه متن
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <div class="font-selector" ng-click="fontChanger('4')" style="font-family: 'shabnam'">
-                            <i class="fa fa-check-circle-o hide theme-check" id="forthcheck"></i> نمونه متن
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="font-selector" ng-click="fontChanger('5')" style="font-family: 'sahel'">
-                            <i class="fa fa-check-circle-o hide theme-check" id="fifthcheck"></i> نمونه متن
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-12 my-margin-top right-align" style="margin-bottom: 100px">
                 <h3 class="fontchange">اسکرین سیور</h3>
                 <hr>

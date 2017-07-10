@@ -128,7 +128,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="table in limitedEdition|orderBy:myorder" contenteditable="false" my-main-directive id="row{{table.id}}" class="myrow">
-                        <td>
+                        <td class="center">
                             <input type="checkbox" class="modal_input" value="{{table.id}}" />
                         </td>
                         <td>{{table.row}}</td>
@@ -138,7 +138,8 @@
                         <td id="debt{{table.id}}" style="width: 200px;" class="table-number" contenteditable="false">{{table.debt}}</td>
                         <td ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green fontchange">{{table.situation}}</td>
                         <td ng-if="table.situation === 'بدهکار'" class="red fontchange">{{table.situation}}</td>
-                        <td id="remain{{table.id}}" class="table-number">{{table.remain}}</td>
+                        <td id="remain{{table.id}}" ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green table-number">{{table.remain}}</td>
+                        <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red table-number">{{table.remain}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -163,8 +164,8 @@
             <!--<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>-->
         </div>
         <!--pagination part it depond on develop process -->
-        <div class="col-sm-4" style="text-align: left">
-            <i class="fa fa-plus pointer" data-toggle="modal" data-target="#tablePlus"></i>
+        <div class="col-sm-4 editor" style="text-align: left">
+            <i class="fa fa-plus pointer" data-toggle="modal" data-target="#tablePlus" title="اضافه کردن"></i>
             <i class="fa fa-edit pointer" ng-click="tableEdit()" data-toggle="tooltip" data-placement="right" title="ویرایش"></i>
             <i class="fa fa-trash-o pointer" ng-click="tableDeleting()" data-toggle="tooltip" data-placement="right" title="حذف"></i>
         </div>
@@ -174,7 +175,7 @@
             </ul>
         </div>
         <div class="col-sm-4 editConfirm" style="display: none">
-            <i class="fa fa-check pointer" ng-click="confirmEdit()" data-toggle="tooltip" data-placement="right" title="تایید"></i>
+            <i class="fa fa-save pointer" ng-click="confirmEdit()" data-toggle="tooltip" data-placement="right" title="تایید"></i>
             <i class="fa fa-close pointer" ng-click="cancelEdit()" style="color: black" data-toggle="tooltip" data-placement="right"
                 title="انصراف"></i>
         </div>
@@ -200,14 +201,15 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
-                        <label>بدهی</label>
+                        <label>بستانکاری</label>
+
                     </div>
                     <div class="col-sm-8 col-sm-pull-4">
                         <input class="form-control right-align login-input" ng-model="debt" tabindex="12">
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
-                        <label>بستانکاری</label>
+                        <label>بدهی</label>
                     </div>
                     <div class="col-sm-8 col-sm-pull-4">
                         <input class="form-control right-align login-input" ng-model="credit" tabindex="13">

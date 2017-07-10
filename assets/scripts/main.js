@@ -42,6 +42,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         window.localStorage.removeItem('accessToken');
         window.location.href = 'login.html';
     };
+    // theme elman to select 
+    $scope.themeEleman = 1;
+    $scope.themeElemanChange = function(x){
+        $scope.themeEleman = x;
+    }
     // document page data loader it may have changes in back-end matching level
     fetch("data/document.json").then(function (response) {
         return response.json();
@@ -148,7 +153,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         e = e || window.event;
         // it reduce count when kry up is pressed
-        // console.log(count)
         if (e.keyCode == '38') {
             if (count < 1) {
                 page = Math.floor($scope.listItems.length / 5)
@@ -185,14 +189,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
             }
         }
-        // it does nothing
-        // else if (e.keyCode == '37') {
-        //     console.log("left")
-        // }
-        // // it does nothing
-        // else if (e.keyCode == '39') {
-        //     console.log("right")
-        // }
         // it got executed when enter key is pressed
         else if (e.keyCode == '13') {
             // looking for selected list
@@ -341,17 +337,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
         $('.modal_input').each(function (index) {
             if (this.checked == true) {
-                 var myid = this.value;
-                for (var i = 0; i < $scope.limitedEdition.length; i++) {
-                    if (myid == $scope.limitedEdition[i].id) {
-                        $scope.limitedEdition.splice(i, 1);
+                var myid = this.value;
+                for (var i = 0; i < $scope.tabledata.length; i++) {
+                    if (myid == $scope.tabledata[i].id) {
+                        $scope.tabledata.splice(i, 1);
                     }
                 }
             }
         })
-
+        $scope.uncheck();
+        $scope.tableFormat()
+        $scope.pagination(currentpage)
     }
     $scope.tablePlus = function (x, y, z, v) {
+
+
         var item = {
             "title": x,
             "description": y,
@@ -359,9 +359,16 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             "debt": v,
             "decimal": 1,
             "row": 200,
-            "id": x
+            "situation": '',
+            "remain": '',
+            "id": x,
+            "decimal":1
         }
+        $("#tablePlus").modal();
         $scope.tabledata.push(item)
+        $scope.tableFormat()
+        $scope.pagination(currentpage)
+
     }
     var myid;
     $scope.tableEdit = function () {
@@ -378,19 +385,26 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 // }
             }
         });
+        $scope.uncheck();
     }
     $scope.confirmEdit = function () {
         $(".myrow").attr("contentEditable", "false")
         $(".myrow").find("td").removeClass("editTable")
         $(".modal_input").prop("checked", false);
-        $(".editConfirm").css("display", "none")
+        $(".editConfirm").css("display", "none");
+        $scope.uncheck();
     }
     $scope.cancelEdit = function () {
-        $scope.pagination(currentpage)
-        $(".myrow").attr("contentEditable", "false")
-        $(".myrow").find("td").removeClass("editTable")
+        $scope.tableFormat();
+        $scope.pagination(currentpage);
+        $(".myrow").attr("contentEditable", "false");
+        $(".myrow").find("td").removeClass("editTable");
         $(".modal_input").prop("checked", false);
-        $(".editConfirm").css("display", "none")
+        $(".editConfirm").css("display", "none");
+        $scope.uncheck();
+    }
+    $scope.uncheck = function(){
+        $(".select").prop("checked",false)
     }
     // putting subsystem in cookie
     $scope.subSystem = function (x, y, z) {
@@ -474,12 +488,30 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.numberType[0] = x;
     }
     $scope.tabledata = [];
+    // button example
+    $http.get("data/buttonTest.json")
+        .then(function (response) {
+            $scope.buttons = response.data.buttons;
+        })
+    $scope.genral = function (x) {
+        switch (x) {
+            case 12:
+                var firstItem = $("#firstInput").val();
+                $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
+            case 13: console.log("second function"); break;
+            case 14: console.log("third function"); break;
+            case 15: console.log("forth function"); break;
+            default: console.log("no function fund"); break;
+        }
+    }
     //  reporting table data loader
+
     $scope.dataLoad = function (x) {
         $scope.loading = true;
         $scope.paginationNumber = [];
         $scope.limitedEdition = [];
         $scope.dataToSend = [];
+        
         if (x[0] == undefined) {
             $scope.error[0] = "فرم نمیتواند خالی باشد";
             $("#error").modal();
@@ -493,38 +525,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             .then(function (response) {
                 $scope.loading = false;
                 $scope.tabledata = response.data.table;
-                for (var y = 0; y < $scope.tabledata.length; y++) {
-                    if ($scope.numberType[0] == 2) {
-                        $scope.tabledata[y].credit = $scope.tabledata[y].credit / 1000;
-                        $scope.tabledata[y].debt = $scope.tabledata[y].debt / 1000;
-                    }
-                    else if ($scope.numberType[0] == 3) {
-                        $scope.tabledata[y].credit = $scope.tabledata[y].credit / 1000000;
-                        $scope.tabledata[y].debt = $scope.tabledata[y].debt / 1000000;
-                    }
-                    if ($scope.tabledata[y].credit != undefined && $scope.tabledata[y].debt != undefined) {
-                        if (Number($scope.tabledata[y].credit) > Number($scope.tabledata[y].debt)) {
-                            $scope.tabledata[y].remain = Number($scope.tabledata[y].credit) - Number($scope.tabledata[y].debt);
-                            $scope.tabledata[y].situation = "بستانکار"
-
-                        }
-                        else if (Number($scope.tabledata[y].credit) < Number($scope.tabledata[y].debt)) {
-                            $scope.tabledata[y].remain = Number($scope.tabledata[y].debt) - Number($scope.tabledata[y].credit);
-                            $scope.tabledata[y].situation = "بدهکار"
-
-                        }
-                        else {
-                            $scope.tabledata[y].remain = Number($scope.tabledata[y].debt) - Number($scope.tabledata[y].credit);
-                            $scope.tabledata[y].situation = "-";
-                        }
-                    }
-                }
+                $scope.tableFormat()
                 $scope.pagination(1);
-                var pageNumber;
-                pageNumber = Math.ceil($scope.tabledata.length / 15);
-                for (var conter = 1; conter < pageNumber + 1; conter++) {
-                    $scope.paginationNumber.push(conter);
-                }
+                $(".editor").css("display","inline-block")
             })
             .catch(function () {
                 $scope.error[0] = "عدم دستیابی به اطلاعات";
@@ -532,6 +535,41 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }); setTimeout(function () {
                 $scope.tableFonting();
             }, 10)
+    }
+    $scope.tableFormat = function () {
+        for (var y = 0; y < $scope.tabledata.length; y++) {
+            if ($scope.numberType[0] == 2) {
+                $scope.tabledata[y].credit = $scope.tabledata[y].credit / 1000;
+                $scope.tabledata[y].debt = $scope.tabledata[y].debt / 1000;
+            }
+            else if ($scope.numberType[0] == 3) {
+                $scope.tabledata[y].credit = $scope.tabledata[y].credit / 1000000;
+                $scope.tabledata[y].debt = $scope.tabledata[y].debt / 1000000;
+            }
+            if ($scope.tabledata[y].credit != undefined && $scope.tabledata[y].debt != undefined) {
+                if (Number($scope.tabledata[y].credit) > Number($scope.tabledata[y].debt)) {
+                    $scope.tabledata[y].remain = Number($scope.tabledata[y].credit) - Number($scope.tabledata[y].debt);
+                    $scope.tabledata[y].situation = "بستانکار"
+
+                }
+                else if (Number($scope.tabledata[y].credit) < Number($scope.tabledata[y].debt)) {
+                    $scope.tabledata[y].remain = Number($scope.tabledata[y].debt) - Number($scope.tabledata[y].credit);
+                    $scope.tabledata[y].situation = "بدهکار"
+
+                }
+                else {
+                    $scope.tabledata[y].remain = Number($scope.tabledata[y].debt) - Number($scope.tabledata[y].credit);
+                    $scope.tabledata[y].situation = "-";
+                }
+            }
+        }
+        
+        var pageNumber;
+        $scope.paginationNumber = []
+        pageNumber = Math.ceil($scope.tabledata.length / 15);
+        for (var conter = 1; conter < pageNumber + 1; conter++) {
+            $scope.paginationNumber.push(conter);
+        }
     }
     // number float part adder to number string with camma
     $scope.float = function (x) {
@@ -715,22 +753,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.eventNumber = 0;
-    // button example
-    $http.get("data/buttonTest.json")
-        .then(function (response) {
-            $scope.buttons = response.data.buttons;
-        })
-    $scope.genral = function (x) {
-        switch (x) {
-            case 12:
-                var firstItem = $("#firstInput").val();
-                $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
-            case 13: console.log("second function"); break;
-            case 14: console.log("third function"); break;
-            case 15: console.log("forth function"); break;
-            default: console.log("no function fund"); break;
-        }
-    }
+
     // event of day declaring
     $http.get("data/events.json")
         .success(function (response) {
@@ -826,7 +849,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.fontTheme = response.data.font;
             $scope.tableFont = response.data.tableFont;
             $scope.numberType = response.data.numberType;
-            $scope.time = response.data.screensaver
+            $scope.time = response.data.screensaver;
+            $scope.name = response.data.name;
+            $scope.img = response.data.img
             setTimeout(function () {
                 $scope.theme();
             }, 200);

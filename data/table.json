@@ -329,17 +329,6 @@
             "remain": "",
             "id": "no31",
             "decimal":1
-        },
-        {
-            "row": 32,
-            "title": "عنوانی برای مثال",
-            "description": "عنوانی طولانی تر برای توضیح",
-            "credit": 10000,
-            "debt": 80,
-            "situation": "",
-            "remain": "",
-            "id": "no32",
-            "decimal":1
         }
     ]
 }
