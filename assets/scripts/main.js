@@ -44,7 +44,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     };
     // theme elman to select 
     $scope.themeEleman = 1;
-    $scope.themeElemanChange = function(x){
+    $scope.themeElemanChange = function (x) {
         $scope.themeEleman = x;
     }
     // document page data loader it may have changes in back-end matching level
@@ -349,6 +349,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.tableFormat()
         $scope.pagination(currentpage)
     }
+    // system page table adding new row
     $scope.tablePlus = function (x, y, z, v) {
 
 
@@ -362,15 +363,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             "situation": '',
             "remain": '',
             "id": x,
-            "decimal":1
+            "decimal": 1
         }
         $("#tablePlus").modal();
         $scope.tabledata.push(item)
-        $scope.tableFormat()
+        var pageNumber;
+        $scope.paginationNumber = []
+        pageNumber = Math.ceil($scope.tabledata.length / 15);
+        for (var conter = 1; conter < pageNumber + 1; conter++) {
+            $scope.paginationNumber.push(conter);
+        }
         $scope.pagination(currentpage)
 
     }
     var myid;
+    // system page table editing
     $scope.tableEdit = function () {
         $(".editConfirm").css("display", "inline-block")
         $('.modal_input').each(function (index) {
@@ -387,6 +394,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         });
         $scope.uncheck();
     }
+    // system page editing confirm function and canceling that
     $scope.confirmEdit = function () {
         $(".myrow").attr("contentEditable", "false")
         $(".myrow").find("td").removeClass("editTable")
@@ -403,8 +411,46 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $(".editConfirm").css("display", "none");
         $scope.uncheck();
     }
-    $scope.uncheck = function(){
-        $(".select").prop("checked",false)
+    $scope.uncheck = function () {
+        $(".select").prop("checked", false)
+    }
+    // showing navigation to sub-table
+    $scope.subTableFlash = function (x) {
+        var checkCount = 0
+        $('.modal_input').each(function (index) {
+            if (this.checked == true) {
+                checkCount = checkCount + 1
+            }
+        });
+        switch (checkCount) {
+            case 0: $scope.error[0] = "ابتدا ردیفی را انتخاب کنید";
+                $("#error").modal();
+                break;
+            case 1: $scope.subTable(x)
+                break;
+            default: $scope.error[0] = "ردیف انتخابی نمیتواند بیشتر از یک مورد باشد";
+                $("#error").modal();
+                break;
+        }
+        if (checkCount == 0) {
+
+        }
+    }
+    $scope.subTable = function (x) {
+        $('.modal_input').each(function (index) {
+            if (this.checked == true) {
+                $scope.subTableId = this.value
+            }
+        });
+        $scope.dataToShow = []
+        for (var i = 0; i < $scope.limitedEdition.length; i++) {
+            if ($scope.subTableId == $scope.limitedEdition[i].id) {
+                $scope.dataToShow = $scope.limitedEdition[i].children
+                break;
+            }
+        }
+        $scope.limitedEdition = $scope.dataToShow;
+        $scope.tableFormat();
     }
     // putting subsystem in cookie
     $scope.subSystem = function (x, y, z) {
@@ -511,7 +557,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.paginationNumber = [];
         $scope.limitedEdition = [];
         $scope.dataToSend = [];
-        
+
         if (x[0] == undefined) {
             $scope.error[0] = "فرم نمیتواند خالی باشد";
             $("#error").modal();
@@ -525,9 +571,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             .then(function (response) {
                 $scope.loading = false;
                 $scope.tabledata = response.data.table;
-                $scope.tableFormat()
                 $scope.pagination(1);
-                $(".editor").css("display","inline-block")
+                $(".editor").css("display", "inline-block")
+                var pageNumber;
+                $scope.paginationNumber = []
+                pageNumber = Math.ceil($scope.tabledata.length / 15);
+                for (var conter = 1; conter < pageNumber + 1; conter++) {
+                    $scope.paginationNumber.push(conter);
+                }
             })
             .catch(function () {
                 $scope.error[0] = "عدم دستیابی به اطلاعات";
@@ -537,39 +588,34 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }, 10)
     }
     $scope.tableFormat = function () {
-        for (var y = 0; y < $scope.tabledata.length; y++) {
+        for (var y = 0; y < $scope.limitedEdition.length; y++) {
             if ($scope.numberType[0] == 2) {
-                $scope.tabledata[y].credit = $scope.tabledata[y].credit / 1000;
-                $scope.tabledata[y].debt = $scope.tabledata[y].debt / 1000;
+                $scope.limitedEdition[y].credit = $scope.limitedEdition[y].credit / 1000;
+                $scope.limitedEdition[y].debt = $scope.limitedEdition[y].debt / 1000;
             }
             else if ($scope.numberType[0] == 3) {
-                $scope.tabledata[y].credit = $scope.tabledata[y].credit / 1000000;
-                $scope.tabledata[y].debt = $scope.tabledata[y].debt / 1000000;
+                $scope.limitedEdition[y].credit = $scope.limitedEdition[y].credit / 1000000;
+                $scope.limitedEdition[y].debt = $scope.limitedEdition[y].debt / 1000000;
             }
-            if ($scope.tabledata[y].credit != undefined && $scope.tabledata[y].debt != undefined) {
-                if (Number($scope.tabledata[y].credit) > Number($scope.tabledata[y].debt)) {
-                    $scope.tabledata[y].remain = Number($scope.tabledata[y].credit) - Number($scope.tabledata[y].debt);
-                    $scope.tabledata[y].situation = "بستانکار"
+            if ($scope.limitedEdition[y].credit != undefined && $scope.limitedEdition[y].debt != undefined) {
+                if (Number($scope.limitedEdition[y].credit) > Number($scope.limitedEdition[y].debt)) {
+                    $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].credit) - Number($scope.limitedEdition[y].debt);
+                    $scope.limitedEdition[y].situation = "بستانکار"
 
                 }
-                else if (Number($scope.tabledata[y].credit) < Number($scope.tabledata[y].debt)) {
-                    $scope.tabledata[y].remain = Number($scope.tabledata[y].debt) - Number($scope.tabledata[y].credit);
-                    $scope.tabledata[y].situation = "بدهکار"
+                else if (Number($scope.limitedEdition[y].credit) < Number($scope.limitedEdition[y].debt)) {
+                    $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].debt) - Number($scope.limitedEdition[y].credit);
+                    $scope.limitedEdition[y].situation = "بدهکار"
 
                 }
                 else {
-                    $scope.tabledata[y].remain = Number($scope.tabledata[y].debt) - Number($scope.tabledata[y].credit);
-                    $scope.tabledata[y].situation = "-";
+                    $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].debt) - Number($scope.limitedEdition[y].credit);
+                    $scope.limitedEdition[y].situation = "-";
                 }
             }
         }
-        
-        var pageNumber;
-        $scope.paginationNumber = []
-        pageNumber = Math.ceil($scope.tabledata.length / 15);
-        for (var conter = 1; conter < pageNumber + 1; conter++) {
-            $scope.paginationNumber.push(conter);
-        }
+
+
     }
     // number float part adder to number string with camma
     $scope.float = function (x) {
@@ -612,6 +658,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.limitedEdition[counter] = $scope.tabledata[bottom + counter];
             }
         }
+        
         $timeout(function () {
             for (var i = 0; i < $scope.limitedEdition.length; i++) {
                 if ($scope.limitedEdition[i].credit != undefined && $scope.limitedEdition[i].debt != undefined) {
@@ -661,6 +708,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#creditSum").html(creditSum);
         $("#debtSum").html(debtSum);
         $("#totalSum").html(totalSum);
+        $scope.tableFormat();
         setTimeout(function () {
             $scope.tableFonting();
         }, 10)

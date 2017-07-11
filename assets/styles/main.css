@@ -917,6 +917,10 @@ nav a:hover {
 /*end of grid system*/
 
 /*lists and tables and forms*/
+.tabling{
+    position: relative;
+    animation: table-move 1.5s;
+}
 .editor {
     display: none;
 }
@@ -1088,6 +1092,22 @@ tfoot tr td {
 }
 /*end of modals*/
 /*animations*/
+@keyframes table-move{
+    form{
+        left: -1300px;
+    }
+    to{
+        left: 0;
+    }
+}
+@-webkit-keyframes table-move{
+    form{
+        left: -1300px;
+    }
+    to{
+        left: 0;
+    }
+}
 @keyframes rotate {
     from {
     -ms-transform: rotate(0deg);

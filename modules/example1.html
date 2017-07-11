@@ -1,4 +1,4 @@
-<form class="form-inline" ng-init="font()">
+<form class="form-inline" ng-init="theme()">
     <div class="row">
         <div class="col-sm-6 right-align col-sm-push-6">
             <div class="row">
@@ -83,7 +83,16 @@
 </form>
 <div class="row " style="min-height: 232px;">
     <div class="col-sm-12 table-responsive" style="text-align: center">
-        <div class="table-responsive" ng-show="! loading">
+        <div class="row">
+            <div class="col-sm-2">
+                <i class="fa fa-chevron-left pointer" ng-click="subTableFlash(1)"></i>
+            </div>
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2">
+                <i class="fa fa-chevron-right pointer" ng-click="subTableFlash(-1)"></i>
+            </div>
+        </div>
+        <div class="table-responsive tabling" ng-show="! loading">
             <!--data table-->
             <table class="table table-hover table-striped table-bordered right-align">
                 <thead>
@@ -129,7 +138,7 @@
                 <tbody>
                     <tr ng-repeat="table in limitedEdition|orderBy:myorder" contenteditable="false" my-main-directive id="row{{table.id}}" class="myrow">
                         <td class="center">
-                            <input type="checkbox" class="modal_input" value="{{table.id}}" />
+                            <input type="checkbox" class="modal_input" value="{{table.id}}" id="check{{table.id}}" />
                         </td>
                         <td>{{table.row}}</td>
                         <td class="fontchange" id="title{{table.id}}">{{table.title}}</td>
@@ -139,7 +148,10 @@
                         <td ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green fontchange">{{table.situation}}</td>
                         <td ng-if="table.situation === 'بدهکار'" class="red fontchange">{{table.situation}}</td>
                         <td id="remain{{table.id}}" ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green table-number">{{table.remain}}</td>
-                        <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red table-number">{{table.remain}}</td>
+                        <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red table-number">
+                            {{table.remain}}
+                            
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -202,17 +214,16 @@
                     <div class="clearfix"></div>
                     <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
                         <label>بستانکاری</label>
-
                     </div>
                     <div class="col-sm-8 col-sm-pull-4">
-                        <input class="form-control right-align login-input" ng-model="debt" tabindex="12">
+                        <input type="number" class="form-control right-align login-input" ng-model="debt" tabindex="12">
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
                         <label>بدهی</label>
                     </div>
                     <div class="col-sm-8 col-sm-pull-4">
-                        <input class="form-control right-align login-input" ng-model="credit" tabindex="13">
+                        <input type="number" class="form-control right-align login-input" ng-model="credit" tabindex="13">
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-sm-6 my-margin-top">
