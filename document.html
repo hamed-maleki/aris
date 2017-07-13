@@ -14,6 +14,9 @@
     <link href="assets/styles/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="assets/styles/prettify.css" rel="stylesheet">
     <link href="assets/styles/main.min.css" rel="stylesheet">
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="assets/styles/all-ie-only.css" />
+    <![endif]-->
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
@@ -26,6 +29,7 @@
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
     <script src="assets/scripts/main.min.js"></script>
+    
     <style>
         .myday{
             right: 48.5%;
@@ -40,7 +44,7 @@
         }
     </style>
 </head>
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
     <nav class="border color" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid container-filter">

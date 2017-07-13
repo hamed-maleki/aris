@@ -12,6 +12,9 @@
     <link href="assets/styles/print.css" rel="stylesheet">
     <link href="assets/styles/persianDatepicker-default.css" rel="stylesheet">
     <link href="assets/styles/main.css" rel="stylesheet">
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="assets/styles/all-ie-only.css" />
+    <![endif]-->
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
@@ -23,7 +26,7 @@
     <script src="assets/scripts/main.js"></script>
     <!--<script src=".dist/main.js"></script>-->
 </head>
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
     <nav class="border color" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container my-margin-top" style="margin-bottom: 340px;">

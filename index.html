@@ -3,6 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#435761" data-react-helmet="true">
@@ -16,9 +17,12 @@
     <link href="assets/styles/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="assets/styles/prettify.css" rel="stylesheet">
     <link href="assets/styles/main.min.css" rel="stylesheet">
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="assets/styles/all-ie-only.css" />
+    <![endif]-->
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
     <!--<script src=".dist/bundle1.js"></script>-->
-    <!--<script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
     <script src="assets/scripts/chart.js"></script>
@@ -29,15 +33,15 @@
     <script src="assets/scripts/locale-all.js"></script>
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
-    <script src="assets/scripts/main.min.js"></script>-->
-    <script src=".dist/main.js"></script>
+    <script src="assets/scripts/main.min.js"></script>
+    <!-- <script src=".dist/main.js"></script> -->
 </head>
 
 <body id="body" ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
-    <nav class="border color " ng-include="'modules/navigation.html'">
+    <nav class="border color " ng-include="'modules/navigation.html'" ng-init="theme()">
     </nav>
     <p class="fontchange" style="text-align: left;color: #037BC0;">
-         10.3   <i class="fa fa-envelope-o" style="color: white;"></i>    
+        10.3 <i class="fa fa-envelope-o" style="color: white;"></i>
     </p>
     <div class="container" style="margin-top: 40px;padding: 0 17px">
         <div class="row my-margin-top">
@@ -46,7 +50,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-8 my-col-sm-6 alarm-con">
-                    <div class="border  sub-system transform center pointer container-filter first-color color" style="min-height: 222px;margin-top: 10px;">
+                    <div class="border  sub-system transform center pointer container-filter color" style="min-height: 222px;margin-top: 10px;">
                         <div class="row">
                             <div class="col-sm-12 " style="text-align: right;padding-right: 30px;position: relative;z-index: 3">
                                 <span class="alarmTitle" ng-click="slider(-1)">

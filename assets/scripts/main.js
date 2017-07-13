@@ -37,6 +37,128 @@ app.directive("sidebar", function () {
 });
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
+    //theme functions
+    $http.get("data/theme.json")
+        .then(function (response) {
+            $scope.colorTheme = response.data.color;
+            $scope.fontTheme = response.data.font;
+            $scope.tableFont = response.data.tableFont;
+            $scope.numberType = response.data.numberType;
+            $scope.time = response.data.screensaver;
+            $scope.name = response.data.name;
+            $scope.img = response.data.img;
+            // setTimeout(function () {
+            //     $scope.theme()
+            // }, 400)
+            var timeout;
+            $(document).on("mousemove keydown click", function () {
+                $(".loading-login").fadeOut(1000)
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    $(".loading-login").fadeIn(2000);
+                }, 60 * $scope.time);
+            }).click();
+        }).catch(function () {
+            $scope.error[0] = "خطا در برقراری ارتباطات";
+            $("#error").modal();
+        })
+        // $scope.theme();
+    $scope.theme = function () {
+        // console.log($scope.colorTheme[0])
+        // if (localStorage.accessToken == 'hi') {
+        //     window.localStorage.removeItem('accessToken');
+        //     window.location.href = "login.html"
+        //     // console.log("the key has been identified")
+        // }
+        console.log("this is happening")
+        $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
+        $(".color").removeClass("second-color");
+        $(".color").removeClass("third-color");
+        $(".color").removeClass("first-color");
+        $(".sub-color").removeClass("second-subcolor");
+        $(".sub-color").removeClass("third-subcolor");
+        $(".sub-color").removeClass("first-subcolor");
+        $(".system-color").removeClass("second-systemcolor");
+        $(".system-color").removeClass("third-systemcolor");
+        $(".system-color").removeClass("first-systemcolor");
+        if ($scope.colorTheme[0] == 1) {
+            $(".sub-color").addClass("first-subcolor");
+            $(".system-color").addClass("first-systemcolor");
+            $(".color").addClass("first-color");
+            $(".top-link").css("color", "#5BB0E2");
+            $("footer").css("background-color", "#5BB0E2");
+            $(".system-li>h4").css("background-color", "#5BB0E2");
+            $("hr").css("border-bottom", "1px solid #F36548");
+            $(".setting-link").css("color", "#F36548")
+        }
+        else if ($scope.colorTheme[0] == 2) {
+            $(".sub-color").addClass("second-subcolor");
+            $(".system-color").addClass("second-systemcolor");
+            $(".color").addClass("second-color");
+            $(".top-link").css("color", "#3eb65c !important");
+            $("footer").css("background-color", "#808284");
+            $(".system-li>h4").css("background-color", "#67cb80");
+            $("hr").css("border-bottom", "1px solid #8cc63e")
+            $(".setting-link").css("color", "#8cc63e")
+        }
+        else {
+            $(".sub-color").addClass("third-subcolor");
+            $(".system-color").addClass("third-systemcolor");
+            $(".color").addClass("third-color");
+            $(".top-link").css("color", "#b194f1");
+            $("footer").css("background-color", "#879fab");
+            $(".system-li>h4").css("background-color", "#cebbf6");
+            $("hr").css("border-bottom", "1px solid #f7931d")
+            $(".setting-link").css("color", "#f7931d")
+        }
+        $(".theme-check").addClass("hide");
+        $(".fa-pencil").removeClass("hide");
+        if ($scope.fontTheme[0] == 1) {
+            $("#firstcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "samim");
+            $("label").css("font-family", "samim");
+            $("button").css("font-family", "samim");
+            $("th").css("font-family", "samim");
+        }
+        else if ($scope.fontTheme[0] == 2) {
+            $("#secondcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "iran-sans");
+            $("label").css("font-family", "iran-sans");
+            $("button").css("font-family", "iran-sans");
+            $("th").css("font-family", "iran-sans");
+            $(".top-link").css("font-size", "15px");
+            $(".sub-system p").css("font-size", "15px");
+        }
+        else if ($scope.fontTheme[0] == 3) {
+            $("#thirdcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "dubai");
+            $("label").css("font-family", "dubai");
+            $("button").css("font-family", "dubai");
+            $("th").css("font-family", "dubai");
+            $("th").css("font-size", "14px");
+            $(".top-link").css("font-size", "13px");
+            $(".sub-system p").css("font-size", "13px");
+        }
+        else if ($scope.fontTheme[0] == 4) {
+            $("#forthcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "shabnam");
+            $("label").css("font-family", "shabnam");
+            $("button").css("font-family", "shabnam");
+            $("th").css("font-family", "shabnam");
+            $(".top-link").css("font-size", "13px");
+            $(".sub-system p").css("font-size", "13px");
+        }
+        else {
+            $("#fifthcheck").removeClass("hide");
+            $(".fontchange").css("font-family", "sahel");
+            $("label").css("font-family", "sahel");
+            $("button").css("font-family", "sahel");
+            $("th").css("font-family", "sahel");
+            $(".top-link").css("font-size", "13px");
+            $(".sub-system p").css("font-size", "13px");
+        }
+
+    }
     // log in demo log in. it should be removed later
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
@@ -48,12 +170,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.themeEleman = x;
     }
     // document page data loader it may have changes in back-end matching level
-    fetch("data/document.json").then(function (response) {
-        return response.json();
-    }).then(function (response) {
-        var debtSum = 0;
+    $http.get("data/document.json").then(function (response) {
+         var debtSum = 0;
         var creditSum = 0;
-        $scope.document = response.document;
+        $scope.document = response.data.document;
         for (var i = 0; i < $scope.document.length; i++) {
             debtSum = debtSum + $scope.document[i].debt;
             creditSum = creditSum + $scope.document[i].credit;
@@ -63,6 +183,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
+    // fetch("data/document.json").then(function (response) {
+    //     return response.json();
+    // }).then(function (response) {
+    //     var debtSum = 0;
+    //     var creditSum = 0;
+    //     $scope.document = response.document;
+    //     for (var i = 0; i < $scope.document.length; i++) {
+    //         debtSum = debtSum + $scope.document[i].debt;
+    //         creditSum = creditSum + $scope.document[i].credit;
+    //         $scope.document[i].credit = $scope.numberFormat($scope.document[i].credit.toString()) + "/" + $scope.float($scope.document[i].credit);
+    //         $scope.document[i].debt = $scope.numberFormat($scope.document[i].debt.toString()) + "/" + $scope.float($scope.document[i].debt);
+    //     }
+    //     $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
+    //     $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
+    // })
     $scope.number = "unload.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
@@ -245,12 +380,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // system page on load to chek if there is any cookie
     $scope.getSearchCookie = function () {
+
         var x = $scope.getCookieValue('searchParent')
         var y = $scope.getCookieValue('searchId')
         $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
         if (x != 0 && y != 0) {
             $scope.subSystem(x, y);
         }
+        $scope.theme();
     }
 
     //    note json loader
@@ -305,11 +442,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $(".pause").removeClass("hide");
     }
     // system data loader
-    fetch("data/system.json").then(function (response) {
-        return response.json();
-    }).then(function (response) {
-        $scope.system = response.system;
+    $http.get("data/system.json")
+    .then(function(response){
+        $scope.system = response.data.system;
     })
+    // fetch("data/system.json").then(function (response) {
+    //     return response.json();
+    // }).then(function (response) {
+    //     $scope.system = response.system;
+    // })
     $scope.getCookieValue = function (a) {
         var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
         return b ? b.pop() : '';
@@ -658,7 +799,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.limitedEdition[counter] = $scope.tabledata[bottom + counter];
             }
         }
-        
+
         $timeout(function () {
             for (var i = 0; i < $scope.limitedEdition.length; i++) {
                 if ($scope.limitedEdition[i].credit != undefined && $scope.limitedEdition[i].debt != undefined) {
@@ -890,31 +1031,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#chatarea").scrollTop = $("#chatarea").scrollHeight;
         }, 100);
     }
-    //theme functions
-    $http.get("data/theme.json")
-        .then(function (response) {
-            $scope.colorTheme = response.data.color;
-            $scope.fontTheme = response.data.font;
-            $scope.tableFont = response.data.tableFont;
-            $scope.numberType = response.data.numberType;
-            $scope.time = response.data.screensaver;
-            $scope.name = response.data.name;
-            $scope.img = response.data.img
-            setTimeout(function () {
-                $scope.theme();
-            }, 200);
-            var timeout;
-            $(document).on("mousemove keydown click", function () {
-                $(".loading-login").fadeOut(1000)
-                clearTimeout(timeout);
-                timeout = setTimeout(function () {
-                    $(".loading-login").fadeIn(2000);
-                }, 60 * $scope.time);
-            }).click();
-        }).catch(function () {
-            $scope.error[0] = "خطا در برقراری ارتباطات";
-            $("#error").modal();
-        })
+
     $scope.tablefontChange = function (size) {
         $scope.tableFont[0] = $("#points-font").val();
         $scope.tableFonting();
@@ -939,100 +1056,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.tableFonting = function () {
         $("table").find(".table-number").css("font-size", $scope.tableFont[0] + "px");
     }
-    $scope.theme = function () {
-        if (localStorage.accessToken == 'hi') {
-            window.localStorage.removeItem('accessToken');
 
-            // window.location.href = "login.html"
-            // console.log("the key has been identified")
-        }
-        $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
-        $(".color").removeClass("second-color");
-        $(".color").removeClass("third-color");
-        $(".color").removeClass("first-color");
-        $(".sub-color").removeClass("second-subcolor");
-        $(".sub-color").removeClass("third-subcolor");
-        $(".sub-color").removeClass("first-subcolor");
-        $(".system-color").removeClass("second-systemcolor");
-        $(".system-color").removeClass("third-systemcolor");
-        $(".system-color").removeClass("first-systemcolor");
-        if ($scope.colorTheme[0] == 1) {
-            $(".sub-color").addClass("first-subcolor");
-            $(".system-color").addClass("first-systemcolor");
-            $(".color").addClass("first-color");
-            $(".top-link").css("color", "5BB0E2");
-            $("footer").css("background-color", "#5BB0E2");
-            $(".system-li>h4").css("background-color", "#5BB0E2");
-            $("hr").css("border-bottom", "1px solid #F36548");
-            $(".setting-link").css("color", "#F36548")
-        }
-        else if ($scope.colorTheme[0] == 2) {
-            $(".sub-color").addClass("second-subcolor");
-            $(".system-color").addClass("second-systemcolor");
-            $(".color").addClass("second-color");
-            $(".top-link").css("color", "#3eb65c !important");
-            $("footer").css("background-color", "#808284");
-            $(".system-li>h4").css("background-color", "#67cb80");
-            $("hr").css("border-bottom", "1px solid #8cc63e")
-            $(".setting-link").css("color", "#8cc63e")
-        }
-        else {
-            $(".sub-color").addClass("third-subcolor");
-            $(".system-color").addClass("third-systemcolor");
-            $(".color").addClass("third-color");
-            $(".top-link").css("color", "#b194f1");
-            $("footer").css("background-color", "#879fab");
-            $(".system-li>h4").css("background-color", "#cebbf6");
-            $("hr").css("border-bottom", "1px solid #f7931d")
-            $(".setting-link").css("color", "#f7931d")
-        }
-        $(".theme-check").addClass("hide");
-        $(".fa-pencil").removeClass("hide");
-        if ($scope.fontTheme[0] == 1) {
-            $("#firstcheck").removeClass("hide");
-            $(".fontchange").css("font-family", "samim");
-            $("label").css("font-family", "samim");
-            $("button").css("font-family", "samim");
-            $("th").css("font-family", "samim");
-        }
-        else if ($scope.fontTheme[0] == 2) {
-            $("#secondcheck").removeClass("hide");
-            $(".fontchange").css("font-family", "iran-sans");
-            $("label").css("font-family", "iran-sans");
-            $("button").css("font-family", "iran-sans");
-            $("th").css("font-family", "iran-sans");
-            $(".top-link").css("font-size", "15px");
-            $(".sub-system p").css("font-size", "15px");
-        }
-        else if ($scope.fontTheme[0] == 3) {
-            $("#thirdcheck").removeClass("hide");
-            $(".fontchange").css("font-family", "dubai");
-            $("label").css("font-family", "dubai");
-            $("button").css("font-family", "dubai");
-            $("th").css("font-family", "dubai");
-            $("th").css("font-size", "14px");
-            $(".top-link").css("font-size", "13px");
-            $(".sub-system p").css("font-size", "13px");
-        }
-        else if ($scope.fontTheme[0] == 4) {
-            $("#forthcheck").removeClass("hide");
-            $(".fontchange").css("font-family", "shabnam");
-            $("label").css("font-family", "shabnam");
-            $("button").css("font-family", "shabnam");
-            $("th").css("font-family", "shabnam");
-            $(".top-link").css("font-size", "13px");
-            $(".sub-system p").css("font-size", "13px");
-        }
-        else {
-            $("#fifthcheck").removeClass("hide");
-            $(".fontchange").css("font-family", "sahel");
-            $("label").css("font-family", "sahel");
-            $("button").css("font-family", "sahel");
-            $("th").css("font-family", "sahel");
-            $(".top-link").css("font-size", "13px");
-            $(".sub-system p").css("font-size", "13px");
-        }
-    }
     // aside opening
     $scope.sideBar = function (x) {
         $scope.sidecontainer(x);

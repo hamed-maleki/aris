@@ -19,4 +19,6 @@ gulp.task('bundle',function(){
 //     .pipe(bundle())
 //     .pipe(gulp.dest('./public/'));
 // });
-gulp.task('default', ['bundle'])
+gulp.task('default', ['bundle'],function(){
+    gulp.watch('./bundle.config.js' , ['bundle']);
+})

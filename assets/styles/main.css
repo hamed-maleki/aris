@@ -612,7 +612,11 @@ nav a:hover {
     margin: 3px 15px 0px 15px;
     display: inline-block;
 }
-
+.info-pic{
+    height: 60px;
+    width: 60px;
+    margin:0 auto;
+}
 .white-background {
     background-color: #fff !important;
     color: #000;
@@ -1824,7 +1828,7 @@ tfoot tr td {
 .searchContainer{
     display: inline-block;
     position: relative;
-    width: 40%;
+    width: 37%;
 }
 .selected {
     background-color: #088FCE;
@@ -1935,12 +1939,12 @@ body {
         padding: 9px !important;
     }
     .logo-holder {
-        height: 85px;
+        height: 53px;
         margin-right: -5px;
     }
     .aris-badge {
-        bottom: 0px;
-        left: 17px;
+        bottom: 46px;
+        left: 50px;
     }
     .shadow {
         min-height: 60px;
@@ -2183,7 +2187,7 @@ body {
         min-height: 222px !important;
     }
     .tools {
-        width: 43%;
+        width: 41%;
         float: right;
         margin: 0 10px;
     }
@@ -2240,4 +2244,4 @@ body {
     50%{
         color: red;
     }
-}
+}  

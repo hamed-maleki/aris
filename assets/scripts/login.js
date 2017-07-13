@@ -43,7 +43,13 @@ app.controller('myCtrl', function ($scope, $http, $timeout, $filter, $interval, 
         // Convert bytes to base64 string.
         var encryptedString = System.Convert.ToBase64String(encryptedBytes);
         localStorage.setItem('accessToken', "response.data.access_token");
-        window.location.href = 'index.html';
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        if (isIE) {
+            window.location.href = '/index.html';
+        }
+        else{
+            window.location.href = 'index.html';
+        }
         // $http({
         //     url: "/TOKEN",
         //     method: "POST",
