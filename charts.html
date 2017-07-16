@@ -1,5 +1,6 @@
 <!doctype html >
 <html>
+
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -15,9 +16,6 @@
     <link href="assets/styles/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="assets/styles/prettify.css" rel="stylesheet">
     <link href="assets/styles/main.min.css" rel="stylesheet">
-    <!--[if IE]>
-        <link rel="stylesheet" type="text/css" href="assets/styles/all-ie-only.css" />
-    <![endif]-->
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
@@ -30,169 +28,56 @@
     <script src="assets/scripts/locale-all.js"></script>
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
-    <script src="assets/scripts/main.min.js"></script>
+    <script src="assets/scripts/main.js"></script>
+    <style>
+        .tools-logo{
+            margin-top: 15px;
+        }
+    </style>
 </head>
+
 <body id="body" ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
     <nav class="border color" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2 col-sm-push-10 my-padding my-margin-top" ng-include="'modules/tools.html'"></div>
-            <div class="col-sm-10 col-sm-pull-2 my-padding container-filter my-margin-top" ng-include="'modules/charts.html'">
+            <div class="col-sm-10 col-sm-pull-2 my-padding container-filter my-margin-top" ng-init="chartLoad()">
+                <div class="row">
+                    <div class="col-sm-7" style="margin-top: -10px">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!--multi line chart-->
+                                <div class="border sub-system white-background">
+                                    <p style="text-align: center" class="fontchange">نمودار دوم</p>
+                                    <div class="ct-chart  ct-golden-section" id="chart2"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-5" style="margin-top: -10px">
+                        <div class="border sub-system white-background">
+                            <!--pie chart-->
+                            <p style="text-align: center" class="fontchange">نمودار سوم</p>
+                            <div class="ct-chart ct-minor-sixth" id="chart3"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12 footer-margin">
+                        <div class="border sub-system chart color">
+                            <!--line chart-->
+                            <p style="text-align: center" class="fontchange">نمودار اول</p>
+                            <div class="ct-chart  ct-major-seventh" id="chart1"></div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-            
         </div>
     </div>
     <footer class="container-fluid container-filter" ng-include="'modules/footer.html'">
     </footer>
-    <script>
-        fetch('data/chart.json')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (users) {
-
-                var data1 = {
-                    labels: users.map(function (user) {
-                        return user.name;
-                    }),
-                    series: users.map(function (user) {
-                        return user.value;
-                    })
-                };
-                new Chartist.Bar('#chart1', data1, {
-                    distributeSeries: true
-                });
-            });
-        fetch('data/piechart.json')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (users) {
-
-                var data = {
-                    labels: users.map(function (user) {
-                        return user.name;
-                    }),
-                    series: users.map(function (user) {
-                        return user.value;
-                    })
-                };
-                new Chartist.Pie('#chart3', data, options, responsiveOptions);
-                var options = {
-                    labelInterpolationFnc: function (value) {
-                        return value[0]
-                    }
-                };
-                var responsiveOptions = [
-                    ['screen and (min-width: 640px)', {
-                        chartPadding: 35,
-                        labelOffset: 90,
-                        labelDirection: 'explode',
-                        labelInterpolationFnc: function (value) {
-                            return value;
-                        }
-                    }],
-                    ['screen and (min-width: 1024px)', {
-                        labelOffset: 80,
-                        chartPadding: 35
-                    }]
-                ]
-            });
-        fetch('data/semibar.json')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (users) {
-
-                var data2 = {
-                    labels: users.map(function (user) {
-                        return user.name;
-                    }),
-                    serie1: users.map(function (user) {
-                        return user.value1
-                    }),
-                    serie2: users.map(function (user) {
-                        return user.value2
-                    }),
-                    serie3: users.map(function (user) {
-                        return user.value3
-                    }),
-                    serie4: users.map(function (user) {
-                        return user.value4
-                    }),
-
-
-                };
-                var series = [data2.serie1, data2.serie2, data2.serie3, data2.serie4]
-                // Initialize a Line chart in the container with the ID chart2
-                new Chartist.Line('#chart2', {
-                    labels: data2.labels,
-                    series: series
-                }, {
-                        showArea: true,
-                        showLine: false,
-                        showPoint: true,
-                        fullWidth: true,
-                        axisX: {
-                            showLabel: true,
-                            showGrid: false
-                        }
-                    });
-            });
-    </script>
-    <script>
-        // var initialLocaleCode = 'fa';
-        var myevent
-        $.getJSON("data/events.json").success(function (response) {
-            $('[data-toggle="tooltip"]').tooltip();
-            myevent = response
-            var firstLoad = true;
-            $('#calendar').fullCalendar({
-
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listWeek'
-                },
-                events: myevent,
-                isRTL: false,
-                isJalaali: true,
-                defaultDate: '2017-04-27',
-                locale: 'fa',
-                firstDay: 6,
-                height: 520,
-                Timezone: "Asia/Tehran",
-                slotDuration: "01:00:00",
-                slotLabelFormat: "LT",
-                slotEventOverlap: true,
-                nowIndicator: true,
-                timeFormat: "H:m",
-                buttonIcons: true, // show the prev/next text
-                weekNumbers: true,
-                navLinks: true, // can click day/week names to navigate views
-                editable: true,
-                eventLimit: true, // allow "more" link when too many events
-            });
-        });
-        $.each($.fullCalendar.locales, function (localeCode) {
-            $('#locale-selector').append(
-                $('<option/>')
-                    .attr('value', localeCode)
-                    .prop('selected', localeCode == initialLocaleCode)
-                    .text(localeCode)
-            );
-        });
-
-        // when the selected option changes, dynamically change the calendar option
-        $('#locale-selector').on('change', function () {
-            if (this.value) {
-                $('#calendar').fullCalendar('option', 'locale', this.value);
-                $('#calendar').fullCalendar('option', 'isJalaali', (this.value == 'fa' ? true : false));
-            }
-        });
-    </script>
 </body>
 
 </html>

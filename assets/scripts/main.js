@@ -62,15 +62,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.error[0] = "خطا در برقراری ارتباطات";
             $("#error").modal();
         })
-        // $scope.theme();
+    // $scope.theme();
     $scope.theme = function () {
-        // console.log($scope.colorTheme[0])
         // if (localStorage.accessToken == 'hi') {
         //     window.localStorage.removeItem('accessToken');
         //     window.location.href = "login.html"
-        //     // console.log("the key has been identified")
         // }
-        console.log("this is happening")
         $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
         $(".color").removeClass("second-color");
         $(".color").removeClass("third-color");
@@ -171,7 +168,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // document page data loader it may have changes in back-end matching level
     $http.get("data/document.json").then(function (response) {
-         var debtSum = 0;
+        var debtSum = 0;
         var creditSum = 0;
         $scope.document = response.data.document;
         for (var i = 0; i < $scope.document.length; i++) {
@@ -442,10 +439,78 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $(".pause").removeClass("hide");
     }
     // system data loader
-    $http.get("data/system.json")
-    .then(function(response){
-        $scope.system = response.data.system;
+    var SHeight = false;
+    var accesstoken = localStorage.getItem('accessToken');
+    var refreshtoken = localStorage.getItem('refreshToken');
+    var authHeaders = {};
+    if (accesstoken) {
+        authHeaders.Authorization = 'Bearer ' + accesstoken;
+    }
+    $http({
+        url: "http://localhost/ArisSystem/api/user/system",
+        method: "GET",
+        headers: authHeaders
+    }).then(function (response) {
+        $scope.system = response.data;
+        SHeight = true;
+        $scope.getHeight();
     })
+    .catch(function (xhr, status, error) {
+        if (refreshtoken && xhr.status === 401) {
+            $scope.refreshlocal();
+        }
+    })
+    $scope.refreshlocal = function () {
+        $.ajax({
+            url: "http://localhost/ArisSystem/login",
+            data: {
+                refresh_token:refreshtoken,
+                grant_type: 'refresh_token'
+            },
+            type: 'POST',
+            dataType: 'json',
+            ContentType: 'application/x-www-form-urlencoded',
+            success: AjaxSucceeded,
+            error: AjaxFailed
+        })
+        function AjaxSucceeded(response) {
+            // console.log(response);
+            localStorage.setItem('accessToken', response.access_token);
+            localStorage.setItem('refreshToken', response.refresh_token);
+        }
+        function AjaxFailed(err, response) {
+            // console.log(err);
+            window.location.href = "login.html"
+        }
+    }
+
+    $scope.getHeight = function () {
+        if (SHeight == true) {
+            setTimeout(function () {
+
+                $("#chart1").css("height", $(".system-con").height()-45 + "px");
+                $http.get('data/chart.json')
+                    .then(function (response) {
+                        var users = response.data
+                        var data1 = {
+                            labels: users.map(function (user) {
+                                return user.name;
+                            }),
+                            series: users.map(function (user) {
+                                return user.value;
+                            })
+                        };
+
+                        new Chartist.Bar('#chart1', data1, {
+                            distributeSeries: true
+                        });
+
+                    });
+            }, 400)
+
+        }
+    }
+
     // fetch("data/system.json").then(function (response) {
     //     return response.json();
     // }).then(function (response) {
@@ -518,861 +583,936 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
     }
     var myid;
-    // system page table editing
-    $scope.tableEdit = function () {
-        $(".editConfirm").css("display", "inline-block")
-        $('.modal_input').each(function (index) {
-            if (this.checked == true) {
-                myid = this.value;
-                $("#row" + myid).attr("contentEditable", "true")
-                $("#row" + myid).find("td").addClass("editTable")
-                // for (var i = 0; i < $scope.cartable.length; i++) {
-                //     if (myid == $scope.cartable[i].id) {
-                //         $scope.cartable.splice(index, 1);
-                //     }
-                // }
-            }
-        });
-        $scope.uncheck();
-    }
-    // system page editing confirm function and canceling that
-    $scope.confirmEdit = function () {
-        $(".myrow").attr("contentEditable", "false")
-        $(".myrow").find("td").removeClass("editTable")
-        $(".modal_input").prop("checked", false);
-        $(".editConfirm").css("display", "none");
-        $scope.uncheck();
-    }
-    $scope.cancelEdit = function () {
-        $scope.tableFormat();
-        $scope.pagination(currentpage);
-        $(".myrow").attr("contentEditable", "false");
-        $(".myrow").find("td").removeClass("editTable");
-        $(".modal_input").prop("checked", false);
-        $(".editConfirm").css("display", "none");
-        $scope.uncheck();
-    }
-    $scope.uncheck = function () {
-        $(".select").prop("checked", false)
-    }
-    // showing navigation to sub-table
-    $scope.subTableFlash = function (x) {
-        var checkCount = 0
-        $('.modal_input').each(function (index) {
-            if (this.checked == true) {
-                checkCount = checkCount + 1
-            }
-        });
-        switch (checkCount) {
-            case 0: $scope.error[0] = "ابتدا ردیفی را انتخاب کنید";
-                $("#error").modal();
-                break;
-            case 1: $scope.subTable(x)
-                break;
-            default: $scope.error[0] = "ردیف انتخابی نمیتواند بیشتر از یک مورد باشد";
-                $("#error").modal();
-                break;
+// system page table editing
+$scope.tableEdit = function () {
+    $(".editConfirm").css("display", "inline-block")
+    $('.modal_input').each(function (index) {
+        if (this.checked == true) {
+            myid = this.value;
+            $("#row" + myid).attr("contentEditable", "true")
+            $("#row" + myid).find("td").addClass("editTable")
+            // for (var i = 0; i < $scope.cartable.length; i++) {
+            //     if (myid == $scope.cartable[i].id) {
+            //         $scope.cartable.splice(index, 1);
+            //     }
+            // }
         }
-        if (checkCount == 0) {
-
+    });
+    $scope.uncheck();
+}
+// system page editing confirm function and canceling that
+$scope.confirmEdit = function () {
+    $(".myrow").attr("contentEditable", "false")
+    $(".myrow").find("td").removeClass("editTable")
+    $(".modal_input").prop("checked", false);
+    $(".editConfirm").css("display", "none");
+    $scope.uncheck();
+}
+$scope.cancelEdit = function () {
+    $scope.tableFormat();
+    $scope.pagination(currentpage);
+    $(".myrow").attr("contentEditable", "false");
+    $(".myrow").find("td").removeClass("editTable");
+    $(".modal_input").prop("checked", false);
+    $(".editConfirm").css("display", "none");
+    $scope.uncheck();
+}
+$scope.uncheck = function () {
+    $(".select").prop("checked", false)
+}
+// showing navigation to sub-table
+$scope.subTableFlash = function (x) {
+    var checkCount = 0
+    $('.modal_input').each(function (index) {
+        if (this.checked == true) {
+            checkCount = checkCount + 1
         }
-    }
-    $scope.subTable = function (x) {
-        $('.modal_input').each(function (index) {
-            if (this.checked == true) {
-                $scope.subTableId = this.value
-            }
-        });
-        $scope.dataToShow = []
-        for (var i = 0; i < $scope.limitedEdition.length; i++) {
-            if ($scope.subTableId == $scope.limitedEdition[i].id) {
-                $scope.dataToShow = $scope.limitedEdition[i].children
-                break;
-            }
-        }
-        $scope.limitedEdition = $scope.dataToShow;
-        $scope.tableFormat();
-    }
-    // putting subsystem in cookie
-    $scope.subSystem = function (x, y, z) {
-        var now = new Date();
-        var time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        var cookieItem = [];
-        $scope.systemslider = [];
-        for (var i = 0; i < $scope.subsystem.length; i++) {
-            if ($scope.subsystem[i].id == x) {
-                for (var j = 0; j < $scope.subsystem[i].children.length; j++) {
-                    if ($scope.subsystem[i].children[j].id == y) {
-                        $scope.systemslider.push($scope.subsystem[i].children[j]);
-                    }
-                }
-                $("#nav").html($scope.subsystem[i].title);
-                var cookieItem = JSON.stringify($scope.subsystem);
-                $(".subsystem").slideUp();
-                document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-            }
-        }
-    }
-    // select all checkbox
-    $scope.inboxing = function () {
-        if ($(".select").prop("checked") == true) {
-            $(".modal_input").prop("checked", true);
-        }
-        else {
-            $(".modal_input").prop("checked", false);
-        }
-    }
-    // first page cookie for system page
-    $scope.gettingSystem = function (x, y) {
-        if (y == 1) {
-            $scope.cookieForSide(0, 0)
-        }
-        var now = new Date();
-        var time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        for (var i = 0; i < $scope.system.length; i++) {
-            if ($scope.system[i].id == x) {
-                var cookieItem = JSON.stringify($scope.system[i].children);
-                document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-            }
-        }
-        window.location.href = "system-page.min.html";
-    }
-    // top link part
-    $scope.topLinking = function (x, path) {
-        if (path == "system-page.min.html") {
-            $scope.gettingSystem(x, 1);
-        }
-        else {
-            var win = window.open(path, '_blank');
-            win.focus();
-        }
-    }
-    // add new note to note pad
-    $scope.addThis = function (x, z) {
-        var newItem = { title: "", id: "", content: "" }
-        newItem.title = z;
-        newItem.content = x;
-        newItem.id = "mynote" + $scope.limitedNote.length + 1;
-        $("#notetitle").val("");
-        $("#notearea").val("");
-        $scope.note.push(newItem);
-    }
-    // removing note from note pad
-    $scope.removeItem = function (no, x) {
-        if (no == 1) {
-            $scope.message.splice(x, 1);
-        }
-        else if (no == 2) {
-            $scope.note.splice(x, 1);
-        }
-    }
-    // form data laoder
-    $scope.radio = function (x) {
-        $scope.numberType[0] = x;
-    }
-    $scope.tabledata = [];
-    // button example
-    $http.get("data/buttonTest.json")
-        .then(function (response) {
-            $scope.buttons = response.data.buttons;
-        })
-    $scope.genral = function (x) {
-        switch (x) {
-            case 12:
-                var firstItem = $("#firstInput").val();
-                $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
-            case 13: console.log("second function"); break;
-            case 14: console.log("third function"); break;
-            case 15: console.log("forth function"); break;
-            default: console.log("no function fund"); break;
-        }
-    }
-    //  reporting table data loader
-
-    $scope.dataLoad = function (x) {
-        $scope.loading = true;
-        $scope.paginationNumber = [];
-        $scope.limitedEdition = [];
-        $scope.dataToSend = [];
-
-        if (x[0] == undefined) {
-            $scope.error[0] = "فرم نمیتواند خالی باشد";
+    });
+    switch (checkCount) {
+        case 0: $scope.error[0] = "ابتدا ردیفی را انتخاب کنید";
             $("#error").modal();
-        }
-        for (var i = 0; i < x.length; i++) {
-            $scope.dataToSend.push(x[i]);
-        }
-        $scope.dataToSend.push($("#pdp").val());
-        $scope.dataToSend.push($("#pdp1").val());
-        $http.get("data/table.json")
-            .then(function (response) {
-                $scope.loading = false;
-                $scope.tabledata = response.data.table;
-                $scope.pagination(1);
-                $(".editor").css("display", "inline-block")
-                var pageNumber;
-                $scope.paginationNumber = []
-                pageNumber = Math.ceil($scope.tabledata.length / 15);
-                for (var conter = 1; conter < pageNumber + 1; conter++) {
-                    $scope.paginationNumber.push(conter);
-                }
-            })
-            .catch(function () {
-                $scope.error[0] = "عدم دستیابی به اطلاعات";
-                $("#error").modal();
-            }); setTimeout(function () {
-                $scope.tableFonting();
-            }, 10)
+            break;
+        case 1: $scope.subTable(x)
+            break;
+        default: $scope.error[0] = "ردیف انتخابی نمیتواند بیشتر از یک مورد باشد";
+            $("#error").modal();
+            break;
     }
-    $scope.tableFormat = function () {
-        for (var y = 0; y < $scope.limitedEdition.length; y++) {
-            if ($scope.numberType[0] == 2) {
-                $scope.limitedEdition[y].credit = $scope.limitedEdition[y].credit / 1000;
-                $scope.limitedEdition[y].debt = $scope.limitedEdition[y].debt / 1000;
-            }
-            else if ($scope.numberType[0] == 3) {
-                $scope.limitedEdition[y].credit = $scope.limitedEdition[y].credit / 1000000;
-                $scope.limitedEdition[y].debt = $scope.limitedEdition[y].debt / 1000000;
-            }
-            if ($scope.limitedEdition[y].credit != undefined && $scope.limitedEdition[y].debt != undefined) {
-                if (Number($scope.limitedEdition[y].credit) > Number($scope.limitedEdition[y].debt)) {
-                    $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].credit) - Number($scope.limitedEdition[y].debt);
-                    $scope.limitedEdition[y].situation = "بستانکار"
+    if (checkCount == 0) {
 
+    }
+}
+$scope.subTable = function (x) {
+    $('.modal_input').each(function (index) {
+        if (this.checked == true) {
+            $scope.subTableId = this.value
+        }
+    });
+    $scope.dataToShow = []
+    for (var i = 0; i < $scope.limitedEdition.length; i++) {
+        if ($scope.subTableId == $scope.limitedEdition[i].id) {
+            $scope.dataToShow = $scope.limitedEdition[i].children
+            break;
+        }
+    }
+    $scope.limitedEdition = $scope.dataToShow;
+    $scope.tableFormat();
+}
+// putting subsystem in cookie
+$scope.subSystem = function (x, y, z) {
+    var now = new Date();
+    var time = now.getTime();
+    time += 3600 * 1000;
+    now.setTime(time);
+    var cookieItem = [];
+    $scope.systemslider = [];
+    for (var i = 0; i < $scope.subsystem.length; i++) {
+        if ($scope.subsystem[i].id == x) {
+            for (var j = 0; j < $scope.subsystem[i].children.length; j++) {
+                if ($scope.subsystem[i].children[j].id == y) {
+                    $scope.systemslider.push($scope.subsystem[i].children[j]);
                 }
-                else if (Number($scope.limitedEdition[y].credit) < Number($scope.limitedEdition[y].debt)) {
-                    $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].debt) - Number($scope.limitedEdition[y].credit);
-                    $scope.limitedEdition[y].situation = "بدهکار"
+            }
+            $("#nav").html($scope.subsystem[i].title);
+            var cookieItem = JSON.stringify($scope.subsystem);
+            $(".subsystem").slideUp();
+            document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
+        }
+    }
+}
+// select all checkbox
+$scope.inboxing = function () {
+    if ($(".select").prop("checked") == true) {
+        $(".modal_input").prop("checked", true);
+    }
+    else {
+        $(".modal_input").prop("checked", false);
+    }
+}
+// first page cookie for system page
+$scope.gettingSystem = function (x, y) {
+    if (y == 1) {
+        $scope.cookieForSide(0, 0)
+    }
+    var now = new Date();
+    var time = now.getTime();
+    time += 3600 * 1000;
+    now.setTime(time);
+    for (var i = 0; i < $scope.system.length; i++) {
+        if ($scope.system[i].id == x) {
+            var cookieItem = JSON.stringify($scope.system[i].children);
+            document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
+        }
+    }
+    window.location.href = "system-page.min.html";
+}
+// top link part
+$scope.topLinking = function (x, path) {
+    if (path == "system-page.min.html") {
+        $scope.gettingSystem(x, 1);
+    }
+    else {
+        var win = window.open(path, '_blank');
+        win.focus();
+    }
+}
+// add new note to note pad
+$scope.addThis = function (x, z) {
+    var newItem = { title: "", id: "", content: "" }
+    newItem.title = z;
+    newItem.content = x;
+    newItem.id = "mynote" + $scope.limitedNote.length + 1;
+    $("#notetitle").val("");
+    $("#notearea").val("");
+    $scope.note.push(newItem);
+}
+// removing note from note pad
+$scope.removeItem = function (no, x) {
+    if (no == 1) {
+        $scope.message.splice(x, 1);
+    }
+    else if (no == 2) {
+        $scope.note.splice(x, 1);
+    }
+}
+// form data laoder
+$scope.radio = function (x) {
+    $scope.numberType[0] = x;
+}
+$scope.tabledata = [];
+// button example
+$http.get("data/buttonTest.json")
+    .then(function (response) {
+        $scope.buttons = response.data.buttons;
+    })
+$scope.genral = function (x) {
+    switch (x) {
+        case 12:
+            var firstItem = $("#firstInput").val();
+            $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
+        case 13: console.log("second function"); break;
+        case 14: console.log("third function"); break;
+        case 15: console.log("forth function"); break;
+        default: console.log("no function fund"); break;
+    }
+}
+//  reporting table data loader
+
+$scope.dataLoad = function (x) {
+    $scope.loading = true;
+    $scope.paginationNumber = [];
+    $scope.limitedEdition = [];
+    $scope.dataToSend = [];
+
+    if (x[0] == undefined) {
+        $scope.error[0] = "فرم نمیتواند خالی باشد";
+        $("#error").modal();
+    }
+    for (var i = 0; i < x.length; i++) {
+        $scope.dataToSend.push(x[i]);
+    }
+    $scope.dataToSend.push($("#pdp").val());
+    $scope.dataToSend.push($("#pdp1").val());
+    $http.get("data/table.json")
+        .then(function (response) {
+            $scope.loading = false;
+            $scope.tabledata = response.data.table;
+            $scope.pagination(1);
+            $(".editor").css("display", "inline-block")
+            var pageNumber;
+            $scope.paginationNumber = []
+            pageNumber = Math.ceil($scope.tabledata.length / 15);
+            for (var conter = 1; conter < pageNumber + 1; conter++) {
+                $scope.paginationNumber.push(conter);
+            }
+        })
+        .catch(function () {
+            $scope.error[0] = "عدم دستیابی به اطلاعات";
+            $("#error").modal();
+        }); setTimeout(function () {
+            $scope.tableFonting();
+        }, 10)
+}
+$scope.tableFormat = function () {
+    for (var y = 0; y < $scope.limitedEdition.length; y++) {
+        if ($scope.numberType[0] == 2) {
+            $scope.limitedEdition[y].credit = $scope.limitedEdition[y].credit / 1000;
+            $scope.limitedEdition[y].debt = $scope.limitedEdition[y].debt / 1000;
+        }
+        else if ($scope.numberType[0] == 3) {
+            $scope.limitedEdition[y].credit = $scope.limitedEdition[y].credit / 1000000;
+            $scope.limitedEdition[y].debt = $scope.limitedEdition[y].debt / 1000000;
+        }
+        if ($scope.limitedEdition[y].credit != undefined && $scope.limitedEdition[y].debt != undefined) {
+            if (Number($scope.limitedEdition[y].credit) > Number($scope.limitedEdition[y].debt)) {
+                $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].credit) - Number($scope.limitedEdition[y].debt);
+                $scope.limitedEdition[y].situation = "بستانکار"
+
+            }
+            else if (Number($scope.limitedEdition[y].credit) < Number($scope.limitedEdition[y].debt)) {
+                $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].debt) - Number($scope.limitedEdition[y].credit);
+                $scope.limitedEdition[y].situation = "بدهکار"
+
+            }
+            else {
+                $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].debt) - Number($scope.limitedEdition[y].credit);
+                $scope.limitedEdition[y].situation = "-";
+            }
+        }
+    }
+
+
+}
+// number float part adder to number string with camma
+$scope.float = function (x) {
+    return (
+        (x - Math.floor(x)).toFixed(2).toString().substring(2)
+    )
+}
+// pagination display (currently only work for table data loader but it can expand to other json data)
+var currentpage
+$scope.pagination = function (x) {
+    currentpage = x;
+    var creditSum = 0;
+    var debtSum = 0;
+    var totalSum = 0;
+    $(".pagination li").removeClass("active");
+    $("#pagination" + x).addClass("active");
+    $scope.limitedEdition = []
+    var bottom = 15 * (x - 1);
+    if (bottom + 15 < $scope.tabledata.length) {
+        for (var i = 0; i < bottom + 15; i++) {
+            if ($scope.tabledata[i].credit != undefined && $scope.tabledata[i].debt != undefined) {
+                creditSum = creditSum + $scope.tabledata[i].credit;
+                debtSum = debtSum + $scope.tabledata[i].debt;
+                $scope.tabledata[i].decimal = ($scope.tabledata[i].credit - Math.floor($scope.tabledata[i].credit)).toFixed(2);
+            }
+        }
+        for (var counter = 0; counter < 15; counter++) {
+            $scope.limitedEdition[counter] = $scope.tabledata[bottom + counter];
+        }
+    }
+    else {
+        for (var i = 0; i < $scope.tabledata.length; i++) {
+            if ($scope.tabledata[i].credit != undefined && $scope.tabledata[i].debt != undefined) {
+                creditSum = creditSum + $scope.tabledata[i].credit;
+                debtSum = debtSum + $scope.tabledata[i].debt;
+                $scope.tabledata[i].decimal = ($scope.tabledata[i].credit - Math.floor($scope.tabledata[i].credit)).toFixed(2);
+            }
+        }
+        for (var counter = 0; counter < $scope.tabledata.length - bottom; counter++) {
+            $scope.limitedEdition[counter] = $scope.tabledata[bottom + counter];
+        }
+    }
+
+    $timeout(function () {
+        for (var i = 0; i < $scope.limitedEdition.length; i++) {
+            if ($scope.limitedEdition[i].credit != undefined && $scope.limitedEdition[i].debt != undefined) {
+                $scope.limitedEdition[i].decimal = ($scope.limitedEdition[i].credit - Math.floor($scope.limitedEdition[i].credit)).toFixed(2);
+                if (($scope.limitedEdition[i].credit - Math.floor($scope.limitedEdition[i].credit)).toFixed(2) != 0) {
+                    $("#credit" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].credit.toString()) + "/" + $scope.float($scope.limitedEdition[i].credit));
+                }
+                else {
+                    $("#credit" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].credit.toString()));
+                }
+                if (($scope.limitedEdition[i].debt - Math.floor($scope.limitedEdition[i].debt)).toFixed(2) != 0) {
+                    $("#debt" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].debt.toString()) + "/" + $scope.float($scope.limitedEdition[i].debt));
 
                 }
                 else {
-                    $scope.limitedEdition[y].remain = Number($scope.limitedEdition[y].debt) - Number($scope.limitedEdition[y].credit);
-                    $scope.limitedEdition[y].situation = "-";
+                    $("#debt" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].debt.toString()));
+                }
+                if (($scope.limitedEdition[i].remain - Math.floor($scope.limitedEdition[i].remain)).toFixed(2) != 0) {
+                    $("#remain" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].remain.toString()) + "/" + $scope.float($scope.limitedEdition[i].remain));
+                }
+                else {
+                    $("#remain" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].remain.toString()));
+                }
+                if ($scope.limitedEdition[i].situation == "بستانکار" || $scope.limitedEdition[i].situation == "-") {
+                    $("#remain" + $scope.limitedEdition[i].id).addClass("green");
+                }
+                else {
+                    $("#remain" + $scope.limitedEdition[i].id).addClass("red");
                 }
             }
         }
-
-
+        $scope.theme();
+    }, 0);
+    if (creditSum > debtSum) {
+        $("#totalSituation").html("بستانکار");
+        totalSum = creditSum - debtSum;
+        $("#totalSum").addClass("green");
     }
-    // number float part adder to number string with camma
-    $scope.float = function (x) {
-        return (
-            (x - Math.floor(x)).toFixed(2).toString().substring(2)
-        )
+    else {
+        $("#totalSituation").html("بدهکار");
+        totalSum = debtSum - creditSum;
+        $("#totalSum").addClass("red");
     }
-    // pagination display (currently only work for table data loader but it can expand to other json data)
-    var currentpage
-    $scope.pagination = function (x) {
-        currentpage = x;
-        var creditSum = 0;
-        var debtSum = 0;
-        var totalSum = 0;
-        $(".pagination li").removeClass("active");
-        $("#pagination" + x).addClass("active");
-        $scope.limitedEdition = []
-        var bottom = 15 * (x - 1);
-        if (bottom + 15 < $scope.tabledata.length) {
-            for (var i = 0; i < bottom + 15; i++) {
-                if ($scope.tabledata[i].credit != undefined && $scope.tabledata[i].debt != undefined) {
-                    creditSum = creditSum + $scope.tabledata[i].credit;
-                    debtSum = debtSum + $scope.tabledata[i].debt;
-                    $scope.tabledata[i].decimal = ($scope.tabledata[i].credit - Math.floor($scope.tabledata[i].credit)).toFixed(2);
-                }
-            }
-            for (var counter = 0; counter < 15; counter++) {
-                $scope.limitedEdition[counter] = $scope.tabledata[bottom + counter];
-            }
-        }
-        else {
-            for (var i = 0; i < $scope.tabledata.length; i++) {
-                if ($scope.tabledata[i].credit != undefined && $scope.tabledata[i].debt != undefined) {
-                    creditSum = creditSum + $scope.tabledata[i].credit;
-                    debtSum = debtSum + $scope.tabledata[i].debt;
-                    $scope.tabledata[i].decimal = ($scope.tabledata[i].credit - Math.floor($scope.tabledata[i].credit)).toFixed(2);
-                }
-            }
-            for (var counter = 0; counter < $scope.tabledata.length - bottom; counter++) {
-                $scope.limitedEdition[counter] = $scope.tabledata[bottom + counter];
-            }
-        }
-
-        $timeout(function () {
-            for (var i = 0; i < $scope.limitedEdition.length; i++) {
-                if ($scope.limitedEdition[i].credit != undefined && $scope.limitedEdition[i].debt != undefined) {
-                    $scope.limitedEdition[i].decimal = ($scope.limitedEdition[i].credit - Math.floor($scope.limitedEdition[i].credit)).toFixed(2);
-                    if (($scope.limitedEdition[i].credit - Math.floor($scope.limitedEdition[i].credit)).toFixed(2) != 0) {
-                        $("#credit" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].credit.toString()) + "/" + $scope.float($scope.limitedEdition[i].credit));
-                    }
-                    else {
-                        $("#credit" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].credit.toString()));
-                    }
-                    if (($scope.limitedEdition[i].debt - Math.floor($scope.limitedEdition[i].debt)).toFixed(2) != 0) {
-                        $("#debt" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].debt.toString()) + "/" + $scope.float($scope.limitedEdition[i].debt));
-
-                    }
-                    else {
-                        $("#debt" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].debt.toString()));
-                    }
-                    if (($scope.limitedEdition[i].remain - Math.floor($scope.limitedEdition[i].remain)).toFixed(2) != 0) {
-                        $("#remain" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].remain.toString()) + "/" + $scope.float($scope.limitedEdition[i].remain));
-                    }
-                    else {
-                        $("#remain" + $scope.limitedEdition[i].id).html($scope.numberFormat($scope.limitedEdition[i].remain.toString()));
-                    }
-                    if ($scope.limitedEdition[i].situation == "بستانکار" || $scope.limitedEdition[i].situation == "-") {
-                        $("#remain" + $scope.limitedEdition[i].id).addClass("green");
-                    }
-                    else {
-                        $("#remain" + $scope.limitedEdition[i].id).addClass("red");
-                    }
-                }
-            }
-            $scope.theme();
-        }, 0);
-        if (creditSum > debtSum) {
-            $("#totalSituation").html("بستانکار");
-            totalSum = creditSum - debtSum;
-            $("#totalSum").addClass("green");
-        }
-        else {
-            $("#totalSituation").html("بدهکار");
-            totalSum = debtSum - creditSum;
-            $("#totalSum").addClass("red");
-        }
-        creditSum = $scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum);
-        debtSum = $scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum);
-        totalSum = $scope.numberFormat(totalSum.toString()) + "/" + $scope.float(totalSum);
-        $("#creditSum").html(creditSum);
-        $("#debtSum").html(debtSum);
-        $("#totalSum").html(totalSum);
-        $scope.tableFormat();
-        setTimeout(function () {
-            $scope.tableFonting();
-        }, 10)
+    creditSum = $scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum);
+    debtSum = $scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum);
+    totalSum = $scope.numberFormat(totalSum.toString()) + "/" + $scope.float(totalSum);
+    $("#creditSum").html(creditSum);
+    $("#debtSum").html(debtSum);
+    $("#totalSum").html(totalSum);
+    $scope.tableFormat();
+    setTimeout(function () {
+        $scope.tableFonting();
+    }, 10)
+}
+// adding camma after three digit function
+$scope.numberFormat = function (element) {
+    var delimiter = ","; // replace comma if desired
+    var a = element.split('.', 2);
+    var d = a;
+    var i = parseInt(a[0]);
+    if (isNaN(i)) { return ''; }
+    var minus = '';
+    if (i < 0) { minus = '-'; }
+    i = Math.abs(i);
+    var n = new String(i);
+    var a = [];
+    while (n.length > 3) {
+        var nn = n.substr(n.length - 3);
+        a.unshift(nn);
+        n = n.substr(0, n.length - 3);
     }
-    // adding camma after three digit function
-    $scope.numberFormat = function (element) {
-        var delimiter = ","; // replace comma if desired
-        var a = element.split('.', 2);
-        var d = a;
-        var i = parseInt(a[0]);
-        if (isNaN(i)) { return ''; }
-        var minus = '';
-        if (i < 0) { minus = '-'; }
-        i = Math.abs(i);
-        var n = new String(i);
-        var a = [];
-        while (n.length > 3) {
-            var nn = n.substr(n.length - 3);
-            a.unshift(nn);
-            n = n.substr(0, n.length - 3);
-        }
-        if (n.length > 0) { a.unshift(n); }
-        n = a.join(delimiter);
-        if (d.length < 1) { element = n; }
-        else { element = n; }
-        element = minus + element;
-        return element;
+    if (n.length > 0) { a.unshift(n); }
+    n = a.join(delimiter);
+    if (d.length < 1) { element = n; }
+    else { element = n; }
+    element = minus + element;
+    return element;
+}
+var countering = 0;
+// keyboard key event handler (currently work for demo but it may change in back-end matching level)
+$scope.checking = function (e) {
+    if (e.which === 46) {
+        $http.get("data/modal.json")
+            .then(function (response) {
+                $scope.first = response.data.first;
+            })
+            .catch(function () {
+                $scope.error[0] = "عدم برقراری ارتباطات مجددا سعی کنید";
+                $("#error").modal();
+            })
+        $("#myModal").modal("toggle");
     }
-    var countering = 0;
-    // keyboard key event handler (currently work for demo but it may change in back-end matching level)
-    $scope.checking = function (e) {
-        if (e.which === 46) {
+    if (e.which === 43) {
+        if (countering == 0) {
             $http.get("data/modal.json")
                 .then(function (response) {
-                    $scope.first = response.data.first;
+                    $scope.first = response.data.second;
                 })
                 .catch(function () {
                     $scope.error[0] = "عدم برقراری ارتباطات مجددا سعی کنید";
                     $("#error").modal();
                 })
-            $("#myModal").modal("toggle");
+            countering = countering + 1;
+            return;
         }
-        if (e.which === 43) {
-            if (countering == 0) {
-                $http.get("data/modal.json")
-                    .then(function (response) {
-                        $scope.first = response.data.second;
-                    })
-                    .catch(function () {
-                        $scope.error[0] = "عدم برقراری ارتباطات مجددا سعی کنید";
-                        $("#error").modal();
-                    })
-                countering = countering + 1;
-                return;
-            }
-            else if (countering == 1) {
-                $http.get("data/modal.json")
-                    .then(function (response) {
-                        $scope.first = response.data.third;
-                    }).catch(function () {
-                        $scope.error[0] = "خطا در دستیابی به اطلاعات";
-                        $("#error").modal();
-                    })
-                countering = countering + 1;
-            }
-        }
-        if (e.which == 45) {
-            if (countering == 1) {
-                $http.get("data/modal.json")
-                    .then(function (response) {
-                        $scope.first = response.data.first;
-                    }).catch(function () {
-                        $scope.error[0] = "خطا در دستیابی به اطلاعات";
-                        $("#error").modal()
-                    })
-                countering = countering - 1;
-                return;
-            }
-            else if (countering == 2) {
-                $http.get("data/modal.json")
-                    .then(function (response) {
-                        $scope.first = response.data.second;
-                    }).catch(function () {
-                        $scope.error[0] = "خطا در دستیابی به اطلاعات";
-                        $("#error").modal();
-                    })
-                countering = countering - 1;
-                return;
-            }
+        else if (countering == 1) {
+            $http.get("data/modal.json")
+                .then(function (response) {
+                    $scope.first = response.data.third;
+                }).catch(function () {
+                    $scope.error[0] = "خطا در دستیابی به اطلاعات";
+                    $("#error").modal();
+                })
+            countering = countering + 1;
         }
     }
-    $scope.eventNumber = 0;
+    if (e.which == 45) {
+        if (countering == 1) {
+            $http.get("data/modal.json")
+                .then(function (response) {
+                    $scope.first = response.data.first;
+                }).catch(function () {
+                    $scope.error[0] = "خطا در دستیابی به اطلاعات";
+                    $("#error").modal()
+                })
+            countering = countering - 1;
+            return;
+        }
+        else if (countering == 2) {
+            $http.get("data/modal.json")
+                .then(function (response) {
+                    $scope.first = response.data.second;
+                }).catch(function () {
+                    $scope.error[0] = "خطا در دستیابی به اطلاعات";
+                    $("#error").modal();
+                })
+            countering = countering - 1;
+            return;
+        }
+    }
+}
+$scope.eventNumber = 0;
 
-    // event of day declaring
-    $http.get("data/events.json")
-        .success(function (response) {
-            $scope.events = response;
-            var date = new Date();
-            var month = (date.getMonth() + 1);
-            var day = date.getDate();
-            var year = date.getFullYear();
-            var today = (year + '/' + month + '/' + day).toString();
-            for (var i = 0; i < $scope.events.length; i++) {
-                if ($scope.events[i].start == today) {
-                    $scope.eventNumber += 1;
-                }
+// event of day declaring
+$http.get("data/events.json")
+    .success(function (response) {
+        $scope.events = response;
+        var date = new Date();
+        var month = (date.getMonth() + 1);
+        var day = date.getDate();
+        var year = date.getFullYear();
+        var today = (year + '/' + month + '/' + day).toString();
+        for (var i = 0; i < $scope.events.length; i++) {
+            if ($scope.events[i].start == today) {
+                $scope.eventNumber += 1;
             }
+        }
+    }).catch(function () {
+        $scope.error[0] = "خطا در دستیابی به اطلاعات";
+        $("#error").modal();
+    })
+// slider controller for subsystem in system-page.html 
+$scope.list_slide = function (title, list, children, myid) {
+    $scope.tabledata = [];
+    $("#creditSum").html("");
+    $("#debtSum").html("");
+    $("#totalSum").html("");
+    $("#totalSituation").html("");
+    $("#" + list).toggleClass("flag")
+    if (children.length != 0 && children != undefined) {
+        $("#" + list).slideToggle();
+        if ($("#" + list).hasClass("flag")) {
+            $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
+        }
+        else {
+            $("#subnav").html(" ");
+        }
+    }
+    else {
+        $("#" + list).removeClass("flag");
+        $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
+        $scope.table(myid);
+    }
+};
+// directive for aris tag's template changer
+$scope.table = function (value) {
+    $scope.number = "example" + value + ".html";
+    $http.get("data/table1.json")
+        .then(function (response) {
+            $scope.tabledata = response.data.table;
         }).catch(function () {
             $scope.error[0] = "خطا در دستیابی به اطلاعات";
             $("#error").modal();
         })
-    // slider controller for subsystem in system-page.html 
-    $scope.list_slide = function (title, list, children, myid) {
-        $scope.tabledata = [];
-        $("#creditSum").html("");
-        $("#debtSum").html("");
-        $("#totalSum").html("");
-        $("#totalSituation").html("");
-        $("#" + list).toggleClass("flag")
-        if (children.length != 0 && children != undefined) {
-            $("#" + list).slideToggle();
-            if ($("#" + list).hasClass("flag")) {
-                $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
-            }
-            else {
-                $("#subnav").html(" ");
-            }
-        }
-        else {
-            $("#" + list).removeClass("flag");
-            $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
-            $scope.table(myid);
-        }
-    };
-    // directive for aris tag's template changer
-    $scope.table = function (value) {
-        $scope.number = "example" + value + ".html";
-        $http.get("data/table1.json")
+
+}
+// chat controller
+$interval(function () {
+return $http.get("data/chat.json").then(function (response) {
+    $scope.chat = response.data.message;
+})
+    .catch(function () {
+        $scope.error[0] = "خطا در دستیابی به اطلاعات";
+        $("#error").modal();
+    })
+}, 5000);
+$scope.orderBy = function (x) {
+    $scope.myorder = x;
+}
+// dorpdown 
+$scope.drop = function (x) {
+    $("#dropdown" + x).slideToggle();
+    $("#subnav").html("");
+}
+// chat area
+$scope.chatting = function (reciver) {
+    $scope.newChat = {
+        "sender": " ", "content": "", "type": "", "reciver": ""
+    }
+    if (reciver == undefined) {
+        alert("برای آغاز گفتگو یک فرد را باید انتخاب کنید")
+    }
+    $scope.newChat.content = $("#chattext").val();
+    $scope.newChat.reciver = reciver;
+    $scope.newChat.type = 'send';
+    $scope.chat.push($scope.newChat);
+    $("#chattext").val("");
+    setTimeout(function () {
+        $("#chatarea").scrollTop = $("#chatarea").scrollHeight;
+    }, 100);
+}
+
+$scope.tablefontChange = function (size) {
+    $scope.tableFont[0] = $("#points-font").val();
+    $scope.tableFonting();
+}
+$scope.fontChanger = function (element) {
+    $scope.fontTheme = element;
+    $scope.theme();
+}
+$scope.screen = function (x) {
+    switch (x) {
+        case 'یک دقیقه': $scope.time = 1000; break;
+        case 'دو دقیقه': $scope.time = 2000; break;
+        case 'سه دقیقه': $scope.time = 3000; break
+    }
+}
+$scope.colorChanger = function (element) {
+    $(".color-icon").css("display", "none");
+    $("#color" + element).css("display", "inline-block");
+    $scope.colorTheme = element;
+    $scope.theme();
+}
+$scope.tableFonting = function () {
+    $("table").find(".table-number").css("font-size", $scope.tableFont[0] + "px");
+}
+
+// aside opening
+$scope.sideBar = function (x) {
+    $scope.sidecontainer(x);
+    $(".side-tool").animate({ width: "400px" }, 'slow');
+    $(".side-filter").animate({ width: "400px" }, 'slow');
+    $(".container-filter a").css("pointer-events", 'none');
+    $("nav a").css("pointer-events", 'none');
+    $("nav i").css("pointer-events", 'none');
+}
+$scope.mainSystem = function () {
+    $("#mainSystems").modal();
+}
+// fullfiling aside (calnedar and note and top link container)
+$scope.sidecontainer = function (x) {
+    if (x == 1) {
+        $http.get("data/note.json")
             .then(function (response) {
-                $scope.tabledata = response.data.table;
-            }).catch(function () {
-                $scope.error[0] = "خطا در دستیابی به اطلاعات";
-                $("#error").modal();
-            })
-
-    }
-    // chat controller
-    $interval(function () {
-        return $http.get("data/chat.json").then(function (response) {
-            $scope.chat = response.data.message;
-        })
-            .catch(function () {
-                $scope.error[0] = "خطا در دستیابی به اطلاعات";
-                $("#error").modal();
-            })
-    }, 5000);
-    $scope.orderBy = function (x) {
-        $scope.myorder = x;
-    }
-    // dorpdown 
-    $scope.drop = function (x) {
-        $("#dropdown" + x).slideToggle();
-        $("#subnav").html("");
-    }
-    // chat area
-    $scope.chatting = function (reciver) {
-        $scope.newChat = {
-            "sender": " ", "content": "", "type": "", "reciver": ""
-        }
-        if (reciver == undefined) {
-            alert("برای آغاز گفتگو یک فرد را باید انتخاب کنید")
-        }
-        $scope.newChat.content = $("#chattext").val();
-        $scope.newChat.reciver = reciver;
-        $scope.newChat.type = 'send';
-        $scope.chat.push($scope.newChat);
-        $("#chattext").val("");
-        setTimeout(function () {
-            $("#chatarea").scrollTop = $("#chatarea").scrollHeight;
-        }, 100);
-    }
-
-    $scope.tablefontChange = function (size) {
-        $scope.tableFont[0] = $("#points-font").val();
-        $scope.tableFonting();
-    }
-    $scope.fontChanger = function (element) {
-        $scope.fontTheme = element;
-        $scope.theme();
-    }
-    $scope.screen = function (x) {
-        switch (x) {
-            case 'یک دقیقه': $scope.time = 1000; break;
-            case 'دو دقیقه': $scope.time = 2000; break;
-            case 'سه دقیقه': $scope.time = 3000; break
-        }
-    }
-    $scope.colorChanger = function (element) {
-        $(".color-icon").css("display", "none");
-        $("#color" + element).css("display", "inline-block");
-        $scope.colorTheme = element;
-        $scope.theme();
-    }
-    $scope.tableFonting = function () {
-        $("table").find(".table-number").css("font-size", $scope.tableFont[0] + "px");
-    }
-
-    // aside opening
-    $scope.sideBar = function (x) {
-        $scope.sidecontainer(x);
-        $(".side-tool").animate({ width: "400px" }, 'slow');
-        $(".side-filter").animate({ width: "400px" }, 'slow');
-        $(".container-filter a").css("pointer-events", 'none');
-        $("nav a").css("pointer-events", 'none');
-        $("nav i").css("pointer-events", 'none');
-    }
-    $scope.mainSystem = function () {
-        $("#mainSystems").modal();
-    }
-    // fullfiling aside (calnedar and note and top link container)
-    $scope.sidecontainer = function (x) {
-        if (x == 1) {
-            $http.get("data/note.json")
-                .then(function (response) {
-                    $scope.note = response.data.note;
-                    $scope.message = response.data.message;
-                    $scope.alarm = response.data.alarm;
-                    for (var i = 0; i < 3; i++) {
-                        $scope.limitedNote.push($scope.note[i]);
-                    }
-                });
-            $scope.side = "note2.html";
-        }
-        if (x == 2) {
-            var myevent
-            $http.get("data/events.json").then(function (response) {
-                $('[data-toggle="tooltip"]').tooltip();
-                myevent = response;
-                var firstLoad = true;
+                $scope.note = response.data.note;
+                $scope.message = response.data.message;
+                $scope.alarm = response.data.alarm;
+                for (var i = 0; i < 3; i++) {
+                    $scope.limitedNote.push($scope.note[i]);
+                }
             });
-            $scope.side = "calendar2.html";
-        }
-        if (x == 3) {
-            $http.get("data/link.json")
-                .then(function (response) {
-                    $scope.link = response.data.link;
-                })
-            $scope.side = "link.html";
-        }
+        $scope.side = "note2.html";
     }
-    // closing aside
-    $scope.sideBarClose = function () {
-        $(".side-tool").animate({ width: "0px" });
-        $(".side-filter").animate({ width: "0px" });
-        $(".container-filter a").css("pointer-events", '');
-        $("nav a").css("pointer-events", '');
-        $("nav i").css("pointer-events", '');
-        $(".effect").css("filter", "none");
+    if (x == 2) {
+        var myevent
+        $http.get("data/events.json").then(function (response) {
+            $('[data-toggle="tooltip"]').tooltip();
+            myevent = response;
+            var firstLoad = true;
+        });
+        $scope.side = "calendar2.html";
     }
-    $scope.mydate = function () {
-        week = new Array("يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه", "شنبه");
-        months = new Array("فروردين", "ارديبهشت", "خرداد", "تير", "مرداد", "شهريور", "مهر", "آبان", "آذر", "دي", "بهمن", "اسفند");
-        a = new Date();
-        d = a.getDay();
-        day = a.getDate();
-        month = a.getMonth() + 1;
-        year = a.getYear();
-        year = (year == 0) ? 2000 : year;
-        (year < 1000) ? (year += 1900) : true;
-        year -= ((month < 3) || ((month == 3) && (day < 21))) ? 622 : 621;
-        switch (month) {
-            case 1: (day < 21) ? (month = 10, day += 10) : (month = 11, day -= 20); break;
-            case 2: (day < 20) ? (month = 11, day += 11) : (month = 12, day -= 19); break;
-            case 3: (day < 21) ? (month = 12, day += 9) : (month = 1, day -= 20); break;
-            case 4: (day < 21) ? (month = 1, day += 11) : (month = 2, day -= 20); break;
-            case 5:
-            case 6: (day < 22) ? (month -= 3, day += 10) : (month -= 2, day -= 21); break;
-            case 7:
-            case 8:
-            case 9: (day < 23) ? (month -= 3, day += 9) : (month -= 2, day -= 22); break;
-            case 10: (day < 23) ? (month = 7, day += 8) : (month = 8, day -= 22); break;
-            case 11:
-            case 12: (day < 22) ? (month -= 3, day += 9) : (month -= 2, day -= 21); break;
-            default: break;
-        }
+    if (x == 3) {
+        $http.get("data/link.json")
+            .then(function (response) {
+                $scope.link = response.data.link;
+            })
+        $scope.side = "link.html";
+    }
+}
+// closing aside
+$scope.sideBarClose = function () {
+    $(".side-tool").animate({ width: "0px" });
+    $(".side-filter").animate({ width: "0px" });
+    $(".container-filter a").css("pointer-events", '');
+    $("nav a").css("pointer-events", '');
+    $("nav i").css("pointer-events", '');
+    $(".effect").css("filter", "none");
+}
+$scope.mydate = function () {
+    week = new Array("يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه", "شنبه");
+    months = new Array("فروردين", "ارديبهشت", "خرداد", "تير", "مرداد", "شهريور", "مهر", "آبان", "آذر", "دي", "بهمن", "اسفند");
+    a = new Date();
+    d = a.getDay();
+    day = a.getDate();
+    month = a.getMonth() + 1;
+    year = a.getYear();
+    year = (year == 0) ? 2000 : year;
+    (year < 1000) ? (year += 1900) : true;
+    year -= ((month < 3) || ((month == 3) && (day < 21))) ? 622 : 621;
+    switch (month) {
+        case 1: (day < 21) ? (month = 10, day += 10) : (month = 11, day -= 20); break;
+        case 2: (day < 20) ? (month = 11, day += 11) : (month = 12, day -= 19); break;
+        case 3: (day < 21) ? (month = 12, day += 9) : (month = 1, day -= 20); break;
+        case 4: (day < 21) ? (month = 1, day += 11) : (month = 2, day -= 20); break;
+        case 5:
+        case 6: (day < 22) ? (month -= 3, day += 10) : (month -= 2, day -= 21); break;
+        case 7:
+        case 8:
+        case 9: (day < 23) ? (month -= 3, day += 9) : (month -= 2, day -= 22); break;
+        case 10: (day < 23) ? (month = 7, day += 8) : (month = 8, day -= 22); break;
+        case 11:
+        case 12: (day < 22) ? (month -= 3, day += 9) : (month -= 2, day -= 21); break;
+        default: break;
+    }
 
-        if (day < 10) {
-            $(".myday").css("right", "44%");
-        }
-        $scope.myday = day;
-        $scope.myMonth = months[month - 1];
-        $scope.dayname = week[d];
+    if (day < 10) {
+        $(".myday").css("right", "44%");
     }
-    $scope.mydate();
-    $scope.newMonth = function (x) {
-        if (month == 12 && x == 1) {
-            month = 1;
-        }
-        else if (month == 1 && x == -1) {
-            month = 12;
-        }
-        else {
-            month += x;
-        }
-        $scope.myMonth = months[month - 1];
+    $scope.myday = day;
+    console.log($scope.myday)
+    $scope.myMonth = months[month - 1];
+    $scope.dayname = week[d];
+}
+$scope.newMonth = function (x) {
+    if (month == 12 && x == 1) {
+        month = 1;
     }
-    $scope.treeToShow = []
-    // first level of showing tree's nodes
-    $scope.gettingTree = function () {
-        $http.get("data/tree.json").then(function (response) {
-            $scope.tree = response.data.tree;
-            for (var i = 0; i < $scope.tree.length; i++) {
-                if ($scope.tree[i].parent == null) {
-                    $scope.treeToShow.push($scope.tree[i])
-                }
-            }
-        })
+    else if (month == 1 && x == -1) {
+        month = 12;
     }
-    // slideing next level of tree for first time it get data from sever and in next steps it just slide 
-    $scope.nodeSlide = function (x) {
-        if ($("#tree" + x).hasClass("flag")) {
-            $("#tree" + x).slideToggle();
-        }
-        else {
-            // $http.get("data/node"+x).then(function(response){
-            //     $scope.node = response.data.node;
-            //     for(var i = 0; i < $scope.node.length ; i++){
-            //         $scope.tree.push($scope.node[i]);
-            //     }
-            // })
-            $scope.creatingNode(x);
-            $("#tree" + x).addClass("flag");
-        }
-        $("#treeIcon" + x).toggleClass("flag")
-        if ($("#treeIcon" + x).hasClass("flag")) {
-            $("#treeIcon" + x).removeClass("fa-angle-down")
-            $("#treeIcon" + x).addClass("fa-angle-up")
-        } else {
-            $("#treeIcon" + x).removeClass("fa-angle-up")
-            $("#treeIcon" + x).addClass("fa-angle-down")
-        }
+    else {
+        month += x;
     }
-    // creating second level and deeper levels by using laoded data
-    $scope.creatingNode = function (x) {
-        $("#tree" + x).html("")
+    $scope.myMonth = months[month - 1];
+}
+$scope.treeToShow = []
+// first level of showing tree's nodes
+$scope.gettingTree = function () {
+    $http.get("data/tree.json").then(function (response) {
+        $scope.tree = response.data.tree;
         for (var i = 0; i < $scope.tree.length; i++) {
-            if ($scope.tree[i].parent == x) {
-                $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
+            if ($scope.tree[i].parent == null) {
+                $scope.treeToShow.push($scope.tree[i])
             }
+        }
+    })
+}
+// slideing next level of tree for first time it get data from sever and in next steps it just slide 
+$scope.nodeSlide = function (x) {
+    if ($("#tree" + x).hasClass("flag")) {
+        $("#tree" + x).slideToggle();
+    }
+    else {
+        // $http.get("data/node"+x).then(function(response){
+        //     $scope.node = response.data.node;
+        //     for(var i = 0; i < $scope.node.length ; i++){
+        //         $scope.tree.push($scope.node[i]);
+        //     }
+        // })
+        $scope.creatingNode(x);
+        $("#tree" + x).addClass("flag");
+    }
+    $("#treeIcon" + x).toggleClass("flag")
+    if ($("#treeIcon" + x).hasClass("flag")) {
+        $("#treeIcon" + x).removeClass("fa-angle-down")
+        $("#treeIcon" + x).addClass("fa-angle-up")
+    } else {
+        $("#treeIcon" + x).removeClass("fa-angle-up")
+        $("#treeIcon" + x).addClass("fa-angle-down")
+    }
+}
+// creating second level and deeper levels by using laoded data
+$scope.creatingNode = function (x) {
+    $("#tree" + x).html("")
+    for (var i = 0; i < $scope.tree.length; i++) {
+        if ($scope.tree[i].parent == x) {
+            $("#tree" + x).append($compile("<div class='tree-view' ><span class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
         }
     }
-    var parent = 0;//variable to check main branch of moving node
-    var selected = 0;//variable to check children of mving node
-    $scope.treeToEdit = [];
-    // add selected node id and its parent id to forms
-    $scope.selectingTree = function (x) {
-        var flag = 0;
-        for (var i = 0; i < $scope.tree.length; i++) {
-            if (($("#treeRow" + $scope.tree[i].id).hasClass("treeBackground"))) {
-                flag = flag + 1;
-                var id = $scope.tree[i].id;
-            }
+}
+var parent = 0;//variable to check main branch of moving node
+var selected = 0;//variable to check children of mving node
+$scope.treeToEdit = [];
+// add selected node id and its parent id to forms
+$scope.selectingTree = function (x) {
+    var flag = 0;
+    for (var i = 0; i < $scope.tree.length; i++) {
+        if (($("#treeRow" + $scope.tree[i].id).hasClass("treeBackground"))) {
+            flag = flag + 1;
+            var id = $scope.tree[i].id;
         }
-        if ($(".editingTree").is(":visible") && flag != 0) {
-            if (x == id) {
-                $("#treeRow" + x).toggleClass("treeBackground");
-            }
-            else {
-
-                $("#treeRow" + x).toggleClass("redNode");
-                if ($("#treeRow" + x).hasClass("redNode")) {
-                    $(".tree-span").removeClass("redNode");
-                    $("#treeRow" + x).addClass("redNode");
-                    selected = x;
-                    for (var i = 0; i < $scope.tree.length; i++) {
-                        if ($scope.tree[i].id == x) {
-                            $(".my-option").prop("selected", false);
-                            $("#option" + $scope.tree[i].id).prop("selected", true);
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            $(".tree-span").removeClass("redNode");
+    }
+    if ($(".editingTree").is(":visible") && flag != 0) {
+        if (x == id) {
             $("#treeRow" + x).toggleClass("treeBackground");
-            if ($("#treeRow" + x).hasClass("treeBackground")) {
-                $(".tree-span").removeClass("treeBackground");
-                $("#treeRow" + x).addClass("treeBackground");
-                parent = x;
+        }
+        else {
+
+            $("#treeRow" + x).toggleClass("redNode");
+            if ($("#treeRow" + x).hasClass("redNode")) {
+                $(".tree-span").removeClass("redNode");
+                $("#treeRow" + x).addClass("redNode");
+                selected = x;
                 for (var i = 0; i < $scope.tree.length; i++) {
                     if ($scope.tree[i].id == x) {
-                        $scope.treeToEdit = []
-                        $scope.treeToEdit.push($scope.tree[i])
-                        $("#treeCode").val($scope.tree[i].code)
-                        $("#treeName").val($scope.tree[i].name)
                         $(".my-option").prop("selected", false);
-                        $("#option" + $scope.tree[i].parent).prop("selected", true);
-                        $("#plus" + $scope.tree[i].id).prop("selected", true);
-                        $(".editAlarm").html(" ");
+                        $("#option" + $scope.tree[i].id).prop("selected", true);
                     }
                 }
             }
-            else {
-                $(".tree-span").removeClass("treeBackground");
-                $scope.treeToEdit = [];
-                $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
-                $("#treeCode").val("")
-                $("#treeName").val("")
-            }
         }
     }
-    // deleting selected node
-    $scope.deletingNode = function () {
-        var flag = 0;
-        if ($scope.treeToEdit.length == 0) {
-            $scope.error[0] = "ابتدا شاخه ایی را انتخاب کنید";
-            $("#error").modal();
-        }
-        else {
-            for (var i = 0; i < $scope.tree.length; i++) {
-                if ($scope.tree[i].parent == $scope.treeToEdit[0].id) {
-                    flag = flag + 1;
-                }
-            }
-            if (flag == 0) {
-                for (var i = 0; i < $scope.tree.length; i++) {
-                    if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
-                        $("#treeRow" + $scope.treeToEdit[0].id).remove();
-                        $("#tree" + $scope.treeToEdit[0].id).remove();
-                        // $("#tree" + $scope.treeToEdit[0].id).empty();
-                        // $("#treeRow" + $scope.treeToEdit[0].id).css("color","red")
-                        $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-down");
-                        $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-up");
-                        $scope.tree.splice(i, 1)
-                    }
-                }
-            }
-            else {
-                $scope.error[0] = "شما نمیتوانید سرشاخه را حذف کنید";
-                $("#error").modal();
-            }
-        }
-    }
-    // editing selected node 
-    $scope.editingNode = function () {
-        $(".tree-span").removeClass("treeBackground");
+    else {
         $(".tree-span").removeClass("redNode");
-        if ($scope.treeToEdit.length == 0) {
+        $("#treeRow" + x).toggleClass("treeBackground");
+        if ($("#treeRow" + x).hasClass("treeBackground")) {
+            $(".tree-span").removeClass("treeBackground");
+            $("#treeRow" + x).addClass("treeBackground");
+            parent = x;
+            for (var i = 0; i < $scope.tree.length; i++) {
+                if ($scope.tree[i].id == x) {
+                    $scope.treeToEdit = []
+                    $scope.treeToEdit.push($scope.tree[i])
+                    $("#treeCode").val($scope.tree[i].code)
+                    $("#treeName").val($scope.tree[i].name)
+                    $(".my-option").prop("selected", false);
+                    $("#option" + $scope.tree[i].parent).prop("selected", true);
+                    $("#plus" + $scope.tree[i].id).prop("selected", true);
+                    $(".editAlarm").html(" ");
+                }
+            }
+        }
+        else {
+            $(".tree-span").removeClass("treeBackground");
+            $scope.treeToEdit = [];
             $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
-        }
-        $(".plusNode").css("display", "none");
-        $(".plusNode").removeClass("flag")
-        $(".editingTree").toggleClass("flag");
-        if ($(".editingTree").hasClass("flag")) {
-
-            $(".editingTree").css("display", "inline-block")
-        }
-        else {
-            $(".editingTree").css("display", "none")
+            $("#treeCode").val("")
+            $("#treeName").val("")
         }
     }
-    // adding new node to selected node children
-    $scope.addingNode = function () {
-        $(".editingTree").css("display", "none")
-        $(".editingTree").removeClass("flag")
-        $(".plusNode").toggleClass("flag");
-        if ($(".plusNode").hasClass("flag")) {
-            $(".plusNode").css("display", "inline-block")
-        }
-        else {
-            $(".plusNode").css("display", "none")
-        }
+}
+// deleting selected node
+$scope.deletingNode = function () {
+    var flag = 0;
+    if ($scope.treeToEdit.length == 0) {
+        $scope.error[0] = "ابتدا شاخه ایی را انتخاب کنید";
+        $("#error").modal();
     }
-    // editing form button event
-    $scope.editRegister = function () {
-        if ($("#tree" + parent).find($("#treeRow" + selected)).length > 0) {
-            $scope.error[0] = "ابتدا زیر شاخه را به سطح بالاتر انتقال دهید";
-            $("#error").modal();
+    else {
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if ($scope.tree[i].parent == $scope.treeToEdit[0].id) {
+                flag = flag + 1;
+            }
         }
-        else {
+        if (flag == 0) {
             for (var i = 0; i < $scope.tree.length; i++) {
                 if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
-                    $scope.tree[i].code = $("#treeCode").val();
-                    $scope.tree[i].name = $("#treeName").val();
-                    var oldParent = $scope.tree[i].parent
-                    if ($("#parent").val() != undefined) {
-                        $scope.tree[i].parent = $("#parent").val();
-                        $scope.creatingNode($("#parent").val());
-                    }
-                    if ($("#location").val() != undefined) {
-                        $scope.tree[i].location = $("#location").val();
-                    }
+                    $("#treeRow" + $scope.treeToEdit[0].id).remove();
+                    $("#tree" + $scope.treeToEdit[0].id).remove();
+                    // $("#tree" + $scope.treeToEdit[0].id).empty();
+                    // $("#treeRow" + $scope.treeToEdit[0].id).css("color","red")
+                    $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-down");
+                    $("#treeIcon" + $scope.treeToEdit[0].id).removeClass("fa-angle-up");
+                    $scope.tree.splice(i, 1)
                 }
             }
-            $scope.creatingNode(oldParent);
-            $scope.editingNode()
-            $scope.nodeSlide(oldParent)
-            $scope.nodeSlide($("#parent").val())
-        }
-    }
-    // cehcking adding form button event
-    $scope.addingRegister = function (nodeCode, nodeName, nodeParent, nodeCity) {
-        if (nodeCode == undefined || nodeName == undefined || nodeCity == undefined) {
-            $scope.error[0] = "پر کردن همه فیلد ها الزامی است";
-            $("#error").modal();
         }
         else {
-            var newNode = {
-                name: nodeName,
-                code: nodeCode,
-                parent: $("#plusBranch").val(),
-                id: nodeCode
-            }
-            $scope.tree.push(newNode);
-            $scope.creatingNode($("#plusBranch").val());
-            if (!$("#tree" + $("#plusBranch").val()).hasClass('flag')) {
-                $scope.nodeSlide($("#plusBranch").val())
+            $scope.error[0] = "شما نمیتوانید سرشاخه را حذف کنید";
+            $("#error").modal();
+        }
+    }
+}
+// editing selected node 
+$scope.editingNode = function () {
+    $(".tree-span").removeClass("treeBackground");
+    $(".tree-span").removeClass("redNode");
+    if ($scope.treeToEdit.length == 0) {
+        $(".editAlarm").html("برای انجام ویرایش ابتدا یک شاخه را انتخاب کنید")
+    }
+    $(".plusNode").css("display", "none");
+    $(".plusNode").removeClass("flag")
+    $(".editingTree").toggleClass("flag");
+    if ($(".editingTree").hasClass("flag")) {
+
+        $(".editingTree").css("display", "inline-block")
+    }
+    else {
+        $(".editingTree").css("display", "none")
+    }
+}
+// adding new node to selected node children
+$scope.addingNode = function () {
+    $(".editingTree").css("display", "none")
+    $(".editingTree").removeClass("flag")
+    $(".plusNode").toggleClass("flag");
+    if ($(".plusNode").hasClass("flag")) {
+        $(".plusNode").css("display", "inline-block")
+    }
+    else {
+        $(".plusNode").css("display", "none")
+    }
+}
+// editing form button event
+$scope.editRegister = function () {
+    if ($("#tree" + parent).find($("#treeRow" + selected)).length > 0) {
+        $scope.error[0] = "ابتدا زیر شاخه را به سطح بالاتر انتقال دهید";
+        $("#error").modal();
+    }
+    else {
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if ($scope.tree[i].id == $scope.treeToEdit[0].id) {
+                $scope.tree[i].code = $("#treeCode").val();
+                $scope.tree[i].name = $("#treeName").val();
+                var oldParent = $scope.tree[i].parent
+                if ($("#parent").val() != undefined) {
+                    $scope.tree[i].parent = $("#parent").val();
+                    $scope.creatingNode($("#parent").val());
+                }
+                if ($("#location").val() != undefined) {
+                    $scope.tree[i].location = $("#location").val();
+                }
             }
         }
-        $(".tree-span").removeClass("treeBackground");
-        $(".plus-form").val("");
+        $scope.creatingNode(oldParent);
+        $scope.editingNode()
+        $scope.nodeSlide(oldParent)
+        $scope.nodeSlide($("#parent").val())
     }
+}
+// cehcking adding form button event
+$scope.addingRegister = function (nodeCode, nodeName, nodeParent, nodeCity) {
+    if (nodeCode == undefined || nodeName == undefined || nodeCity == undefined) {
+        $scope.error[0] = "پر کردن همه فیلد ها الزامی است";
+        $("#error").modal();
+    }
+    else {
+        var newNode = {
+            name: nodeName,
+            code: nodeCode,
+            parent: $("#plusBranch").val(),
+            id: nodeCode
+        }
+        $scope.tree.push(newNode);
+        $scope.creatingNode($("#plusBranch").val());
+        if (!$("#tree" + $("#plusBranch").val()).hasClass('flag')) {
+            $scope.nodeSlide($("#plusBranch").val())
+        }
+    }
+    $(".tree-span").removeClass("treeBackground");
+    $(".plus-form").val("");
+}
+// charts part
+
+$scope.chartLoad = function () {
+    $http.get('data/piechart.json')
+        .then(function (response) {
+            var users2 = response.data;
+            var data = {
+                labels: users2.map(function (user) {
+                    return user.name;
+                }),
+                series: users2.map(function (user) {
+                    return user.value;
+                })
+            };
+            new Chartist.Pie('#chart3', data, options, responsiveOptions);
+            var options = {
+                labelInterpolationFnc: function (value) {
+                    return value[0]
+                }
+            };
+            var responsiveOptions = [
+                ['screen and (min-width: 640px)', {
+                    chartPadding: 35,
+                    labelOffset: 90,
+                    labelDirection: 'explode',
+                    labelInterpolationFnc: function (value) {
+                        return value;
+                    }
+                }],
+                ['screen and (min-width: 1024px)', {
+                    labelOffset: 80,
+                    chartPadding: 35
+                }]
+            ]
+        })
+    $http.get('data/semibar.json')
+        .then(function (response) {
+            var users1 = response.data
+            var data2 = {
+                labels: users1.map(function (user) {
+                    return user.name;
+                }),
+                serie1: users1.map(function (user) {
+                    return user.value1
+                }),
+                serie2: users1.map(function (user) {
+                    return user.value2
+                }),
+                serie3: users1.map(function (user) {
+                    return user.value3
+                }),
+                serie4: users1.map(function (user) {
+                    return user.value4
+                }),
+
+
+            };
+            var series = [data2.serie1, data2.serie2, data2.serie3, data2.serie4]
+            // Initialize a Line chart in the container with the ID chart2
+            new Chartist.Line('#chart2', {
+                labels: data2.labels,
+                series: series
+            }, {
+                    showArea: true,
+                    showLine: false,
+                    showPoint: true,
+                    fullWidth: true,
+                    axisX: {
+                        showLabel: true,
+                        showGrid: false
+                    }
+                });
+        })
+}
+
 }])
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){
@@ -1397,7 +1537,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
 // setInterval(function() {
 //     checkStatus = 'off';
-//     console.log(element);
 //     console.clear();
 //     if(checkStatus == "on"){
 
