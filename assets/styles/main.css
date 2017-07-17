@@ -677,7 +677,7 @@ nav a:hover {
 .sub-system {
     min-height: 214px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 17px;
 }
 
 .sub-system p {
@@ -849,7 +849,7 @@ nav a:hover {
     margin: 10px auto;
     border-radius: 50%;
     padding: 46px 0px;
-    width: 60%;
+    width: 169px;
     animation: aris 1s;
 }
 
@@ -1818,7 +1818,6 @@ tfoot tr td {
 }
 .searchResult {
     position: absolute;
-    background-color: white;
     color: #037BC0;
     right: -14px;
     width: 100%;

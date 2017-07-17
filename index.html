@@ -19,30 +19,31 @@
     <link href="assets/styles/main.min.css" rel="stylesheet">
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
     <!--<script src=".dist/bundle1.js"></script>-->
-    <script src="assets/scripts/jquery.min.js"></script>
+     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
     <script src="assets/scripts/chart.js"></script>
     <script src="assets/scripts/moment.min.js"></script>
     <script src="assets/scripts/moment-jalaali.js"></script>
     <script src="assets/scripts/fullcalendar.js"></script>
-    <script src="assets/scripts/persianDatepicker.min.js"></script>
     <script src="assets/scripts/locale-all.js"></script>
+    <script src="assets/scripts/persianDatepicker.min.js"></script>
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
-    <script src="assets/scripts/main.js"></script>
-    <!-- <script src=".dist/main.js"></script> -->
+    <script src="assets/scripts/main.js"></script> 
+     <!-- <script src=".dist/main.js"></script>  -->
+
 </head>
 
-<body id="body" ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
-    <nav class="border color " ng-include="'modules/navigation.html'" ng-init="theme()">
+<body id="body" ng-app="myApp" ng-controller="myCtrl">
+    <nav class="border color " ng-include="'modules/navigation.html'">
     </nav>
     <p class="fontchange" style="text-align: left;color: #037BC0;">
         10.3 <i class="fa fa-envelope-o" style="color: white;"></i>
     </p>
     <div class="container" style="margin-top: 40px;padding: 0 17px;margin-bottom: 60px;">
         <div class="row my-margin-top">
-            <div class="col-sm-7 my-margin-top system-con" style="padding: 0">
+            <div class="col-sm-7 my-margin-top system-con" style="padding: 0" ng-init="gettingSystemJson()">
                 <div class="col-sm-4 my-padding  animation container-filter" ng-repeat="system in system" ng-include="'modules/system.html'">
                 </div>
                 <div class="clearfix"></div>

@@ -27,15 +27,14 @@
     </div>
 </div>
 <!--modal for access to main systems-->
-<div class="modal fade" id="mainSystems" role="dialog">
+<div class="modal fade" id="mainSystems" role="dialog" >
     <div class="modal-dialog">
         <div class="modal-content my-modal">
-            <div class="modal-body center" style="min-height:0px">
+            <div class="modal-body center" style="min-height:0px" ng-init="gettingSystemJson()">
                 <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class=" my-margin-top" ng-repeat="system in system" ng-class="system.iconStyle" style="padding: 15px;">
+                    <div class=" my-margin-top col-sm-4" ng-repeat="system in system" style="padding: 15px;" ng-init="theme()">
                         <div class="row">
-                            <div class="modal-container transform pointer" ng-style="system.style" ng-click="gettingSystem(system.id,1)">
+                            <div class="modal-container transform pointer color"  ng-click="gettingSystem(system.id,1)">
                                 <i class="fa system-icon" ng-class="system.icon"></i>
                                 <h5 class="pointer fontchange">{{system.title}}</h5>
                             </div>
