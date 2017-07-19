@@ -69,13 +69,15 @@
             </button>
         </div>-->
         <div class="col-sm-12 my-margin-top">
-            <button class="btn btn-info buttons" ng-repeat="button in buttons" ng-if="button.situation == false" ng-disabled="button.situation"
+            <button class="btn btn-info buttons" ng-repeat="button in buttons" ng-if="button.situation == false && button.access == 1" ng-disabled="button.situation"
                 ng-click="genral(button.id)" style="margin: -15px 2px 0px">
-                <i class="fa fa-tree"></i>
+                <i ng-if="loading" class="fa fa-spinner fa-pulse"></i>
+                <i class="fa fa-tree" ng-if="!loading"></i>
                 {{button.name}}
             </button>
             <span class="btn-info btn" disabled ng-repeat="button in buttons" ng-if="button.situation" style="margin-top: -15px">
-                <i class="fa fa-spinner fa-pulse"></i>
+                <i ng-if="loading" class="fa fa-spinner fa-pulse"></i>
+                <i class="fa fa-tree" ng-if="!loading"></i>
                 {{button.name}}
             </span>
         </div>
@@ -196,7 +198,7 @@
 <div id="tablePlus" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body container">
+            <div class="modal-body container" style="padding-top: 118px">
                 <div class="row">
                     <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
                         <label>سرفصل حساب</label>

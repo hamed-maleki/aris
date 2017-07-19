@@ -21,7 +21,7 @@
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
-    <script src="assets/scripts/chart.js"></script>
+     <script src="assets/scripts/chart.js"></script> 
     <script src="assets/scripts/moment.min.js"></script>
     <script src="assets/scripts/moment-jalaali.js"></script>
     <script src="assets/scripts/fullcalendar.js"></script>
@@ -38,7 +38,7 @@
     </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="getSearchCookie()">
+<body ng-app="myApp" ng-controller="myCtrl" >
     <nav class="border color" ng-include="'modules/navigation.html'">
     </nav>
 
@@ -50,7 +50,7 @@
     <div class="container-fluid my-margin-top">
         <div class="row white-background border" style="margin-bottom: 64px;">
             <div class="col-sm-12">
-                <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;">
+                <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;" ng-init="theme()">
                 </div>
             </div>
             <div class="col-sm-2 col-sm-push-10 right-align fontchange">

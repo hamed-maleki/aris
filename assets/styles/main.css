@@ -745,7 +745,7 @@ nav a:hover {
 .shadow > i {
     font-size: 24px;
     vertical-align: middle;
-    margin: 7px auto;
+    margin: 7px 0 7px -7px;
 }
 
 .subsystem {
@@ -1204,6 +1204,9 @@ tfoot tr td {
     transform: scale(1.5, 1);
     }
 }
+.color-animation {
+    animation: aris 1s;
+}
 @keyframes unload {
     from {
         opacity: 0
@@ -1353,6 +1356,9 @@ tfoot tr td {
         transform: rotateX(0deg);
     }
 }
+.animation{
+    animation: aris 1s;
+}
 .animation1 {
     animation: animation1 1s;
 }
@@ -1406,6 +1412,7 @@ tfoot tr td {
 }
 .third-systemcolor {
     background-color: #5e7987 !important;
+
 }
 .editTable {
     background-color: yellow !important;

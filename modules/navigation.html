@@ -1,4 +1,4 @@
-<div class="container-fluid effect" ng-init="theme()">
+<div class="container-fluid effect">
     <div class="row">
         <div class="col-sm-12 ">
             <div class="row">
@@ -7,7 +7,7 @@
                         <!--logo part-->
                         <img src="media/logofox.png" id="aris-logo" onmouseover="transform3d()" onmouseout="deleteTransform()">
                         <img src="media/logo.png" id="aris-typo" />
-                        
+
                     </a>
                     <div class="aris-badge">10</div>
                 </div>
@@ -45,12 +45,12 @@
                             <span>
                             <input type="text" class="form-control form-control1 hide" list="browsers" autocomplete="off" id="search"  ng-model="searchFilter" ng-keyup="searching(0)" ng-blur="closingSearch()" ng-keydown="searching(1)"/>
                             </span>
-                            <div class="searchResult" id="search-con" tabindex="1" >
+                            <div class="searchResult" id="search-con" tabindex="1">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-sm-12" >
+                                        <div class="col-sm-12">
                                             <div ng-repeat="x in searchSystem|filter:{title : searchItem}">
-                                                <li class="searchLink pointer fontchange"  ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
+                                                <li class="searchLink pointer fontchange" ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
                                                     {{x.title}}
                                                 </li>
 
@@ -103,9 +103,9 @@
         </div>
     </div>
 </div>
-<div class="loading-login1 color" >
-        <img src="media/logofox.png" id="fox" class="fox">
-    </div>
+<div class="loading-login1 color">
+    <img src="media/logofox.png" id="fox" class="fox">
+</div>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();

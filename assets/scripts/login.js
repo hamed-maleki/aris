@@ -84,7 +84,6 @@ function login() {
     })
     function AjaxSucceeded (response) {
          $(".load-circle").css("display","none")
-        console.log(response);
         //console.log(JSON.parse(response));
         //$scope.userName = response.data.userName;
         //Store the token information in the localStorage

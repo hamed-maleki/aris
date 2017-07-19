@@ -3,17 +3,20 @@
         {
             "name":"چاپ درختواره",
             "id":12,
-            "situation":false
+            "situation":false,
+            "access":1
         },
         {
             "name":"چاپه",
             "id":13,
-            "situation":true
+            "situation":true,
+            "access":0
         },
         {
             "name":"چاپ ره",
             "id":14,
-            "situation":false
+            "situation":false,
+            "access":0
         }
     ]
 }

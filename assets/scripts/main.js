@@ -38,6 +38,7 @@ app.directive("sidebar", function () {
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     //theme functions
+
     $http.get("data/theme.json")
         .then(function (response) {
             $scope.colorTheme = response.data.color;
@@ -50,11 +51,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // $scope.theme()
             var timeout;
             $(document).on("mousemove keydown click", function () {
-                $(".loading-login").fadeOut(1000)
+                $(".loading-login1").fadeOut(1000)
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
-                    $(".loading-login").fadeIn(2000);
-                }, 60 * $scope.time);
+                    console.log("this is happening");
+                    console.log($scope.time)
+                    $(".loading-login1").fadeIn(1000);
+                }, $scope.time * 60);
             }).click();
         }).catch(function () {
             $scope.error[0] = "خطا در برقراری ارتباطات";
@@ -123,7 +126,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("button").css("font-family", "iran-sans");
                 $("th").css("font-family", "iran-sans");
                 $(".top-link").css("font-size", "15px");
-                $(".sub-system p").css("font-size", "15px");
+                $(".sub-system p").css("font-size", "14px");
             }
             else if ($scope.fontTheme[0] == 3) {
                 $("#thirdcheck").removeClass("hide");
@@ -263,7 +266,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
         if ($("#search").val()) {
             $scope.searchSystem = $scope.system;
-            $(".searchResult").css({"display": "block","background-color":"#f1f2f3"})
+            $(".searchResult").css({ "display": "block", "background-color": "#f1f2f3" })
             $scope.searchItem = $("#search").val();
 
         }
@@ -376,8 +379,39 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.gettingSystem(item, 0)
     }
     // system page on load to chek if there is any cookie
-    $scope.getSearchCookie = function () {
+    $scope.systemToShow = function () {
+        $scope.systemIdToLoad = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
+        console.log("this system id");
+        console.log($scope.systemIdToLoad);
+        $.ajax({
+            url: "http://localhost/ArisSystem/api/system/subsystem",
+            method: "GET",
+            data: {
+                parentId: $scope.systemIdToLoad
+            },
+            dataType: 'json',
+            headers: authHeaders
+        }).then(function (response) {
+            console.log("the system for first time is happening")
+            $scope.subsystem = response;
+            for (var i = 0; i < $scope.subsystem.length; i++) {
+                var subItem = {
+                    "id": $scope.subsystem[i].id,
+                    "itemLoaded": 0,
+                    "title": $scope.subsystem[i].title,
+                    "children": 1
+                }
+                $scope.subSystemSituation.push(subItem)
+            }
+        }), function (xhr, status, error) {
+            if (refreshtoken && xhr.status === 401) {
+                console.log("this is subsystem failed");
+                $scope.refreshlocal($scope.systemToShow, 0);
+            }
+        }
+    }
 
+    $scope.getSearchCookie = function () {
         var x = $scope.getCookieValue('searchParent')
         var y = $scope.getCookieValue('searchId')
         $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
@@ -446,23 +480,36 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     if (accesstoken) {
         authHeaders.Authorization = 'Bearer ' + accesstoken;
     }
+    var setItemToFix = []
     $scope.gettingSystemJson = function () {
-        $http({
-            url: "http://localhost/ArisSystem/api/user/system",
-            method: "GET",
-            headers: authHeaders
-        }).then(function (response) {
-            $scope.system = response.data;
-            SHeight = true;
-            $scope.getHeight();
-        })
-            .catch(function (xhr, status, error) {
-                if (refreshtoken && xhr.status === 401) {
-                    $scope.refreshlocal($scope.gettingSystemJson);
-                }
+        setTimeout(function () {
+            $http({
+                url: "http://localhost/ArisSystem/api/system/main",
+                method: "GET",
+                headers: authHeaders
+            }).then(function (response) {
+                SHeight = true;
+                $scope.system = response.data;
+                $scope.blankSystem = $scope.system.length % 3;
+                $scope.facebookLoader = 1;
+                setTimeout(function () {
+                    $scope.getHeight();
+                }, 500)
+                // if($scope.system.length % 3 != 0){
+                //     for(var i = 0; i < 3 -($scope.system.length%3);i++){
+                //         $scope.system[$scope.system.length].push(setItemToFix)
+                //     }
+                // }
             })
+                .catch(function (xhr, status, error) {
+                    if (refreshtoken && xhr.status === 401) {
+                        $scope.refreshlocal($scope.gettingSystemJson, 0);
+                    }
+                })
+        }, 2000)
+
     }
-    $scope.refreshlocal = function (x) {
+    $scope.refreshlocal = function (x, y) {
         $.ajax({
             url: "http://localhost/ArisSystem/login",
             data: {
@@ -481,7 +528,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             refreshtoken = localStorage.getItem('refreshToken');
             accesstoken = localStorage.getItem('accessToken');
             authHeaders.Authorization = 'Bearer ' + accesstoken;
-            x();
+            if (y == 0) {
+                x();
+            }
+            else {
+                x(y);
+            }
+
         }
         function AjaxFailed(err, response) {
             // console.log(err);
@@ -491,7 +544,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.getHeight = function () {
         if (SHeight == true) {
             setTimeout(function () {
-
                 $("#chart1").css("height", $(".system-con").height() - 30 + "px");
                 $http.get('data/chart.json')
                     .then(function (response) {
@@ -578,8 +630,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // system page table adding new row
     $scope.tablePlus = function (x, y, z, v) {
-
-
         var item = {
             "title": x,
             "description": y,
@@ -711,6 +761,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // first page cookie for system page
+    $scope.systemToLoad = function (x) {
+        var now = new Date();
+        var time = now.getTime();
+        time += 3600 * 1000;
+        now.setTime(time);
+        for (var i = 0; i < $scope.system.length; i++) {
+            if ($scope.system[i].id == x) {
+                var cookieItem = JSON.stringify($scope.system[i].id);
+                document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
+            }
+        }
+        window.location.href = "system-page.min.html";
+    }
     $scope.gettingSystem = function (x, y) {
         if (y == 1) {
             $scope.cookieForSide(0, 0)
@@ -767,6 +830,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.buttons = response.data.buttons;
         })
     $scope.genral = function (x) {
+        $scope.loading = true;
         switch (x) {
             case 12:
                 var firstItem = $("#firstInput").val();
@@ -780,11 +844,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //  reporting table data loader
 
     $scope.dataLoad = function (x) {
-        $scope.loading = true;
+        // $scope.loading = true;
         $scope.paginationNumber = [];
         $scope.limitedEdition = [];
         $scope.dataToSend = [];
-
+        $(".buttons").attr("disabled", "true");
         if (x[0] == undefined) {
             $scope.error[0] = "فرم نمیتواند خالی باشد";
             $("#error").modal();
@@ -806,12 +870,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 for (var conter = 1; conter < pageNumber + 1; conter++) {
                     $scope.paginationNumber.push(conter);
                 }
+                $(".buttons").prop("disabled", false);
             })
             .catch(function () {
                 $scope.error[0] = "عدم دستیابی به اطلاعات";
                 $("#error").modal();
             }); setTimeout(function () {
                 $scope.tableFonting();
+                $scope.loading = false;
+                $(".buttons").prop("disabled", false);
             }, 10)
     }
     $scope.tableFormat = function () {
@@ -1095,11 +1162,54 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.orderBy = function (x) {
         $scope.myorder = x;
     }
-    // dorpdown 
+    // dorpdown
+    $scope.subSystemSituation = [];
     $scope.drop = function (x) {
+        for (var i = 0; i < $scope.subSystemSituation.length; i++) {
+            if (x == $scope.subSystemSituation[i].id) {
+                if ($scope.subSystemSituation[i].itemLoaded == 0) {
+                    
+                        console.log($scope.getChildren(x))
+                        $scope.itemToPush = $scope.getChildren(x);
+                        console.log($scope.itemToPush);
+          
+                    $scope.subSystemSituation[i].itemLoaded = 1;
+                }
+            }
+        }
+        for (var i = 0; i < $scope.subSystemSituation.length; i++) {
+            if (x == $scope.subSystemSituation[i].id) {
+                if ($scope.subSystemSituation[i].itemLoaded == 0) {
+                    $scope.subSystemSituation[i].children = $scope.itemToPush;
+                }
+            }
+        }
         $("#dropdown" + x).slideToggle();
-        $("#subnav").html("");
     }
+    $scope.getChildren = function (x) {
+        var slider;
+        var get = $.ajax({
+            url: "http://localhost/ArisSystem/api/system/subsystem",
+            method: "GET",
+            data: {
+                parentId: x
+            },
+            dataType: 'json',
+            headers: authHeaders,
+            async: true
+        }).done(function (response) {
+            $scope.itemToPush = response;
+        }).fail(function (xhr, status, error) {
+            if (refreshtoken && xhr.status === 401) {
+                $scope.refreshlocal($scope.getChildren, x);
+            }
+        })
+        // return slider;
+        // get.then(function () {
+        //     $scope.itemToPush = slider;
+        // })
+    }
+
     // chat area
     $scope.chatting = function (reciver) {
         $scope.newChat = {
@@ -1593,7 +1703,7 @@ function searching() {
             $("#search").addClass("hide");
         }, 300);
         $("#search").val("");
-        $(".searchResult").css({'display': "none", "background-color":"#f1f2f3"});
+        $(".searchResult").css({ 'display': "none", "background-color": "#f1f2f3" });
     }
 }
 function hidding(el) {
