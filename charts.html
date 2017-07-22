@@ -30,13 +30,13 @@
     <script src="assets/scripts/prettify.js"></script>
     <script src="assets/scripts/main.js"></script>
     <style>
-        .tools-logo{
+        .tools-logo {
             margin-top: 15px;
         }
     </style>
 </head>
 
-<body id="body" ng-app="myApp" ng-controller="myCtrl" >
+<body id="body" ng-app="myApp" ng-controller="myCtrl">
     <nav class="border color" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid">
@@ -79,5 +79,103 @@
     <footer class="container-fluid container-filter" ng-include="'modules/footer.html'">
     </footer>
 </body>
+<script>
+    $.ajax({
+        url: 'data/chart.json',
+        method: "GET"
+    })
+        .then(function (response) {
+            var users = response
+            var data1 = {
+                labels: users.map(function (user) {
+                    return user.name;
+                }),
+                series: users.map(function (user) {
+                    return user.value;
+                })
+            };
+
+            new Chartist.Bar('#chart1', data1, {
+                distributeSeries: true
+            });
+
+        });
+    $.ajax({
+        url: 'data/piechart.json',
+        method: "GET"
+    })
+        .then(function (response) {
+            var users2 = response;
+            var data = {
+                labels: users2.map(function (user) {
+                    return user.name;
+                }),
+                series: users2.map(function (user) {
+                    return user.value;
+                })
+            };
+            new Chartist.Pie('#chart3', data, options, responsiveOptions);
+            var options = {
+                labelInterpolationFnc: function (value) {
+                    return value[0]
+                }
+            };
+            var responsiveOptions = [
+                ['screen and (min-width: 640px)', {
+                    chartPadding: 35,
+                    labelOffset: 90,
+                    labelDirection: 'explode',
+                    labelInterpolationFnc: function (value) {
+                        return value;
+                    }
+                }],
+                ['screen and (min-width: 1024px)', {
+                    labelOffset: 80,
+                    chartPadding: 35
+                }]
+            ]
+        })
+    $.ajax({
+        url: 'data/semibar.json',
+        method: "GET"
+    }).then(function (response) {
+        var users1 = response;
+        var data2 = {
+            labels: users1.map(function (user) {
+                return user.name;
+            }),
+            serie1: users1.map(function (user) {
+                return user.value1
+            }),
+            serie2: users1.map(function (user) {
+                return user.value2
+            }),
+            serie3: users1.map(function (user) {
+                return user.value3
+            }),
+            serie4: users1.map(function (user) {
+                return user.value4
+            }),
+
+
+        };
+        var series = [data2.serie1, data2.serie2, data2.serie3, data2.serie4]
+        // Initialize a Line chart in the container with the ID chart2
+        new Chartist.Line('#chart2', {
+            labels: data2.labels,
+            series: series
+        }, {
+                showArea: true,
+                showLine: false,
+                showPoint: true,
+                fullWidth: true,
+                axisX: {
+                    showLabel: true,
+                    showGrid: false
+                }
+            });
+    })
+
+</script>
 
 </html>

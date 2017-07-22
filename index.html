@@ -116,7 +116,7 @@
             <div ng-if="facebookLoader == 1" class="col-sm-5 my-margin-top container-filter" style="padding: 0 8px">
                 <a href="charts.min.html">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" ng-init="getHeight()">
                             <div class="border sub-system chart sub-color" style="padding-top: 10px;">
                                 <div class="ct-chart  ct-golden-section my-margin-top" id="chart1" style="color: white"></div>
                             </div>

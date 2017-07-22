@@ -21,7 +21,7 @@
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
-     <script src="assets/scripts/chart.js"></script> 
+      <!-- <script src="assets/scripts/chart.js"></script>   -->
     <script src="assets/scripts/moment.min.js"></script>
     <script src="assets/scripts/moment-jalaali.js"></script>
     <script src="assets/scripts/fullcalendar.js"></script>
@@ -47,7 +47,7 @@
                 {{button.name}}
         </button>
     </div>-->
-    <div class="container-fluid my-margin-top">
+    <div class="container-fluid my-margin-top" ng-init="systemToShow()">
         <div class="row white-background border" style="margin-bottom: 64px;">
             <div class="col-sm-12">
                 <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;" ng-init="theme()">

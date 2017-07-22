@@ -100,6 +100,11 @@ function login() {
         console.log('err2');
         console.log(err);
         console.log('err3');
+        if(err.status == 500){
+            $(".ieMessage p").html("خطای ارتباطی لطفا دوباره سعی کنید");
+        }else{
+            $(".ieMessage p").html("نام کاربری و یا رمز وارد شده صحیح نمیباشد");
+        }
         $(".ieMessage").removeClass("hide");
         // $scope.responseData="Error " + err.status;
     };

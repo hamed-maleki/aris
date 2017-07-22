@@ -54,8 +54,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $(".loading-login1").fadeOut(1000)
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
-                    console.log("this is happening");
-                    console.log($scope.time)
                     $(".loading-login1").fadeIn(1000);
                 }, $scope.time * 60);
             }).click();
@@ -197,7 +195,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
     //     $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     // })
-    $scope.number = "unload.html";
+    $scope.number = "example1.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -380,8 +378,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
-        $scope.systemIdToLoad = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
-        console.log("this system id");
+        // $scope.systemIdToLoad = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
+        $scope.systemIdToLoad  = localStorage.getItem("parent_id");
         console.log($scope.systemIdToLoad);
         $.ajax({
             url: "http://localhost/ArisSystem/api/system/subsystem",
@@ -392,7 +390,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders
         }).then(function (response) {
-            console.log("the system for first time is happening")
             $scope.subsystem = response;
             for (var i = 0; i < $scope.subsystem.length; i++) {
                 var subItem = {
@@ -492,14 +489,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.system = response.data;
                 $scope.blankSystem = $scope.system.length % 3;
                 $scope.facebookLoader = 1;
-                setTimeout(function () {
-                    $scope.getHeight();
-                }, 500)
-                // if($scope.system.length % 3 != 0){
-                //     for(var i = 0; i < 3 -($scope.system.length%3);i++){
-                //         $scope.system[$scope.system.length].push(setItemToFix)
-                //     }
-                // }
             })
                 .catch(function (xhr, status, error) {
                     if (refreshtoken && xhr.status === 401) {
@@ -547,6 +536,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("#chart1").css("height", $(".system-con").height() - 30 + "px");
                 $http.get('data/chart.json')
                     .then(function (response) {
+                        console.log(response.data)
                         var users = response.data
                         var data1 = {
                             labels: users.map(function (user) {
@@ -567,23 +557,23 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
         }
     }
-    $http.get('data/chart.json')
-        .then(function (response) {
-            var users = response.data
-            var data1 = {
-                labels: users.map(function (user) {
-                    return user.name;
-                }),
-                series: users.map(function (user) {
-                    return user.value;
-                })
-            };
+    // $http.get('data/chart.json')
+    //     .then(function (response) {
+    //         var users = response.data
+    //         var data1 = {
+    //             labels: users.map(function (user) {
+    //                 return user.name;
+    //             }),
+    //             series: users.map(function (user) {
+    //                 return user.value;
+    //             })
+    //         };
 
-            new Chartist.Bar('#chart1', data1, {
-                distributeSeries: true
-            });
+    //         new Chartist.Bar('#chart1', data1, {
+    //             distributeSeries: true
+    //         });
 
-        });
+    //     });
     // fetch("data/system.json").then(function (response) {
     //     return response.json();
     // }).then(function (response) {
@@ -762,16 +752,17 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // first page cookie for system page
     $scope.systemToLoad = function (x) {
-        var now = new Date();
-        var time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        for (var i = 0; i < $scope.system.length; i++) {
-            if ($scope.system[i].id == x) {
-                var cookieItem = JSON.stringify($scope.system[i].id);
-                document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-            }
-        }
+        // var now = new Date();
+        // var time = now.getTime();
+        // time += 3600 * 1000;
+        // now.setTime(time);
+        // for (var i = 0; i < $scope.system.length; i++) {
+        //     if ($scope.system[i].id == x) {
+        //         var cookieItem = JSON.stringify($scope.system[i].id);
+        //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
+        //     }
+        // }
+        localStorage.setItem("parent_id",x);
         window.location.href = "system-page.min.html";
     }
     $scope.gettingSystem = function (x, y) {
@@ -1168,48 +1159,41 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         for (var i = 0; i < $scope.subSystemSituation.length; i++) {
             if (x == $scope.subSystemSituation[i].id) {
                 if ($scope.subSystemSituation[i].itemLoaded == 0) {
-                    
-                        console.log($scope.getChildren(x))
-                        $scope.itemToPush = $scope.getChildren(x);
-                        console.log($scope.itemToPush);
-          
-                    $scope.subSystemSituation[i].itemLoaded = 1;
-                }
-            }
-        }
-        for (var i = 0; i < $scope.subSystemSituation.length; i++) {
-            if (x == $scope.subSystemSituation[i].id) {
-                if ($scope.subSystemSituation[i].itemLoaded == 0) {
-                    $scope.subSystemSituation[i].children = $scope.itemToPush;
-                }
-            }
-        }
-        $("#dropdown" + x).slideToggle();
-    }
-    $scope.getChildren = function (x) {
-        var slider;
-        var get = $.ajax({
-            url: "http://localhost/ArisSystem/api/system/subsystem",
-            method: "GET",
-            data: {
-                parentId: x
-            },
-            dataType: 'json',
-            headers: authHeaders,
-            async: true
-        }).done(function (response) {
-            $scope.itemToPush = response;
-        }).fail(function (xhr, status, error) {
-            if (refreshtoken && xhr.status === 401) {
-                $scope.refreshlocal($scope.getChildren, x);
-            }
-        })
-        // return slider;
-        // get.then(function () {
-        //     $scope.itemToPush = slider;
-        // })
-    }
 
+                    $http({
+                        url: "http://localhost/ArisSystem/api/system/subsystem",
+                        method: "GET",
+                        params: {
+                            parentId: x
+                        },
+                        headers: authHeaders,
+                    }).then(function (response) {
+                        
+                        $scope.itemToPush = response.data;
+                        for (var i = 0; i < $scope.subSystemSituation.length; i++) {
+                            
+                            if (x == $scope.subSystemSituation[i].id) {
+                                if ($scope.subSystemSituation[i].itemLoaded == 0) {
+                                    console.log("this is happening")
+                                    console.log($scope.subSystemSituation[i]);
+                                    $scope.subSystemSituation[i].children = $scope.itemToPush;
+                                    $scope.subSystemSituation[i].children = $scope.itemToPush;
+                                }
+                            }
+                        }    
+                    }).catch(function (xhr, status, error) {
+                        if (refreshtoken && xhr.status === 401) {
+                            $scope.refreshlocal($scope.drop, x);
+                        }
+                    })
+                }
+            }
+        }
+        setTimeout(function(){
+            $("#dropdown" + x).slideToggle();
+        },4000)
+        
+    }
     // chat area
     $scope.chatting = function (reciver) {
         $scope.newChat = {
@@ -1571,76 +1555,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // charts part
 
     $scope.chartLoad = function () {
-        $http.get('data/piechart.json')
-            .then(function (response) {
-                var users2 = response.data;
-                var data = {
-                    labels: users2.map(function (user) {
-                        return user.name;
-                    }),
-                    series: users2.map(function (user) {
-                        return user.value;
-                    })
-                };
-                new Chartist.Pie('#chart3', data, options, responsiveOptions);
-                var options = {
-                    labelInterpolationFnc: function (value) {
-                        return value[0]
-                    }
-                };
-                var responsiveOptions = [
-                    ['screen and (min-width: 640px)', {
-                        chartPadding: 35,
-                        labelOffset: 90,
-                        labelDirection: 'explode',
-                        labelInterpolationFnc: function (value) {
-                            return value;
-                        }
-                    }],
-                    ['screen and (min-width: 1024px)', {
-                        labelOffset: 80,
-                        chartPadding: 35
-                    }]
-                ]
-            })
-        $http.get('data/semibar.json')
-            .then(function (response) {
-                var users1 = response.data
-                var data2 = {
-                    labels: users1.map(function (user) {
-                        return user.name;
-                    }),
-                    serie1: users1.map(function (user) {
-                        return user.value1
-                    }),
-                    serie2: users1.map(function (user) {
-                        return user.value2
-                    }),
-                    serie3: users1.map(function (user) {
-                        return user.value3
-                    }),
-                    serie4: users1.map(function (user) {
-                        return user.value4
-                    }),
-
-
-                };
-                var series = [data2.serie1, data2.serie2, data2.serie3, data2.serie4]
-                // Initialize a Line chart in the container with the ID chart2
-                new Chartist.Line('#chart2', {
-                    labels: data2.labels,
-                    series: series
-                }, {
-                        showArea: true,
-                        showLine: false,
-                        showPoint: true,
-                        fullWidth: true,
-                        axisX: {
-                            showLabel: true,
-                            showGrid: false
-                        }
-                    });
-            })
+        
     }
 
 }])
@@ -1728,14 +1643,6 @@ table();
 function table() {
     $(".fc-time-grid .fc-event-container").css("display", "inline-block");
 }
-function checkCookie() {
-    var cookieEnabled = navigator.cookieEnabled;
-    if (!cookieEnabled) {
-        document.cookie = "testcookie";
-        cookieEnabled = document.cookie.indexOf("testcookie") != -1;
-    }
-    return cookieEnabled || showCookieFail();
-}
 var is_iPad = navigator.userAgent.match(/iPad/i) != null;
 function appleCheck() {
     if (is_iPad) {
@@ -1743,11 +1650,6 @@ function appleCheck() {
     }
 }
 appleCheck();
-function showCookieFail() {
-    alert("برای کاربری مناسب کوکی سیستم خود را روشن کنید");
-}
-// within a window load,dom ready or something like that place your:
-checkCookie();
 window.onkeydown = function (e) {
     e = e || window.event;
     // use e.keyCode
