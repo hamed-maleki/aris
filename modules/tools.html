@@ -1,39 +1,45 @@
-<div class="row effect" >
+<div class="row effect">
     <!--calendar link container-->
-    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(2)" ng-init="mydate()">
-        <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
-            <!--<p class="myMonth center"></p>-->
-            <i class="fa fa-calendar-o system-icon"></i>
-            <div class="badging sub-color" ng-if="eventNumber != 0">{{eventNumber}}</div>
+    <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(2)" ng-init="mydate()">
+        <div class="border sub-system transform  center pointer first-color  tools my-calendar" style="margin-top: 10px;background-color: white !important">
+
+            <div class="color" style="height: 20px;font-size: 12px">
+                <i class="fa fa-chevron-left" style="float: left;font-size: 10px;margin-top:5px;margin-left: 3px;"></i> {{myMonth}}
+                <i class="fa fa-chevron-right" style="float: right;font-size: 10px;margin-top: 5px;margin-right: 3px;"></i>
+            </div>
             <span class=" myday fontchange">{{myday}}</span>
+            <div style="color:#F6921E;font-size: 12px;margin-top: 28px">{{dayname}}</div>
+            <!--<p class="myMonth center"></p>-->
+            <!-- <i class="fa fa-calendar-o system-icon"></i>
+            <div class="badging sub-color" ng-if="eventNumber != 0">{{eventNumber}}</div>
+            <span class=" myday fontchange">{{myday}}</span> -->
         </div>
     </div>
     <!--note link container-->
-    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(1)">
+    <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(1)">
         <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
             <i class="fa fa-file-text-o system-icon"></i>
             <div ng-if="note.length != 0" class="badging sub-color">{{note.length}}</div>
         </div>
     </div>
     <!--top-links link container-->
-    <div class="col-sm-6 my-col-sm-6" onclick="display('chatbox')" >
+    <div class="col-sm-6 my-col-sm-6" onclick="display('chatbox')">
         <div class="border sub-system transform  center pointer tools sub-color" style="margin-top: 10px">
             <!--<i class="fa fa-random system-icon"></i>-->
             <img src="media/logofox.png" class="tools-logo">
-
+            <div class="aris-badge">10</div>
         </div>
     </div>
-    
+
     <!--chat link container-->
-    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(3)">
+    <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(3)">
         <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
             <i class="fa fa-random system-icon"></i>
         </div>
     </div>
 </div>
 <!--aside part-->
-<div class="side-filter"></div>
-<div class="side-tool">
+<!-- <div class="side-tool">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -44,7 +50,7 @@
             <sidebar></sidebar>
         </div>
     </div>
-</div>
+</div> -->
 <!--chat area part-->
 <div id="chatbox" class="color">
     <div class="container">
@@ -86,7 +92,8 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <input list="people" id="reciver" ng-model="reciver" class="form-control form-control1" placeholder="انتخاب فرد" style="width: 100%;margin: 10px auto;" />
+                        <input list="people" id="reciver" ng-model="reciver" class="form-control form-control1" placeholder="انتخاب فرد" style="width: 100%;margin: 10px auto;"
+                        />
                         <datalist id="people">
                             <option value="فرد اول" />
                             <option value="فرد لااول" />

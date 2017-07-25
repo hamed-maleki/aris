@@ -51,7 +51,7 @@ body, html {
     cursor: context-menu;
     background-color: #F1F2F3 !important;
     font-size: 18px;
-     min-height: 100vh;
+    min-height: 750px;
 }
 
 body {
@@ -139,7 +139,7 @@ footer {
     margin-top: 154px;
     margin-bottom: -15px !important;
     padding: 15px;
-    height: 50px;
+    height: 42px;
     position: fixed;
     bottom: 15px;
     right: 0;
@@ -189,6 +189,7 @@ nav .modal{
 .logo-holder {
     height: 55px;
     margin-left: -5px;
+    width: 14%;
 }
 
 .logo-holder img {
@@ -202,7 +203,7 @@ nav .modal input[type="radio"] {
 }
 
 nav i {
-    font-size: 28px !important;
+    font-size: 21px !important;
     margin: 0 20px !important;
     font-weight: 100 !important;
 }
@@ -210,7 +211,9 @@ nav i {
 nav a {
     color: white;
 }
-
+.navbar-collapse {
+    padding-left: 3px;
+}
 nav a:hover {
     color: white;
 }
@@ -252,17 +255,19 @@ nav a:hover {
 }
 
 #aris-logo {
-        width: 31%;
-        margin: 2px auto 5px;
+        width: 15%;
+        margin: 5px auto 5px;
         display: inline-block;
         height: auto;
 }
 
 #aris-typo {
-    width: 45%;
+    width: 30%;
     display: inline-block;
-    height: 19px;
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
+    height: auto;
 }
 
 #search {
@@ -287,7 +292,9 @@ nav a:hover {
 .fc .fc-toolbar > *{
     color: #037BC0;
 }
-
+.fc button{
+    font-size: 0.6em;
+}
 .fc-rtl .fc-basic-view .fc-day-top .fc-day-number {
     float: none;
     text-align: center;
@@ -297,7 +304,10 @@ nav a:hover {
 .fc-row .fc-content-skeleton td{
     text-align: center;
 }
-
+.fc-row th {
+    font-size: 7px;
+    color: black;
+}
 .fc-event-container .fc-time-grid-event:nth-child(2) .fc-content  {
     margin-top: 20px !important;
     margin-bottom: 20px !important;
@@ -422,7 +432,7 @@ nav a:hover {
 }
 
 .fc-content-skeleton a{
-    color: white;
+    color: black;
 }
 
 .fc-list-heading-alt {
@@ -466,18 +476,18 @@ nav a:hover {
 }
 
 .fc th, .fc td, .fc hr, .fc thead, .fc tbody, .fc-row{
-    background: rgba(0,0,0,0.1) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255,255,255,1) !important;
+    border-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .fc-view-container *, .fc-view-container *::after, .fc-view-container *::before{
-    color: white;
+    color: black;
 }
 /*end od calendar*/
 /*grid system*/
 .badging{
     position: absolute;
-    top: 19px;
+    top: 4px;
     right: 10%;
     display: inline-block;
     animation: aris;
@@ -493,21 +503,27 @@ nav a:hover {
 }
 
 .side-tool {
-    position: fixed;
-    height: 100em;
+    /* position: fixed;
+    height: 86.5vh; */
+    width: 192px;
     background-color: rgba(255,255,255,0.8);
-    width: 0px;
-    top: 0;
-    right: 0;
-    z-index: 100;
+    margin-top: -25px;
+    margin-left: -12px;
+    height: 563px;
+    /* width: 0px;
+    top: 63px; */
+    /* right: 0;
+    z-index: 100; */
 }
 
-.side-tool .border h4,.side-tool .border i {
-    color: #037BC0;
+.side-tool .border h6,.side-tool .border i {
+    color: #C1B49A;
 }
-
+.side-tool h6 i{
+    font-size: 10px;
+}
 .side-tool .border i:hover,.side-tool .border p{
-    color: #F16521;
+    color: #C1B49A;
 }
 .side-filter {
     position: fixed;
@@ -528,7 +544,7 @@ nav a:hover {
 }
 
 .my-col-sm-6 .sub-system {
-    min-height: 106px;
+    min-height: 80px;
     position: relative;
     animation: aris;
     animation-duration: 2s;
@@ -541,7 +557,7 @@ nav a:hover {
 
 .my-col-sm-6 i {
     font-size: 41px;
-    margin: 33px auto 27px auto;
+    margin: 19px auto 0px;
 }
 
 .my-col-sm-6 a {
@@ -553,12 +569,12 @@ nav a:hover {
     color: white;
 }
 
-.ct-series-b .ct-bar{
-    stroke: white !important;
+.ct-series-b .ct-bar,.ct-series-a .ct-bar,.ct-series-c .ct-bar,.ct-series-e .ct-bar,.ct-series-f .ct-bar,.ct-series-g .ct-bar{
+    stroke: #F6921E!important;
 }
 
 .ct-series-d .ct-bar{
-    stroke: #00BAD3;
+    stroke: #F6921E;
 }
 
 .ct-grid{
@@ -602,13 +618,13 @@ nav a:hover {
 
 .border { 
     color: #f5f7f8;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    /* box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); */
 }
 
 .rounded-pic {
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
+    height: 42px;
+    width: 42px;
     margin: 3px 15px 0px 15px;
     display: inline-block;
 }
@@ -631,7 +647,7 @@ nav a:hover {
 }
 
 .my-padding {
-    padding:  0 8px !important;
+    padding:  0 6px !important;
 }
 
 .hide {
@@ -696,7 +712,7 @@ nav a:hover {
 }
 
 .square {
-    min-height: 200.717px;
+    min-height: 176px;
     animation: aris;
     border-radius: 2px;
 }
@@ -872,6 +888,28 @@ nav a:hover {
     padding-bottom: 15px;
     position: relative;
 }
+.my-calendar {
+    position: relative;
+}
+.my-calendar::after{
+    content: '';
+    display: inline-block;
+    border-bottom: 15px solid #F6921E;
+    border-left: 15px solid transparent;
+    border-top:  15px solid transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.my-calendar::before{
+    content: '';
+    display: inline-block;
+    border-top: 15px solid #B7B4AD;
+    border-right: 15px solid transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
 .calendar-first-color ::after{
     content: '';
     display: inline-block;
@@ -916,7 +954,7 @@ nav a:hover {
 }
 .tools-logo {
     width: 39%;
-    margin-top: 24px;
+    margin-top: 15px;
 }
 /*end of grid system*/
 
@@ -1280,7 +1318,7 @@ tfoot tr td {
   }
 
   100% {
-      min-height: 220px;
+      min-height: 170px;
   }
 }
 
@@ -1291,7 +1329,7 @@ tfoot tr td {
   }
 
   100% {
-      min-height: 220px;
+      min-height: 170px;
   }
 }
 @keyframes rotateIn {
@@ -1384,13 +1422,14 @@ tfoot tr td {
 }
 .border-left {
     border-left: 1px dotted white;
-    padding: 0 15px;
+    padding: 0 28px;
+    margin-right: 149px;
 }
 .first-color {
     background-color: #037BC0 !important;
 }
 .second-color {
-    background-color: #8cc63e !important;
+    background-color: #F6921E !important;
 }
 .third-color {
     background-color: #4d636f!important;
@@ -1399,7 +1438,7 @@ tfoot tr td {
     background-color: #F16521 !important;
 }
 .second-subcolor {
-    background-color: #808284 !important;
+    background-color: #C1B49A !important;
 }
 .third-subcolor {
     background-color: #4CAF50 !important;
@@ -1408,7 +1447,7 @@ tfoot tr td {
     background-color: #27A9E1 !important;
 }
 .second-systemcolor {
-    background-color: #38B449 !important;
+    background-color: #F9AE40 !important;
 }
 .third-systemcolor {
     background-color: #5e7987 !important;
@@ -1420,7 +1459,7 @@ tfoot tr td {
 .font {
     font-size: 30px;
     vertical-align: middle;
-    margin-left: 15px;
+    margin-left: 2px;
 }
 .font1 {
     margin-top: -4px;
@@ -1441,7 +1480,7 @@ tfoot tr td {
     color: #037BC0;
     margin-right: 2px;
     display: inline-block;
-    font-size: 14px;
+    font-size: 10px;
     margin-top: 10px !important;
     direction: rtl;
     padding: 5px 10px;
@@ -1453,13 +1492,13 @@ tfoot tr td {
 }
 
 .aris-badge {
-    position: relative;
-    bottom: 53px;
-    left: 76px;
+    position: absolute;
+    top: 2%;
+    left: 57%;
     font-size: 14px;
-    background-color: white;
+    background-color: rgba(255,255,255,0.5);
     border-radius: 50%;
-    color: #F16521;
+    color: #F6921E;
     font-weight: normal;
     padding: 1px 7px;
     animation: aris;
@@ -1491,9 +1530,11 @@ tfoot tr td {
 }
 .myday {
     position: absolute;
-    top: 42%;
+    top: 25%;
     text-align: center;
     right: 40%;
+    color: #F6921E !important;
+    font-size: 24px;
 }
 /*end of fonts and badges*/
 /*note*/
@@ -1530,7 +1571,7 @@ tfoot tr td {
     width: 37%;
     position: absolute;
     top: 65px;
-    left: 22px;
+    left: 7px;
     display: none;
     z-index: 5;
     background-color: rgba(255,255,255,0.9);
@@ -1580,11 +1621,11 @@ tfoot tr td {
     color: white !important;
 }
 #setting-bar{
-    width: 13%;
+    width: 300%;
     box-shadow: 2px 4px 12px gray;
     position: absolute;
-    top: 65px;
-    left: 311px;
+    top: 55px;
+    left: 0px;
     direction: rtl;
     display: none;
     z-index: 5;
@@ -1789,11 +1830,14 @@ tfoot tr td {
 .ct-point {
     stroke-width: 3px;
 }
+.ct-grid{
+    stroke-width: 0.5px;
+}
 #chart1 {
     border-radius: 2px;
 }
 #alarm {
-    min-height: 222px;
+    min-height: 170px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-top: -40px;
@@ -1957,7 +2001,7 @@ body {
         padding: 9px !important;
     }
     .logo-holder {
-        height: 53px;
+        height: 64px;
         margin-right: -5px;
     }
     .aris-badge {
@@ -2070,6 +2114,9 @@ body {
 }
 
 @media screen and (max-width:765px) {
+    .logo-holder {
+        width: 100%;
+    }
     .tools-logo{
         width: 21%;
         margin-top: 5px;
@@ -2238,7 +2285,7 @@ body {
         margin: 0 6px !important;
     }
     #aris-logo {
-        width: 35%;
+        width: 15%;
         margin: 0 auto;
         display: inline-block;
         height: 52px;

@@ -2,16 +2,17 @@
     <div class="row">
         <div class="col-sm-12 ">
             <div class="row">
-                <div class="col-sm-1 logo-holder sub-color">
-                    <a href="#">
+                <div class="col-sm-2 logo-holder sub-color">
+                    <a href="#" style="margin-left: 45px">
                         <!--logo part-->
-                        <img src="media/logofox.png" id="aris-logo" onmouseover="transform3d()" onmouseout="deleteTransform()">
-                        <img src="media/logo.png" id="aris-typo" />
+                        <img src="media/logo.png" style="float: right" id="aris-typo" />
+                        <img src="media/logofox.png" style="float: right"  id="aris-logo" onmouseover="transform3d()" onmouseout="deleteTransform()">
+                        
 
                     </a>
-                    <div class="aris-badge">10</div>
+                    
                 </div>
-                <div class="col-sm-5" style="padding: 0">
+                <div class="col-sm-5" style="padding: 0;margin-top: 4px">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="z-index:10"> 
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -33,10 +34,12 @@
                                 <div class="badge sub-color">{{reading}}</div>
                             </a>
                         </span>
-                        <span class="border-right right-align">
+                        <span class="border-right right-align" style="position: relative">
                             <!--setting part-->
                             <i data-toggle="tooltip" data-placement="bottom" title="تنظیمات پوسته" id="setting" class="fa fa-gear font rotate-back pointer"
                             onclick="setting()" ></i>
+                            <div style="color: black" id="setting-bar" class="dropdown-border" ng-include="'modules/setting-bar.html'">
+                            </div>
                         </span>
                         <span class="border-right right-align" style="margin-right: 5px;">
                             <i data-toggle="tooltip" data-placement="bottom" title="جستجو" class="fa fa-search font pointer" onclick="searching()"></i>
@@ -69,7 +72,7 @@
 
                     </div>
                 </div>
-                <div class="col-sm-6 my-margin-top" style="text-align: right">
+                <div class="col-sm-5" style="text-align: right;margin-top: 10px">
                     <span class="border-right border-left">
                         <!--lik to first page-->
                         <a href="index.min.html" class="fontchange">
@@ -83,8 +86,7 @@
 </div>
 
 <!--setting dropdown-->
-<div style="color: black" id="setting-bar" class="dropdown-border" ng-include="'modules/setting-bar.html'">
-</div>
+
 <!--error modal-->
 <div class="modal fade" id="error" role="dialog">
     <div class="modal-dialog">

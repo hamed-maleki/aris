@@ -24,6 +24,32 @@
     <script src="assets/scripts/rsa/System.Security.Cryptography.SHA256.debug.js"></script>
     <script src="assets/scripts/rsa/System.Security.Cryptography.RSA.debug.js"></script>
     <script src="assets/scripts/login.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+        }
+
+        input {
+            direction: rtl;
+        }
+
+        .my-form1 {
+            border: none;
+            border-radius: 0;
+            width: 100%;
+            height: 43px !important;
+        }
+
+        .my-border {
+            border: 1px solid gray;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .my-border label {
+            font-size: 14px;
+        }
+    </style>
 
 </head>
 
@@ -66,8 +92,8 @@
                                         <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
                                         <input class="form-control" type="text" id="user" placeholder="نام کاربری">
                                     </div> -->
-                                     <input class="form-control right-align login-input" required type="text" id="user" placeholder=" نام کاربری" autofocus tabindex="1" 
-                                     />  
+                                    <input class="form-control right-align login-input" required type="text" id="user" placeholder=" نام کاربری" autofocus tabindex="1"
+                                    />
                                 </div>
                                 <label style="color: white; font-size: 24px" class="col-sm-4 control-label" for="lg">نام کاربری </label>
                             </div>
@@ -88,12 +114,121 @@
                                     <button class="btn btn-info fontchange" style="width: 100%" onclick="login()" tabindex="3">ورود</button>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
-                                    <button class="btn btn-info fontchange" style="width: 100%" tabindex="4">اطلاعات فردی برای ثبت در سامانه</button>
+                                    <button class="btn btn-info fontchange" style="width: 100%" tabindex="4" data-toggle="modal" data-target="#personal-info">اطلاعات فردی برای ثبت در سامانه</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="personal-info" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body right-align" style="background-color: #E0E0E0">
+                    <form onsubmit="register();return false;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="usr">نام:</label>
+                                    <input type="text" class="form-control" style="height: 34px !important" id="name" placeholder="نام" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                        oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="family">نام خانوادگی:</label>
+                                    <input type="text" class="form-control" style="height: 34px !important" id="family" placeholder=" نام خانوادگی" required
+                                        oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="father">نام پدر:</label>
+                                    <input type="text" class="form-control" style="height: 34px !important" id="father" placeholder="نام پدر" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                        oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="id-badge">شماره شناسنامه:</label>
+                                    <input type="text" class="form-control" style="height: 34px !important" id="id-badge" placeholder="شماره شناسنامه" required
+                                        oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="social-no">کد ملی:</label>
+                                    <input type="text" class="form-control" style="height: 34px !important" id="social-no" placeholder="XXX-XXXXXX-X" required
+                                        oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">شماره موبایل:</label>
+                                    <input type="tel" class="form-control" style="height: 34px !important" id="phone" placeholder="شماره موبایل" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                        oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">email:</label>
+                                    <input type="email" class="form-control" style="height: 34px !important" id="email" placeholder="ایمیل" required oninvalid="this.setCustomValidity('ایمیل نا معتبر است')"
+                                        oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-name">نام کاربری:</label>
+                                    <input type="text" class="form-control" style="height: 34px !important" id="user-name" placeholder="نام کاربری" required
+                                        oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">رمز عبور:</label>
+                                    <input type="password" class="form-control" style="height: 34px !important" id="password" placeholder="رمز عبور" required
+                                        oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                </div>
+                                <div>
+                                    <label class="radio-inline"><input type="radio" name="active" value="1" >ارسال لینک فعال سازی به ایمیل</label>
+                                    <label class="radio-inline"><input type="radio" name="active"  value="2" >فعال سازی توسط ادمین</label>
+                                </div>
+                                <button class="btn btn-danger" type="submit" style="float: left" >ثبت در سامانه</button>
+                            </div>
+                            <!-- <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-6 my-border">
+                                            <label>نام خانوادگی:</label>
+                                            <input type="text" class="my-form1"/>
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>نام :</label>
+                                            <input type="text" class="my-form1" />
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>نام پدر:</label>
+                                            <input type="text" class="my-form1" />
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>شماره شناسنامه</label>
+                                            <input type="text" class="my-form1" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="col-sm-12 my-border">
+                                            <label>کد ملی</label>
+                                            <input type="text" class="my-form1" />
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>email</label>
+                                            <input type="email" class="my-form1" />
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>شماره موبایل</label>
+                                            <input type="email" class="my-form1" />
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>رمز عبور</label>
+                                            <input type="password" class="my-form1" />
+                                        </div>
+                                        <div class="col-sm-6 my-border">
+                                            <label>نلم کاربری</label>
+                                            <input type="text" class="my-form1" />
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-danger my-margin-top" style="float: left">ثبت اطلاعات</button>
+                                </form>
+                            </div> -->
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

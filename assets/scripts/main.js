@@ -93,7 +93,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $(".system-color").addClass("second-systemcolor");
                 $(".color").addClass("second-color");
                 $(".top-link").css("color", "#3eb65c !important");
-                $("footer").css("background-color", "#808284");
+                $("footer").css("background-color", "#C1B49A");
                 $(".system-li>h4").css("background-color", "#67cb80");
                 $("hr").css("border-bottom", "1px solid #8cc63e")
                 $(".setting-link").css("color", "#8cc63e")
@@ -123,7 +123,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("label").css("font-family", "iran-sans");
                 $("button").css("font-family", "iran-sans");
                 $("th").css("font-family", "iran-sans");
-                $(".top-link").css("font-size", "15px");
+                $(".top-link").css("font-size", "12px");
                 $(".sub-system p").css("font-size", "14px");
             }
             else if ($scope.fontTheme[0] == 3) {
@@ -133,7 +133,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("button").css("font-family", "dubai");
                 $("th").css("font-family", "dubai");
                 $("th").css("font-size", "14px");
-                $(".top-link").css("font-size", "13px");
+                $(".top-link").css("font-size", "10px");
                 $(".sub-system p").css("font-size", "13px");
             }
             else if ($scope.fontTheme[0] == 4) {
@@ -142,7 +142,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("label").css("font-family", "shabnam");
                 $("button").css("font-family", "shabnam");
                 $("th").css("font-family", "shabnam");
-                $(".top-link").css("font-size", "13px");
+                $(".top-link").css("font-size", "10px");
                 $(".sub-system p").css("font-size", "13px");
             }
             else {
@@ -151,7 +151,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("label").css("font-family", "sahel");
                 $("button").css("font-family", "sahel");
                 $("th").css("font-family", "sahel");
-                $(".top-link").css("font-size", "13px");
+                $(".top-link").css("font-size", "10px");
                 $(".sub-system p").css("font-size", "13px");
             }
         }
@@ -195,7 +195,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
     //     $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     // })
-    $scope.number = "example1.html";
+    $scope.number = "example3.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -379,18 +379,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
         // $scope.systemIdToLoad = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
-        $scope.systemIdToLoad  = localStorage.getItem("parent_id");
-        console.log($scope.systemIdToLoad);
-        $.ajax({
+        $scope.systemIdToLoad = localStorage.getItem("parent_id");
+        // console.log($scope.systemIdToLoad);
+        $http({
             url: "http://localhost/ArisSystem/api/system/subsystem",
             method: "GET",
-            data: {
+            params: {
                 parentId: $scope.systemIdToLoad
             },
             dataType: 'json',
             headers: authHeaders
         }).then(function (response) {
-            $scope.subsystem = response;
+            console.log(response);
+            $scope.subsystem = response.data;
             for (var i = 0; i < $scope.subsystem.length; i++) {
                 var subItem = {
                     "id": $scope.subsystem[i].id,
@@ -427,7 +428,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.message = response.data.message;
             $scope.alarm = response.data.alarm;
             $scope.sliderAlarm = $scope.alarm[0];
-            sliderLength = $scope.alarm.length
+            sliderLength = $scope.alarm.length;
             $scope.carousel();
         });
     // carsoule
@@ -447,7 +448,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         slider = slider + 1;
         sliderTime = setTimeout(function () {
             $scope.carousel();
-        }, 6000);
+        }, 1000);
     }
     $scope.slider = function (x) {
         if (x == -1) {
@@ -495,8 +496,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         $scope.refreshlocal($scope.gettingSystemJson, 0);
                     }
                 })
-        }, 2000)
-
+        }, 1000)
     }
     $scope.refreshlocal = function (x, y) {
         $.ajax({
@@ -533,7 +533,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.getHeight = function () {
         if (SHeight == true) {
             setTimeout(function () {
-                $("#chart1").css("height", $(".system-con").height() - 30 + "px");
+                $("#chart1").css("height", $(".system-con").height() - 32 + "px");
                 $http.get('data/chart.json')
                     .then(function (response) {
                         console.log(response.data)
@@ -762,7 +762,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
         //     }
         // }
-        localStorage.setItem("parent_id",x);
+        localStorage.setItem("parent_id", x);
         window.location.href = "system-page.min.html";
     }
     $scope.gettingSystem = function (x, y) {
@@ -998,6 +998,78 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.tableFonting();
         }, 10)
     }
+    // users loading
+    $scope.users = function () {
+        $http.get("data/users.json").then(function (response) {
+            $scope.tabledata = response.data.users;
+        })
+    }
+    $scope.editUser = function (x) {
+        $(".user").css("background-color", "#FFFFFF");
+        $("#user" + x).css("background-color", "yellow");
+        for (var i = 0; i < $scope.tabledata.length; i++) {
+            if (x == $scope.tabledata[i].id) {
+                $scope.editingUserData = $scope.tabledata[i];
+                $("input[name=activation][value=" + $scope.editingUserData.active + "]").prop('checked', true);
+                $scope.editingLength = i;
+            }
+        }
+    }
+    $scope.editUserSlide = function (x) {
+        if (x == 1) {
+            if ($scope.editingLength > $scope.tabledata.length - 2) {
+                $scope.editingLength = 0;
+            }
+            else {
+                $scope.editingLength = $scope.editingLength + 1;
+            }
+        }
+        else {
+            if ($scope.editingLength - 1 < 0) {
+                $scope.editingLength = $scope.tabledata.length - 1;
+            }
+            else {
+                $scope.editingLength = $scope.editingLength - 1;
+            }
+        }
+        $scope.socialNoFormat($scope.editingUserData.social_no)
+        $scope.editingUserData = $scope.tabledata[$scope.editingLength];
+        $("#edit-name").val($scope.editingUserData.name);
+        $("#edit-family").val($scope.editingUserData.family);
+        $("#edit-father").val($scope.editingUserData.father);
+        $("#edit-id-badge").val($scope.editingUserData.id_no);
+        $("#edit-social-no").val($scope.editingUserData.social_no);
+        $("#edit-phone").val($scope.editingUserData.phone);
+        $("#edit-email").val($scope.editingUserData.email);
+        $("#edit-user-name").val($scope.editingUserData.username);
+        $("#edit-password").val($scope.editingUserData.password);
+        $("input[name=activation][value=" + $scope.editingUserData.active + "]").prop('checked', true);
+        $(".user").css("background-color", "#FFFFFF");
+        $("#user" + $scope.tabledata[$scope.editingLength].id).css("background-color", "yellow");
+    }
+    $scope.socialNoFormat = function (x) {
+        var a = x.split('.', 2);
+        var d = a;
+        var i = parseInt(a[0]);
+        var n = new String(i);
+        var nn = n.substr(n.length - 1);
+        a.unshift(nn);
+        // n = n.substr(0, n.length - 3);
+        a.unshift(n);
+        console.log(n)
+        n = a.join("-");
+        console.log(n)
+
+    }
+    $scope.registerUser = function (x, y) {
+        console.log(x);
+            if (y == 1) {
+                $("#tablePlusUser").modal('toggle');
+            }
+            else {
+                $(".form-control").val('');
+            }
+    }
     // adding camma after three digit function
     $scope.numberFormat = function (element) {
         var delimiter = ","; // replace comma if desired
@@ -1168,10 +1240,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         },
                         headers: authHeaders,
                     }).then(function (response) {
-                        
+
                         $scope.itemToPush = response.data;
                         for (var i = 0; i < $scope.subSystemSituation.length; i++) {
-                            
+
                             if (x == $scope.subSystemSituation[i].id) {
                                 if ($scope.subSystemSituation[i].itemLoaded == 0) {
                                     console.log("this is happening")
@@ -1180,7 +1252,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                     $scope.subSystemSituation[i].children = $scope.itemToPush;
                                 }
                             }
-                        }    
+                        }
                     }).catch(function (xhr, status, error) {
                         if (refreshtoken && xhr.status === 401) {
                             $scope.refreshlocal($scope.drop, x);
@@ -1189,10 +1261,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
         }
-        setTimeout(function(){
+        setTimeout(function () {
             $("#dropdown" + x).slideToggle();
-        },4000)
-        
+        }, 100)
+
     }
     // chat area
     $scope.chatting = function (reciver) {
@@ -1238,17 +1310,18 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
 
     // aside opening
-    $scope.sideBar = function (x) {
-        $scope.sidecontainer(x);
-        $(".side-tool").animate({ width: "400px" }, 'slow');
-        $(".side-filter").animate({ width: "400px" }, 'slow');
-        $(".container-filter a").css("pointer-events", 'none');
-        $("nav a").css("pointer-events", 'none');
-        $("nav i").css("pointer-events", 'none');
-    }
+    // $scope.sideBar = function (x) {
+    //     $scope.sidecontainer(x);
+    //     // $(".side-tool").animate({ width: "318px" }, 'slow');
+    //     // $(".side-filter").animate({ width: "318px" }, 'slow');
+    //     // $(".container-filter a").css("pointer-events", 'none');
+    //     // $("nav a").css("pointer-events", 'none');
+    //     // $("nav i").css("pointer-events", 'none');
+    // }
     $scope.mainSystem = function () {
         $("#mainSystems").modal();
     }
+    $scope.side = "note2.html";
     // fullfiling aside (calnedar and note and top link container)
     $scope.sidecontainer = function (x) {
         if (x == 1) {
@@ -1555,7 +1628,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // charts part
 
     $scope.chartLoad = function () {
-        
+
     }
 
 }])

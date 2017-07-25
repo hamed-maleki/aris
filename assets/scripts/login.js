@@ -31,9 +31,43 @@
 // $(document).on("contextmenu",function(e){        
 //    e.preventDefault();
 // });
-
+function register() {
+    console.log("this is happeneing");
+    var user_name = $("#name").val();
+    var family = $("#family").val();
+    var father = $("#father").val();
+    var id_badge = $("#id-badge").val();
+    var social_no = $("#social-no").val();
+    var phone = $("#phone").val();
+    var email = $("#email").val();
+    var user_name = $("#user-name").val();
+    var password = $("#password").val();
+    $.ajax({
+        url: "http://localhost/ArisSystem/register",
+        data: {
+            username: user_name,
+            password: password,
+            name: name,
+            family: family,
+            father: father,
+            id_no: id_badge,
+            social_no: social_no,
+            phone: phone,
+            email: email,
+            sendToEmail: $('input[name=active]:checked').val()
+        },
+        type: 'POST',
+        dataType: 'json',
+        ContentType: 'application/x-www-form-urlencoded',
+    }).then(function (response) {
+        console.log(response);
+    }), function (xhr, status, error) {
+        console.log(error);
+    }
+}
 function login() {
-    $(".load-circle").css("display","block")
+    $(".ieMessage").addClass("hide");
+    $(".load-circle").css("display", "block")
     // Text to encrypt and decrypt.
     // var s = pass;
     // var sb = System.Text.Encoding.UTF8.GetBytes(s);
@@ -82,8 +116,8 @@ function login() {
         success: AjaxSucceeded,
         error: AjaxFailed
     })
-    function AjaxSucceeded (response) {
-         $(".load-circle").css("display","none")
+    function AjaxSucceeded(response) {
+        $(".load-circle").css("display", "none")
         //console.log(JSON.parse(response));
         //$scope.userName = response.data.userName;
         //Store the token information in the localStorage
@@ -93,22 +127,22 @@ function login() {
         localStorage.setItem('refreshToken', response.refresh_token);
         window.location.href = 'index.html';
     }
-    function AjaxFailed (err,response) {
-        $(".load-circle").css("display","none")
+    function AjaxFailed(err, response) {
+        $(".load-circle").css("display", "none")
         console.log('err1');
         console.log(response);
         console.log('err2');
         console.log(err);
         console.log('err3');
-        if(err.status == 500){
+        if (err.status == 500) {
             $(".ieMessage p").html("خطای ارتباطی لطفا دوباره سعی کنید");
-        }else{
+        } else {
             $(".ieMessage p").html("نام کاربری و یا رمز وارد شده صحیح نمیباشد");
         }
         $(".ieMessage").removeClass("hide");
         // $scope.responseData="Error " + err.status;
     };
 }
-$( document ).ready(function() {
-     $(".loading-login").delay(2000).fadeOut(1000);
+$(document).ready(function () {
+    $(".loading-login").delay(2000).fadeOut(1000);
 })
