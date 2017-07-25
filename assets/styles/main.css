@@ -1484,7 +1484,7 @@ tfoot tr td {
     margin-top: 10px !important;
     direction: rtl;
     padding: 5px 10px;
-    border-left: 1px dashed #037BC0;
+    border-left: 1px solid #037BC0;
 }
 .top-link:hover {
     color: #037BC0;
