@@ -52,6 +52,7 @@ body, html {
     background-color: #F1F2F3 !important;
     font-size: 18px;
     min-height: 750px;
+    width: 100%;
 }
 
 body {
@@ -883,7 +884,10 @@ nav a:hover {
     animation-duration: 1s;
     margin-top: 10px;
 }
-
+#loadRegister {
+    display: none;
+    z-index: 1;
+}
 .mycalendar {
     padding-bottom: 15px;
     position: relative;

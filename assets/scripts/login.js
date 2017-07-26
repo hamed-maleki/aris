@@ -42,6 +42,7 @@ function register() {
     var email = $("#email").val();
     var user_name = $("#user-name").val();
     var password = $("#password").val();
+    $("#loadRegister").css("display","block");
     $.ajax({
         url: "http://localhost/ArisSystem/register",
         data: {
@@ -61,8 +62,9 @@ function register() {
         ContentType: 'application/x-www-form-urlencoded',
     }).then(function (response) {
         console.log(response);
+        $("#loadRegister").css("display","none");
     }), function (xhr, status, error) {
-        console.log(error);
+        $("#loadRegister").css("display","none");
     }
 }
 function login() {

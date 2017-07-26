@@ -13,12 +13,13 @@ app.directive("aris", function () {
         scope: true,
         restrict: 'AE',
         replace: 'true',
-        template: '<ng-include src="template"/>',
         link: function (scope, elem, attrs) {
             scope.$watch(function () {
                 scope.template = 'modules/' + scope.number;
             });
-        }
+        },
+        template: '<ng-include src="template"/>'
+
     };
 });
 // side bar container loader
@@ -195,7 +196,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
     //     $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     // })
-    $scope.number = "example3.html";
+    $scope.number = "unload.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -227,16 +228,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         })
     // subsystem header click to slide down
-    $scope.headerSlide = function (x, y, z, origin) {
-        if (z.length == 0) {
-            $scope.table(origin);
-        }
-        else {
-            $("#" + x).slideToggle();
-        }
-        $("#nav").html(y);
-        $("#subnav").html("");
-    }
+
     // cartable message on click to show
     $scope.showContext = function (title, context, x, y) {
         $("#my-title").html(title);
@@ -390,7 +382,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders
         }).then(function (response) {
-            console.log(response);
             $scope.subsystem = response.data;
             for (var i = 0; i < $scope.subsystem.length; i++) {
                 var subItem = {
@@ -403,7 +394,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }), function (xhr, status, error) {
             if (refreshtoken && xhr.status === 401) {
-                console.log("this is subsystem failed");
                 $scope.refreshlocal($scope.systemToShow, 0);
             }
         }
@@ -536,7 +526,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("#chart1").css("height", $(".system-con").height() - 32 + "px");
                 $http.get('data/chart.json')
                     .then(function (response) {
-                        console.log(response.data)
                         var users = response.data
                         var data1 = {
                             labels: users.map(function (user) {
@@ -720,27 +709,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.tableFormat();
     }
     // putting subsystem in cookie
-    $scope.subSystem = function (x, y, z) {
-        var now = new Date();
-        var time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        var cookieItem = [];
-        $scope.systemslider = [];
-        for (var i = 0; i < $scope.subsystem.length; i++) {
-            if ($scope.subsystem[i].id == x) {
-                for (var j = 0; j < $scope.subsystem[i].children.length; j++) {
-                    if ($scope.subsystem[i].children[j].id == y) {
-                        $scope.systemslider.push($scope.subsystem[i].children[j]);
-                    }
-                }
-                $("#nav").html($scope.subsystem[i].title);
-                var cookieItem = JSON.stringify($scope.subsystem);
-                $(".subsystem").slideUp();
-                document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-            }
-        }
-    }
+
     // select all checkbox
     $scope.inboxing = function () {
         if ($(".select").prop("checked") == true) {
@@ -1002,6 +971,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.users = function () {
         $http.get("data/users.json").then(function (response) {
             $scope.tabledata = response.data.users;
+            $scope.pagination(1);
+            var pageNumber;
+            $scope.paginationNumber = []
+            pageNumber = Math.ceil($scope.tabledata.length / 15);
+            for (var conter = 1; conter < pageNumber + 1; conter++) {
+                $scope.paginationNumber.push(conter);
+            }
         })
     }
     $scope.editUser = function (x) {
@@ -1010,6 +986,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         for (var i = 0; i < $scope.tabledata.length; i++) {
             if (x == $scope.tabledata[i].id) {
                 $scope.editingUserData = $scope.tabledata[i];
+                $("#edit-social-no").val($scope.socialNoFormat($scope.editingUserData.social_no));
                 $("input[name=activation][value=" + $scope.editingUserData.active + "]").prop('checked', true);
                 $scope.editingLength = i;
             }
@@ -1032,13 +1009,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.editingLength = $scope.editingLength - 1;
             }
         }
-        $scope.socialNoFormat($scope.editingUserData.social_no)
+
         $scope.editingUserData = $scope.tabledata[$scope.editingLength];
         $("#edit-name").val($scope.editingUserData.name);
         $("#edit-family").val($scope.editingUserData.family);
         $("#edit-father").val($scope.editingUserData.father);
         $("#edit-id-badge").val($scope.editingUserData.id_no);
-        $("#edit-social-no").val($scope.editingUserData.social_no);
+        $("#edit-social-no").val($scope.socialNoFormat($scope.editingUserData.social_no));
         $("#edit-phone").val($scope.editingUserData.phone);
         $("#edit-email").val($scope.editingUserData.email);
         $("#edit-user-name").val($scope.editingUserData.username);
@@ -1048,27 +1025,29 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#user" + $scope.tabledata[$scope.editingLength].id).css("background-color", "yellow");
     }
     $scope.socialNoFormat = function (x) {
-        var a = x.split('.', 2);
+        var a = x.split('.', 3);
         var d = a;
-        var i = parseInt(a[0]);
-        var n = new String(i);
+        var i = parseInt(a);
+        var n = new String(a);
         var nn = n.substr(n.length - 1);
-        a.unshift(nn);
-        // n = n.substr(0, n.length - 3);
-        a.unshift(n);
-        console.log(n)
-        n = a.join("-");
-        console.log(n)
-
+        var code = n[0] + n[1] + n[2] + "-" + n[3] + n[4] + n[5] + n[6] + n[7] + n[8] + "-" + n[9];
+        return code;
     }
+    // $scope.socialFormat = function(){
+    //     console.log("this is social");
+    //     var x =new String($("#social-no").val())
+    //         x[2] = x[2] + "-";
+
+    //        x[8] = x[8] + "-";
+    //     console.log(x);
+    // }
     $scope.registerUser = function (x, y) {
-        console.log(x);
-            if (y == 1) {
-                $("#tablePlusUser").modal('toggle');
-            }
-            else {
-                $(".form-control").val('');
-            }
+        if (y == 1) {
+            $("#tablePlusUser").modal('toggle');
+        }
+        else {
+            $(".form-control").val('');
+        }
     }
     // adding camma after three digit function
     $scope.numberFormat = function (element) {
@@ -1177,41 +1156,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.error[0] = "خطا در دستیابی به اطلاعات";
             $("#error").modal();
         })
-    // slider controller for subsystem in system-page.html 
-    $scope.list_slide = function (title, list, children, myid) {
-        $scope.tabledata = [];
-        $("#creditSum").html("");
-        $("#debtSum").html("");
-        $("#totalSum").html("");
-        $("#totalSituation").html("");
-        $("#" + list).toggleClass("flag")
-        if (children.length != 0 && children != undefined) {
-            $("#" + list).slideToggle();
-            if ($("#" + list).hasClass("flag")) {
-                $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
-            }
-            else {
-                $("#subnav").html(" ");
-            }
-        }
-        else {
-            $("#" + list).removeClass("flag");
-            $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
-            $scope.table(myid);
-        }
-    };
-    // directive for aris tag's template changer
-    $scope.table = function (value) {
-        $scope.number = "example" + value + ".html";
-        $http.get("data/table1.json")
-            .then(function (response) {
-                $scope.tabledata = response.data.table;
-            }).catch(function () {
-                $scope.error[0] = "خطا در دستیابی به اطلاعات";
-                $("#error").modal();
-            })
 
-    }
+
     // chat controller
     // $interval(function () {
     //     return $http.get("data/chat.json").then(function (response) {
@@ -1246,8 +1192,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
                             if (x == $scope.subSystemSituation[i].id) {
                                 if ($scope.subSystemSituation[i].itemLoaded == 0) {
-                                    console.log("this is happening")
-                                    console.log($scope.subSystemSituation[i]);
                                     $scope.subSystemSituation[i].children = $scope.itemToPush;
                                     $scope.subSystemSituation[i].children = $scope.itemToPush;
                                 }
@@ -1264,6 +1208,160 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         setTimeout(function () {
             $("#dropdown" + x).slideToggle();
         }, 100)
+
+    }
+    $scope.subSystem = function (x, y) {
+        $http({
+            url: "http://localhost/ArisSystem/api/system/subsystem",
+            method: "GET",
+            params: {
+                parentId: y
+            },
+            headers: authHeaders,
+        }).then(function (response) {
+
+            $scope.systemslider = response.data;
+            $(".top-slide").slideUp();
+            // console.log($scope.itemToPush);
+            // for (var i = 0; i < $scope.subSystemSituation.length; i++) {
+
+            //     if (x == $scope.subSystemSituation[i].id) {
+            //         if ($scope.subSystemSituation[i].itemLoaded == 0) {
+            //             $scope.subSystemSituation[i].children = $scope.itemToPush;
+            //             $scope.subSystemSituation[i].children = $scope.itemToPush;
+            //         }
+            //     }
+            // }
+        }).catch(function (xhr, status, error) {
+            if (refreshtoken && xhr.status === 401) {
+                $scope.refreshlocal($scope.drop, x);
+            }
+        })
+        // var now = new Date();
+        // var time = now.getTime();
+        // time += 3600 * 1000;
+        // now.setTime(time);
+        // var cookieItem = [];
+        // $scope.systemslider = [];
+        // for (var i = 0; i < $scope.subsystem.length; i++) {
+        //     if ($scope.subsystem[i].id == x) {
+        //         for (var j = 0; j < $scope.subsystem[i].children.length; j++) {
+        //             if ($scope.subsystem[i].children[j].id == y) {
+        //                 $scope.systemslider.push($scope.subsystem[i].children[j]);
+        //             }
+        //         }
+        //         $("#nav").html($scope.subsystem[i].title);
+        //         var cookieItem = JSON.stringify($scope.subsystem);
+        //         $(".subsystem").slideUp();
+        //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
+        //     }
+        // }
+    }
+    $scope.headerSlide = function (x, y, z, leaf) {
+        $scope.treeToShow = [];
+        $scope.limitedEdition = [];
+        if (leaf == true) {
+            $scope.table(z);
+        }
+        // if (z.length == 0) {
+        //     $scope.table(origin);
+        // }
+        else {
+            $http({
+                url: "http://localhost/ArisSystem/api/system/subsystem",
+                method: "GET",
+                params: {
+                    parentId: x
+                },
+                headers: authHeaders,
+            }).then(function (response) {
+
+                console.log(response)
+                for (var i = 0; i < $scope.systemslider.length; i++) {
+                    if (x == $scope.systemslider[i].id) {
+                        $scope.systemslider[i].children.push(response.data);
+                    }
+                }
+                // console.log($scope.itemToPush);
+                // for (var i = 0; i < $scope.subSystemSituation.length; i++) {
+
+                //     if (x == $scope.subSystemSituation[i].id) {
+                //         if ($scope.subSystemSituation[i].itemLoaded == 0) {
+                //             $scope.subSystemSituation[i].children = $scope.itemToPush;
+                //             $scope.subSystemSituation[i].children = $scope.itemToPush;
+                //         }
+                //     }
+                // }
+            }).catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.drop, x);
+                }
+            })
+            $("#" + x).slideToggle();
+        }
+        $("#nav").html(y);
+        $("#subnav").html("");
+    }
+    // slider controller for subsystem in system-page.html 
+    $scope.list_slide = function (title, id, path, leaf) {
+        // $scope.tabledata = [];
+        $("#creditSum").html("");
+        $("#debtSum").html("");
+        $("#totalSum").html("");
+        $("#totalSituation").html("");
+        if (leaf == true) {
+            $scope.table(path);
+        }
+        else {
+            $http({
+                url: "http://localhost/ArisSystem/api/system/subsystem",
+                method: "GET",
+                params: {
+                    parentId: id
+                },
+                headers: authHeaders,
+            }).then(function (response) {
+                for (var i = 0; i < $scope.systemslider.length; i++) {
+                    for (var j = 0; j < $scope.systemslider[i].children.length; j++) {
+                        if (x == $scope.systemslider[i].children[j].id) {
+                            $scope.systemslider[i].children[j].children.push(response.data);
+                        }
+                    }
+
+                }
+            }).catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.drop, x);
+                }
+            })
+        }
+        $("#" + id).slideToggle();
+        // $("#" + list).toggleClass("flag")
+        // if (children.length != 0 && children != undefined) {
+        //     $("#" + list).slideToggle();
+        //     if ($("#" + list).hasClass("flag")) {
+        //         $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
+        //     }
+        //     else {
+        //         $("#subnav").html(" ");
+        //     }
+        // }
+        // else {
+        //     $("#" + list).removeClass("flag");
+        //     $("#subnav").append("<i class='fa fa-angle-left'></i>" + title);
+        //     $scope.table(myid);
+        // }
+    };
+    // directive for aris tag's template changer
+    $scope.table = function (value) {
+        $scope.number = value;
+        // $http.get("data/table1.json")
+        //     .then(function (response) {
+        //         $scope.tabledata = response.data.table;
+        //     }).catch(function () {
+        //         $scope.error[0] = "خطا در دستیابی به اطلاعات";
+        //         $("#error").modal();
+        //     })
 
     }
     // chat area

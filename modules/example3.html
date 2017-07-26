@@ -72,6 +72,11 @@
             <i class="fa fa-plus-square-o pointer" data-toggle="modal" data-target="#tablePlusUser"></i>
             <i class="fa fa-pencil-square-o pointer" data-toggle="modal" data-target="#tableEdit"></i>
         </div>
+        <div class="col-sm-4 center">
+            <ul class="pagination" style="margin: 0">
+                <li ng-repeat="x in paginationNumber" id="pagination{{x}}"><a href="#" ng-click="pagination(x)">{{x}}</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 </div>

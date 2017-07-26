@@ -7,14 +7,11 @@
             <div class="row">
                 <div ng-repeat="system in subSystemSituation" class="col-sm-2 my-margin-top right-float " style="padding-right: 25px">
                     <div class="border transform">
-                         <!-- <div class="col-sm-2 col-sm-push-10 sub-color shadow center container-filter" ng-style="system.style2">
-                            <i class="fa system-icon fa-calculator"></i>
-                        </div>  -->
                         <div  class="col-sm-12 color shadow center pointer container-filter color" style="padding-top: 2px">
                             <p class="fontchange" style="font-size: 15px" ng-click="drop(system.id)">{{system.title}}
                                 <i class="fa fa-angle-down " style="vertical-align: middle"></i>
                             </p>
-                            <div class="col-sm-8 right-align subsystem color" id="dropdown{{system.id}}">
+                            <div class="col-sm-8 right-align subsystem color top-slide" id="dropdown{{system.id}}">
                                 <p ng-repeat="subsystem in system.children" class="pointer fontchange" ng-click="subSystem(subsystem.parent,subsystem.id)">
                                     {{subsystem.title}}
                                 </p>
