@@ -808,6 +808,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.paginationNumber = [];
         $scope.limitedEdition = [];
         $scope.dataToSend = [];
+
         $(".buttons").attr("disabled", "true");
         if (x[0] == undefined) {
             $scope.error[0] = "فرم نمیتواند خالی باشد";
@@ -1033,20 +1034,32 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         var code = n[0] + n[1] + n[2] + "-" + n[3] + n[4] + n[5] + n[6] + n[7] + n[8] + "-" + n[9];
         return code;
     }
-    // $scope.socialFormat = function(){
-    //     console.log("this is social");
-    //     var x =new String($("#social-no").val())
-    //         x[2] = x[2] + "-";
-
-    //        x[8] = x[8] + "-";
-    //     console.log(x);
-    // }
     $scope.registerUser = function (x, y) {
+        var code = x[3];
+        var confirmCode = (code[0]*10)+(code[1]*9)+(code[2]*8)+(code[3]*7)+(code[4]*6)+(code[5]*5)+(code[6]*4)+(code[7]*3)+(code[8]*2);
+        var remain = confirmCode % 11;
+        if(remain < 2){
+            if(remain == code[9]){
+                console.log("smaller than 2 and ok");
+            }
+            else{
+                console.log("smaller than 2 and nok");
+            }
+        }
+        else{
+            if(11 - remain === code[9] ){
+                console.log("bigger than 2 and ok");
+            }
+            else{
+                console.log("bigger than 2 and nok");
+            }
+        }
         if (y == 1) {
             $("#tablePlusUser").modal('toggle');
         }
         else {
             $(".form-control").val('');
+            $("#name").focus();
         }
     }
     // adding camma after three digit function
@@ -1260,6 +1273,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.headerSlide = function (x, y, z, leaf) {
         $scope.treeToShow = [];
         $scope.limitedEdition = [];
+        $scope.tabledata = [];
+        $scope.paginationNumber =[];
         if (leaf == true) {
             $scope.table(z);
         }
@@ -1730,6 +1745,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
 
 }])
+
+
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){
 //     if(event.keyCode==123){

@@ -256,14 +256,14 @@ nav a:hover {
 }
 
 #aris-logo {
-        width: 15%;
+        width: 12%;
         margin: 5px auto 5px;
         display: inline-block;
         height: auto;
 }
 
 #aris-typo {
-    width: 30%;
+    width: 24%;
     display: inline-block;
     margin-top: 20px;
     margin-left: 5px;
@@ -1820,13 +1820,20 @@ tfoot tr td {
     width: 30%;
     position: fixed;
     bottom: 0;
-    left: 20px;
-    /*background-color: #435761;*/
+    right: 20px;
     animation: aris;
     animation-duration: 0.5s;
     z-index: 2;
 }
-
+.mail-button {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 15px 17px;
+    color: white;
+    z-index: 2;
+    border-radius: 50%;
+}
 #search {
     height: 25px;
     border-radius: 5px !important;
@@ -2289,7 +2296,7 @@ body {
         margin: 0 6px !important;
     }
     #aris-logo {
-        width: 15%;
+        width: 12%;
         margin: 0 auto;
         display: inline-block;
         height: 52px;
