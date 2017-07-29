@@ -8,20 +8,21 @@ setInterval(function () {
 }, 500)
 var app = angular.module('myApp', ['angular.filter']);
 // loading form depond on sussystem
-app.directive("aris", function () {
-    return {
-        scope: true,
-        restrict: 'AE',
-        replace: 'true',
-        link: function (scope, elem, attrs) {
-            scope.$watch(function () {
-                scope.template = 'modules/' + scope.number;
-            });
-        },
-        template: '<ng-include src="template"/>'
+// app.directive("aris", function () {
+//     return {
+//         scope: true,
+//         restrict: 'AE',
+//         replace: 'true',
+//         link: function (scope, elem, attrs) {
+//             scope.$watch(function () {
+//                 console.log(scope.number);
+//                 scope.template = 'modules/' + scope.number;
+//             });
+//         },
+//         template: '<ng-include src="template"/>'
 
-    };
-});
+//     };
+// });
 // side bar container loader
 app.directive("sidebar", function () {
     return {
@@ -196,7 +197,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
     //     $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     // })
-    $scope.number = "unload.html";
+    $scope.number = "modules/unload.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -984,9 +985,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.editUser = function (x) {
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + x).css("background-color", "yellow");
-        for (var i = 0; i < $scope.tabledata.length; i++) {
-            if (x == $scope.tabledata[i].id) {
-                $scope.editingUserData = $scope.tabledata[i];
+        for (var i = 0; i < $scope.limitedEdition.length; i++) {
+            if (x == $scope.limitedEdition[i].id) {
+                $scope.editingUserData = $scope.limitedEdition[i];
                 $("#edit-social-no").val($scope.socialNoFormat($scope.editingUserData.social_no));
                 $("input[name=activation][value=" + $scope.editingUserData.active + "]").prop('checked', true);
                 $scope.editingLength = i;
@@ -995,7 +996,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.editUserSlide = function (x) {
         if (x == 1) {
-            if ($scope.editingLength > $scope.tabledata.length - 2) {
+            if ($scope.editingLength > $scope.limitedEdition.length - 2) {
+                console.log($scope.paginationNumber[$scope.paginationNumber.length - 1])
+                if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
+                    $scope.pagination(1)
+                }
+                else {
+                    $scope.pagination(currentpage + 1)
+                }
+
                 $scope.editingLength = 0;
             }
             else {
@@ -1004,14 +1013,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             if ($scope.editingLength - 1 < 0) {
-                $scope.editingLength = $scope.tabledata.length - 1;
+                if (currentpage == 1) {
+                    $scope.error[0] = "داده قبلتری وجود ندارد";
+                    $("#error").modal();
+                }
+                else {
+                    $scope.pagination(currentpage - 1)
+                    $scope.editingLength = $scope.limitedEdition.length - 1;
+                }
             }
             else {
                 $scope.editingLength = $scope.editingLength - 1;
             }
         }
-
-        $scope.editingUserData = $scope.tabledata[$scope.editingLength];
+        $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
         $("#edit-name").val($scope.editingUserData.name);
         $("#edit-family").val($scope.editingUserData.family);
         $("#edit-father").val($scope.editingUserData.father);
@@ -1023,7 +1038,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#edit-password").val($scope.editingUserData.password);
         $("input[name=activation][value=" + $scope.editingUserData.active + "]").prop('checked', true);
         $(".user").css("background-color", "#FFFFFF");
-        $("#user" + $scope.tabledata[$scope.editingLength].id).css("background-color", "yellow");
+        console.log($("#user" + $scope.limitedEdition[$scope.editingLength].id));
+        setTimeout(function () {
+            $("#user" + $scope.limitedEdition[$scope.editingLength].id).css("background-color", "yellow");
+        }, 10);
+
     }
     $scope.socialNoFormat = function (x) {
         var a = x.split('.', 3);
@@ -1035,32 +1054,46 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         return code;
     }
     $scope.registerUser = function (x, y) {
-        var code = x[3];
-        var confirmCode = (code[0]*10)+(code[1]*9)+(code[2]*8)+(code[3]*7)+(code[4]*6)+(code[5]*5)+(code[6]*4)+(code[7]*3)+(code[8]*2);
+        $("#registerAlarm").html(" ");
+        $("#social-no").css("border", "1px solid #ccc");
+        var code = x[4];
+        console.log(Number(code[2]) * 10);
+        var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
         var remain = confirmCode % 11;
-        if(remain < 2){
-            if(remain == code[9]){
-                console.log("smaller than 2 and ok");
+        console.log(remain);
+        if (remain < 2) {
+            if (remain == code[9]) {
+                if (y == 1) {
+                    $("#tablePlusUser").modal('toggle');
+                }
+                else {
+                    $(".form-control").val('');
+                    $("#name").focus();
+                }
             }
-            else{
-                console.log("smaller than 2 and nok");
+            else {
+                $("#registerAlarm").html("کد ملی معتبر نمیباشد");
+                $("#social-no").css("border", "1px solid red");
+                $("#social_no").focus();
             }
-        }
-        else{
-            if(11 - remain === code[9] ){
-                console.log("bigger than 2 and ok");
-            }
-            else{
-                console.log("bigger than 2 and nok");
-            }
-        }
-        if (y == 1) {
-            $("#tablePlusUser").modal('toggle');
         }
         else {
-            $(".form-control").val('');
-            $("#name").focus();
+            if (11 - remain == Number(code[11])) {
+                if (y == 1) {
+                    $("#tablePlusUser").modal('toggle');
+                }
+                else {
+                    $(".form-control").val('');
+                    $("#name").focus();
+                }
+            }
+            else {
+                $("#registerAlarm").html("کد ملی معتبر نمیباشد");
+                $("#social-no").css("border", "1px solid red");
+                $("#social_no").focus();
+            }
         }
+
     }
     // adding camma after three digit function
     $scope.numberFormat = function (element) {
@@ -1274,7 +1307,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.treeToShow = [];
         $scope.limitedEdition = [];
         $scope.tabledata = [];
-        $scope.paginationNumber =[];
+        $scope.paginationNumber = [];
         if (leaf == true) {
             $scope.table(z);
         }
@@ -1369,7 +1402,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     };
     // directive for aris tag's template changer
     $scope.table = function (value) {
-        $scope.number = value;
+        $scope.number = "modules/" + value;
         // $http.get("data/table1.json")
         //     .then(function (response) {
         //         $scope.tabledata = response.data.table;
@@ -1846,3 +1879,4 @@ window.onkeydown = function (e) {
 
     }
 };
+

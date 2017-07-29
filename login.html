@@ -23,6 +23,7 @@
     <script src="assets/scripts/rsa/System.Security.Cryptography.debug.js"></script>
     <script src="assets/scripts/rsa/System.Security.Cryptography.SHA256.debug.js"></script>
     <script src="assets/scripts/rsa/System.Security.Cryptography.RSA.debug.js"></script>
+    <script src="assets/scripts/codeFormat.min.js"></script>
     <script src="assets/scripts/login.js"></script>
     <style>
         body {
@@ -159,7 +160,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="social-no">کد ملی:</label>
-                                    <input type="text" class="form-control" style="height: 34px !important" id="social-no" placeholder="XXX-XXXXXX-X" required
+                                    <input type="text" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="social-no" placeholder="XXX-XXXXXX-X" required
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
@@ -169,8 +170,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">email:</label>
-                                    <input type="email" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="email" placeholder="ایمیل" required oninvalid="this.setCustomValidity('ایمیل نا معتبر است')"
-                                        oninput="setCustomValidity('')">
+                                    <input type="email" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="email" placeholder="example@xxx.com"
+                                        required oninvalid="this.setCustomValidity('ایمیل نا معتبر است')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
                                     <label for="user-name">نام کاربری:</label>
@@ -183,8 +184,8 @@
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
                                 <div>
-                                    <label class="radio-inline"><input type="radio" name="active" value="1" >ارسال لینک فعال سازی به ایمیل</label>
-                                    <label class="radio-inline"><input type="radio" name="active"  value="2" >فعال سازی توسط ادمین</label>
+                                    <label class="radio-inline"><input type="radio" name="active" value="1" />ارسال لینک فعال سازی به ایمیل</label>
+                                    <label class="radio-inline"><input type="radio" name="active"  value="2" checked />فعال سازی توسط ادمین</label>
                                 </div>
                                 <button class="btn btn-danger" type="submit" style="float: left">ثبت در سامانه</button>
                             </div>
@@ -194,6 +195,12 @@
             </div>
         </div>
     </div>
+    <script>
+        jQuery(function ($) {
+            $("#social-no").mask("999-999999-9");
+        });
+
+    </script>
     <script src="assets/scripts/doodlescript.js"></script>
 
 
