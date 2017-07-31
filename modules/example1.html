@@ -145,12 +145,12 @@
                         <td>{{table.row}}</td>
                         <td class="fontchange" id="title{{table.id}}">{{table.title}}</td>
                         <td class="fontchange" id="description{{table.id}}">{{table.description}}</td>
-                        <td id="credit{{table.id}}" style="width: 200px;" class="table-number" contenteditable="false">{{table.credit}}</td>
-                        <td id="debt{{table.id}}" style="width: 200px;" class="table-number" contenteditable="false">{{table.debt}}</td>
+                        <td id="credit{{table.id}}" style="width: 200px;" ng-style="tableFont" contenteditable="false">{{table.credit}}</td>
+                        <td id="debt{{table.id}}" style="width: 200px;" ng-style="tableFont" contenteditable="false">{{table.debt}}</td>
                         <td ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green fontchange">{{table.situation}}</td>
                         <td ng-if="table.situation === 'بدهکار'" class="red fontchange">{{table.situation}}</td>
-                        <td id="remain{{table.id}}" ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green table-number">{{table.remain}}</td>
-                        <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red table-number">
+                        <td id="remain{{table.id}}" ng-if="table.situation === 'بستانکار' || table.situation === '-'" ng-style="tableFont" class="green">{{table.remain}}</td>
+                        <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red" ng-style="tableFont" >
                             {{table.remain}}
                             
                         </td>
@@ -238,6 +238,9 @@
 </div>
 
 <script>
+    $(".modal").draggable({
+        handle: ".modal-body"
+    });
     $(function () {
         $("#elementId, .elementClass").persianDatepicker();
         $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
@@ -247,8 +250,8 @@
 
 </script>
 <script>
+    
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-
 </script>

@@ -1632,11 +1632,10 @@ tfoot tr td {
     animation-direction: alternate;
 }
 
-.pagination > .active > a {
+.pagination > .active > a ,.pagination > .active > a:hover, .pagination > .active > a:focus{
     background-color: #F16521;
     border-color: #F16521;
 }
-
 .myday {
     position: absolute;
     top: 25%;
@@ -2560,7 +2559,7 @@ body {
 
 @keyframes testing {
     0%{
-        color: transparent;
+        color: black;
     }
     50%{
         color: red;

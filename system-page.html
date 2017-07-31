@@ -18,7 +18,8 @@
     <link href="assets/styles/prettify.css" rel="stylesheet">
     <link href="assets/styles/main.css" rel="stylesheet">
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
-    <script src="assets/scripts/jquery.min.js"></script>
+     <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/ui.min.js"></script> 
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
     <script src="assets/scripts/codeFormat.min.js"></script>
@@ -29,30 +30,29 @@
     <script src="assets/scripts/locale-all.js"></script>
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
-    <script src="assets/scripts/main.min.js"></script>
+    <script src="assets/scripts/main.min.js"></script> 
     <style>
-        .tools-logo{
+        .tools-logo {
             margin-top: 15px;
         }
+
         input {
             direction: rtl;
         }
-
     </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" >
+<body ng-app="myApp" ng-controller="myCtrl">
     <nav class="border color" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid my-margin-top" ng-init="systemToShow()">
         <div class="row white-background border" style="margin-bottom: 64px;">
-            <div class="col-sm-12" >
-                <div ng-include="'modules/dropdown.html'"  class="row" style="margin-bottom: 15px;padding-right: 10px">
+            <div class="col-sm-12">
+                <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;padding-right: 10px">
                 </div>
             </div>
             <div class="col-sm-2 col-sm-push-10 right-align fontchange">
-                <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" ng-if="systemslider.length != undefined"
-                   >
+                <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" ng-if="systemslider.length != undefined">
                     <h3 class="fontchange" style="padding: 10px;">زیر سیستم ها</h3>
                     <hr>
                     <div ng-repeat="sub in systemslider" ng-init="theme()">
@@ -61,8 +61,7 @@
                         </h4>
                         <div id="{{sub.id}}" style="display: none">
                             <div ng-repeat="item in sub.children" class="system-li first-color color">
-                                <h4 class="fontchange pointer my-margin-top first-color color" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)"
-                                    >
+                                <h4 class="fontchange pointer my-margin-top first-color color" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
                                     {{item.title}}
                                 </h4>
                                 <div ng-repeat="item1 in item.children" class="system-li fontchange" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px"
@@ -95,7 +94,7 @@
                         <span id="nav"></span>
                         <span id="subnav"></span>
                     </div>
-                   <div ng-include="number"></div>
+                    <div ng-include="number"></div>
 
                 </div>
             </div>
@@ -105,13 +104,7 @@
     <footer class="container-fluid container-filter" ng-include="'modules/footer.html'">
 
     </footer>
+    
 </body>
-
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-
-</script>
 
 </html>

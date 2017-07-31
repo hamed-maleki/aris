@@ -131,11 +131,6 @@ function login() {
     }
     function AjaxFailed(err, response) {
         $(".load-circle").css("display", "none")
-        console.log('err1');
-        console.log(response);
-        console.log('err2');
-        console.log(err);
-        console.log('err3');
         if (err.status == 500) {
             $(".ieMessage p").html("خطای ارتباطی لطفا دوباره سعی کنید");
         } else {

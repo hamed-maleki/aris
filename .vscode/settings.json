@@ -14,7 +14,7 @@
         ],
         "rebase": true,
         "restructuring": true,
-        "root": "${/assets/styles/doodlestyle.css}",
+        "root": "${/assets/scripts/ui.js}",
         "roundingPrecision": 2,
         "semanticMerging": false,
         "shorthandCompacting": true

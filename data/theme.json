@@ -1,17 +1,17 @@
 {
-    "color":[
+    "color": [
         2
     ],
-    "font":[
+    "font": [
         3
     ],
-    "tableFont":[
-        14
-    ],
-    "numberType":[
+    "tableFont": {
+        "font-size": "14px"
+    },
+    "numberType": [
         1
     ],
-    "screensaver":1000,
-    "name":" حامد ینگی ملکی",
-    "img" :"media/1.jpg"
+    "screensaver": 1000,
+    "name": " حامد ینگی ملکی",
+    "img": "media/1.jpg"
 }

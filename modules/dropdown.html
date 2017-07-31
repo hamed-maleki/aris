@@ -11,8 +11,8 @@
                             <p class="fontchange" style="font-size: 15px" ng-click="drop(system.id)">{{system.title}}
                                 <i class="fa fa-angle-down " style="vertical-align: middle"></i>
                             </p>
-                            <div class="col-sm-8 right-align subsystem color top-slide" id="dropdown{{system.id}}">
-                                <p ng-repeat="subsystem in system.children" class="pointer fontchange" ng-click="subSystem(subsystem.parent,subsystem.id)">
+                            <div class="col-sm-8 right-align subsystem color top-slide" id="dropdown{{system.id}}" >
+                                <p ng-init="theme()" ng-repeat="subsystem in system.children" class="pointer fontchange" ng-click="subSystem(subsystem.parent,subsystem.id)">
                                     {{subsystem.title}}
                                 </p>
                             </div>
