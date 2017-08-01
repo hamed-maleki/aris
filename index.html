@@ -36,7 +36,7 @@
 </head>
 
 <body id="body" ng-app="myApp" ng-controller="myCtrl">
-    <nav class="border color " ng-include="'modules/navigation.html'">
+    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <p class="fontchange" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px">
         software name
@@ -65,7 +65,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-sm-8 my-col-sm-6 alarm-con">
-                            <div class="border  sub-system transform center pointer container-filter color" style="margin-top: 10px;min-height: 170px">
+                            <div class="border  sub-system transform center pointer container-filter" ng-class="userColor" style="margin-top: 10px;min-height: 170px">
                                 <div class="row">
                                     <div class="col-sm-12 " style="text-align: right;padding-right: 30px;position: relative;z-index: 3">
                                         <span class="alarmTitle" ng-click="slider(-1)">
@@ -98,7 +98,7 @@
                         <a href="charts.min.html">
                             <div class="row">
                                 <div class="col-sm-12" ng-init="getHeight()">
-                                    <div class="border sub-system chart sub-color" style="padding-top: 1px;">
+                                    <div class="border sub-system chart" ng-class="userSubColor" style="padding-top: 1px;">
                                         <div class="ct-chart  ct-golden-section my-margin-top" id="chart1" style="color: white"></div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-12" style="padding: 5px">
-                                <p class="sub-color" style="padding-right: 15px;margin-top: 5px;">
+                                <p ng-class="userSubColor" style="padding-right: 15px;margin-top: 5px;">
                                     <i class="fa fa-close" style="color: white" ng-click="sideBarClose()"></i>
                                 </p>
                             </div>
@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <footer class="container-fluid container-filter" ng-include="'modules/footer.html'">
+    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
     </footer>
 
 </body>

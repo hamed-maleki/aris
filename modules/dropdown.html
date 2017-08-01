@@ -7,11 +7,11 @@
             <div class="row">
                 <div ng-repeat="system in subSystemSituation" class="col-sm-2 my-margin-top right-float " style="padding-right: 25px">
                     <div class="border transform">
-                        <div  class="col-sm-12 color shadow center pointer container-filter color" style="padding-top: 2px">
+                        <div  class="col-sm-12 shadow center pointer container-filter" ng-class="userColor" style="padding-top: 2px">
                             <p class="fontchange" style="font-size: 15px" ng-click="drop(system.id)">{{system.title}}
                                 <i class="fa fa-angle-down " style="vertical-align: middle"></i>
                             </p>
-                            <div class="col-sm-8 right-align subsystem color top-slide" id="dropdown{{system.id}}" >
+                            <div class="col-sm-8 right-align subsystem top-slide" ng-class="userColor" id="dropdown{{system.id}}" >
                                 <p ng-init="theme()" ng-repeat="subsystem in system.children" class="pointer fontchange" ng-click="subSystem(subsystem.parent,subsystem.id)">
                                     {{subsystem.title}}
                                 </p>
@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class=" my-margin-top col-sm-4" ng-repeat="system in system" style="padding: 15px;" ng-init="theme()">
                         <div class="row">
-                            <div class="modal-container transform pointer color"  ng-click="systemToLoad(system.id)">
+                            <div class="modal-container transform pointer" ng-class="userColor"  ng-click="systemToLoad(system.id)">
                                 <i class="fa system-icon" ng-class="system.icon"></i>
                                 <h5 class="pointer fontchange">{{system.title}}</h5>
                             </div>
@@ -60,5 +60,4 @@
         $("nav i").css("pointer-events", '')
         $(".effect").css("filter", "none")
     })
-
 </script>

@@ -43,7 +43,7 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
-    <nav class="border color" ng-include="'modules/navigation.html'">
+    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid my-margin-top" ng-init="systemToShow()">
         <div class="row white-background border" style="margin-bottom: 64px;">
@@ -60,8 +60,8 @@
                             {{sub.title}}
                         </h4>
                         <div id="{{sub.id}}" style="display: none">
-                            <div ng-repeat="item in sub.children" class="system-li first-color color">
-                                <h4 class="fontchange pointer my-margin-top first-color color" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
+                            <div ng-repeat="item in sub.children" class="system-li" ng-class="userColor">
+                                <h4 class="fontchange pointer my-margin-top" ng-class="userColor" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
                                     {{item.title}}
                                 </h4>
                                 <div ng-repeat="item1 in item.children" class="system-li fontchange" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px"

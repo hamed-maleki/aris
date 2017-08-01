@@ -46,7 +46,7 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
-    <nav class="border color " ng-include="'modules/navigation.html'">
+    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-sm-5"></div>
                         <div class="col-sm-2 my-margin-top">
-                            <button class="btn color" style="width: 100%;color: white;margin-top: 30px">ثبت تغییرات</button>
+                            <button class="btn" ng-class="userColor" style="width: 100%;color: white;margin-top: 30px">ثبت تغییرات</button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <footer class="container-fluid container-filter" ng-include="'modules/footer.html'"></footer>
+    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'"></footer>
 </body>
 
 </html>

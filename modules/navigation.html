@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12 ">
             <div class="row">
-                <div class="col-sm-2 logo-holder sub-color">
+                <div class="col-sm-2 logo-holder" ng-class="userSubColor">
                     <a href="#" style="margin-left: 45px">
                         <!--logo part-->
                         <img src="media/logo.png" style="float: right" id="aris-typo" />
@@ -31,7 +31,7 @@
                             <a href="table.html">
                                 <!--cartable part-->
                                 <i data-toggle="tooltip" data-placement="bottom" title="کارتابل" class="fa fa-envelope-o font" style="margin-right: 0px !important"></i>
-                                <div class="badge sub-color">{{reading}}</div>
+                                <div class="badge" ng-class="userSubColor">{{reading}}</div>
                             </a>
                         </span>
                         <span class="border-right right-align" style="position: relative">
@@ -99,7 +99,7 @@
         </div>
     </div>
 </div>
-<div class="loading-login1 color">
+<div class="loading-login1" ng-class="userColor">
     <img src="media/logofox.png" id="fox" class="fox">
 </div>
 <script>

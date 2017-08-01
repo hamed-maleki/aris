@@ -1,9 +1,9 @@
 <div class="row effect">
     <!--calendar link container-->
     <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(2)" ng-init="mydate()">
-        <div class="border sub-system transform  center pointer first-color  tools my-calendar" style="margin-top: 10px;background-color: white !important">
+        <div class="border sub-system transform  center pointer tools my-calendar" ng-class="userColor" style="margin-top: 10px;background-color: white !important">
 
-            <div class="color" style="height: 20px;font-size: 12px">
+            <div ng-class="userColor" style="height: 20px;font-size: 12px">
                 <i class="fa fa-chevron-left" style="float: left;font-size: 10px;margin-top:5px;margin-left: 3px;"></i> {{myMonth}}
                 <i class="fa fa-chevron-right" style="float: right;font-size: 10px;margin-top: 5px;margin-right: 3px;"></i>
             </div>
@@ -17,14 +17,14 @@
     </div>
     <!--note link container-->
     <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(1)">
-        <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
+        <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
             <i class="fa fa-file-text-o system-icon"></i>
-            <div ng-if="note.length != 0" class="badging sub-color">{{note.length}}</div>
+            <div ng-if="note.length != 0" class="badging" ng-class="userSubColor">{{note.length}}</div>
         </div>
     </div>
     <!--top-links link container-->
     <div class="col-sm-6 my-col-sm-6" onclick="display('chatbox')">
-        <div class="border sub-system transform  center pointer tools sub-color" style="margin-top: 10px">
+        <div class="border sub-system transform  center pointer tools" ng-class="userSubColor" style="margin-top: 10px">
             <!--<i class="fa fa-random system-icon"></i>-->
             <img src="media/logofox.png" class="tools-logo">
             <div class="aris-badge">10</div>
@@ -33,7 +33,7 @@
 
     <!--chat link container-->
     <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(3)">
-        <div class="border sub-system transform  center pointer first-color color tools" style="margin-top: 10px;">
+        <div class="border sub-system transform  center pointer tools" ng-class="userColor" style="margin-top: 10px;">
             <i class="fa fa-random system-icon"></i>
         </div>
     </div>
@@ -52,7 +52,7 @@
     </div>
 </div> -->
 <!--chat area part-->
-<div id="chatbox" class="color">
+<div id="chatbox" ng-class="userColor">
     <div class="container">
         <div class="row">
             <div class="col-sm-12" onclick="showing()">
@@ -105,7 +105,7 @@
                         <textarea class="my-textarea" id="chattext" style="margin-bottom: 5px;"></textarea>
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn my-button first-color color" ng-click="chatting(reciver)">ارسال</button>
+                        <button class="btn my-button " ng-class="userColor" ng-click="chatting(reciver)">ارسال</button>
                     </div>
                 </div>
             </div>

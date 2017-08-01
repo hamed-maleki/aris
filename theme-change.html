@@ -33,13 +33,13 @@
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
-    <nav class="border color " ng-include="'modules/navigation.html'">
+    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="contianer" style="padding: 0 15px;">
         <div class="row">
             <div class="col-sm-2 col-sm-push-10 center">
                 <div class="row my-padding">
-                    <div class="col-sm-12 color my-padding-5 my-margin-top" style="margin-left: -12px">
+                    <div class="col-sm-12 my-padding-5 my-margin-top" ng-class="userColor" style="margin-left: -12px">
                         <h4 class="pointer fontchange" style="color: white" ng-click="themeElemanChange(1)">
                             انتخاب رنگ پس زمینه<i class="fa fa-paint-brush"></i>
                         </h4>
@@ -59,7 +59,7 @@
                     <div class="row">
                         <div class="col-sm-12 row" ng-if="themeEleman == 1">
                             <div class="col-sm-12">
-                                <div class="my-padding color-select center row" style="background-color: #037bc0" ng-click="colorChanger('1')">
+                                <div class="my-padding color-select center row first-color" ng-click="colorChanger('1')">
                                     <div class="col-sm-4" style="border-right: 1px dashed white">
                                         <img src="media/pic.jpg">
                                     </div>
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 my-margin-top">
-                                <div class="my-padding color-select center row" style="background-color: #F6921E" ng-click="colorChanger('2')">
+                                <div class="my-padding color-select center row second-color"  ng-click="colorChanger('2')">
                                     <div class="col-sm-4" style="border-right: 1px dashed white">
                                         <img src="media/pic1.jpg">
                                     </div>
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 my-margin-top">
-                                <div class="my-padding color-select center row" style="background-color: #4D636F" ng-click="colorChanger('3')">
+                                <div class="my-padding color-select center row third-color" ng-click="colorChanger('3')">
                                     <div class="col-sm-4" style="border-right: 1px dashed white">
                                         <img src="media/pic2.jpg">
                                     </div>
@@ -95,7 +95,7 @@
                         <div class="col-sm-12" ng-if="themeEleman == 2" ng-init="theme()">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="font-selector sub-color row" ng-click="fontChanger('1')" style="font-family: 'samim'">
+                                    <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('1')" style="font-family: 'samim'">
                                         <div class="col-sm-2 center">
 
                                             <i class="fa fa-check-circle-o hide theme-check" id="firstcheck"></i>
@@ -107,7 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <div class="font-selector sub-color row" ng-click="fontChanger('2')" style="font-family: 'iran-sans'">
+                                    <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('2')" style="font-family: 'iran-sans'">
                                         <div class="col-sm-2 center">
                                             <i class="fa fa-check-circle-o theme-check" id="secondcheck"></i>
                                         </div>
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <div class="font-selector sub-color row" ng-click="fontChanger('3')" style="font-family: 'dubai'">
+                                    <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('3')" style="font-family: 'dubai'">
                                         <div class="col-sm-2 center">
                                             <i class="fa fa-check-circle-o hide theme-check" id="thirdcheck"></i>
                                         </div>
@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <div class="font-selector row sub-color" ng-click="fontChanger('4')" style="font-family: 'shabnam'">
+                                    <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('4')" style="font-family: 'shabnam'">
                                         <div class="col-sm-2 center">
                                             <i class="fa fa-check-circle-o hide theme-check" id="forthcheck"></i>
                                         </div>
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
-                                    <div class="font-selector sub-color row" ng-click="fontChanger('5')" style="font-family: 'sahel'">
+                                    <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('5')" style="font-family: 'sahel'">
                                         <div class="col-sm-2 center">
                                             <i class="fa fa-check-circle-o hide theme-check" id="fifthcheck"></i>
                                         </div>
@@ -179,7 +179,7 @@
     <div class="container">
 
     </div>
-    <footer class="container-fluid container-filter" ng-include="'modules/footer.html'">
+    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
     </footer>
 </body>
 

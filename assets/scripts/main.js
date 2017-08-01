@@ -33,6 +33,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.time = response.data.screensaver;
             $scope.name = response.data.name;
             $scope.img = response.data.img;
+            $scope.userColor = response.data.userColor;
+            $scope.userSubColor = response.data.userSubColor;
+            $scope.userSystemColor = response.data.userSystemColor;
             // $scope.theme()
             var timeout;
             $(document).on("mousemove keydown click", function () {
@@ -54,45 +57,45 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
         if ($scope.colorTheme != undefined) {
             $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
-            $(".color").removeClass("second-color");
-            $(".color").removeClass("third-color");
-            $(".color").removeClass("first-color");
-            $(".sub-color").removeClass("second-subcolor");
-            $(".sub-color").removeClass("third-subcolor");
-            $(".sub-color").removeClass("first-subcolor");
-            $(".system-color").removeClass("second-systemcolor");
-            $(".system-color").removeClass("third-systemcolor");
-            $(".system-color").removeClass("first-systemcolor");
-            if ($scope.colorTheme[0] == 1) {
-                $(".sub-color").addClass("first-subcolor");
-                $(".system-color").addClass("first-systemcolor");
-                $(".color").addClass("first-color");
-                $(".top-link").css("color", "#5BB0E2");
-                $("footer").css("background-color", "#5BB0E2");
-                $(".system-li>h4").css("background-color", "#5BB0E2");
-                $("hr").css("border-bottom", "1px solid #F36548");
-                $(".setting-link").css("color", "#F36548")
-            }
-            else if ($scope.colorTheme[0] == 2) {
-                $(".sub-color").addClass("second-subcolor");
-                $(".system-color").addClass("second-systemcolor");
-                $(".color").addClass("second-color");
-                $(".top-link").css("color", "#3eb65c !important");
-                $("footer").css("background-color", "#C1B49A");
-                $(".system-li>h4").css("background-color", "#67cb80");
-                $("hr").css("border-bottom", "1px solid #8cc63e")
-                $(".setting-link").css("color", "#8cc63e")
-            }
-            else {
-                $(".sub-color").addClass("third-subcolor");
-                $(".system-color").addClass("third-systemcolor");
-                $(".color").addClass("third-color");
-                $(".top-link").css("color", "#b194f1");
-                $("footer").css("background-color", "#879fab");
-                $(".system-li>h4").css("background-color", "#cebbf6");
-                $("hr").css("border-bottom", "1px solid #f7931d")
-                $(".setting-link").css("color", "#f7931d")
-            }
+            // $(".color").removeClass("second-color");
+            // $(".color").removeClass("third-color");
+            // $(".color").removeClass("first-color");
+            // $(".sub-color").removeClass("second-subcolor");
+            // $(".sub-color").removeClass("third-subcolor");
+            // $(".sub-color").removeClass("first-subcolor");
+            // $(".system-color").removeClass("second-systemcolor");
+            // $(".system-color").removeClass("third-systemcolor");
+            // $(".system-color").removeClass("first-systemcolor");
+            // if ($scope.colorTheme[0] == 1) {
+            //     $(".sub-color").addClass("first-subcolor");
+            //     $(".system-color").addClass("first-systemcolor");
+            //     $(".color").addClass("first-color");
+            //     $(".top-link").css("color", "#5BB0E2");
+            //     $("footer").css("background-color", "#5BB0E2");
+            //     $(".system-li>h4").css("background-color", "#5BB0E2");
+            //     $("hr").css("border-bottom", "1px solid #F36548");
+            //     $(".setting-link").css("color", "#F36548")
+            // }
+            // else if ($scope.colorTheme[0] == 2) {
+            //     $(".sub-color").addClass("second-subcolor");
+            //     $(".system-color").addClass("second-systemcolor");
+            //     $(".color").addClass("second-color");
+            //     $(".top-link").css("color", "#3eb65c !important");
+            //     $("footer").css("background-color", "#C1B49A");
+            //     $(".system-li>h4").css("background-color", "#67cb80");
+            //     $("hr").css("border-bottom", "1px solid #8cc63e")
+            //     $(".setting-link").css("color", "#8cc63e")
+            // }
+            // else {
+            //     $(".sub-color").addClass("third-subcolor");
+            //     $(".system-color").addClass("third-systemcolor");
+            //     $(".color").addClass("third-color");
+            //     $(".top-link").css("color", "#b194f1");
+            //     $("footer").css("background-color", "#879fab");
+            //     $(".system-li>h4").css("background-color", "#cebbf6");
+            //     $("hr").css("border-bottom", "1px solid #f7931d")
+            //     $(".setting-link").css("color", "#f7931d")
+            // }
             $(".theme-check").addClass("hide");
             $(".fa-pencil").removeClass("hide");
             if ($scope.fontTheme[0] == 1) {
@@ -1007,7 +1010,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 setTimeout(function () {
                     $(".user").css("background-color", "#FFFFFF");
                     $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
-                },100)
+                }, 100)
             }
         }).catch(function (xhr, status, error) {
             if (refreshtoken && xhr.status === 401) {
@@ -1478,8 +1481,27 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.colorChanger = function (element) {
         $(".color-icon").css("display", "none");
         $("#color" + element).css("display", "inline-block");
-        $scope.colorTheme = element;
-        $scope.theme();
+        switch (element) {
+            case '1':
+                $scope.userColor = "first-color";
+                $scope.userSubColor = "first-subcolor";
+                $scope.userSystemColor = "first-systemcolor";
+                break;
+            case '2':
+                $scope.userColor = "second-color";
+                $scope.userSubColor = "second-subcolor";
+                $scope.userSystemColor = "second-systemcolor";
+                break;
+            case '3':
+                $scope.userColor = "third-color";
+                $scope.userSubColor = "third-subcolor";
+                $scope.userSystemColor = "third-systemcolor";
+                break;
+
+        }
+            console.log($scope.userColor)
+        // $scope.colorTheme = element;
+        // $scope.theme();
     }
     // aside opening
     // $scope.sideBar = function (x) {

@@ -24,7 +24,7 @@
     <!--<script src=".dist/main.js"></script>-->
 </head>
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
-    <nav class="border color" ng-include="'modules/navigation.html'">
+    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container my-margin-top" style="margin-bottom: 340px;">
         <div class="row" style="margin-top: 32px;">
@@ -74,7 +74,7 @@
             <div class="col-sm-2"></div>
         </div>
     </div>
-    <footer class="container-fluid" ng-include="'modules/footer.html'">
+    <footer class="container-fluid" ng-class="userSubColor" ng-include="'modules/footer.html'">
         
     </footer>
 </body>
