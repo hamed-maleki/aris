@@ -110,7 +110,7 @@
             </div>
         </div>
         <div class="col-sm-5 my-margin-top">
-            <div class="tree-border fontchange" ng-repeat="tree in treeToShow">
+            <div class="tree-border" ng-style="testfont" ng-repeat="tree in treeToShow">
                 <input type="checkbox" style="display: none" /> {{tree.name}}
                 <i class="fa fa-angle-down" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
                 <hr>

@@ -1,7 +1,7 @@
-<div class="container" ng-init="theme()">
+<div class="container">
     <div class="row">
         <div style="padding: 5px;">
-            <div class="col-sm-12 setting-info-bar sub-color">
+            <div class="col-sm-12 setting-info-bar" ng-class="userSubColor">
                 <div class="row">
                     <div class="col-sm-4" style="text-align: left">
                         <i class="fa fa-gear"></i>
@@ -14,8 +14,8 @@
         </div>
         <div class="clearfix"></div>
         <div class="col-sm-12 my-margin-top" style="margin-bottom: 15px;">
-            <a href="theme-change.min.html" class="setting-link fontchange">تنظیمات پوسته</a>
-            <a href="table-change.min.html" class="setting-link fontchange">تنظیمات جدول</a>
+            <a href="theme-change.min.html" class="setting-link" ng-style="testfont">تنظیمات پوسته</a>
+            <a href="table-change.min.html" class="setting-link" ng-style="testfont">تنظیمات جدول</a>
         </div>
     </div>
 </div>

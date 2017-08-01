@@ -45,7 +45,7 @@
     </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
+<body ng-app="myApp" ng-controller="myCtrl" >
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid">
@@ -54,7 +54,7 @@
             </div>
             <div class="col-sm-10 col-sm-pull-2 my-margin-top">
                 <div class="container right-align my-margin-top">
-                    <h3 class="fontchange">نوع نمایش اعداد</h3>
+                    <h3 ng-style="testfont">نوع نمایش اعداد</h3>
                     <hr>
                     <div class="row">
                         <div class="col-sm-10">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="container my-margin-top right-align">
-                    <h3 class="fontchange my-margin-top">سایز نمایش اعداد جداول</h3>
+                    <h3 class="my-margin-top" ng-style="testfont">سایز نمایش اعداد جداول</h3>
                     <hr>
                     <div class="row my-margin-top">
                         <div class="col-sm-12 center my-margin-top">

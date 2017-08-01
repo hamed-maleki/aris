@@ -32,7 +32,7 @@
     </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
+<body ng-app="myApp" ng-controller="myCtrl">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="contianer" style="padding: 0 15px;">
@@ -40,13 +40,13 @@
             <div class="col-sm-2 col-sm-push-10 center">
                 <div class="row my-padding">
                     <div class="col-sm-12 my-padding-5 my-margin-top" ng-class="userColor" style="margin-left: -12px">
-                        <h4 class="pointer fontchange" style="color: white" ng-click="themeElemanChange(1)">
+                        <h4 class="pointer" ng-style="testfont" style="color: white" ng-click="themeElemanChange(1)">
                             انتخاب رنگ پس زمینه<i class="fa fa-paint-brush"></i>
                         </h4>
-                        <h4 class="pointer fontchange" style="color: white" ng-click="themeElemanChange(2)">
+                        <h4 class="pointer" ng-style="testfont" style="color: white" ng-click="themeElemanChange(2)">
                             انتخاب فونت<i class="fa fa-text-width"></i>
                         </h4>
-                        <h4 class="pointer fontchange" style="color: white" ng-click="themeElemanChange(3)">
+                        <h4 class="pointer" ng-style="testfont" style="color: white" ng-click="themeElemanChange(3)">
                             زمان خواب تصویر<i class="fa fa-tv"></i>
                         </h4>
                     </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="clearfix"></div>
-                        <div class="col-sm-12" ng-if="themeEleman == 2" ng-init="theme()">
+                        <div class="col-sm-12" ng-if="themeEleman == 2" >
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('1')" style="font-family: 'samim'">
@@ -109,7 +109,7 @@
                                 <div class="col-sm-12">
                                     <div class="font-selector row" ng-class="userSubColor" ng-click="fontChanger('2')" style="font-family: 'iran-sans'">
                                         <div class="col-sm-2 center">
-                                            <i class="fa fa-check-circle-o theme-check" id="secondcheck"></i>
+                                            <i class="fa fa-check-circle-o hide theme-check" id="secondcheck"></i>
                                         </div>
                                         <div class="col-sm-10 right-align" style="border-left: 1px dashed white">
                                             این متنی برای مشاهده نوع فونت انتخابی شما میباشد <br> این متنی برای مشاهده نوع
@@ -157,7 +157,7 @@
                                 <div class="col-sm-12 right-align" style="margin-bottom: 100px">
                                     <img src="media/sleep.jpg" style="width: 70%;margin: 0 auto;display: block">
                                     <div class="row">
-                                        <div class="col-sm-4 col-sm-push-8 fontchange">
+                                        <div class="col-sm-4 col-sm-push-8" ng-style="testfont">
                                             
                                         </div>
                                         <div class="col-sm-8 col-sm-pull-4">

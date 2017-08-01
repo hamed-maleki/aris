@@ -53,7 +53,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div ng-repeat="x in searchSystem|filter:{title : searchItem}">
-                                                <li class="searchLink pointer fontchange" ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
+                                                <li class="searchLink pointer" ng-style="testfont" ng-click="gettingSystem(x.parent,1)" style="text-align: right;">
                                                     {{x.title}}
                                                 </li>
 
@@ -69,7 +69,7 @@
                 <div class="col-sm-5" style="text-align: right;margin-top: 10px">
                     <span class="border-right border-left">
                         <!--lik to first page-->
-                        <a href="index.min.html" class="fontchange">
+                        <a href="index.min.html" ng-style="testfont">
                             شرکت ملی گاز ایران
                         </a>
                     </span>

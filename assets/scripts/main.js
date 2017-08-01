@@ -26,7 +26,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
     $http.get("data/theme.json")
         .then(function (response) {
-            $scope.colorTheme = response.data.color;
+            $scope.testfont = response.data.testfont;
             $scope.fontTheme = response.data.font;
             $scope.tableFont = response.data.tableFont;
             $scope.numberType = response.data.numberType;
@@ -50,100 +50,17 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#error").modal();
         })
     // $scope.theme();
-    $scope.theme = function () {
-        // if (localStorage.accessToken == 'hi') {
-        //     window.localStorage.removeItem('accessToken');
-        //     window.location.href = "login.html"
-        // }
-        if ($scope.colorTheme != undefined) {
-            $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
-            // $(".color").removeClass("second-color");
-            // $(".color").removeClass("third-color");
-            // $(".color").removeClass("first-color");
-            // $(".sub-color").removeClass("second-subcolor");
-            // $(".sub-color").removeClass("third-subcolor");
-            // $(".sub-color").removeClass("first-subcolor");
-            // $(".system-color").removeClass("second-systemcolor");
-            // $(".system-color").removeClass("third-systemcolor");
-            // $(".system-color").removeClass("first-systemcolor");
-            // if ($scope.colorTheme[0] == 1) {
-            //     $(".sub-color").addClass("first-subcolor");
-            //     $(".system-color").addClass("first-systemcolor");
-            //     $(".color").addClass("first-color");
-            //     $(".top-link").css("color", "#5BB0E2");
-            //     $("footer").css("background-color", "#5BB0E2");
-            //     $(".system-li>h4").css("background-color", "#5BB0E2");
-            //     $("hr").css("border-bottom", "1px solid #F36548");
-            //     $(".setting-link").css("color", "#F36548")
-            // }
-            // else if ($scope.colorTheme[0] == 2) {
-            //     $(".sub-color").addClass("second-subcolor");
-            //     $(".system-color").addClass("second-systemcolor");
-            //     $(".color").addClass("second-color");
-            //     $(".top-link").css("color", "#3eb65c !important");
-            //     $("footer").css("background-color", "#C1B49A");
-            //     $(".system-li>h4").css("background-color", "#67cb80");
-            //     $("hr").css("border-bottom", "1px solid #8cc63e")
-            //     $(".setting-link").css("color", "#8cc63e")
-            // }
-            // else {
-            //     $(".sub-color").addClass("third-subcolor");
-            //     $(".system-color").addClass("third-systemcolor");
-            //     $(".color").addClass("third-color");
-            //     $(".top-link").css("color", "#b194f1");
-            //     $("footer").css("background-color", "#879fab");
-            //     $(".system-li>h4").css("background-color", "#cebbf6");
-            //     $("hr").css("border-bottom", "1px solid #f7931d")
-            //     $(".setting-link").css("color", "#f7931d")
-            // }
-            $(".theme-check").addClass("hide");
-            $(".fa-pencil").removeClass("hide");
-            if ($scope.fontTheme[0] == 1) {
-                $("#firstcheck").removeClass("hide");
-                $(".fontchange").css("font-family", "samim");
-                $("label").css("font-family", "samim");
-                $("button").css("font-family", "samim");
-                $("th").css("font-family", "samim");
-            }
-            else if ($scope.fontTheme[0] == 2) {
-                $("#secondcheck").removeClass("hide");
-                $(".fontchange").css("font-family", "iran-sans");
-                $("label").css("font-family", "iran-sans");
-                $("button").css("font-family", "iran-sans");
-                $("th").css("font-family", "iran-sans");
-                $(".top-link").css("font-size", "12px");
-                $(".sub-system p").css("font-size", "14px");
-            }
-            else if ($scope.fontTheme[0] == 3) {
-                $("#thirdcheck").removeClass("hide");
-                $(".fontchange").css("font-family", "dubai");
-                $("label").css("font-family", "dubai");
-                $("button").css("font-family", "dubai");
-                $("th").css("font-family", "dubai");
-                $("th").css("font-size", "14px");
-                $(".top-link").css("font-size", "10px");
-                $(".sub-system p").css("font-size", "13px");
-            }
-            else if ($scope.fontTheme[0] == 4) {
-                $("#forthcheck").removeClass("hide");
-                $(".fontchange").css("font-family", "shabnam");
-                $("label").css("font-family", "shabnam");
-                $("button").css("font-family", "shabnam");
-                $("th").css("font-family", "shabnam");
-                $(".top-link").css("font-size", "10px");
-                $(".sub-system p").css("font-size", "13px");
-            }
-            else {
-                $("#fifthcheck").removeClass("hide");
-                $(".fontchange").css("font-family", "sahel");
-                $("label").css("font-family", "sahel");
-                $("button").css("font-family", "sahel");
-                $("th").css("font-family", "sahel");
-                $(".top-link").css("font-size", "10px");
-                $(".sub-system p").css("font-size", "13px");
-            }
-        }
-    }
+    // $scope.theme = function () {
+    //     // if (localStorage.accessToken == 'hi') {
+    //     //     window.localStorage.removeItem('accessToken');
+    //     //     window.location.href = "login.html"
+    //     // }
+    //     if ($scope.colorTheme != undefined) {
+    //         $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
+    //         $(".theme-check").addClass("hide");
+    //         $(".fa-pencil").removeClass("hide");
+    //     }
+    // }
     // log in demo log in. it should be removed later
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
@@ -1468,7 +1385,40 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.tableFont[0] = $("#points-font").val();
     }
     $scope.fontChanger = function (element) {
-        $scope.fontTheme = element;
+        $(".fa-check-circle-o").addClass("hide");
+        switch (element) {
+            
+            case '1':
+                $scope.testfont = {
+                    "font-family": "samim"
+                };
+                $("#firstcheck").removeClass("hide");
+                break;
+            case '2':
+                $scope.testfont = {
+                    "font-family": "iran-sans"
+                };
+                $("#secondcheck").removeClass("hide");
+                break;
+            case '3':
+                $scope.testfont = {
+                    "font-family": "dubai"
+                };
+                $("#thirdcheck").removeClass("hide");
+                break;
+            case '4':
+                $scope.testfont = {
+                    "font-family": "shabnam"
+                };
+                $("#forthcheck").removeClass("hide");
+                break;
+            case '5':
+                $scope.testfont = {
+                    "font-family": "sahel"
+                };
+                $("#fifthcheck").removeClass("hide");
+                break;
+        }
         $scope.theme();
     }
     $scope.screen = function (x) {
@@ -1499,7 +1449,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 break;
 
         }
-            console.log($scope.userColor)
+        console.log($scope.userColor)
         // $scope.colorTheme = element;
         // $scope.theme();
     }

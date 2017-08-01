@@ -38,7 +38,7 @@
 <body id="body" ng-app="myApp" ng-controller="myCtrl">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
-    <p class="fontchange" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px">
+    <p ng-style="testfont" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px">
         software name
     </p>
     <div class="container" style="padding: 0 17px; margin-bottom: 100px;">
@@ -82,7 +82,7 @@
                                             <i class="fa fa-play" ></i>
                                         </span>
                                                 <span class="alarmTitle">
-                                            <h4 class="fontchange">پیغام های شما</h4>
+                                            <h4 ng-style="testfont">پیغام های شما</h4>
                                         </span>
                                     </div>
                                     <div class="col-sm-12" style="  perspective: 150px; -webkit-perspective: 150px;" ng-include="'modules/alarm.html'"></div>

@@ -51,21 +51,21 @@
                 <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;padding-right: 10px">
                 </div>
             </div>
-            <div class="col-sm-2 col-sm-push-10 right-align fontchange">
+            <div class="col-sm-2 col-sm-push-10 right-align" ng-style="testfont">
                 <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" ng-if="systemslider.length != undefined">
-                    <h3 class="fontchange" style="padding: 10px;">زیر سیستم ها</h3>
+                    <h3 ng-style="testfont" style="padding: 10px;">زیر سیستم ها</h3>
                     <hr>
-                    <div ng-repeat="sub in systemslider" ng-init="theme()">
-                        <h4 class="fontchange pointer" ng-model="show" ng-click="headerSlide(sub.id,sub.title,sub.path,sub.isLeaf)">
+                    <div ng-repeat="sub in systemslider" >
+                        <h4 class="pointer" ng-style="testfont" ng-model="show" ng-click="headerSlide(sub.id,sub.title,sub.path,sub.isLeaf)">
                             {{sub.title}}
                         </h4>
                         <div id="{{sub.id}}" style="display: none">
                             <div ng-repeat="item in sub.children" class="system-li" ng-class="userColor">
-                                <h4 class="fontchange pointer my-margin-top" ng-class="userColor" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
+                                <h4 class=" pointer my-margin-top" ng-style="testfont" ng-class="userColor" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
                                     {{item.title}}
                                 </h4>
-                                <div ng-repeat="item1 in item.children" class="system-li fontchange" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px"
-                                    ng-init="font()">
+                                <div ng-repeat="item1 in item.children" class="system-li" ng-style="testfont" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px"
+                                   >
 
                                     <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.path,item1.isLeaf)" style="margin-bottom: 0;padding-right: 7px;padding-bottom: 5px">
                                         {{item1.title}}
@@ -101,7 +101,7 @@
 
         </div>
     </div>
-    <footer class="container-fluid container-filter" ng-include="'modules/footer.html'">
+    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
 
     </footer>
     

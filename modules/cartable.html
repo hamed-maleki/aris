@@ -15,9 +15,9 @@
                         <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
                         <i ng-if="cartable.read == 1" class="fa fa-check"></i>
                     </td>
-                    <td class="fontchange">{{cartable.author}}</td>
-                    <td class="fontchange">{{cartable.title}}</td>
-                    <td class="fontchange">{{cartable.situation}}</td>
+                    <td ng-style="testfont">{{cartable.author}}</td>
+                    <td class="testfont">{{cartable.title}}</td>
+                    <td class="testfont">{{cartable.situation}}</td>
                 </tr>
             </tbody>
         </table>

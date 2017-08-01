@@ -1,4 +1,4 @@
-<form class="form-inline" ng-init="theme()">
+<form class="form-inline" >
     <div class="row">
         <div class="col-sm-6 right-align col-sm-push-6">
             <div class="row">
@@ -143,12 +143,12 @@
                             <input type="checkbox" class="modal_input" value="{{table.id}}" id="check{{table.id}}" />
                         </td>
                         <td>{{table.row}}</td>
-                        <td class="fontchange" id="title{{table.id}}">{{table.title}}</td>
-                        <td class="fontchange" id="description{{table.id}}">{{table.description}}</td>
+                        <td ng-style="testfont" id="title{{table.id}}">{{table.title}}</td>
+                        <td ng-style="testfont" id="description{{table.id}}">{{table.description}}</td>
                         <td id="credit{{table.id}}" style="width: 200px;" ng-style="tableFont" contenteditable="false">{{table.credit}}</td>
                         <td id="debt{{table.id}}" style="width: 200px;" ng-style="tableFont" contenteditable="false">{{table.debt}}</td>
-                        <td ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green fontchange">{{table.situation}}</td>
-                        <td ng-if="table.situation === 'بدهکار'" class="red fontchange">{{table.situation}}</td>
+                        <td ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green" ng-style="testfont">{{table.situation}}</td>
+                        <td ng-if="table.situation === 'بدهکار'" class="red" ng-style="testfont">{{table.situation}}</td>
                         <td id="remain{{table.id}}" ng-if="table.situation === 'بستانکار' || table.situation === '-'" ng-style="tableFont" class="green">{{table.remain}}</td>
                         <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red" ng-style="tableFont" >
                             {{table.remain}}

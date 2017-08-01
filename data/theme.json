@@ -1,7 +1,4 @@
 {
-    "color": [
-        2
-    ],
     "font": [
         3
     ],
@@ -16,5 +13,8 @@
     "img": "media/1.jpg",
     "userColor":"second-color",
     "userSubColor":"second-subcolor",
-    "userSystemColor":"second-systemcolor"
+    "userSystemColor":"second-systemcolor",
+    "testfont": {
+        "font-family": "dubai"
+    }
 }

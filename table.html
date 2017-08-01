@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="theme()">
+<body ng-app="myApp" ng-controller="myCtrl">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid">
@@ -100,9 +100,9 @@
                                         <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input"/>
                                         <i ng-if="cartable.read == 1" class="fa fa-check"></i>
                                     </td>
-                                    <td class="fontchange">{{cartable.author}}</td>
-                                    <td class="fontchange">{{cartable.title}}</td>
-                                    <td class="fontchange">{{cartable.situation}}</td>
+                                    <td ng-style="testfont">{{cartable.author}}</td>
+                                    <td ng-style="testfont">{{cartable.title}}</td>
+                                    <td ng-style="testfont">{{cartable.situation}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -119,9 +119,9 @@
                 <div class="white-background border my-margin-top footer-margin" ng-show="titleShow">
                     <div class="row">
                         <div class="col-sm-12 right-align">
-                            <h3 class="my-padding fontchange fontchange" id="my-title"></h3>
+                            <h3 class="my-padding" ng-style="testfont" id="my-title"></h3>
                             <hr>
-                            <p class="my-padding fontchange" id="my-context"></p>
+                            <p class="my-padding" ng-style="testfont" id="my-context"></p>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@
             
         </div>
     </div>
-    <footer class="container-fluid container-filter" ng-include="'modules/footer.html'" style="margin-top: 176px;">
+    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'" style="margin-top: 176px;">
     </footer>
     <div id="mail" class="hide" ng-class="userColor">
         <div class="container">
@@ -166,10 +166,7 @@
     $(function () {
         prettyPrint();
     });
-
 </script>
-
-
 </body>
 
 </html>

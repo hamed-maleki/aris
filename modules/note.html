@@ -1,13 +1,13 @@
 <div class="border sub-system white-background my-padding-5 aris-animation">
-    <h4 class="fontchange">یادداشت های شما</h4>
+    <h4 ng-style="testfont">یادداشت های شما</h4>
     <ul class="nav nav-tabs">
-        <li class="fontchange" ng-repeat="note in limitedNote"><a data-toggle="tab" href="#{{note.id}}">{{note.title}}</a></li>
+        <li ng-style="testfont" ng-repeat="note in limitedNote"><a data-toggle="tab" href="#{{note.id}}">{{note.title}}</a></li>
         <li><a ng-click="getMore()">...</a></li>
     </ul>
     <div class="tab-content righ-align">
         <div ng-repeat="note in limitedNote" id="{{note.id}}" class="tab-pane fade in">
-            <h3 class="fontchange">{{note.title}}<i class="fa fa-close" ng-click="removeItem(2,$index)"></i></h3>
-            <p class="fontchange">{{note.content}}</p>
+            <h3 ng-style="testfont">{{note.title}}<i class="fa fa-close" ng-click="removeItem(2,$index)"></i></h3>
+            <p ng-style="testfont">{{note.content}}</p>
         </div>
     </div>
     <!--first method note container-->

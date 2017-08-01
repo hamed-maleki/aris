@@ -7,7 +7,10 @@
                 <i class="fa fa-chevron-left" style="float: left;font-size: 10px;margin-top:5px;margin-left: 3px;"></i> {{myMonth}}
                 <i class="fa fa-chevron-right" style="float: right;font-size: 10px;margin-top: 5px;margin-right: 3px;"></i>
             </div>
-            <span class=" myday fontchange">{{myday}}</span>
+            <div class="center">
+                <span class=" myday" ng-style="testfont">{{myday}}</span>
+            </div>
+            
             <div style="color:#F6921E;font-size: 12px;margin-top: 28px">{{dayname}}</div>
             <!--<p class="myMonth center"></p>-->
             <!-- <i class="fa fa-calendar-o system-icon"></i>
@@ -61,7 +64,7 @@
                         <i class="fa fa-comment"></i>
                     </div>
                     <div class="col-sm-9">
-                        <p class="fontchange">محل ارتباط شما</p>
+                        <p ng-style="testfont">محل ارتباط شما</p>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 <div class=" sub-system aris-animation" style="text-align: right;color: #F16521" ng-init="font()">
     <div class="my-padding">
-        <h4 class="fontchange">لینک های پربازدید</h4>
+        <h4 ng-style="testfont">لینک های پربازدید</h4>
     </div>
     <hr/>
     <span class="link" ng-repeat="link in link">
-        <a class="top-link fontchange pointer" target="_blank" ng-click="topLinking(link.pathId,link.path)">{{link.title}}</a>
+        <a class="top-link pointer" ng-style="testfont" target="_blank" ng-click="topLinking(link.pathId,link.path)">{{link.title}}</a>
     </span>
 </div>
