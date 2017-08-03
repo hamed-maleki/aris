@@ -1,141 +1,136 @@
 <form style="min-height: 427px;">
     <div class="row">
-        <div class="col-sm-12 my-margin-top right-align">
-            <p>تعیین فیلتر بر روی شناورها</p>
-            <textarea class="my-textarea right-align" tabindex="4" style="height: 90px;"></textarea>
-            <button class="btn">...</button>
-        </div>
-        <div class="col-sm-4 my-margin-top"></div>
-        <div class="col-sm-4 my-margin-top"></div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px;margin-right: 4px" type="number" tabindex="2" class="form-control my-form" />
-                <label>کد سرفصل</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <select tabindex="3" style="height: 35px;margin-right: 21px" class="form-control my-form" name="option">
-                    <option value="" disabled selected>همه علائم</option>
-                    <option value="">2همه علائم</option>
-                </select>
-                <label>حوزه بهره بردار</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px" type="number" tabindex="2" class="form-control my-form" />
-                <label>لغایت سند</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px;margin-right: 24px" type="number" tabindex="2" class="form-control my-form" />
-                <label>از سند</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px;margin-right: 14px" type="number" tabindex="2" class="form-control my-form" />
-                <label>تا مبلغ</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px;margin-right: 21px" type="number" tabindex="2" class="form-control my-form" />
-                <label>از مبلغ</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top center">
-            <button class="btn btn-info">
-                <i class="fa fa-print"></i>
-                چاپ گزارش
-            </button>
-            <button class="btn btn-info">
-                <i class="fa fa-file-text"></i>
-                تهیه گزارش
-            </button>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <input style="height: 35px;margin-right: 21px" type="number" tabindex="2" class="form-control my-form" />
-                <label>شرح</label>
-            </div>
-        </div>
-        <div class="col-sm-4 my-margin-top">
-            <div class=" my-padding right-align">
-                <select tabindex="3" style="height: 35px;margin-right: 1px" class="form-control my-form" name="option">
-                    <option value="" disabled selected>همه علائم</option>
-                    <option value="">2همه علائم</option>
-                </select>
-                <label>نوع گزارش</label>
-            </div>
-        </div>
-        <div class="clearfix"></div>
         <hr>
         <div class="col-sm-12 my-margin-top">
             <div class="table-responsive">
                 <table class="table table-hover table-bordered right-align">
                     <thead>
                         <tr>
-                            <th style="width: 10px;">ردیف</th>
-                            <th style="width: 110px;">شماره پیش نویس</th>
-                            <th style="width: 100px;">شماره سند</th>
-                            <th style="width: 100px;">تاریخ سند
-
-                            </th>
-                            <th style="width: 280px">شرح</th>
-                            <th style="width: 300px" colspan="2">گردش عملیات
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        بدهکار
-                                    </div>
-                                    <div class="col-sm-6">
-                                        بستانکار
-                                    </div>
-                                </div>
-                            </th>
-                            <th style="width: 300px" colspan="2">مانده به ریال
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        بدهکار
-                                    </div>
-                                    <div class="col-sm-6">
-                                        بستانکار
-                                    </div>
-                                </div>
-                            </th>
+                            <th>نام</th>
+                            <th>وضعیت</th>
+                            <th colspan="2" style="width: 440px">دوره</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr ng-mouseenter="roleUser = true" ng-mouseleave="roleUser = false">
+                            <td>نقش اول</td>
+                            <td class="green center">فعال</td>
+                            <td style="width: 220px;">از 1/5/1396</td>
+                            <td style="width: 220px;">
+                                <p style="line-height: 0.2cm;margin: 5px">تا 1396/5/1<i class="fa fa-user-circle-o pointer" style="float: left;margin-top: -2px" ng-if="roleUser"
+                                        data-toggle="modal" data-target="#personell"></i></p>
+                            </td>
+                        </tr>
                         <tr>
-                            <td>table.row</td>
-                            <td>table.title</td>
-                            <td>table.description</td>
-                            <td>table.owe</td>
-                            <td>table.borrow</td>
-                            <td>table.situation</td>
-                            <td>table.remain</td>
-                            <td>table.remain</td>
-                            <td>table.remain</td>
+                            <td>نقش اول</td>
+                            <td class="red center">غیر فعال</td>
+                            <td>از 1/5/1396</td>
+                            <td>تا 1/5/1404</td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="7">
-                                جمع کل
-                            </td>
-
-                            <td>200325698
-                            </td>
-                            <td>200325698
-                            </td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
 </form>
+<div id="personell" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body right-align" style="background-color: #E0E0E0">
+                <i class="fa fa-chevron-circle-right" style="position: absolute;top: 45%;right: -12%;font-size: 50px;"></i>
+                <i class="fa fa-chevron-circle-left" style="position: absolute;top: 45%;left: -12%;font-size: 50px;"></i>
+                <ul class="nav nav-tabs" style="width: 100%;">
+                    <li class="active center" style="color: white;width: 50.7%"><a data-toggle="tab"  href="#home" style="padding: 17px">نقش</a></li>
+                    <li class="center" style="color: white;width: 50%"><a data-toggle="tab" href="#menu1"  tabindex="7" style="padding: 17px" >فرد</a></li>
+                </ul>
+                <div class="tab-content" style="margin-top: -3px">
+                    <div id="home" class="tab-pane fade in active container well">
+                        <div class="row">
+                            <div class="col-sm-12 my-margin-top">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label>نام:</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control my-form" value="نقش اول" style="height: 27px;" tabindex="1">
+                                        </div>
+                                        <div class="col-sm-12 my-margin-top">
+                                            <label class="radio-inline"><input type="radio" name="active" value="1" tabindex="2"/>فعال</label>
+                                            <label class="radio-inline"><input type="radio" name="active"  value="2" checked  tabindex="3"/>غیرفعال</label>
+                                        </div>
+                                        <div class="col-sm-12 my-margin-top">
+                                            <label>تاریخ شروع نقش</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="text" id="pdp" class="form-control my-form" value="1396/5/1" style="height: 27px;" tabindex="4" />
+                                        </div>
+                                        <div class="col-sm-12 my-margin-top">
+                                            <label>تاریخ پایان نقش</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="text" id="pdp1" class="form-control my-form" value="1404/5/1" style="height: 27px;" tabindex="5" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 my-margin-top">
+                                        <button class="btn btn-danger" tabindex="6">ثبت</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade container well">
+                        <div class="row">
+                            <div class="col-sm-12" ng-init="users()">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-bordered right-align">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10px"></th>
+                                                <th>نام</th>
+                                                <th>نام خانوادگی</th>
+                                                <th>شماره پرسنلی</th>
+                                                <th>نام کاربری</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="data in limitedEdition">
+                                                <th>
+                                                    <input type="checkbox">
+                                                </th>
+                                                <td>{{data.personnelName}}</td>
+                                                <td>{{data.personnelFamily}}</td>
+                                                <td>{{data.personnelCode}}</td>
+                                                <td>{{data.userName}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <ul class="pagination" style="margin: 0">
+                                    <li ng-repeat="x in paginationNumber" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')" style="color: black !important">{{x}}</a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 my-margin-top">
+                                <button class="btn btn-danger">ثبت افراد برای این نقش</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".modal").draggable({
+        handle: ".modal-body"
+    });
+    $(function () {
+        $("#elementId, .elementClass").persianDatepicker();
+        $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
+        $("#pdp").persianDatepicker({ cellWidth: 30, cellHeight: 30, fontSize: 14 });
+        $("#pdp1").persianDatepicker({ cellWidth: 30, cellHeight: 30, fontSize: 14 });
+    });

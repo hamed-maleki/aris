@@ -1086,48 +1086,6 @@ nav a:hover {
 .my-ul li {
     color: gray;
 }
-
-.nav-tabs>li a{
-    background-color: orange;
-    color: white!important;
-}
-
-.tab-pane {
-    background-color: orange;
-}
-
-.nav-tabs>li:nth-child(1) a{
-    background-color: orange;
-}
-
-.tab-pane:nth-child(1) {
-    background-color: orange;
-}
-
-.nav-tabs>li:nth-child(2) a{
-    background-color: #00bfff;	
-}
-
-.tab-pane:nth-child(2) {
-    background-color: #00bfff;
-}
-
-.nav-tabs>li:nth-child(3) a{
-    background-color: #ff00ff;	
-}
-
-.tab-pane:nth-child(3) {
-    background-color: #ff00ff;
-}
-
-.nav-tabs>li:nth-child(4) a{
-    background-color: #00ff40;	
-}
-
-.tab-pane:nth-child(4) {
-    background-color: #00ff40;
-}
-
 select option {
     font-size: 12px !important;
     background-color: gray !important;
@@ -1501,10 +1459,15 @@ tfoot tr td {
 
 /*end of aimations*/
 /*fonts, links and badges*/
-.active a {
+/* .active a {
     color: white !important;
+} */
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover {
+    background-color: #F5F5F5;
 }
-
+.nav-tabs > li{
+    margin-right: -2px;
+}
 .border-right {
     border-right: 1px dotted white;
 }
@@ -1637,10 +1600,7 @@ tfoot tr td {
     border-color: #F16521;
 }
 .myday {
-    position: absolute;
-    top: 25%;
     text-align: center;
-    right: 40%;
     color: #F6921E !important;
     font-size: 24px;
 }
@@ -1923,11 +1883,9 @@ tfoot tr td {
 }
 /*end of log in page*/
 /*tabs*/
-.tab-pane {
-    color: white;
-    margin: -20px -2px;
+.modal{
+    overflow:  hidden;
 }
-
 .tab-pane h3 {
     direction: rtl;
 }
@@ -2243,11 +2201,6 @@ body {
     .my-col-sm-6 i{
         margin: 20px auto;
     }
-
-    .myday {
-        top: 38%;
-    }
-
     .alarm-con .border{
         min-height: 172px !important;
     }
@@ -2299,11 +2252,6 @@ body {
         min-height: 59px;
         height: 59px;
     }
-
-    .myday {
-        top: 35%;
-    }
-
     .shadow {
         min-height: 42px !important;
         padding: 0px;
@@ -2515,11 +2463,6 @@ body {
     .chart {
         margin: 0px auto 60px auto;
     }
-
-    .myday{
-        right: 43% !important;
-    }
-
     .modal-container{
         padding: 47px 0;
         margin: 10px 112px !important;

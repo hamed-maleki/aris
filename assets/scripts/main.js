@@ -3,7 +3,8 @@ if (localStorage.accessToken == undefined) {
 }
 setInterval(function () {
     if (localStorage.accessToken == undefined) {
-        window.location.href = 'login.html'
+        console.log("that should be refresh token");
+        // window.location.href = 'login.html'
     }
 }, 500)
 var app = angular.module('myApp', ['angular.filter']);
@@ -23,11 +24,9 @@ app.directive("sidebar", function () {
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     //theme functions
-
     $http.get("data/theme.json")
         .then(function (response) {
             $scope.testfont = response.data.testfont;
-            $scope.fontTheme = response.data.font;
             $scope.tableFont = response.data.tableFont;
             $scope.numberType = response.data.numberType;
             $scope.time = response.data.screensaver;
@@ -36,7 +35,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.userColor = response.data.userColor;
             $scope.userSubColor = response.data.userSubColor;
             $scope.userSystemColor = response.data.userSystemColor;
-            // $scope.theme()
             var timeout;
             $(document).on("mousemove keydown click", function () {
                 $(".loading-login1").fadeOut(1000)
@@ -49,18 +47,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.error[0] = "خطا در برقراری ارتباطات";
             $("#error").modal();
         })
-    // $scope.theme();
-    // $scope.theme = function () {
-    //     // if (localStorage.accessToken == 'hi') {
-    //     //     window.localStorage.removeItem('accessToken');
-    //     //     window.location.href = "login.html"
-    //     // }
-    //     if ($scope.colorTheme != undefined) {
-    //         $("#color" + $scope.colorTheme[0]).css("display", "inline-block")
-    //         $(".theme-check").addClass("hide");
-    //         $(".fa-pencil").removeClass("hide");
-    //     }
-    // }
     // log in demo log in. it should be removed later
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
@@ -85,7 +71,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/unload.html";
+    $scope.number = "modules/example5.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -139,10 +125,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // searching in navigation
     $scope.searching = function (x) {
-        // if (x == 1) {
-        //     $scope.searchSystem = []
-        // }
-
         if ($("#search").val()) {
             $scope.searchSystem = $scope.system;
             $(".searchResult").css({ "display": "block", "background-color": "#f1f2f3" })
@@ -154,8 +136,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             count = 0;
         }
     }
-
-    // document.onkeydown = $scope.checkKey;
     document.onkeydown = checkKey;
     var count = 0;
     var page = 1;
@@ -259,16 +239,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
-        // $scope.systemIdToLoad = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
-        // console.log($scope.systemIdToLoad);
         $http({
             url: "http://localhost/ArisSystem/api/system/subsystem",
             method: "GET",
+            dataType: 'json',
+            ContentType: 'application/x-www-form-urlencoded',
             params: {
                 parentId: $scope.systemIdToLoad
             },
-            dataType: 'json',
             headers: authHeaders
         }).then(function (response) {
             $scope.subsystem = response.data;
@@ -281,13 +260,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.subSystemSituation.push(subItem)
             }
-        }), function (xhr, status, error) {
+        })
+        .catch(function (xhr, status, error) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.systemToShow, 0);
             }
-        }
+        })
     }
-
     $scope.getSearchCookie = function () {
         var x = $scope.getCookieValue('searchParent')
         var y = $scope.getCookieValue('searchId')
@@ -295,9 +274,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x != 0 && y != 0) {
             $scope.subSystem(x, y);
         }
-        // $scope.theme();
     }
-
     //    note json loader
     var sliderTime;
     var sliderLength;
@@ -378,6 +355,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }, 1000)
     }
     $scope.refreshlocal = function (x, y) {
+        console.log("this is refresh");
         $.ajax({
             url: "http://localhost/ArisSystem/login",
             data: {
@@ -402,11 +380,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             else {
                 x(y);
             }
-
         }
         function AjaxFailed(err, response) {
-            // console.log(err);
-            window.location.href = "login.html"
+            console.log(err);
+            // window.location.href = "login.html"
         }
     }
     $scope.getHeight = function () {
@@ -435,32 +412,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
         }
     }
-    // $http.get('data/chart.json')
-    //     .then(function (response) {
-    //         var users = response.data
-    //         var data1 = {
-    //             labels: users.map(function (user) {
-    //                 return user.name;
-    //             }),
-    //             series: users.map(function (user) {
-    //                 return user.value;
-    //             })
-    //         };
-
-    //         new Chartist.Bar('#chart1', data1, {
-    //             distributeSeries: true
-    //         });
-
-    //     });
-    // fetch("data/system.json").then(function (response) {
-    //     return response.json();
-    // }).then(function (response) {
-    //     $scope.system = response.system;
-    // })
-    $scope.getCookieValue = function (a) {
-        var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-        return b ? b.pop() : '';
-    }
+    // $scope.getCookieValue = function (a) {
+    //     var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    //     return b ? b.pop() : '';
+    // }
     // cartable deleting message
     $scope.delete = function () {
         if ($("#select").is(":checked")) {
@@ -610,16 +565,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // first page cookie for system page
     $scope.systemToLoad = function (x) {
-        // var now = new Date();
-        // var time = now.getTime();
-        // time += 3600 * 1000;
-        // now.setTime(time);
-        // for (var i = 0; i < $scope.system.length; i++) {
-        //     if ($scope.system[i].id == x) {
-        //         var cookieItem = JSON.stringify($scope.system[i].id);
-        //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-        //     }
-        // }
         localStorage.setItem("parent_id", x);
         window.location.href = "system-page.min.html";
     }
@@ -885,7 +830,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#userpagination1").addClass("active");
         }, 400);
     }
-    $scope.finalPagination = function (x, y) {
+    $scope.finalPagination = function (x, y, z) {
         $(".pagination li").removeClass("active");
         $("#userpagination" + x).addClass("active");
         var sendUser = {
@@ -894,7 +839,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             "Orders": [{ "Col": "Id", "Asc": true }]
         }
         $http({
-            url: "http://localhost/ArisSystem/api/user",
+            url: z,
             method: "POST",
             ContentType: 'application/x-www-form-urlencoded',
             data: sendUser,
@@ -910,7 +855,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 } else if (y == -1) {
                     $scope.editingLength = $scope.limitedEdition.length - 1;
                 }
-                console.log($scope.editingLength);
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $("#edit-name").val($scope.editingUserData.personnelName);
                 $("#edit-family").val($scope.editingUserData.personnelFamily);
@@ -918,7 +862,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("#edit-id-badge").val($scope.editingUserData.personnelId);
                 $("#personnelCode").val($scope.editingUserData.personnelCode);
                 $("#edit-social-no").val($scope.editingUserData.nationalCode);
-                // $("#edit-social-no").val($scope.socialNoFormat($scope.editingUserData.nationalCode));
                 $("#edit-phone").val($scope.editingUserData.phone);
                 $("#edit-email").val($scope.editingUserData.email);
                 $("#edit-user-name").val($scope.editingUserData.userName);
@@ -953,11 +896,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
-                    $scope.finalPagination(1, 1)
+                    $scope.finalPagination(1, 1,'http://localhost/ArisSystem/api/user')
                     return;
                 }
                 else {
-                    $scope.finalPagination(currentpage + 1, 1)
+                    $scope.finalPagination(currentpage + 1, 1,'http://localhost/ArisSystem/api/user')
                     return;
                 }
             }
@@ -973,7 +916,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $("#error").modal();
                 }
                 else {
-                    $scope.finalPagination(currentpage - 1, -1)
+                    $scope.finalPagination(currentpage - 1, -1,'http://localhost/ArisSystem/api/user')
                     return;
                 }
             }
@@ -982,7 +925,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             }
         }
-        console.log($scope.editingUserData);
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
         $("#edit-name").val($scope.editingUserData.personnelName);
@@ -999,7 +941,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("input[name=activation][value=" + $scope.editingUserData.isActive + "]").prop('checked', true);
     }
     $scope.socialNoFormat = function (x) {
-        console.log(x);
         var a = x.split('.', 3);
         var d = a;
         var i = parseInt(a);
@@ -1155,8 +1096,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.error[0] = "خطا در دستیابی به اطلاعات";
             $("#error").modal();
         })
-
-
     // chat controller
     // $interval(function () {
     //     return $http.get("data/chat.json").then(function (response) {
@@ -1218,10 +1157,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             },
             headers: authHeaders,
         }).then(function (response) {
-
             $scope.systemslider = response.data;
             $(".top-slide").slideUp();
-            // console.log($scope.itemToPush);
             // for (var i = 0; i < $scope.subSystemSituation.length; i++) {
 
             //     if (x == $scope.subSystemSituation[i].id) {
@@ -1236,25 +1173,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.refreshlocal($scope.drop, x);
             }
         })
-        // var now = new Date();
-        // var time = now.getTime();
-        // time += 3600 * 1000;
-        // now.setTime(time);
-        // var cookieItem = [];
-        // $scope.systemslider = [];
-        // for (var i = 0; i < $scope.subsystem.length; i++) {
-        //     if ($scope.subsystem[i].id == x) {
-        //         for (var j = 0; j < $scope.subsystem[i].children.length; j++) {
-        //             if ($scope.subsystem[i].children[j].id == y) {
-        //                 $scope.systemslider.push($scope.subsystem[i].children[j]);
-        //             }
-        //         }
-        //         $("#nav").html($scope.subsystem[i].title);
-        //         var cookieItem = JSON.stringify($scope.subsystem);
-        //         $(".subsystem").slideUp();
-        //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-        //     }
-        // }
     }
     $scope.headerSlide = function (x, y, z, leaf) {
         $scope.treeToShow = [];
@@ -1264,9 +1182,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (leaf == true) {
             $scope.table(z);
         }
-        // if (z.length == 0) {
-        //     $scope.table(origin);
-        // }
         else {
             $http({
                 url: "http://localhost/ArisSystem/api/system/subsystem",
@@ -1281,16 +1196,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         $scope.systemslider[i].children.push(response.data);
                     }
                 }
-                // console.log($scope.itemToPush);
-                // for (var i = 0; i < $scope.subSystemSituation.length; i++) {
-
-                //     if (x == $scope.subSystemSituation[i].id) {
-                //         if ($scope.subSystemSituation[i].itemLoaded == 0) {
-                //             $scope.subSystemSituation[i].children = $scope.itemToPush;
-                //             $scope.subSystemSituation[i].children = $scope.itemToPush;
-                //         }
-                //     }
-                // }
             }).catch(function (xhr, status, error) {
                 if (refreshtoken && xhr.status === 401) {
                     $scope.refreshlocal($scope.drop, x);
@@ -1449,7 +1354,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 break;
 
         }
-        console.log($scope.userColor)
         // $scope.colorTheme = element;
         // $scope.theme();
     }
@@ -1532,10 +1436,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             case 12: (day < 22) ? (month -= 3, day += 9) : (month -= 2, day -= 21); break;
             default: break;
         }
-
-        if (day < 10) {
-            $(".myday").css("right", "44%");
-        }
         $scope.myday = day;
         $scope.myMonth = months[month - 1];
         $scope.dayname = week[d];
@@ -1570,12 +1470,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#tree" + x).slideToggle();
         }
         else {
-            // $http.get("data/node"+x).then(function(response){
-            //     $scope.node = response.data.node;
-            //     for(var i = 0; i < $scope.node.length ; i++){
-            //         $scope.tree.push($scope.node[i]);
-            //     }
-            // })
             $scope.creatingNode(x);
             $("#tree" + x).addClass("flag");
         }
