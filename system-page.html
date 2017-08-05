@@ -16,10 +16,12 @@
     <link href="assets/styles/persianDatepicker-default.css" rel="stylesheet">
     <link href="assets/styles/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="assets/styles/prettify.css" rel="stylesheet">
+    <link href="assets/styles/introjs.css" rel="stylesheet">
+    <link href="assets/styles/introjs-rtl.css" rel="stylesheet">
     <link href="assets/styles/main.css" rel="stylesheet">
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
-     <script src="assets/scripts/jquery.min.js"></script>
-    <script src="assets/scripts/ui.min.js"></script> 
+    <!-- <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/ui.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
     <script src="assets/scripts/codeFormat.min.js"></script>
@@ -30,7 +32,9 @@
     <script src="assets/scripts/locale-all.js"></script>
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
-    <script src="assets/scripts/main.js"></script> 
+    <script src="assets/scripts/intro.js"></script>
+    <script src="assets/scripts/main.js"></script> -->
+    <script src=".dist/main.js"></script>
     <style>
         .tools-logo {
             margin-top: 15px;
@@ -48,14 +52,18 @@
     <div class="container-fluid my-margin-top" ng-init="systemToShow()">
         <div class="row white-background border" style="margin-bottom: 64px;">
             <div class="col-sm-12">
-                <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;padding-right: 10px">
+                <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;padding-right: 10px" data-step="1" data-intro="ابتدا سیستم را انتخاب کنید"
+                    data-position='right'>
                 </div>
+                <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"
+                    style="position: fixed;top: 90px;left: 30px;color: red"></i>
             </div>
             <div class="col-sm-2 col-sm-push-10 right-align" ng-style="testfont">
-                <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" ng-if="systemslider.length != undefined">
+                <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" data-step="2" data-intro="فرم مورد نظر را انتخاب کنید"
+                    data-position='left' ng-if="systemslider.length != undefined">
                     <h3 ng-style="testfont" style="padding: 10px;">زیر سیستم ها</h3>
                     <hr>
-                    <div ng-repeat="sub in systemslider" >
+                    <div ng-repeat="sub in systemslider">
                         <h4 class="pointer" ng-style="testfont" ng-model="show" ng-click="headerSlide(sub.id,sub.title,sub.path,sub.isLeaf)">
                             {{sub.title}}
                         </h4>
@@ -64,8 +72,7 @@
                                 <h4 class=" pointer my-margin-top" ng-style="testfont" ng-class="userColor" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
                                     {{item.title}}
                                 </h4>
-                                <div ng-repeat="item1 in item.children" class="system-li" ng-style="testfont" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px"
-                                   >
+                                <div ng-repeat="item1 in item.children" class="system-li" ng-style="testfont" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px">
 
                                     <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.path,item1.isLeaf)" style="margin-bottom: 0;padding-right: 7px;padding-bottom: 5px">
                                         {{item1.title}}
@@ -82,7 +89,7 @@
                 </div>
                 <div class="row" style="margin-top: -20px">
                     <div class="col-sm-12">
-                        <div class=" sub-system  my-padding-5 aris-animation " ng-include="'modules/tools.html'"></div>
+                        <div class=" sub-system my-padding-5 aris-animation " ng-include="'modules/tools.html'"></div>
                     </div>
                     <div ng-include="'modules/modal.html'"></div>
                 </div>
@@ -90,21 +97,17 @@
             <div class="col-sm-10 col-sm-pull-2 container-filter footer-margin" style="border-right: 1px solid gray">
                 <div>
                     <div class="right-align">
-                        <a href="firstpage.html" style="color: black">خانه</a><i class="fa fa-angle-left my-padding"></i>
+                        <a href="index.html" style="color: black">خانه</a><i class="fa fa-angle-left my-padding"></i>
                         <span id="nav"></span>
                         <span id="subnav"></span>
                     </div>
                     <div ng-include="number"></div>
-
                 </div>
             </div>
-
         </div>
     </div>
     <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
-
     </footer>
-    
 </body>
 
 </html>

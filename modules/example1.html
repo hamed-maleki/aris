@@ -1,6 +1,6 @@
 <form class="form-inline" >
     <div class="row">
-        <div class="col-sm-6 right-align col-sm-push-6">
+        <div class="col-sm-6 right-align col-sm-push-6" data-step="4" data-intro="اطلاعات درخواستی را وارد کنید" data-position='left'>
             <div class="row">
                 <div class="col-sm-12">
                     <div class=" my-padding right-align">
@@ -68,7 +68,7 @@
                 نوشته مربوطه
             </button>
         </div>-->
-        <div class="col-sm-12 my-margin-top">
+        <div class="col-sm-12 my-margin-top" data-step="5" data-intro="عملیات مورد نظر را انتخاب کنید" data-position='right'>
             <button class="btn btn-info buttons" ng-repeat="button in buttons" ng-if="button.situation == false && button.access == 1" ng-disabled="button.situation"
                 ng-click="genral(button.id)" style="margin: -15px 2px 0px">
                 <i ng-if="loading" class="fa fa-spinner fa-pulse"></i>
@@ -179,13 +179,13 @@
         </div>
         <!--pagination part it depond on develop process -->
         <div class="col-sm-4 editor" style="text-align: left">
-            <i class="fa fa-plus pointer" data-toggle="modal" data-target="#tablePlus" title="اضافه کردن"></i>
-            <i class="fa fa-edit pointer" ng-click="tableEdit()" data-toggle="tooltip" data-placement="right" title="ویرایش"></i>
-            <i class="fa fa-trash-o pointer" ng-click="tableDeleting()" data-toggle="tooltip" data-placement="right" title="حذف"></i>
+            <i class="fa fa-plus pointer" data-toggle="modal" data-target="#tablePlus" title="اضافه کردن" data-step="7" data-intro="برای اضافه کردن ردیف کلیک کنید" data-position='left'></i>
+            <i class="fa fa-edit pointer" ng-click="tableEdit()" data-toggle="tooltip" data-placement="right" title="ویرایش" data-step="6" data-intro="برای ویرایش یک ردیف را انتخاب کنید" data-position='left'></i>
+            <i class="fa fa-trash-o pointer" ng-click="tableDeleting()" data-toggle="tooltip" data-placement="right" title="حذف" data-step="8" data-intro="برای حذف یک ردیف را انتخاب کنید" data-position='left'></i>
         </div>
         <div class="col-sm-4">
-            <ul class="pagination" style="margin: 0">
-                <li ng-repeat="x in paginationNumber" id="pagination{{x}}"><a href="#" ng-click="pagination(x)">{{x}}</a></li>
+            <ul class="pagination" style="margin: 0" data-step="9" data-intro="صفحه مورد نظر خود را انتخاب کنید" data-position='left'>
+                <li ng-repeat="x in paginationNumber" id="pagination{{x}}" ><a href="#" ng-click="pagination(x)">{{x}}</a></li>
             </ul>
         </div>
         <div class="col-sm-4 editConfirm" style="display: none">

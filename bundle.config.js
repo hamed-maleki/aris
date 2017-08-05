@@ -14,6 +14,7 @@ module.exports = {
         './assets/scripts/persianDatepicker.min.js',
         './assets/scripts/local-all.js',
         './assets/scripts/prettify.js',
+        './assets/scripts/intro.js',
         './assets/scripts/main.min.js',
       ],
       styles: './assets/styles/*.css'

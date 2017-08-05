@@ -1,8 +1,8 @@
-<div ng-init="users()">
+<div ng-init="users()" ng-keyup="huskey(event)">
     <hr>
     <div class="col-sm-12">
         <div class="table-responsive">
-            <table class="table table-hover table-bordered right-align" >
+            <table class="table table-hover table-bordered right-align">
                 <thead>
                     <tr>
                         <th style="width: 20px;">
@@ -13,12 +13,18 @@
                         <th style="width: 30px">نام پدر</th>
                     </tr>
                 </thead>
-                <tbody >
-                    <tr class="user" ng-repeat="data in limitedEdition" id="user{{data.userId}}" ng-click="editUser(data.userId)">
+                <tbody>
+                    <tr data-step="4" data-intro="فرد مورد نظر برای ادیت را انتخاب کنید" data-position='right' ng-mouseenter="hover = true" ng-mouseleave="hover = false"
+                        class="user" ng-repeat="data in limitedEdition" id="user{{data.userId}}" ng-click="editUser(data.userId)">
                         <td ng-style="tableFont">{{data.userName}}</td>
                         <td ng-style="tableFont">{{data.personnelName}}</td>
                         <td ng-style="tableFont">{{data.personnelFamily}}</td>
-                        <td ng-style="tableFont">{{data.personnelFatherName}}</td>
+                        <td ng-style="tableFont" style="width: 50px;">
+                            <p style="line-height: 0.2cm;margin: 5px">{{data.personnelFatherName}}
+                                <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
+                                    data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ادیت {{data.personnelName}} {{data.personnelFamily}}"></i>
+                            </p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -26,9 +32,8 @@
         <div class="row">
             <div class="col-sm-4">
                 <i class="fa fa-plus-square-o pointer" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip" data-placement="right"
-                    title="اضافه کردن کاربر"></i>
-                <i class="fa fa-pencil-square-o pointer" data-toggle="modal" data-target="#tableEdit" data-toggle="tooltip" data-placement="right"
-                    title="ویرایش اطلاعات کاربران"></i>
+                    title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+                    data-position='right'></i>
             </div>
             <div class="col-sm-4 center">
                 <ul class="pagination" style="margin: 0">
@@ -38,13 +43,13 @@
         </div>
     </div>
 </div>
-<div id="tablePlusUser" class="modal fade" role="dialog">
+<div id="tablePlusUser" class="modal fade" role="dialog" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container right-align" draggable="true" style="background-color: #E0E0E0">
-                <form ng-submit="registerUser(register,test)">
+                <form ng-submit="registerUser(register,test)"  data-step="6" data-intro="فرم را پر کرده و دکمه ثبت را کلیک کنید" data-position='right'>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" >
                             <p id="registerAlarm" style="color: red;animation: testing 2s infinite steps(1)"></p>
                             <div class="form-group">
                                 <label for="usr">نام:</label>
@@ -119,71 +124,73 @@
                 <i class="fa fa-chevron-circle-right" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
 
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group change">
-                            <label for="usr">نام:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}" id="edit-name"
-                                placeholder="نام">
-                        </div>
-                        <div class="form-group change">
-                            <label for="family">نام خانوادگی:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
-                                placeholder=" نام خانوادگی">
-                        </div>
-                        <div class="form-group change">
-                            <label for="father">نام پدر:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}" id="edit-father"
-                                placeholder="نام پدر">
-                        </div>
-                        <div class="form-group change">
-                            <label for="id-badge">شماره شناسنامه:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" id="edit-id-badge" value="{{editingUserData.personnelId}}"
-                                placeholder="شماره شناسنامه">
-                        </div>
-                        <div class="form-group change">
-                            <label for="social-no">کد ملی:</label>
-                            <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="edit-social-no" value="{{editingUserData.nationalCode}}"
-                                placeholder="XXX-XXXXXX-X">
-                        </div>
-                        <div class="form-group change">
-                            <label for="personnelCode">کد پرسنلی:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" id="personnelCode" value="{{editingUserData.personnelCode}}"
-                                placeholder="شماره شناسنامه">
-                        </div>
-                        <div class="form-group change">
-                            <label for="phone">شماره موبایل:</label>
-                            <input type="tel" class="form-control" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
-                                placeholder="شماره موبایل">
-                        </div>
-                        <div class="form-group change">
-                            <label for="email">email:</label>
-                            <input type="email" class="form-control" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
-                                placeholder="example@exa.com">
-                        </div>
-                        <div class="form-group change">
-                            <label for="user-name">نام کاربری:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
-                                placeholder="نام کاربری">
-                        </div>
-                        <div class="form-group change">
-                            <label for="password">رمز عبور:</label>
-                            <input type="text" class="form-control" style="height: 30px !important" id="edit-password" value="{{editingUserData.passwordHash}}"
-                                placeholder="رمز عبور">
-                        </div>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="activation" value="true" >فعال</label>
-                            <label class="radio-inline"><input type="radio" name="activation"  value="false" >غیرفعال</label>
-                        </div>
-                        <button class="btn btn-danger" style="float: left">ثبت </button>
+                    <div class="form-group change">
+                        <label for="usr">نام:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}" id="edit-name"
+                            placeholder="نام">
                     </div>
+                    <div class="form-group change">
+                        <label for="family">نام خانوادگی:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
+                            placeholder=" نام خانوادگی">
+                    </div>
+                    <div class="form-group change">
+                        <label for="father">نام پدر:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}" id="edit-father"
+                            placeholder="نام پدر">
+                    </div>
+                    <div class="form-group change">
+                        <label for="id-badge">شماره شناسنامه:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" id="edit-id-badge" value="{{editingUserData.personnelId}}"
+                            placeholder="شماره شناسنامه">
+                    </div>
+                    <div class="form-group change">
+                        <label for="social-no">کد ملی:</label>
+                        <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="edit-social-no" value="{{editingUserData.nationalCode}}"
+                            placeholder="XXX-XXXXXX-X">
+                    </div>
+                    <div class="form-group change">
+                        <label for="personnelCode">کد پرسنلی:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" id="personnelCode" value="{{editingUserData.personnelCode}}"
+                            placeholder="شماره شناسنامه">
+                    </div>
+                    <div class="form-group change">
+                        <label for="phone">شماره موبایل:</label>
+                        <input type="tel" class="form-control" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
+                            placeholder="شماره موبایل">
+                    </div>
+                    <div class="form-group change">
+                        <label for="email">email:</label>
+                        <input type="email" class="form-control" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
+                            placeholder="example@exa.com">
+                    </div>
+                    <div class="form-group change">
+                        <label for="user-name">نام کاربری:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
+                            placeholder="نام کاربری">
+                    </div>
+                    <div class="form-group change">
+                        <label for="password">رمز عبور:</label>
+                        <input type="text" class="form-control" style="height: 30px !important" id="edit-password" value="{{editingUserData.passwordHash}}"
+                            placeholder="رمز عبور">
+                    </div>
+                    <div>
+                        <label class="radio-inline"><input type="radio" name="activation" value="true" >فعال</label>
+                        <label class="radio-inline"><input type="radio" name="activation"  value="false" >غیرفعال</label>
+                    </div>
+                    <button class="btn btn-danger" style="float: left">ثبت </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </div>
+</div>
 
 <script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     $(".modal").draggable({
         handle: ".modal-body"
     });

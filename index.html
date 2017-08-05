@@ -16,9 +16,10 @@
     <link href="assets/styles/persianDatepicker-default.css" rel="stylesheet">
     <link href="assets/styles/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="assets/styles/prettify.css" rel="stylesheet">
+    <link href="assets/styles/introjs.css" rel="stylesheet">
+    <link href="assets/styles/introjs-rtl.css" rel="stylesheet">
     <link href="assets/styles/main.min.css" rel="stylesheet">
     <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
-    <!--<script src=".dist/bundle1.js"></script>-->
     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
@@ -30,23 +31,23 @@
     <script src="assets/scripts/persianDatepicker.min.js"></script>
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
+    <script src="assets/scripts/intro.js"></script>
     <script src="assets/scripts/main.js"></script>
-    <!-- <script src=".dist/main.js"></script>  -->
-
 </head>
 
 <body id="body" ng-app="myApp" ng-controller="myCtrl">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <p ng-style="testfont" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px">
-        software name
+        <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"></i>software name 
     </p>
+    
     <div class="container" style="padding: 0 17px; margin-bottom: 100px;">
         <div class="row my-margin-top">
             <div class="col-sm-10" style="margin-top: 151px">
                 <div class="row">
                     <div class="col-sm-7 my-margin-top system-con" style="padding: 0" ng-init="gettingSystemJson()">
-                        <div ng-if="facebookLoader == 1" class="col-sm-4 my-padding animation container-filter" ng-repeat="system in system" ng-include="'modules/system.html'">
+                        <div ng-if="facebookLoader == 1" class="col-sm-4 my-padding animation container-filter" ng-repeat="system in system" ng-include="'modules/system.html'" data-step="1" data-intro="سیستم های که شما به آن دسترسی دارید اینجا مشاهده میشود" data-position='left'>
                         </div>
                         <div class="col-sm-4 my-padding container-filter" ng-if="facebookLoader != 1 ">
                             <div class="border sub-system square center pointer" style="background-color: lightgray">
@@ -65,7 +66,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-sm-8 my-col-sm-6 alarm-con">
-                            <div class="border  sub-system transform center pointer container-filter" ng-class="userColor" style="margin-top: 10px;min-height: 170px">
+                            <div class="border  sub-system transform center pointer container-filter" ng-class="userColor" style="margin-top: 10px;min-height: 170px" data-step="2" data-intro="اطلاعیه های شرکت را اینجا میبینید" data-position='left'>
                                 <div class="row">
                                     <div class="col-sm-12 " style="text-align: right;padding-right: 30px;position: relative;z-index: 3">
                                         <span class="alarmTitle" ng-click="slider(-1)">
@@ -89,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4" ng-include="'modules/tools.html'">
+                        <div class="col-sm-4" ng-include="'modules/tools.html'" data-step="3" data-intro="امکانات جانبی نرم آفزار برای مشاهده کلیک کنید و نتیجه را در گوشه تصویر مشاهده فرمایید" data-position='left'>
 
                         </div>
                         <div class="clearfix"></div>
@@ -97,7 +98,7 @@
                     <div ng-if="facebookLoader == 1" class="col-sm-5 my-margin-top container-filter" style="padding: 0 8px;">
                         <a href="charts.min.html">
                             <div class="row">
-                                <div class="col-sm-12" ng-init="getHeight()">
+                                <div class="col-sm-12" ng-init="getHeight()" data-step="4" data-intro="برای مشاهده تمام نمودارها کلیک کنید" data-position='left'>
                                     <div class="border sub-system chart" ng-class="userSubColor" style="padding-top: 1px;">
                                         <div class="ct-chart  ct-golden-section my-margin-top" id="chart1" style="color: white"></div>
                                     </div>
@@ -111,7 +112,7 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <div class="side-tool">
+                <div class="side-tool" data-step="5" data-intro="محل نمایش امکانات جانبی نرم افزار" data-position='left'>
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-12" style="padding: 5px">

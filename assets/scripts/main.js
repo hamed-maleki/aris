@@ -21,7 +21,6 @@ app.directive("sidebar", function () {
         }
     }
 });
-
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     //theme functions
     $http.get("data/theme.json")
@@ -261,11 +260,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.subSystemSituation.push(subItem)
             }
         })
-        .catch(function (xhr, status, error) {
-            if (refreshtoken && xhr.status === 401) {
-                $scope.refreshlocal($scope.systemToShow, 0);
-            }
-        })
+            .catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.systemToShow, 0);
+                }
+            })
     }
     $scope.getSearchCookie = function () {
         var x = $scope.getCookieValue('searchParent')
@@ -355,7 +354,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }, 1000)
     }
     $scope.refreshlocal = function (x, y) {
-        console.log("this is refresh");
         $.ajax({
             url: "http://localhost/ArisSystem/login",
             data: {
@@ -896,11 +894,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
-                    $scope.finalPagination(1, 1,'http://localhost/ArisSystem/api/user')
+                    $scope.finalPagination(1, 1, 'http://localhost/ArisSystem/api/user')
                     return;
                 }
                 else {
-                    $scope.finalPagination(currentpage + 1, 1,'http://localhost/ArisSystem/api/user')
+                    $scope.finalPagination(currentpage + 1, 1, 'http://localhost/ArisSystem/api/user')
                     return;
                 }
             }
@@ -916,7 +914,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $("#error").modal();
                 }
                 else {
-                    $scope.finalPagination(currentpage - 1, -1,'http://localhost/ArisSystem/api/user')
+                    $scope.finalPagination(currentpage - 1, -1, 'http://localhost/ArisSystem/api/user')
                     return;
                 }
             }
@@ -1292,7 +1290,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.fontChanger = function (element) {
         $(".fa-check-circle-o").addClass("hide");
         switch (element) {
-            
+
             case '1':
                 $scope.testfont = {
                     "font-family": "samim"
