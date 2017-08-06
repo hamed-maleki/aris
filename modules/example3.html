@@ -1,4 +1,4 @@
-<div ng-init="users()" ng-keyup="huskey(event)">
+<div ng-init="users()">
     <hr>
     <div class="col-sm-12">
         <div class="table-responsive">
@@ -22,7 +22,7 @@
                         <td ng-style="tableFont" style="width: 50px;">
                             <p style="line-height: 0.2cm;margin: 5px">{{data.personnelFatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
-                                    data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ادیت {{data.personnelName}} {{data.personnelFamily}}"></i>
+                                    data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnelName}} {{data.personnelFamily}}"></i>
                             </p>
                         </td>
                     </tr>

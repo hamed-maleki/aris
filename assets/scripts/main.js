@@ -3,8 +3,7 @@ if (localStorage.accessToken == undefined) {
 }
 setInterval(function () {
     if (localStorage.accessToken == undefined) {
-        console.log("that should be refresh token");
-        // window.location.href = 'login.html'
+        window.location.href = 'login.html'
     }
 }, 500)
 var app = angular.module('myApp', ['angular.filter']);
@@ -812,6 +811,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             headers: authHeaders,
         }).then(function (response) {
             $scope.limitedEdition = response.data;
+            $scope.editingLength = 0;
+            $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             var pageNumber;
             $scope.paginationNumber = []
             pageNumber = Math.ceil($scope.limitedEdition[0].rowsCount / 3);
@@ -827,6 +828,42 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         setTimeout(function () {
             $("#userpagination1").addClass("active");
         }, 400);
+    }
+    $scope.firstStep = 0;
+    $scope.detector = function ($event) {
+        if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
+            // $(".user").css("background-color", "#FFFFFF");
+            // $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+            if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
+                $scope.editingLength++;
+                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                $(".user").css("background-color", "#FFFFFF");
+                $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+            }
+            else {
+                $scope.firstStep = $scope.firstStep + 1;
+                $(".user").css("background-color", "#FFFFFF");
+                $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+            }
+            // console.log($scope.limitedEdition);
+            // del mikhorad o dideh bron mirizad
+        }
+        if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in') && $scope.editingLength > 0) {
+            $scope.editingLength--;
+            $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+            $(".user").css("background-color", "#FFFFFF");
+            $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+        }
+        if ($event.keyCode == 13 && !$("#tablePlusUser").hasClass('in')) {
+            $scope.editUser($scope.limitedEdition[$scope.editingLength].id);
+            $("#tableEdit").modal(); 
+        }
+        if ($event.keyCode == 37 && $("#tableEdit").hasClass('in')) {
+            $scope.editUserSlide(1);
+        }
+        if ($event.keyCode == 39 && $("#tableEdit").hasClass('in')) {
+            $scope.editUserSlide(-1);
+        }
     }
     $scope.finalPagination = function (x, y, z) {
         $(".pagination li").removeClass("active");
@@ -889,6 +926,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
     }
+
     var currentpage = 1;
     $scope.editUserSlide = function (x) {
         if (x == 1) {
@@ -954,7 +992,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
         var remain = confirmCode % 11;
         if (remain < 2) {
-            if (remain == code[9]) {
+            if (remain == code[11]) {
                 if (y == 1) {
                     $("#tablePlusUser").modal('toggle');
                 }
@@ -964,6 +1002,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
             else {
+                console.log(code[12]);
                 $("#registerAlarm").html("کد ملی معتبر نمیباشد");
                 $("#social-no").css("border", "1px solid red");
                 $("#social_no").focus();
@@ -972,7 +1011,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         else {
             if (11 - remain == Number(code[11])) {
                 if (y == 1) {
-                    $("#tablePlusUser").modal('toggle');
+                    $(".modal").modal('hide');
+                    // $("#tableEdit").modal('toggle');
                 }
                 else {
                     $(".form-control").val('');
@@ -987,6 +1027,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
 
     }
+
     // adding camma after three digit function
     $scope.numberFormat = function (element) {
         var delimiter = ","; // replace comma if desired

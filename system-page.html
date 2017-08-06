@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#435761" data-react-helmet="true">
-    <title>اریس رایانه</title>
+    <title>&#x202E;اریس رایانه</title>
     <link href="assets/styles/bootstrap.min.css" rel="stylesheet">
     <link href="assets/styles/font-awesome.min.css" rel="stylesheet">
     <link href="assets/styles/chart.css" rel="stylesheet">
@@ -19,8 +19,8 @@
     <link href="assets/styles/introjs.css" rel="stylesheet">
     <link href="assets/styles/introjs-rtl.css" rel="stylesheet">
     <link href="assets/styles/main.css" rel="stylesheet">
-    <link rel="icon" href="media/ArmAris.jpg" sizes="200*200">
-    <!-- <script src="assets/scripts/jquery.min.js"></script>
+    <link rel="icon" href="media/logofox.png" sizes="200*200">
+     <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/ui.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
@@ -33,8 +33,8 @@
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
     <script src="assets/scripts/intro.js"></script>
-    <script src="assets/scripts/main.js"></script> -->
-    <script src=".dist/main.js"></script>
+    <script src="assets/scripts/main.js"></script> 
+    <!-- <script src=".dist/main.js"></script> -->
     <style>
         .tools-logo {
             margin-top: 15px;
@@ -43,10 +43,18 @@
         input {
             direction: rtl;
         }
-    </style>
+</style>
+ <script>
+    window.addEventListener("keydown", function (e) {
+        // space and arrow keys
+        if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1 && !$("#tablePlusUser").hasClass('in')) {
+            e.preventDefault();
+        }
+    }, false);
+</script> 
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" ng-keyup="detector($event)">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid my-margin-top" ng-init="systemToShow()">
