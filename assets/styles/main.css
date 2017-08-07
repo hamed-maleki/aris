@@ -127,6 +127,15 @@ label {
     display: inline-block;
 }
 
+.introjs-helperNumberLayer {
+    font-family: "iran-sans" !important;
+    font-weight: normal;
+}
+
+.pagination > li > a, .pagination > li > span{
+    border: none;
+    border-radius: 20%;
+}
 tr:first-child > td > .fc-day-grid-event{
     height: 0;
     border: none;
@@ -2453,7 +2462,7 @@ body {
     .alarm-con .border{
         min-height: 222px !important;
     }
-
+    
     .tools {
         width: 41%;
         float: right;

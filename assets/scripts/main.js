@@ -815,7 +815,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             var pageNumber;
             $scope.paginationNumber = []
-            pageNumber = Math.ceil($scope.limitedEdition[0].rowsCount / 3);
+            $scope.rowsCount = $scope.limitedEdition[0].rowsCount
+            pageNumber = Math.ceil($scope.rowsCount / 3);
             for (var conter = 1; conter < pageNumber + 1; conter++) {
                 $scope.paginationNumber.push(conter);
             }
@@ -856,7 +857,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         if ($event.keyCode == 13 && !$("#tablePlusUser").hasClass('in')) {
             $scope.editUser($scope.limitedEdition[$scope.editingLength].id);
-            $("#tableEdit").modal(); 
+            $("#tableEdit").modal();
         }
         if ($event.keyCode == 37 && $("#tableEdit").hasClass('in')) {
             $scope.editUserSlide(1);
@@ -891,17 +892,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $scope.editingLength = $scope.limitedEdition.length - 1;
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-                $("#edit-name").val($scope.editingUserData.personnelName);
-                $("#edit-family").val($scope.editingUserData.personnelFamily);
-                $("#edit-father").val($scope.editingUserData.personnelFatherName);
-                $("#edit-id-badge").val($scope.editingUserData.personnelId);
-                $("#personnelCode").val($scope.editingUserData.personnelCode);
-                $("#edit-social-no").val($scope.editingUserData.nationalCode);
-                $("#edit-phone").val($scope.editingUserData.phone);
-                $("#edit-email").val($scope.editingUserData.email);
-                $("#edit-user-name").val($scope.editingUserData.userName);
-                $("#edit-password").val($scope.editingUserData.passwordHash);
-                $("input[name=activation][value=" + $scope.editingUserData.isActive + "]").prop('checked', true);
+                $scope.puttingInsideInput();
                 setTimeout(function () {
                     $(".user").css("background-color", "#FFFFFF");
                     $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
@@ -919,14 +910,26 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         for (var i = 0; i < $scope.limitedEdition.length; i++) {
             if (x == $scope.limitedEdition[i].userId) {
                 $scope.editingUserData = $scope.limitedEdition[i];
-                $("#edit-social-no").val($scope.editingUserData.nationalCode);
-                // $("#edit-social-no").val($scope.socialNoFormat($scope.editingUserData.nationalCode));
-                $("input[name=activation][value=" + $scope.editingUserData.isActive + "]").prop('checked', true);
+                console.log($scope.editingUserData);
+                $scope.puttingInsideInput();
                 $scope.editingLength = i;
             }
         }
     }
-
+    $scope.puttingInsideInput = function () {
+        $("#edit-name").val($scope.editingUserData.personnel.name);
+        $("#edit-family").val($scope.editingUserData.personnel.family);
+        $("#edit-father").val($scope.editingUserData.personnel.fatherName);
+        $("#edit-id-badge").val($scope.editingUserData.personnel.birthCertificateNo);
+        $("#personnelCode").val($scope.editingUserData.personnelId);
+        $("#edit-social-no").val($scope.editingUserData.personnel.nationalCode);
+        $("#edit-phone").val($scope.editingUserData.user.mobileNo);
+        $("#edit-email").val($scope.editingUserData.user.email);
+        $("#edit-user-name").val($scope.editingUserData.user.name);
+        $("#edit-password").val($scope.editingUserData.user.passwordHash);
+        $("input[name=activation][value=" + $scope.editingUserData.user.isActive + "]").prop('checked', true);
+        $("input[name=activation][value=" + $scope.editingUserData.isActive + "]").prop('checked', true);
+    }
     var currentpage = 1;
     $scope.editUserSlide = function (x) {
         if (x == 1) {
@@ -963,18 +966,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
-        $("#edit-name").val($scope.editingUserData.personnelName);
-        $("#edit-family").val($scope.editingUserData.personnelFamily);
-        $("#edit-father").val($scope.editingUserData.personnelFatherName);
-        $("#edit-id-badge").val($scope.editingUserData.personnelId);
-        $("#personnelCode").val($scope.editingUserData.personnelCode);
-        $("#edit-social-no").val($scope.editingUserData.nationalCode);
-        // $("#edit-social-no").val($scope.socialNoFormat($scope.editingUserData.nationalCode));
-        $("#edit-phone").val($scope.editingUserData.phone);
-        $("#edit-email").val($scope.editingUserData.email);
-        $("#edit-user-name").val($scope.editingUserData.userName);
-        $("#edit-password").val($scope.editingUserData.passwordHash);
-        $("input[name=activation][value=" + $scope.editingUserData.isActive + "]").prop('checked', true);
+        $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
         var a = x.split('.', 3);
@@ -988,46 +980,96 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.registerUser = function (x, y) {
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
-        var code = x[4];
-        var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
-        var remain = confirmCode % 11;
-        if (remain < 2) {
-            if (remain == code[11]) {
-                if (y == 1) {
-                    $("#tablePlusUser").modal('toggle');
-                }
-                else {
-                    $(".form-control").val('');
-                    $("#name").focus();
-                }
+        console.log(x);
+        var person = {
+            Name: x.name,
+            Family: x.family,
+            FatherName: x.fatherName,
+            Code: x.personnelCode,
+            NationalCode: x.nationalCode,
+            BirthCertificateNo: x.birthCertificateNo
+        }
+        var user = {
+            Email: x.mail,
+            Name: x.userName,
+            PasswordHash: x.passwordHash,
+            MobileNo: x.mobileNo,
+            IsActive: x.isActive
+        }
+        var Model = {
+            User: user,
+            Personnel: person
+        }
+        $http({
+            url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
+            method: "POST",
+            ContentType: 'application/x-www-form-urlencoded',
+            data: Model,
+            dataType: 'json',
+            headers: authHeaders,
+        }).then(function (response) {
+            console.log(response);
+            $scope.paginationNumber = [];
+            $scope.rowsCount++;
+            pageNumber = Math.ceil($scope.rowsCount / 3);
+            for (var conter = 1; conter < pageNumber + 1; conter++) {
+                $scope.paginationNumber.push(conter);
+            }
+            if (y == 1) {
+                $("#tablePlusUser").modal('toggle');
             }
             else {
-                console.log(code[12]);
-                $("#registerAlarm").html("کد ملی معتبر نمیباشد");
-                $("#social-no").css("border", "1px solid red");
-                $("#social_no").focus();
+                $(".form-control").val('');
+                $("#name").focus();
             }
-        }
-        else {
-            if (11 - remain == Number(code[11])) {
-                if (y == 1) {
-                    $(".modal").modal('hide');
-                    // $("#tableEdit").modal('toggle');
-                }
-                else {
-                    $(".form-control").val('');
-                    $("#name").focus();
-                }
-            }
-            else {
-                $("#registerAlarm").html("کد ملی معتبر نمیباشد");
-                $("#social-no").css("border", "1px solid red");
-                $("#social_no").focus();
-            }
-        }
+        })
+            .catch(function (xhr, status, error) {
+                $("#registerAlarm").html(xhr.data[0]);
+                console.log("this is error");
+                console.log(xhr);
+                console.log(error);
+                console.log(status);
+            })
+
+        // var code = x[4];
+        // var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
+        // var remain = confirmCode % 11;
+        // // if (remain < 2) {
+        //     if (remain == code[11] || 11 - remain == Number(code[11])) {
+        //         if (y == 1) {
+        //             $("#tablePlusUser").modal('toggle');
+        //         }
+        //         else {
+        //             $(".form-control").val('');
+        //             $("#name").focus();
+        //         }
+        //     }
+        //     else {
+        //         console.log(code[12]);
+        //         $("#registerAlarm").html("کد ملی معتبر نمیباشد");
+        //         $("#social-no").css("border", "1px solid red");
+        //         $("#social_no").focus();
+        //     }
+        // }
+        // else {
+        //     if (11 - remain == Number(code[11])) {
+        //         if (y == 1) {
+        //             $(".modal").modal('hide');
+        //             // $("#tableEdit").modal('toggle');
+        //         }
+        //         else {
+        //             $(".form-control").val('');
+        //             $("#name").focus();
+        //         }
+        //     }
+        //     else {
+        //         $("#registerAlarm").html("کد ملی معتبر نمیباشد");
+        //         $("#social-no").css("border", "1px solid red");
+        //         $("#social_no").focus();
+        //     }
+        // }
 
     }
-
     // adding camma after three digit function
     $scope.numberFormat = function (element) {
         var delimiter = ","; // replace comma if desired

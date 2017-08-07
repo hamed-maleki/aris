@@ -17,10 +17,10 @@
                     <tr data-step="4" data-intro="فرد مورد نظر برای ادیت را انتخاب کنید" data-position='right' ng-mouseenter="hover = true" ng-mouseleave="hover = false"
                         class="user" ng-repeat="data in limitedEdition" id="user{{data.userId}}" ng-click="editUser(data.userId)">
                         <td ng-style="tableFont">{{data.userName}}</td>
-                        <td ng-style="tableFont">{{data.personnelName}}</td>
-                        <td ng-style="tableFont">{{data.personnelFamily}}</td>
+                        <td ng-style="tableFont">{{data.personnel.name}}</td>
+                        <td ng-style="tableFont">{{data.personnel.family}}</td>
                         <td ng-style="tableFont" style="width: 50px;">
-                            <p style="line-height: 0.2cm;margin: 5px">{{data.personnelFatherName}}
+                            <p style="line-height: 0.2cm;margin: 5px">{{data.personnel.fatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
                                     data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnelName}} {{data.personnelFamily}}"></i>
                             </p>
@@ -37,75 +37,87 @@
             </div>
             <div class="col-sm-4 center">
                 <ul class="pagination" style="margin: 0">
+                    <li><a href="3" style="color: black"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li><a href="3" style="color: black"><i class="fa fa-angle-left"></i></a></li>
                     <li ng-repeat="x in paginationNumber" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')">{{x}}</a></li>
+                    <li><a href="3" style="color: black"><i class="fa fa-angle-right"></i></a></li>
+                    <li><a href="3" style="color: black"><i class="fa fa-angle-double-right"></i></a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<div id="tablePlusUser" class="modal fade" role="dialog" >
+<div id="tablePlusUser" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container right-align" draggable="true" style="background-color: #E0E0E0">
-                <form ng-submit="registerUser(register,test)"  data-step="6" data-intro="فرم را پر کرده و دکمه ثبت را کلیک کنید" data-position='right'>
+                <form ng-submit="registerUser(register,test)" data-step="6" data-intro="فرم را پر کرده و دکمه ثبت را کلیک کنید" data-position='right'>
                     <div class="row">
-                        <div class="col-sm-12" >
+                        <div class="col-sm-12">
                             <p id="registerAlarm" style="color: red;animation: testing 2s infinite steps(1)"></p>
                             <div class="form-group">
                                 <label for="usr">نام:</label>
-                                <input type="text" class="form-control" style="height: 30px !important" id="name" placeholder="نام" autocomplete="on" ng-model="register[0]"
-                                    required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                <input type="text" Lang="fa-IR" class="form-control" style="height: 30px !important" id="name" placeholder="نام" autocomplete="on"
+                                    ng-model="register.name" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="family">نام خانوادگی:</label>
                                 <input type="text" class="form-control" style="height: 30px !important" id="family" autocomplete="on" placeholder=" نام خانوادگی"
-                                    required ng-model="register[1]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.family" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="father">نام پدر:</label>
                                 <input type="text" class="form-control" style="height: 30px !important" id="father" autocomplete="on" placeholder="نام پدر"
-                                    required ng-model="register[2]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.fatherName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="id-badge">شماره شناسنامه:</label>
                                 <input type="text" class="form-control" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
-                                    required ng-model="register[3]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.birthCertificateNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="social-no">کد ملی:</label>
                                 <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="social-no" autocomplete="on"
-                                    placeholder="XXX-XXXXXX-X" required ng-model="register[4]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    placeholder="XXX-XXXXXX-X" required ng-model="register.nationalCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')" autocomplete="on">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">شمارپرسنلی :</label>
+                                <input type="text" class="form-control" style="height: 30px !important" id="personnel" autocomplete="on" placeholder="شماره پرسنلی"
+                                    required ng-model="register.personnelCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="phone">شماره موبایل:</label>
                                 <input type="tel" class="form-control" style="height: 30px !important" id="phone" autocomplete="on" placeholder="شماره موبایل"
-                                    required ng-model="register[5]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.mobileNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="email">email:</label>
                                 <input type="email" class="form-control" style="height: 30px !important" id="email" autocomplete="on" placeholder="ایمیل"
-                                    required ng-model="register[6]" oninvalid="this.setCustomValidity('ایمیل نامعتبر است')" oninput="setCustomValidity('')">
+                                    required ng-model="register.mail" oninvalid="this.setCustomValidity('ایمیل نامعتبر است')"
+                                    oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="user-name">نام کاربری:</label>
                                 <input type="text" class="form-control" style="height: 30px !important;" id="user-name" autocomplete="on" placeholder="نام کاربری"
-                                    required ng-model="register[7]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.userName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <label for="password">رمز عبور:</label>
                                 <input type="password" class="form-control" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
-                                    required ng-model="register[8]" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div>
-                                <label class="radio-inline"><input type="radio" name="active" value="1" ng-model="register[9]" required />ارسال لینک فعال سازی به ایمیل</label>
-                                <label class="radio-inline"><input type="radio" name="active"  value="2" ng-model="register[9]" checked="checked"  required  />فعال سازی توسط ادمین</label>
+                                <label class="radio-inline"><input type="radio" name="registeractive" value="false" ng-model="register.isActive" required />غیرفعال</label>
+                                <label class="radio-inline"><input type="radio" name="registeractive"  value="true" ng-model="register.isActive" checked required  />فعال</label>
                             </div>
                             <button class="btn btn-danger" type="submit" style="float: left" value="1" id="button1" ng-click="test = 1">ثبت و خروج</button>
                             <button class="btn btn-danger" type="submit" style="float: left; margin-left: 15px;" id="button2" ng-click="test = 2" value="2">ثبت و جدید</button>
@@ -200,10 +212,10 @@
     // $("#tablePlusUser").draggable({
     //     handle: ".modal-header"
     // });
-    jQuery(function ($) {
-        $("#social-no").mask("999-999999-9");
-        $("#edit-social-no").mask("999-999999-9");
-    });
+    // jQuery(function ($) {
+    //     $("#social-no").mask("999-999999-9");
+    //     $("#edit-social-no").mask("999-999999-9");
+    // });
     $('#tablePlusUser').on('shown.bs.modal', function () {
         $('#name').focus();
 

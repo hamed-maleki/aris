@@ -98,18 +98,19 @@
                                                 <th>
                                                     <input type="checkbox">
                                                 </th>
-                                                <td>{{data.personnelName}}</td>
-                                                <td>{{data.personnelFamily}}</td>
-                                                <td>{{data.personnelCode}}</td>
+                                                <td>{{data.personnel.name}}</td>
+                                                <td>{{data.personnel.family}}</td>
+                                                <td>{{data.personnelId}}</td>
                                                 <td>{{data.userName}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-5 center">
                                 <ul class="pagination" style="margin: 0">
+                                    <li><a href="3" style="color: black">آخرین صفحه</a></li>
                                     <li ng-repeat="x in paginationNumber" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')" style="color: black !important">{{x}}</a></li>
                                 </ul>
                             </div>

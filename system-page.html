@@ -20,7 +20,7 @@
     <link href="assets/styles/introjs-rtl.css" rel="stylesheet">
     <link href="assets/styles/main.css" rel="stylesheet">
     <link rel="icon" href="media/logofox.png" sizes="200*200">
-     <script src="assets/scripts/jquery.min.js"></script>
+    <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/ui.min.js"></script>
     <script src="assets/scripts/bundle.js"></script>
     <script src="assets/scripts/unique.min.js"></script>
@@ -33,7 +33,7 @@
     <script src="assets/scripts/perfect-scrollbar.min.js"></script>
     <script src="assets/scripts/prettify.js"></script>
     <script src="assets/scripts/intro.js"></script>
-    <script src="assets/scripts/main.js"></script> 
+    <script src="assets/scripts/main.js"></script>
     <!-- <script src=".dist/main.js"></script> -->
     <style>
         .tools-logo {
@@ -43,15 +43,20 @@
         input {
             direction: rtl;
         }
-</style>
- <script>
-    window.addEventListener("keydown", function (e) {
-        // space and arrow keys
-        if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1 && !$("#tablePlusUser").hasClass('in')) {
-            e.preventDefault();
+
+        .form-group {
+            margin-bottom: 10px;
         }
-    }, false);
-</script> 
+    </style>
+    <script>
+        window.addEventListener("keydown", function (e) {
+            // space and arrow keys
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1 && !$("#tablePlusUser").hasClass('in')) {
+                e.preventDefault();
+            }
+        }, false);
+
+    </script>
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-keyup="detector($event)">
