@@ -820,7 +820,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             for (var conter = 1; conter < pageNumber + 1; conter++) {
                 $scope.paginationNumber.push(conter);
             }
-
+            $scope.paginationToShow(1);
         }).catch(function (xhr, status, error) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.users, 0);
@@ -833,30 +833,26 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
         if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
-            // $(".user").css("background-color", "#FFFFFF");
-            // $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
             if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
                 $scope.editingLength++;
-                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-                $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
             }
             else {
+                $scope.editingLength = 0;
                 $scope.firstStep = $scope.firstStep + 1;
-                $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
             }
-            // console.log($scope.limitedEdition);
-            // del mikhorad o dideh bron mirizad
-        }
-        if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in') && $scope.editingLength > 0) {
-            $scope.editingLength--;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             $(".user").css("background-color", "#FFFFFF");
             $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
         }
+        if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in') && $scope.editingLength > 0) {
+            $scope.editingLength--;
+            $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+            console.log($scope.editingLength)
+            $(".user").css("background-color", "#FFFFFF");
+            $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+        }
         if ($event.keyCode == 13 && !$("#tablePlusUser").hasClass('in')) {
-            $scope.editUser($scope.limitedEdition[$scope.editingLength].id);
+            $scope.puttingInsideInput();
             $("#tableEdit").modal();
         }
         if ($event.keyCode == 37 && $("#tableEdit").hasClass('in')) {
@@ -867,6 +863,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.finalPagination = function (x, y, z) {
+        $scope.firstStep = 0;
         $(".pagination li").removeClass("active");
         $("#userpagination" + x).addClass("active");
         var sendUser = {
@@ -903,6 +900,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.refreshlocal($scope.finalPagination, x);
             }
         })
+        $scope.paginationToShow(x);
     }
     $scope.editUser = function (x) {
         $(".user").css("background-color", "#FFFFFF");
@@ -980,6 +978,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.registerUser = function (x, y) {
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
+        console.log(x.photo);
+        console.log($("#file").val());
         console.log(x);
         var person = {
             Name: x.name,
@@ -1000,37 +1000,37 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             User: user,
             Personnel: person
         }
-        $http({
-            url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
-            method: "POST",
-            ContentType: 'application/x-www-form-urlencoded',
-            data: Model,
-            dataType: 'json',
-            headers: authHeaders,
-        }).then(function (response) {
-            console.log(response);
-            $scope.paginationNumber = [];
-            $scope.rowsCount++;
-            pageNumber = Math.ceil($scope.rowsCount / 3);
-            for (var conter = 1; conter < pageNumber + 1; conter++) {
-                $scope.paginationNumber.push(conter);
-            }
-            if (y == 1) {
-                $("#tablePlusUser").modal('toggle');
-            }
-            else {
-                $(".form-control").val('');
-                $("#name").focus();
-            }
-        })
-            .catch(function (xhr, status, error) {
-                $("#registerAlarm").html(xhr.data[0]);
-                console.log("this is error");
-                console.log(xhr);
-                console.log(error);
-                console.log(status);
-            })
-
+        // $http({
+        //     url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
+        //     method: "POST",
+        //     ContentType: 'application/x-www-form-urlencoded',
+        //     data: Model,
+        //     dataType: 'json',
+        //     headers: authHeaders,
+        // }).then(function (response) {
+        //     console.log(response);
+        //     $scope.paginationNumber = [];
+        //     $scope.rowsCount++;
+        //     pageNumber = Math.ceil($scope.rowsCount / 3);
+        //     for (var conter = 1; conter < pageNumber + 1; conter++) {
+        //         $scope.paginationNumber.push(conter);
+        //     }
+        //     if (y == 1) {
+        //         $("#tablePlusUser").modal('toggle');
+        //     }
+        //     else {
+        //         $(".form-control").val('');
+        //         $("#name").focus();
+        //     }
+        // })
+        //     .catch(function (xhr, status, error) {
+        //         $("#registerAlarm").html(xhr.data[0]);
+        //         console.log("this is error");
+        //         console.log(xhr);
+        //         console.log(error);
+        //         console.log(status);
+        //     })
+        $scope.paginationToShow(currentpage);
         // var code = x[4];
         // var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
         // var remain = confirmCode % 11;
@@ -1069,6 +1069,30 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         //     }
         // }
 
+    }
+    // pagination 5 to show
+    $scope.paginationToShow = function (x) {
+        if (x == "last") {
+            x = $scope.paginationNumber.length
+        }
+        $scope.pages = [];
+        if (x > 3) {
+            if (x + 2 > $scope.paginationNumber.length) {
+                for (var i = -5; i < 0; i++) {
+                    $scope.pages.push($scope.paginationNumber[$scope.paginationNumber.length + i]);
+                }
+            }
+            else {
+                for (var i = -3; i < 2; i++) {
+                    $scope.pages.push($scope.paginationNumber[x + i]);
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < 5; i++) {
+                $scope.pages.push($scope.paginationNumber[i]);
+            }
+        }
     }
     // adding camma after three digit function
     $scope.numberFormat = function (element) {
