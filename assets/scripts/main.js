@@ -186,16 +186,23 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // looking for selected list
             for (var i = 0; i < $scope.listItems.length; i++) {
                 if ($($scope.listItems[i]).hasClass("selected")) {
+                    for (var i = 0; i < $scope.system.length; i++){
+                        if($($scope.listItems[i]).attr('value') == $scope.system[i].title){
+                            $scope.gettingSystem($scope.system[i].id, 1)
+                        }
+                        
+                    }
+                    console.log($($scope.listItems[i]));
                     // cheking if that is a child leef
-                    if (!$($scope.listItems[i]).hasClass("child")) {
-                        var valueLink = $($scope.listItems[i]).attr('value')
-                        $scope.gettingSystem(valueLink, 1)
-                    }
-                    else {
-                        var valueLink = $($scope.listItems[i]).attr('value');
-                        var nameLink = $($scope.listItems[i]).attr('name');
-                        $scope.searchClick(valueLink, nameLink)
-                    }
+                    // if (!$($scope.listItems[i]).hasClass("child")) {
+                    //     var valueLink = $($scope.listItems[i]).attr('value')
+                    //     $scope.gettingSystem($scope.listItems[i].id, 1)
+                    // }
+                    // else {
+                    //     var valueLink = $($scope.listItems[i]).attr('value');
+                    //     var nameLink = $($scope.listItems[i]).attr('name');
+                    //     $scope.searchClick($scope.listItems[i].id, nameLink)
+                    // }
 
                 }
             }
@@ -566,19 +573,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         window.location.href = "system-page.min.html";
     }
     $scope.gettingSystem = function (x, y) {
-        if (y == 1) {
-            $scope.cookieForSide(0, 0)
-        }
-        var now = new Date();
-        var time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        for (var i = 0; i < $scope.system.length; i++) {
-            if ($scope.system[i].id == x) {
-                var cookieItem = JSON.stringify($scope.system[i].children);
-                document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-            }
-        }
+        // if (y == 1) {
+        //     $scope.cookieForSide(0, 0)
+        // }
+        // var now = new Date();
+        // var time = now.getTime();
+        // time += 3600 * 1000;
+        // now.setTime(time);
+        // for (var i = 0; i < $scope.system.length; i++) {
+        //     if ($scope.system[i].id == x) {
+        //         var cookieItem = JSON.stringify($scope.system[i].children);
+        //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
+        //     }
+        // }
+        localStorage.setItem("parent_id", x);
         window.location.href = "system-page.min.html";
     }
     // top link part
@@ -832,6 +840,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
+        var evtobj = window.event? event : $event;
         if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
             if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
                 $scope.editingLength++;
@@ -861,6 +870,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($event.keyCode == 39 && $("#tableEdit").hasClass('in')) {
             $scope.editUserSlide(-1);
         }
+        if($event.keyCode == 61 && $event.shiftKey){
+            $("#tablePlusUser").modal();        
+        }
+        if($event.keyCode == 173 && $event.shiftKey){
+            $(".modal").modal('hide');   
+        }
+        console.log($event);
     }
     $scope.finalPagination = function (x, y, z) {
         $scope.firstStep = 0;
@@ -944,6 +960,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             else {
                 $scope.editingLength = $scope.editingLength + 1;
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                $scope.firstStep = 1;
             }
         }
         else {
@@ -960,10 +977,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             else {
                 $scope.editingLength = $scope.editingLength - 1;
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                $scope.firstStep = 1;
             }
         }
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+        console.log($scope.editingUserData);
         $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
@@ -1000,36 +1019,36 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             User: user,
             Personnel: person
         }
-        // $http({
-        //     url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
-        //     method: "POST",
-        //     ContentType: 'application/x-www-form-urlencoded',
-        //     data: Model,
-        //     dataType: 'json',
-        //     headers: authHeaders,
-        // }).then(function (response) {
-        //     console.log(response);
-        //     $scope.paginationNumber = [];
-        //     $scope.rowsCount++;
-        //     pageNumber = Math.ceil($scope.rowsCount / 3);
-        //     for (var conter = 1; conter < pageNumber + 1; conter++) {
-        //         $scope.paginationNumber.push(conter);
-        //     }
-        //     if (y == 1) {
-        //         $("#tablePlusUser").modal('toggle');
-        //     }
-        //     else {
-        //         $(".form-control").val('');
-        //         $("#name").focus();
-        //     }
-        // })
-        //     .catch(function (xhr, status, error) {
-        //         $("#registerAlarm").html(xhr.data[0]);
-        //         console.log("this is error");
-        //         console.log(xhr);
-        //         console.log(error);
-        //         console.log(status);
-        //     })
+        $http({
+            url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
+            method: "POST",
+            ContentType: 'application/x-www-form-urlencoded',
+            data: Model,
+            dataType: 'json',
+            headers: authHeaders,
+        }).then(function (response) {
+            console.log(response);
+            $scope.paginationNumber = [];
+            $scope.rowsCount++;
+            pageNumber = Math.ceil($scope.rowsCount / 3);
+            for (var conter = 1; conter < pageNumber + 1; conter++) {
+                $scope.paginationNumber.push(conter);
+            }
+            if (y == 1) {
+                $("#tablePlusUser").modal('toggle');
+            }
+            else {
+                $(".form-control").val('');
+                $("#name").focus();
+            }
+        })
+            .catch(function (xhr, status, error) {
+                $("#registerAlarm").html(xhr.data[0]);
+                console.log("this is error");
+                console.log(xhr);
+                console.log(error);
+                console.log(status);
+            })
         $scope.paginationToShow(currentpage);
         // var code = x[4];
         // var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);

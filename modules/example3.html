@@ -5,21 +5,22 @@
             <table class="table table-hover table-bordered right-align">
                 <thead>
                     <tr>
-                        <th style="width: 20px;">
+                        <th style="width: 150px;">
                             نام کاربری
                         </th>
-                        <th style="width: 30px;">نام </th>
-                        <th style="width: 30px">نام خانوادگی</th>
-                        <th style="width: 30px">نام پدر</th>
+                        <th style="width: 300px;">نام </th>
+                        <th style="width: 300px">نام خانوادگی</th>
+                        <th style="width: 300px">نام پدر</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true" ng-mouseleave="hover = false"
-                        class="user" ng-repeat="data in limitedEdition" id="user{{data.userId}}" ng-click="editUser(data.userId)">
+                    <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
+                        ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.userId}}"
+                        ng-click="editUser(data.userId)">
                         <td ng-style="tableFont">{{data.userName}}</td>
                         <td ng-style="tableFont">{{data.personnel.name}}</td>
                         <td ng-style="tableFont">{{data.personnel.family}}</td>
-                        <td ng-style="tableFont" style="width: 50px;" >
+                        <td ng-style="tableFont" style="width: 50px;">
                             <p style="line-height: 0.2cm;margin: 5px">{{data.personnel.fatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
                                     data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnelName}} {{data.personnelFamily}}"></i>
@@ -47,8 +48,8 @@
         </div>
     </div>
 </div>
-<div id="tablePlusUser" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="0">
+    <div class="modal-dialog" style="margin-top: -55px">
         <div class="modal-content">
             <div class="modal-body container right-align" draggable="true" style="background-color: #E0E0E0">
                 <form name="registering" ng-submit="registerUser(register,test)" data-step="6" data-intro="فرم را پر کرده و دکمه ثبت را کلیک کنید"
@@ -74,10 +75,16 @@
                                     required ng-model="register.fatherName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
-                            <div>
+                            <div class="col-sm-6">
+                                <label for="file">انتخاب عکس:</label>
+                                <input type="file" style="height: 30px !important" id="file" required ng-model="register.photo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="col-sm-6">
                                 <label class="radio-inline"><input type="radio" name="registerGender" value="female" ng-model="register.gender" required />زن</label>
                                 <label class="radio-inline"><input type="radio" name="registerGender"  value="male" ng-model="register.gender" checked required  />مرد</label>
                             </div>
+                            <div class="clearfix"></div>
                             <div class="form-group">
                                 <label for="id-badge">شماره شناسنامه:</label>
                                 <input type="text" class="form-control" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
@@ -109,24 +116,21 @@
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <label for="user-name">نام کاربری:</label> 
-                                <input type="text" class="form-control" ng-keyup="myfocus = true" style="height: 30px !important;" name="testing1" id="user-name"  ng-minlength="3"
-                                    ng-maxlength="10" autocomplete="on" placeholder="نام کاربری" required ng-model="register.userName" val="username"
-                                    oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
-                                <p class="red" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد  </p>
+                                <label for="user-name">نام کاربری:</label>
+                                <input type="text" class="form-control" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
+                                    name="testing1" id="user-name" ng-minlength="3" ng-maxlength="10" autocomplete="on" placeholder="نام کاربری"
+                                    required ng-model="register.userName" val="username" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    oninput="setCustomValidity('')">
+                                <p class="red" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد </p>
 
                             </div>
                             <div class="form-group">
                                 <label for="password">رمز عبور:</label>
                                 <input type="password" class="form-control" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
-                                    required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" 
+                                    required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
-                            <div class="form-group">
-                                <label for="file">انتخاب عکس:</label>
-                                <input type="file" class="form-control" style="height: 30px !important" id="file" required ng-model="register.photo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                    oninput="setCustomValidity('')">
-                            </div>
+
                             <div>
                                 <label class="radio-inline"><input type="radio" name="registeractive" value="false" ng-model="register.isActive" required />غیرفعال</label>
                                 <label class="radio-inline"><input type="radio" name="registeractive"  value="true" ng-model="register.isActive" checked required  />فعال</label>
@@ -230,7 +234,6 @@
     // });
     $('#tablePlusUser').on('shown.bs.modal', function () {
         $('#name').focus();
-
     });
 
 </script>

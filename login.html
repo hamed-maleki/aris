@@ -153,6 +153,10 @@
                                     <input type="text" class="form-control" style="height: 34px !important" id="father" placeholder="نام پدر" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                         oninput="setCustomValidity('')">
                                 </div>
+                                <div>
+                                    <label class="radio-inline"><input type="radio" name="gender" value="female" />زن</label>
+                                    <label class="radio-inline"><input type="radio" name="gender"  value="male" checked />مرد</label>
+                                </div>
                                 <div class="form-group">
                                     <label for="id-badge">شماره شناسنامه:</label>
                                     <input type="text" class="form-control" style="height: 34px !important" id="id-badge" placeholder="شماره شناسنامه" required
@@ -160,8 +164,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="social-no">کد ملی:</label>
-                                    <input type="text" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="social-no" placeholder="XXX-XXXXXX-X" required
-                                        oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
+                                    <input type="text" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="social-no" placeholder="XXX-XXXXXX-X"
+                                        required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">شماره موبایل:</label>
@@ -199,7 +203,6 @@
         jQuery(function ($) {
             $("#social-no").mask("999-999999-9");
         });
-
     </script>
     <script src="assets/scripts/doodlescript.js"></script>
 

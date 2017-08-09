@@ -59,7 +59,7 @@
     </script>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-keyup="detector($event)">
+<body ng-app="myApp" ng-controller="myCtrl" ng-keydown="detector($event)" tabindex="0">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid my-margin-top" ng-init="systemToShow()">
@@ -114,7 +114,7 @@
                         <span id="nav"></span>
                         <span id="subnav"></span>
                     </div>
-                    <div ng-include="number"></div>
+                    <div ng-include="number"  class="keyControl"></div>
                 </div>
             </div>
         </div>
