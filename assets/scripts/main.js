@@ -852,8 +852,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".user").css("background-color", "#FFFFFF");
             $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
         }
-        if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in') && $scope.editingLength > 0) {
-            $scope.editingLength--;
+        if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
+            if ($scope.editingLength > 0) {
+                $scope.editingLength--;
+                 
+            }
+            else{
+                $scope.editingLength = $scope.limitedEdition.length - 1;
+            }
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             $(".user").css("background-color", "#FFFFFF");
             $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
@@ -873,7 +879,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("#tablePlusUser").modal();
             }
         }
-        if($event.keyCode == 27){
+        if ($event.keyCode == 27) {
             $(".modal").modal('hide');
             $("#myFocus").focus();
         }
@@ -927,7 +933,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.editingLength = i;
                 console.log($scope.editingLength)
                 $scope.puttingInsideInput();
-                $scope.firstStep = 1;       
+                $scope.firstStep = 1;
             }
         }
     }
@@ -1405,13 +1411,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             params: mydata,
             dataType: 'json',
             headers: authHeaders,
-        }).then(function(response){
+        }).then(function (response) {
             $scope.permission = response.data
             console.log($scope.permission);
-        }).catch(function(xhr,error){
+        }).catch(function (xhr, error) {
             if (refreshtoken && xhr.status === 401) {
-                    $scope.refreshlocal($scope.drop, x);
-                }
+                $scope.refreshlocal($scope.drop, x);
+            }
         })
         $scope.number = "modules/" + value;
         // $http.get("data/table1.json")
@@ -1423,13 +1429,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         //     })
 
     }
-    $scope.isAuth = function(name,permission){
-        for(var i = 0; i< $scope.permission.length; i++){
-            if($scope.permission[i].elementName == name){
-                if(($scope.permission[i].permission & permission) == permission){
+    $scope.isAuth = function (name, permission) {
+        for (var i = 0; i < $scope.permission.length; i++) {
+            if ($scope.permission[i].elementName == name) {
+                if (($scope.permission[i].permission & permission) == permission) {
                     return true;
                 }
-                else{
+                else {
                     return false;
                 }
             }
