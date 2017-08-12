@@ -12,7 +12,7 @@
                                 <i class="fa fa-angle-down " style="vertical-align: middle"></i>
                             </p>
                             <div class="col-sm-8 right-align subsystem top-slide" ng-class="userColor" id="dropdown{{system.id}}" >
-                                <p  ng-repeat="subsystem in system.children" class="pointer" ng-style="testfont" ng-click="subSystem(subsystem.parent,subsystem.id)">
+                                <p  ng-repeat="subsystem in system.children" class="pointer" ng-style="testfont" ng-click="subSystem(subsystem.parent,subsystem.id,subsystem.isLeaf)">
                                     {{subsystem.title}}
                                 </p>
                             </div>

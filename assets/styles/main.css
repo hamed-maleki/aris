@@ -642,6 +642,7 @@ nav a:hover {
     height: 60px;
     width: 60px;
     margin:0 auto;
+    background-color: #C1B49A;
 }
 .white-background {
     background-color: #fff !important;

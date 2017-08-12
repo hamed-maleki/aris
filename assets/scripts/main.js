@@ -186,13 +186,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // looking for selected list
             for (var i = 0; i < $scope.listItems.length; i++) {
                 if ($($scope.listItems[i]).hasClass("selected")) {
-                    for (var i = 0; i < $scope.system.length; i++){
-                        if($($scope.listItems[i]).attr('value') == $scope.system[i].title){
+                    for (var i = 0; i < $scope.system.length; i++) {
+                        if ($($scope.listItems[i]).attr('value') == $scope.system[i].title) {
                             $scope.gettingSystem($scope.system[i].id, 1)
                         }
-                        
+
                     }
-                    console.log($($scope.listItems[i]));
                     // cheking if that is a child leef
                     // if (!$($scope.listItems[i]).hasClass("child")) {
                     //     var valueLink = $($scope.listItems[i]).attr('value')
@@ -840,7 +839,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        var evtobj = window.event? event : $event;
+        var evtobj = window.event ? event : $event;
         if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
             if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
                 $scope.editingLength++;
@@ -851,14 +850,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             $(".user").css("background-color", "#FFFFFF");
-            $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+            $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
         }
         if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in') && $scope.editingLength > 0) {
             $scope.editingLength--;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-            console.log($scope.editingLength)
             $(".user").css("background-color", "#FFFFFF");
-            $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+            $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
         }
         if ($event.keyCode == 13 && !$("#tablePlusUser").hasClass('in')) {
             $scope.puttingInsideInput();
@@ -870,13 +868,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($event.keyCode == 39 && $("#tableEdit").hasClass('in')) {
             $scope.editUserSlide(-1);
         }
-        if($event.keyCode == 61 && $event.shiftKey){
-            $("#tablePlusUser").modal();        
+        if ($event.altKey || evtobj.altKey) {
+            if ($event.keyCode == 61 || $event.keyCode == 187) {
+                $("#tablePlusUser").modal();
+            }
         }
-        if($event.keyCode == 173 && $event.shiftKey){
-            $(".modal").modal('hide');   
+        if($event.keyCode == 27){
+            $(".modal").modal('hide');
+            $("#myFocus").focus();
         }
-        console.log($event);
     }
     $scope.finalPagination = function (x, y, z) {
         $scope.firstStep = 0;
@@ -908,7 +908,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.puttingInsideInput();
                 setTimeout(function () {
                     $(".user").css("background-color", "#FFFFFF");
-                    $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
+                    $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
                 }, 100)
             }
         }).catch(function (xhr, status, error) {
@@ -922,15 +922,17 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + x).css("background-color", "yellow");
         for (var i = 0; i < $scope.limitedEdition.length; i++) {
-            if (x == $scope.limitedEdition[i].userId) {
+            if (x == $scope.limitedEdition[i].user.id) {
                 $scope.editingUserData = $scope.limitedEdition[i];
-                console.log($scope.editingUserData);
-                $scope.puttingInsideInput();
                 $scope.editingLength = i;
+                console.log($scope.editingLength)
+                $scope.puttingInsideInput();
+                $scope.firstStep = 1;       
             }
         }
     }
     $scope.puttingInsideInput = function () {
+        console.log("this is happening");
         $("#edit-name").val($scope.editingUserData.personnel.name);
         $("#edit-family").val($scope.editingUserData.personnel.family);
         $("#edit-father").val($scope.editingUserData.personnel.fatherName);
@@ -981,8 +983,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
         $(".user").css("background-color", "#FFFFFF");
-        $("#user" + $scope.editingUserData.userId).css("background-color", "yellow");
-        console.log($scope.editingUserData);
+        $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
         $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
@@ -997,16 +998,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.registerUser = function (x, y) {
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
-        console.log(x.photo);
-        console.log($("#file").val());
-        console.log(x);
         var person = {
             Name: x.name,
             Family: x.family,
             FatherName: x.fatherName,
             Code: x.personnelCode,
             NationalCode: x.nationalCode,
-            BirthCertificateNo: x.birthCertificateNo
+            BirthCertificateNo: x.birthCertificateNo,
+            Gender: x.gender,
+            Photo: $("#file").val()
         }
         var user = {
             Email: x.mail,
@@ -1027,7 +1027,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
-            console.log(response);
             $scope.paginationNumber = [];
             $scope.rowsCount++;
             pageNumber = Math.ceil($scope.rowsCount / 3);
@@ -1044,10 +1043,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         })
             .catch(function (xhr, status, error) {
                 $("#registerAlarm").html(xhr.data[0]);
-                console.log("this is error");
-                console.log(xhr);
-                console.log(error);
-                console.log(status);
             })
         $scope.paginationToShow(currentpage);
         // var code = x[4];
@@ -1064,7 +1059,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         //         }
         //     }
         //     else {
-        //         console.log(code[12]);
         //         $("#registerAlarm").html("کد ملی معتبر نمیباشد");
         //         $("#social-no").css("border", "1px solid red");
         //         $("#social_no").focus();
@@ -1087,7 +1081,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         //         $("#social_no").focus();
         //     }
         // }
-
     }
     // pagination 5 to show
     $scope.paginationToShow = function (x) {
@@ -1272,39 +1265,60 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }, 100)
 
     }
-    $scope.subSystem = function (x, y) {
-        $http({
-            url: "http://localhost/ArisSystem/api/system/subsystem",
-            method: "GET",
-            params: {
-                parentId: y
-            },
-            headers: authHeaders,
-        }).then(function (response) {
-            $scope.systemslider = response.data;
-            $(".top-slide").slideUp();
-            // for (var i = 0; i < $scope.subSystemSituation.length; i++) {
+    $scope.subSystem = function (x, y, leaf) {
+        if (leaf == true) {
+            $http({
+                url: "http://localhost/ArisSystem/api/system/pages",
+                method: "GET",
+                params: {
+                    systemId: y
+                },
+                headers: authHeaders,
+            }).then(function (response) {
+                $scope.mypages = response.data;
+                $scope.systemslider = [];
+            }).catch(function (xhr, error, response) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.drop, x);
+                }
+            })
+        }
+        else {
+            $http({
+                url: "http://localhost/ArisSystem/api/system/subsystem",
+                method: "GET",
+                params: {
+                    parentId: y
+                },
+                headers: authHeaders,
+            }).then(function (response) {
+                $scope.systemslider = response.data;
+                $scope.mypages = [];
+                // for (var i = 0; i < $scope.subSystemSituation.length; i++) {
 
-            //     if (x == $scope.subSystemSituation[i].id) {
-            //         if ($scope.subSystemSituation[i].itemLoaded == 0) {
-            //             $scope.subSystemSituation[i].children = $scope.itemToPush;
-            //             $scope.subSystemSituation[i].children = $scope.itemToPush;
-            //         }
-            //     }
-            // }
-        }).catch(function (xhr, status, error) {
-            if (refreshtoken && xhr.status === 401) {
-                $scope.refreshlocal($scope.drop, x);
-            }
-        })
+                //     if (x == $scope.subSystemSituation[i].id) {
+                //         if ($scope.subSystemSituation[i].itemLoaded == 0) {
+                //             $scope.subSystemSituation[i].children = $scope.itemToPush;
+                //             $scope.subSystemSituation[i].children = $scope.itemToPush;
+                //         }
+                //     }
+                // }
+            }).catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.drop, x);
+                }
+            })
+        }
+        $(".top-slide").slideUp();
     }
-    $scope.headerSlide = function (x, y, z, leaf) {
+    $scope.headerSlide = function (x, y, z, leaf, parentId) {
         $scope.treeToShow = [];
         $scope.limitedEdition = [];
         $scope.tabledata = [];
         $scope.paginationNumber = [];
+        // for(var i = 0; i < subSystemSituation.length ; i++)
         if (leaf == true) {
-            $scope.table(z);
+            // $scope.table(z);
         }
         else {
             $http({
@@ -1332,7 +1346,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // slider controller for subsystem in system-page.html 
     $scope.list_slide = function (title, id, path, leaf) {
-        // $scope.tabledata = [];
         $("#creditSum").html("");
         $("#debtSum").html("");
         $("#totalSum").html("");
@@ -1381,7 +1394,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
     };
     // directive for aris tag's template changer
-    $scope.table = function (value) {
+    $scope.table = function (value, mypageId) {
+        var mydata = {
+            pageId: mypageId
+        }
+        $http({
+            url: "http://localhost/ArisSystem/api/system/elements",
+            method: "GET",
+            ContentType: 'application/x-www-form-urlencoded',
+            params: mydata,
+            dataType: 'json',
+            headers: authHeaders,
+        }).then(function(response){
+            $scope.permission = response.data
+            console.log($scope.permission);
+        }).catch(function(xhr,error){
+            if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.drop, x);
+                }
+        })
         $scope.number = "modules/" + value;
         // $http.get("data/table1.json")
         //     .then(function (response) {
@@ -1391,6 +1422,18 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         //         $("#error").modal();
         //     })
 
+    }
+    $scope.isAuth = function(name,permission){
+        for(var i = 0; i< $scope.permission.length; i++){
+            if($scope.permission[i].elementName == name){
+                if(($scope.permission[i].permission & permission) == permission){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
     }
     // chat area
     $scope.chatting = function (reciver) {

@@ -6,31 +6,6 @@
             "title": "شماره1"
         },
         {
-            "content": "پیغام دوم",
-            "id": "note2",
-            "title": "نمره2"
-        },
-        {
-            "content": "second message",
-            "id": "note3",
-            "title": "no3"
-        },
-        {
-            "content": "second message1",
-            "id": "note4",
-            "title": "no4"
-        },
-        {
-            "content": "second message2",
-            "id": "note5",
-            "title": "no5"
-        },
-        {
-            "content": "second message3",
-            "id": "note6",
-            "title": "no6"
-        },
-        {
             "content": "شنبه یا یکشنبه هفته بعد موعد تحویل پروژه",
             "id": "note7",
             "title": "تحویل پروژه"

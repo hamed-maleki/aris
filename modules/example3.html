@@ -8,22 +8,22 @@
                         <th style="width: 150px;">
                             نام کاربری
                         </th>
-                        <th style="width: 300px;">نام </th>
-                        <th style="width: 300px">نام خانوادگی</th>
-                        <th style="width: 300px">نام پدر</th>
+                        <th style="width: 300px;" ng-if="isAuth('tdName',1)" id="thName">نام </th>
+                        <th style="width: 300px" ng-if="isAuth('tdFamily',1)">نام خانوادگی</th>
+                        <th style="width: 300px" ng-if="isAuth('tdFatherName',4)">نام پدر</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
-                        ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.userId}}"
-                        ng-click="editUser(data.userId)">
-                        <td ng-style="tableFont">{{data.userName}}</td>
-                        <td ng-style="tableFont">{{data.personnel.name}}</td>
-                        <td ng-style="tableFont">{{data.personnel.family}}</td>
-                        <td ng-style="tableFont" style="width: 50px;">
-                            <p style="line-height: 0.2cm;margin: 5px">{{data.personnel.fatherName}}
+                      <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
+                        ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
+                        ng-click="editUser(data.user.id)">
+                        <td ng-style="tableFont" >{{data.user.name}}</td>
+                        <td ng-style="tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td>
+                        <td ng-style="tableFont" ng-if="isAuth('tdFamily',3)">{{data.personnel.family}}</td>
+                        <td ng-style="tableFont" style="width: 50px;" ng-if="isAuth('tdFatherName',4)">
+                            <p style="line-height: 0.2cm;margin: 5px" >{{data.personnel.fatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
-                                    data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnelName}} {{data.personnelFamily}}"></i>
+                                    data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnel.name}} {{data.personnel.family}}"></i>
                             </p>
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="0">
+<div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="0" >
     <div class="modal-dialog" style="margin-top: -55px">
         <div class="modal-content">
             <div class="modal-body container right-align" draggable="true" style="background-color: #E0E0E0">
