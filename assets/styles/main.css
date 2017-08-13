@@ -176,7 +176,17 @@ footer p {
 p{
     direction: rtl;
 }
-
+#myBar {
+    display: none;
+    width: 1%;
+    height: 3px; 
+    background-color: #088FCE;
+    box-shadow: 0px 1px 5px gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
 ::-moz-selection { 
     color: white;
     background: #F16521;

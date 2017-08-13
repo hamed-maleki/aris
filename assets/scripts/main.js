@@ -244,16 +244,33 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
-        $http({
+        var load = $http({
             url: "http://localhost/ArisSystem/api/system/subsystem",
             method: "GET",
             dataType: 'json',
+            // type: "HEAD",
             ContentType: 'application/x-www-form-urlencoded',
             params: {
                 parentId: $scope.systemIdToLoad
             },
-            headers: authHeaders
+            headers: authHeaders,
+            eventHandlers: {
+                progress: function (event) {
+                    console.log("progress");
+                    console.log(event);
+                },
+                readystatechange: function (event) {
+                    console.log("change");
+                    console.log(event);
+                }
+            },
+            uploadEventHandlers: {
+                progress: function (object) {
+                    console.log(object);
+                }
+            }
         }).then(function (response) {
+            console.log(response.headers('content-length'));
             $scope.subsystem = response.data;
             for (var i = 0; i < $scope.subsystem.length; i++) {
                 var subItem = {
@@ -855,9 +872,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
             if ($scope.editingLength > 0) {
                 $scope.editingLength--;
-                 
+
             }
-            else{
+            else {
                 $scope.editingLength = $scope.limitedEdition.length - 1;
             }
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
@@ -1202,23 +1219,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.eventNumber = 0;
 
     // event of day declaring
-    $http.get("data/events.json")
-        .success(function (response) {
-            $scope.events = response;
-            var date = new Date();
-            var month = (date.getMonth() + 1);
-            var day = date.getDate();
-            var year = date.getFullYear();
-            var today = (year + '/' + month + '/' + day).toString();
-            for (var i = 0; i < $scope.events.length; i++) {
-                if ($scope.events[i].start == today) {
-                    $scope.eventNumber += 1;
-                }
+    $http({
+        method: "GET",
+        url: "data/events.json",
+    }).then(function (response) {
+        $scope.events = response;
+        var date = new Date();
+        var month = (date.getMonth() + 1);
+        var day = date.getDate();
+        var year = date.getFullYear();
+        var today = (year + '/' + month + '/' + day).toString();
+        for (var i = 0; i < $scope.events.length; i++) {
+            if ($scope.events[i].start == today) {
+                $scope.eventNumber += 1;
             }
-        }).catch(function () {
-            $scope.error[0] = "خطا در دستیابی به اطلاعات";
-            $("#error").modal();
-        })
+        }
+    }).catch(function () {
+        $scope.error[0] = "خطا در دستیابی به اطلاعات";
+        $("#error").modal();
+    })
     // chat controller
     // $interval(function () {
     //     return $http.get("data/chat.json").then(function (response) {
@@ -1546,15 +1565,28 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // fullfiling aside (calnedar and note and top link container)
     $scope.sidecontainer = function (x) {
         if (x == 1) {
-            $http.get("data/note.json")
-                .then(function (response) {
-                    $scope.note = response.data.note;
-                    $scope.message = response.data.message;
-                    $scope.alarm = response.data.alarm;
-                    for (var i = 0; i < 3; i++) {
-                        $scope.limitedNote.push($scope.note[i]);
+            $http({
+                method: "GET",
+                url: "data/note.json",
+                // transformRequest: angular.identity,
+                eventHandlers: {
+                    progress: function (e) {
+                        if (e.lengthComputable) {
+                            $scope.progressBar = (e.loaded / e.total) * 100;
+                            $scope.progressCounter = $scope.progressBar;
+                            console.log($scope.progressCounter)
+                        }
                     }
-                });
+                }
+            }).then(function (response) {
+                console.log("this is note json 2");
+                $scope.note = response.data.note;
+                $scope.message = response.data.message;
+                $scope.alarm = response.data.alarm;
+                for (var i = 0; i < 3; i++) {
+                    $scope.limitedNote.push($scope.note[i]);
+                }
+            });
             $scope.side = "note2.html";
         }
         if (x == 2) {
@@ -1628,6 +1660,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.treeToShow = []
     // first level of showing tree's nodes
     $scope.gettingTree = function () {
+        $scope.treeToShow = [];
         $http.get("data/tree.json").then(function (response) {
             $scope.tree = response.data.tree;
             for (var i = 0; i < $scope.tree.length; i++) {
@@ -1944,4 +1977,18 @@ window.onkeydown = function (e) {
 
     }
 };
-
+function move() {
+    $("#myBar").css("display", "block")
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 20);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+            $("#myBar").css("display", "none");
+        } else {
+            width++;
+            elem.style.width = width + '%';
+        }
+    }
+}
