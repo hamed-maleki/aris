@@ -69,7 +69,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/example5.html";
+    $scope.number = "modules/unload.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -255,22 +255,27 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             },
             headers: authHeaders,
             eventHandlers: {
-                progress: function (event) {
-                    console.log("progress");
-                    console.log(event);
-                },
-                readystatechange: function (event) {
-                    console.log("change");
-                    console.log(event);
-                }
-            },
-            uploadEventHandlers: {
-                progress: function (object) {
-                    console.log(object);
+                progress: function (e) {
+                    if (e.lengthComputable) {
+                        $scope.progressBar = (e.loaded / e.total) * 100;
+                        $scope.progressCounter = $scope.progressBar;
+                        // $scope.myinterval = setInterval($scope.myprogressBar(),20)
+                        $scope.myinterval = $interval(
+                            function () {
+                                $("#myBar").css("display", "block");
+                                var elem = document.getElementById("myBar");
+                                var width = 1;
+                                if ($scope.progressCounter >= 100) {
+                                    $interval.cancel($scope.myinterval);
+                                    $("#myBar").css("display", "none");
+                                } else {
+                                    document.getElementById("myBar").style.width = $scope.progressCounter + '%';
+                                }
+                            }, 20);
+                    }
                 }
             }
         }).then(function (response) {
-            console.log(response.headers('content-length'));
             $scope.subsystem = response.data;
             for (var i = 0; i < $scope.subsystem.length; i++) {
                 var subItem = {
@@ -281,13 +286,26 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.subSystemSituation.push(subItem)
             }
+        }).catch(function (xhr, status, error) {
+            if (refreshtoken && xhr.status === 401) {
+                $scope.refreshlocal($scope.systemToShow, 0);
+            }
         })
-            .catch(function (xhr, status, error) {
-                if (refreshtoken && xhr.status === 401) {
-                    $scope.refreshlocal($scope.systemToShow, 0);
-                }
-            })
     }
+    // $scope.myprogressBar = function () {
+    //     $("#myBar").css("display", "block");
+    //     var elem = document.getElementById("myBar");
+    //     var width = 1;
+    //     if ($scope.progressCounter >= 100) {
+    //         clearInterval($scope.myinterval);
+    //         $("#myBar").css("display", "none");
+    //     } else {
+    //         console.log("this is happening 2")
+    //         document.getElementById("myBar").style.width = $scope.progressCounter + '%';
+    //         $scope.progressCounter ++;
+    //     }
+
+    // }
     $scope.getSearchCookie = function () {
         var x = $scope.getCookieValue('searchParent')
         var y = $scope.getCookieValue('searchId')
@@ -309,36 +327,37 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.carousel();
         });
     // carsoule
-    var slider = 0;
+    $scope.myslider = 0;
     $scope.carousel = function () {
-        if (slider > $scope.alarm.length - 1) {
-            slider = 0;
-            $scope.sliderAlarm = $scope.alarm[slider];
+        if ($scope.myslider > $scope.alarm.length - 2) {
+            $scope.myslider = 0;
+            // $scope.sliderAlarm = $scope.alarm[slider];
         }
-        else if (slider < 0) {
-            slider = $scope.alarm.length - 1;
-            $scope.sliderAlarm = $scope.alarm[slider];
+        else if ($scope.myslider < 0) {
+            $scope.slider = $scope.alarm.length - 1;
+
         }
         else {
-            $scope.sliderAlarm = $scope.alarm[slider];
+            $scope.myslider = $scope.myslider + 1;
         }
-        slider = slider + 1;
-        sliderTime = setTimeout(function () {
+        $scope.sliderAlarm = $scope.alarm[$scope.myslider];
+        sliderTime = $timeout(function () {
+            $scope.sliderAlarm = [];
             $scope.carousel();
-        }, 1000);
+        }, 5000);
     }
     $scope.slider = function (x) {
         if (x == -1) {
 
-            slider = slider - 2;
+            $scope.myslider = $scope.myslider - 2;
         }
-        clearTimeout(sliderTime);
+        $timeout.cancel(sliderTime);
         $scope.carousel();
         $(".play").addClass("hide");
         $(".pause").removeClass("hide");
     }
     $scope.pause = function () {
-        clearTimeout(sliderTime);
+        $timeout.cancel(sliderTime);
         $(".pause").addClass("hide");
         $(".play").removeClass("hide");
     }
@@ -402,7 +421,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
         function AjaxFailed(err, response) {
-            console.log(err);
+            // console.log(err);
             // window.location.href = "login.html"
         }
     }
@@ -1569,17 +1588,17 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 method: "GET",
                 url: "data/note.json",
                 // transformRequest: angular.identity,
-                eventHandlers: {
-                    progress: function (e) {
-                        if (e.lengthComputable) {
-                            $scope.progressBar = (e.loaded / e.total) * 100;
-                            $scope.progressCounter = $scope.progressBar;
-                            console.log($scope.progressCounter)
-                        }
-                    }
-                }
+                // eventHandlers: {
+                //     progress: function (e) {
+                //         if (e.lengthComputable) {
+                //             $scope.progressBar = (e.loaded / e.total) * 100;
+                //             $scope.progressCounter = $scope.progressBar;
+                //             // console.log($scope.progressCounter)
+                //             $scope.interval = setInterval($scope.myprogressBar(), 20);
+                //         }
+                //     }
+                // }
             }).then(function (response) {
-                console.log("this is note json 2");
                 $scope.note = response.data.note;
                 $scope.message = response.data.message;
                 $scope.alarm = response.data.alarm;

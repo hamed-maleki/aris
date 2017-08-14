@@ -177,8 +177,8 @@ p{
     direction: rtl;
 }
 #myBar {
-    display: none;
-    width: 1%;
+    /* display: none; */
+    width: 0%;
     height: 3px; 
     background-color: #088FCE;
     box-shadow: 0px 1px 5px gray;
@@ -755,7 +755,7 @@ nav a:hover {
 .system-li>h4{
     margin: 10px -7px 0 0px;
     color: white;
-    padding: 10px;
+    padding: 10px 5px;
 }
 
 .system-li{
