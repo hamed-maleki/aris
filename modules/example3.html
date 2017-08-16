@@ -1,7 +1,7 @@
 <div ng-init="users()">
     <hr>
     <div class="col-sm-12">
-        <div class="table-responsive">
+        <div class="table-responsive printable">
             <table class="table table-hover table-bordered right-align">
                 <thead>
                     <tr>
@@ -19,7 +19,7 @@
                         ng-click="editUser(data.user.id)">
                         <td ng-style="tableFont">{{data.user.name}}</td>
                         <td ng-style="tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td>
-                        <td ng-style="tableFont" ng-if="isAuth('tdFamily',3)">{{data.personnel.family}}</td>
+                        <td ng-style="tableFont" ng-if="isAuth('tdFamily',1)">{{data.personnel.family}}</td>
                         <td ng-style="tableFont" style="width: 50px;" ng-if="isAuth('tdFatherName',4)">
                             <p style="line-height: 0.2cm;margin: 5px">{{data.personnel.fatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
@@ -57,15 +57,16 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p id="registerAlarm" class="red" style="animation: testing 2s infinite steps(1)"></p>
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <label for="usr">نام:</label>
-                                <input type="text" Lang="fa-IR" class="form-control" style="height: 30px !important" id="name" placeholder="نام" autocomplete="on"
-                                    ng-model="register.name" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                <input type="text" ng-model="register.name"  class="form-control" style="height: 30px !important" id="name" placeholder="نام" autocomplete="on"
+                                     required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
+                            <div class="clearfix"></div>
                             <div class="form-group">
                                 <label for="family">نام خانوادگی:</label>
-                                <input type="text" class="form-control" style="height: 30px !important" id="family" autocomplete="on" placeholder=" نام خانوادگی"
+                                <input type="text" ng-model="register.family" class="form-control" style="height: 30px !important" id="family" autocomplete="on" placeholder=" نام خانوادگی"
                                     required ng-model="register.family" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
@@ -119,7 +120,7 @@
                                 <label for="user-name">نام کاربری:</label>
                                 <input type="text" class="form-control" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
                                     name="testing1" id="user-name" ng-minlength="3" ng-maxlength="10" autocomplete="on" placeholder="نام کاربری"
-                                    required ng-model="register.userName" val="username" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                    required ng-model="register.userName" ng-model-options="{debounce: 500}" val="username" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                                 <p class="red" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد </p>
 
@@ -152,19 +153,19 @@
                 <i class="fa fa-chevron-circle-right" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
 
                 <div class="row">
-                    <div class="form-group change">
+                    <div class="form-group change" ng-if="isAuth('tdName',1)">
                         <label for="usr">نام:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}" id="edit-name"
+                        <input type="text" ng-readonly="!isAuth('tdName',4)" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}" id="edit-name"
                             placeholder="نام">
                     </div>
-                    <div class="form-group change">
+                    <div class="form-group change" ng-if="isAuth('tdFamily',3)">
                         <label for="family">نام خانوادگی:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
+                        <input type="text" class="form-control" ng-readonly="!isAuth('tdFamily',4)" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
                             placeholder=" نام خانوادگی">
                     </div>
-                    <div class="form-group change">
+                    <div class="form-group change" ng-if="isAuth('tdFatherName',4)">
                         <label for="father">نام پدر:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}" id="edit-father"
+                        <input type="text" class="form-control" ng-readonly="!isAuth('tdFatherName',4)" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}" id="edit-father"
                             placeholder="نام پدر">
                     </div>
                     <div class="form-group change">

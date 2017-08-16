@@ -563,6 +563,9 @@ nav a:hover {
     margin-top: 15px;
 }
 
+#myFocus:focus{
+    outline: none;
+}
 .my-col-sm-6 .sub-system {
     min-height: 80px;
     position: relative;
@@ -2538,3 +2541,11 @@ body {
         color: red;
     }
 }  
+@media print {
+    body * {
+        display: none;
+    }
+   .printable{
+        display: block;
+    }
+}

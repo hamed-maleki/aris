@@ -1061,6 +1061,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             User: user,
             Personnel: person
         }
+        Model = JSON.stringify(Model);
         $http({
             url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
             method: "POST",
@@ -1069,6 +1070,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
+            console.log(response);
             $scope.paginationNumber = [];
             $scope.rowsCount++;
             pageNumber = Math.ceil($scope.rowsCount / 3);
@@ -1084,6 +1086,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         })
             .catch(function (xhr, status, error) {
+                console.log(xhr);
                 $("#registerAlarm").html(xhr.data[0]);
             })
         $scope.paginationToShow(currentpage);
@@ -1450,14 +1453,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
-            $scope.permission = response.data
+            $scope.permission = response.data;
+            $scope.number = "modules/" + value;
             console.log($scope.permission);
         }).catch(function (xhr, error) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.drop, x);
             }
         })
-        $scope.number = "modules/" + value;
+        
         // $http.get("data/table1.json")
         //     .then(function (response) {
         //         $scope.tabledata = response.data.table;
