@@ -440,13 +440,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                 return user.value;
                             })
                         };
-
                         new Chartist.Bar('#chart1', data1, {
                             distributeSeries: true
                         });
 
                     });
-
             }, 400)
 
         }
@@ -608,19 +606,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         window.location.href = "system-page.min.html";
     }
     $scope.gettingSystem = function (x, y) {
-        // if (y == 1) {
-        //     $scope.cookieForSide(0, 0)
-        // }
-        // var now = new Date();
-        // var time = now.getTime();
-        // time += 3600 * 1000;
-        // now.setTime(time);
-        // for (var i = 0; i < $scope.system.length; i++) {
-        //     if ($scope.system[i].id == x) {
-        //         var cookieItem = JSON.stringify($scope.system[i].children);
-        //         document.cookie = "SubSystem = " + cookieItem + ";expires=" + now.toUTCString() + ";path =/";
-        //     }
-        // }
         localStorage.setItem("parent_id", x);
         window.location.href = "system-page.min.html";
     }
@@ -903,6 +888,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($event.keyCode == 13 && !$("#tablePlusUser").hasClass('in')) {
             $scope.puttingInsideInput();
             $("#tableEdit").modal();
+            $("#myFocus").blur();
         }
         if ($event.keyCode == 37 && $("#tableEdit").hasClass('in')) {
             $scope.editUserSlide(1);
@@ -960,7 +946,63 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         })
         $scope.paginationToShow(x);
     }
+    $scope.editSubmit = function (x) {
+        if (x.name != undefined) {
+            $scope.editingUserData.personnel.name = x.name;
+        }
+        if (x.family != undefined) {
+            $scope.editingUserData.personnel.family = x.family;
+        }
+        if (x.fatherName != undefined) {
+            $scope.editingUserData.personnel.fatherName = x.fatherName;
+        }
+        if (x.birthCertificateNo != undefined) {
+            $scope.editingUserData.personnel.birthCertificateNo = x.birthCertificateNo;
+        }
+        if (x.nationalCode != undefined) {
+            $scope.editingUserData.personnel.nationalCode = x.nationalCode;
+        }
+        if (x.personnelCode != undefined) {
+            $scope.editingUserData.personnel.code = x.personnelCode;
+        }
+        if (x.phone != undefined) {
+            $scope.editingUserData.user.MobileNo = x.phone;
+        }
+        if (x.email != undefined) {
+            $scope.editingUserData.user.email = x.email;
+        }
+        if (x.passwordHash != undefined) {
+            $scope.editingUserData.user.passwordHash = x.passwordHash;
+        }
+        if (x.isActive != undefined) {
+            $scope.editingUserData.user.isActive = x.isActive;
+        }
+        if (x.gender != undefined) {
+            $scope.editingUserData.personnel.gender = x.gender;
+        }
+        var Model = {
+            User: $scope.editingUserData.user,
+            Personnel: $scope.editingUserData.personnel
+        }
+        $http({
+            url: "http://localhost/ArisSystem/api/user/Update/UserPersonnel",
+            method: "POST",
+            ContentType: 'application/x-www-form-urlencoded',
+            data: Model,
+            dataType: 'json',
+            headers: authHeaders,
+        }).then(function (response) {
+            console.log(response)
+            $("#editMessage").html("تغییرات با موفقیت ثبت شد");
+        }).catch(function (xhr) {
+            if (refreshtoken && xhr.status === 401) {
+                $scope.refreshlocal($scope.editSubmit, x);
+            }
+            $("#editMessage").html(xhr.data[0]);
+        })
+    }
     $scope.editUser = function (x) {
+        $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + x).css("background-color", "yellow");
         for (var i = 0; i < $scope.limitedEdition.length; i++) {
@@ -979,14 +1021,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#edit-family").val($scope.editingUserData.personnel.family);
         $("#edit-father").val($scope.editingUserData.personnel.fatherName);
         $("#edit-id-badge").val($scope.editingUserData.personnel.birthCertificateNo);
-        $("#personnelCode").val($scope.editingUserData.personnelId);
+        $("#personnelCode").val($scope.editingUserData.personnel.code);
         $("#edit-social-no").val($scope.editingUserData.personnel.nationalCode);
         $("#edit-phone").val($scope.editingUserData.user.mobileNo);
         $("#edit-email").val($scope.editingUserData.user.email);
         $("#edit-user-name").val($scope.editingUserData.user.name);
         $("#edit-password").val($scope.editingUserData.user.passwordHash);
         $("input[name=activation][value=" + $scope.editingUserData.user.isActive + "]").prop('checked', true);
-        $("input[name=activation][value=" + $scope.editingUserData.isActive + "]").prop('checked', true);
+        $("input[name=gender][value=" + $scope.editingUserData.personnel.gender + "]").prop('checked', true);
     }
     var currentpage = 1;
     $scope.editUserSlide = function (x) {
@@ -1024,8 +1066,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.firstStep = 1;
             }
         }
+        $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+        console.log($scope.editingUserData)
         $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
@@ -1038,94 +1082,94 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         return code;
     }
     $scope.registerUser = function (x, y) {
+        var codeCheck = false;
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
-        var person = {
-            Name: x.name,
-            Family: x.family,
-            FatherName: x.fatherName,
-            Code: x.personnelCode,
-            NationalCode: x.nationalCode,
-            BirthCertificateNo: x.birthCertificateNo,
-            Gender: x.gender,
-            Photo: $("#file").val()
-        }
-        var user = {
-            Email: x.mail,
-            Name: x.userName,
-            PasswordHash: x.passwordHash,
-            MobileNo: x.mobileNo,
-            IsActive: x.isActive
-        }
-        var Model = {
-            User: user,
-            Personnel: person
-        }
-        Model = JSON.stringify(Model);
-        $http({
-            url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
-            method: "POST",
-            ContentType: 'application/x-www-form-urlencoded',
-            data: Model,
-            dataType: 'json',
-            headers: authHeaders,
-        }).then(function (response) {
-            console.log(response);
-            $scope.paginationNumber = [];
-            $scope.rowsCount++;
-            pageNumber = Math.ceil($scope.rowsCount / 3);
-            for (var conter = 1; conter < pageNumber + 1; conter++) {
-                $scope.paginationNumber.push(conter);
-            }
-            if (y == 1) {
-                $("#tablePlusUser").modal('toggle');
+        console.log(x);
+        var code = x.nationalCode;
+
+        var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
+        var remain = confirmCode % 11;
+        if (remain < 2) {
+            if (remain == code[11] || 11 - remain == Number(code[11])) {
+                codeCheck = true;
             }
             else {
-                $(".form-control").val('');
-                $("#name").focus();
+                codeCheck = false;
             }
-        })
-            .catch(function (xhr, status, error) {
-                console.log(xhr);
-                $("#registerAlarm").html(xhr.data[0]);
+        }
+        else {
+            if (11 - remain == Number(code[11])) {
+                codeCheck = true;
+            }
+            else {
+                codeCheck = false;
+
+            }
+        }
+        console.log(code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11]);
+        if (codeCheck == true) {
+            var person = {
+                Name: x.name,
+                Family: x.family,
+                FatherName: x.fatherName,
+                Code: x.personnelCode,
+                NationalCode: code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11],
+                BirthCertificateNo: x.birthCertificateNo,
+                Gender: x.gender,
+                Photo: $("#file").val()
+            }
+            var user = {
+                Email: x.mail,
+                Name: x.userName,
+                PasswordHash: x.passwordHash,
+                MobileNo: x.mobileNo,
+                IsActive: x.isActive
+            }
+            var Model = {
+                User: user,
+                Personnel: person
+            }
+            Model = JSON.stringify(Model);
+            console.log(Model);
+            $http({
+                url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
+                method: "POST",
+                ContentType: 'application/x-www-form-urlencoded',
+                data: Model,
+                dataType: 'json',
+                headers: authHeaders,
+            }).then(function (response) {
+                console.log(response);
+                $scope.paginationNumber = [];
+                $scope.rowsCount++;
+                pageNumber = Math.ceil($scope.rowsCount / 3);
+                for (var conter = 1; conter < pageNumber + 1; conter++) {
+                    $scope.paginationNumber.push(conter);
+                }
+                if (x.close == 1) {
+                    $("#tablePlusUser").modal('toggle');
+                }
+                else {
+                    $(".form-control").val('');
+                    $("#name").focus();
+                }
             })
-        $scope.paginationToShow(currentpage);
-        // var code = x[4];
-        // var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
-        // var remain = confirmCode % 11;
-        // // if (remain < 2) {
-        //     if (remain == code[11] || 11 - remain == Number(code[11])) {
-        //         if (y == 1) {
-        //             $("#tablePlusUser").modal('toggle');
-        //         }
-        //         else {
-        //             $(".form-control").val('');
-        //             $("#name").focus();
-        //         }
-        //     }
-        //     else {
-        //         $("#registerAlarm").html("کد ملی معتبر نمیباشد");
-        //         $("#social-no").css("border", "1px solid red");
-        //         $("#social_no").focus();
-        //     }
-        // }
-        // else {
-        //     if (11 - remain == Number(code[11])) {
-        //         if (y == 1) {
-        //             $(".modal").modal('hide');
-        //             // $("#tableEdit").modal('toggle');
-        //         }
-        //         else {
-        //             $(".form-control").val('');
-        //             $("#name").focus();
-        //         }
-        //     }
-        //     else {
-        //         $("#registerAlarm").html("کد ملی معتبر نمیباشد");
-        //         $("#social-no").css("border", "1px solid red");
-        //         $("#social_no").focus();
-        //     }
-        // }
+                .catch(function (xhr, status, error) {
+                    if (refreshtoken && xhr.status === 401) {
+                        $scope.refreshlocal($scope.registerUser, x);
+                    }
+                    $("#registerAlarm").html(xhr.data[0]);
+                })
+            $scope.paginationToShow(currentpage);
+        }
+        else {
+            $("#registerAlarm").html("کد ملی معتبر نمیباشد");
+            $("#social-no").css("border", "1px solid red");
+            $("#social_no").focus();
+        }
+
+
     }
     // pagination 5 to show
     $scope.paginationToShow = function (x) {
@@ -1445,6 +1489,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         var mydata = {
             pageId: mypageId
         }
+        // $scope.number = "modules/" + value;
         $http({
             url: "http://localhost/ArisSystem/api/system/elements",
             method: "GET",
@@ -1455,26 +1500,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).then(function (response) {
             $scope.permission = response.data;
             $scope.number = "modules/" + value;
-            console.log($scope.permission);
         }).catch(function (xhr, error) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.drop, x);
+            }else if(xhr.status === 404){
+                $scope.permission = [];
+                $scope.number = "modules/" + value;
             }
         })
-        
-        // $http.get("data/table1.json")
-        //     .then(function (response) {
-        //         $scope.tabledata = response.data.table;
-        //     }).catch(function () {
-        //         $scope.error[0] = "خطا در دستیابی به اطلاعات";
-        //         $("#error").modal();
-        //     })
-
     }
     $scope.isAuth = function (name, permission) {
         for (var i = 0; i < $scope.permission.length; i++) {
             if ($scope.permission[i].elementName == name) {
-                if (($scope.permission[i].permission & permission) == permission) {
+                if (($scope.permission[i].permission & permission) == permission ) {
                     return true;
                 }
                 else {

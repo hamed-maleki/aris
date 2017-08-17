@@ -57,17 +57,17 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p id="registerAlarm" class="red" style="animation: testing 2s infinite steps(1)"></p>
-                            <div class="form-group" >
+                            <div class="form-group">
                                 <label for="usr">نام:</label>
-                                <input type="text" ng-model="register.name"  class="form-control" style="height: 30px !important" id="name" placeholder="نام" autocomplete="on"
-                                     required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                <input type="text" ng-model="register.name" class="form-control" style="height: 30px !important" id="name" placeholder="نام"
+                                    autocomplete="on" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
                                 <label for="family">نام خانوادگی:</label>
-                                <input type="text" ng-model="register.family" class="form-control" style="height: 30px !important" id="family" autocomplete="on" placeholder=" نام خانوادگی"
-                                    required ng-model="register.family" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                <input type="text" ng-model="register.family" class="form-control" style="height: 30px !important" id="family" autocomplete="on"
+                                    placeholder=" نام خانوادگی" required ng-model="register.family" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
@@ -82,8 +82,8 @@
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="col-sm-6">
-                                <label class="radio-inline"><input type="radio" name="registerGender" value="female" ng-model="register.gender" required />زن</label>
-                                <label class="radio-inline"><input type="radio" name="registerGender"  value="male" ng-model="register.gender" checked required  />مرد</label>
+                                <label class="radio-inline"><input type="radio" name="registerGender" value="1" ng-model="register.gender" required />زن</label>
+                                <label class="radio-inline"><input type="radio" name="registerGender"  value="0" ng-model="register.gender" checked required  />مرد</label>
                             </div>
                             <div class="clearfix"></div>
                             <div class="form-group">
@@ -136,8 +136,8 @@
                                 <label class="radio-inline"><input type="radio" name="registeractive" value="false" ng-model="register.isActive" required />غیرفعال</label>
                                 <label class="radio-inline"><input type="radio" name="registeractive"  value="true" ng-model="register.isActive" checked required  />فعال</label>
                             </div>
-                            <button class="btn btn-danger" type="submit" style="float: left" value="1" id="button1" ng-click="test = 1">ثبت و خروج</button>
-                            <button class="btn btn-danger" type="submit" style="float: left; margin-left: 15px;" id="button2" ng-click="test = 2" value="2">ثبت و جدید</button>
+                            <button class="btn btn-danger" type="submit" style="float: left" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
+                            <button class="btn btn-danger" type="submit" style="float: left; margin-left: 15px;" id="button2" ng-click="register.close = 2" value="2">ثبت و جدید</button>
                         </div>
                     </div>
                 </form>
@@ -151,64 +151,71 @@
             <div class="modal-body container right-align" style="background-color: #E0E0E0">
                 <i class="fa fa-chevron-circle-left" style="position: absolute;top: 45%;left: -12%;font-size: 50px;" ng-click="editUserSlide(1)"></i>
                 <i class="fa fa-chevron-circle-right" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
-
-                <div class="row">
-                    <div class="form-group change" ng-if="isAuth('tdName',1)">
-                        <label for="usr">نام:</label>
-                        <input type="text" ng-readonly="!isAuth('tdName',4)" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}" id="edit-name"
-                            placeholder="نام">
+                <p id="editMessage" class="green" style="animation: testing 2s infinite steps(1)"></p>
+                <form ng-submit="editSubmit(editor,editingUserData.personnelName)">
+                    <div class="row">
+                        <div class="form-group change" ng-if="isAuth('tdName',4)">
+                            <label for="usr">نام:</label>
+                            <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
+                                id="edit-name" placeholder="نام">
+                        </div>
+                        <div class="form-group change" ng-if="isAuth('tdFamily',4)">
+                            <label for="family">نام خانوادگی:</label>
+                            <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
+                                ng-model="$paren.editor.family" placeholder=" نام خانوادگی">
+                        </div>
+                        <div class="form-group change" ng-if="isAuth('tdFatherName',4)">
+                            <label for="father">نام پدر:</label>
+                            <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
+                                id="edit-father" placeholder="نام پدر">
+                        </div>
+                        <div class="form-group change">
+                            <label for="id-badge">شماره شناسنامه:</label>
+                            <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
+                                value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه">
+                        </div>
+                        <div class="form-group change">
+                            <label for="social-no">کد ملی:</label>
+                            <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
+                                id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X">
+                        </div>
+                        <div class="form-group change">
+                            <h5 style="direction: rtl;color: #808080; ">جنسیت:</h5>
+                            <label class="radio-inline"><input type="radio" name="gender" value="1" ng-model="editor.gender" required />زن</label>
+                            <label class="radio-inline"><input type="radio" name="gender"  value="0" ng-model="editor.gender" checked required  />مرد</label>
+                        </div>
+                        <div class="form-group change">
+                            <label for="personnelCode">کد پرسنلی:</label>
+                            <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
+                                value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه">
+                        </div>
+                        <div class="form-group change">
+                            <label for="phone">شماره موبایل:</label>
+                            <input type="tel" class="form-control" ng-model="editor.phone" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
+                                placeholder="شماره موبایل">
+                        </div>
+                        <div class="form-group change">
+                            <label for="email">email:</label>
+                            <input type="email" class="form-control" ng-model="editor.email" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
+                                placeholder="example@exa.com">
+                        </div>
+                        <div class="form-group change">
+                            <label for="user-name">نام کاربری:</label>
+                            <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
+                                placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group change">
+                            <label for="password">رمز عبور:</label>
+                            <input type="text" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
+                                value="{{editingUserData.passwordHash}}" placeholder="رمز عبور">
+                        </div>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="activation" value="true" ng-model="editor.isActive">فعال</label>
+                            <label class="radio-inline"><input type="radio" name="activation"  value="false" ng-model="editor.isActive">غیرفعال</label>
+                        </div>
+                        <button class="btn btn-danger" type="submit" style="float: left">ثبت </button>
                     </div>
-                    <div class="form-group change" ng-if="isAuth('tdFamily',3)">
-                        <label for="family">نام خانوادگی:</label>
-                        <input type="text" class="form-control" ng-readonly="!isAuth('tdFamily',4)" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
-                            placeholder=" نام خانوادگی">
-                    </div>
-                    <div class="form-group change" ng-if="isAuth('tdFatherName',4)">
-                        <label for="father">نام پدر:</label>
-                        <input type="text" class="form-control" ng-readonly="!isAuth('tdFatherName',4)" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}" id="edit-father"
-                            placeholder="نام پدر">
-                    </div>
-                    <div class="form-group change">
-                        <label for="id-badge">شماره شناسنامه:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" id="edit-id-badge" value="{{editingUserData.personnelId}}"
-                            placeholder="شماره شناسنامه">
-                    </div>
-                    <div class="form-group change">
-                        <label for="social-no">کد ملی:</label>
-                        <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="edit-social-no" value="{{editingUserData.nationalCode}}"
-                            placeholder="XXX-XXXXXX-X">
-                    </div>
-                    <div class="form-group change">
-                        <label for="personnelCode">کد پرسنلی:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" id="personnelCode" value="{{editingUserData.personnelCode}}"
-                            placeholder="شماره شناسنامه">
-                    </div>
-                    <div class="form-group change">
-                        <label for="phone">شماره موبایل:</label>
-                        <input type="tel" class="form-control" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
-                            placeholder="شماره موبایل">
-                    </div>
-                    <div class="form-group change">
-                        <label for="email">email:</label>
-                        <input type="email" class="form-control" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
-                            placeholder="example@exa.com">
-                    </div>
-                    <div class="form-group change">
-                        <label for="user-name">نام کاربری:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
-                            placeholder="نام کاربری">
-                    </div>
-                    <div class="form-group change">
-                        <label for="password">رمز عبور:</label>
-                        <input type="text" class="form-control" style="height: 30px !important" id="edit-password" value="{{editingUserData.passwordHash}}"
-                            placeholder="رمز عبور">
-                    </div>
-                    <div>
-                        <label class="radio-inline"><input type="radio" name="activation" value="true" >فعال</label>
-                        <label class="radio-inline"><input type="radio" name="activation"  value="false" >غیرفعال</label>
-                    </div>
-                    <button class="btn btn-danger" style="float: left">ثبت </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -224,7 +231,6 @@
         handle: ".modal-body"
     });
 
-
 </script>
 <script>
     $(function () {
@@ -235,15 +241,16 @@
         //     ghost: true
         // });
     });
+
 </script>
 <script>
     // $("#tablePlusUser").draggable({
     //     handle: ".modal-header"
     // });
-    // jQuery(function ($) {
-    //     $("#social-no").mask("999-999999-9");
-    //     $("#edit-social-no").mask("999-999999-9");
-    // });
+    jQuery(function ($) {
+        $("#social-no").mask("999-999999-9");
+        $("#edit-social-no").mask("999-999999-9");
+    });
     $('#tablePlusUser').on('shown.bs.modal', function () {
         $('#name').focus();
     });
