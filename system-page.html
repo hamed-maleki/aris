@@ -18,12 +18,14 @@
     <link href="assets/styles/prettify.css" rel="stylesheet">
     <link href="assets/styles/introjs.css" rel="stylesheet">
     <link href="assets/styles/introjs-rtl.css" rel="stylesheet">
+    <link href="assets/styles/treant.css" rel="stylesheet">
     <link href="assets/styles/main.css" rel="stylesheet">
     <link rel="icon" href="media/logofox.png" sizes="200*200">
-    <script src="assets/scripts/jquery.min.js"></script>  
+    <script src="assets/scripts/jquery.min.js"></script>
     <script src="assets/scripts/ui.min.js"></script>
     <script src="assets/scripts/angular.min.js"></script>
     <script src="assets/scripts/bootstrap.min.js"></script>
+    
     <script src="assets/scripts/unique.min.js"></script>
     <script src="assets/scripts/codeFormat.min.js"></script>
     <script src="assets/scripts/moment.min.js"></script>
@@ -55,77 +57,78 @@
                 e.preventDefault();
             }
         }, false);
-
     </script>
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
-    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
-    </nav>
-    <div class="container-fluid my-margin-top" ng-init="systemToShow()">
-        <div class="row white-background border" style="margin-bottom: 64px;">
-            <div class="col-sm-12">
-                <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;padding-right: 10px" data-step="1" data-intro="ابتدا سیستم را انتخاب کنید"
-                    data-position='right'>
+    <div ng-if="securityCheck">
+        <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
+        </nav>
+        <div class="container-fluid my-margin-top" ng-init="systemToShow()">
+            <div class="row white-background border" style="margin-bottom: 64px;">
+                <div class="col-sm-12">
+                    <div ng-include="'modules/dropdown.html'" class="row" style="margin-bottom: 15px;padding-right: 10px" data-step="1" data-intro="ابتدا سیستم را انتخاب کنید"
+                        data-position='right'>
+                    </div>
+                    <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"
+                        style="position: fixed;top: 90px;left: 30px;color: red"></i>
                 </div>
-                <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"
-                    style="position: fixed;top: 90px;left: 30px;color: red"></i>
-            </div>
-            <div class="col-sm-2 col-sm-push-10 right-align" ng-style="testfont" style="border-left: 1px solid gray">
-                <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" data-step="2" data-intro="فرم مورد نظر را انتخاب کنید"
-                    data-position='left' >
-                    <h3 ng-style="testfont" style="padding: 10px;">زیر سیستم ها</h3>
-                    <hr>
-                    <div ng-repeat="sub in systemslider">
-                        <h4 class="pointer" ng-style="testfont" ng-model="show" ng-click="headerSlide(sub.id,sub.title,sub.path,sub.isLeaf,sub.parentId)">
-                            {{sub.title}}
-                        </h4>
-                        <div id="{{sub.id}}" style="display: none">
-                            <div ng-repeat="item in sub.children" class="system-li" ng-class="userColor">
-                                <h4 class=" pointer my-margin-top" ng-style="testfont" ng-class="userColor" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
-                                    {{item.title}}
-                                </h4>
-                                <div ng-repeat="item1 in item.children" class="system-li" ng-style="testfont" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px">
+                <div class="col-sm-2 col-sm-push-10 right-align" ng-style="testfont" style="border-left: 1px solid gray">
+                    <div class=" my-padding container-filter" style="padding-bottom: 15px !important;margin-top: -20px" data-step="2" data-intro="فرم مورد نظر را انتخاب کنید"
+                        data-position='left'>
+                        <h3 ng-style="testfont" style="padding: 10px;">زیر سیستم ها</h3>
+                        <hr>
+                        <div ng-repeat="sub in systemslider">
+                            <h4 class="pointer" ng-style="testfont" ng-model="show" ng-click="headerSlide(sub.id,sub.title,sub.path,sub.isLeaf,sub.parentId)">
+                                {{sub.title}}
+                            </h4>
+                            <div id="{{sub.id}}" style="display: none">
+                                <div ng-repeat="item in sub.children" class="system-li" ng-class="userColor">
+                                    <h4 class=" pointer my-margin-top" ng-style="testfont" ng-class="userColor" ng-click="headerSlide(item.id,item.title,item.path,item.isLeaf)">
+                                        {{item.title}}
+                                    </h4>
+                                    <div ng-repeat="item1 in item.children" class="system-li" ng-style="testfont" id="{{item.id}}" style="display: none;margin: 0px -7px -10px 0px">
 
-                                    <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.path,item1.isLeaf)" style="margin-bottom: 0;padding-right: 7px;padding-bottom: 5px">
-                                        {{item1.title}}
-                                    </p>
-                                    <div ng-repeat="item2 in item1.children" id="{{item1.id}}" style="display: none">
-                                        <p class="pointer" style="padding-right: 18px" ng-click="list_slide(item2.title,item2.id,item2.children,item2.origin)">
-                                            {{item2.title}}
+                                        <p class="pointer" ng-click="list_slide(item1.title,item1.id,item1.path,item1.isLeaf)" style="margin-bottom: 0;padding-right: 7px;padding-bottom: 5px">
+                                            {{item1.title}}
                                         </p>
+                                        <div ng-repeat="item2 in item1.children" id="{{item1.id}}" style="display: none">
+                                            <p class="pointer" style="padding-right: 18px" ng-click="list_slide(item2.title,item2.id,item2.children,item2.origin)">
+                                                {{item2.title}}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div ng-repeat="page in mypages" class="system-li" ng-class="userColor">
+                            <h4 class="pointer my-margin-top" ng-style="testfont" ng-class="userColor" ng-click="table(page.path, page.id)">
+                                {{page.title}}
+                            </h4>
+                        </div>
                     </div>
-                    <div ng-repeat="page in mypages" class="system-li" ng-class="userColor">
-                        <h4 class="pointer my-margin-top" ng-style="testfont" ng-class="userColor" ng-click="table(page.path, page.id)">
-                            {{page.title}}
-                        </h4>
+                    <div class="row" style="margin-top: -20px">
+                        <div class="col-sm-12">
+                            <div class=" sub-system my-padding-5 aris-animation " ng-include="'modules/tools.html'"></div>
+                        </div>
+                        <div ng-include="'modules/modal.html'"></div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: -20px">
-                    <div class="col-sm-12">
-                        <div class=" sub-system my-padding-5 aris-animation " ng-include="'modules/tools.html'"></div>
+                <div class="col-sm-10 col-sm-pull-2 container-filter footer-margin" id="myFocus" ng-keydown="detector($event)" tabindex="0">
+                    <div>
+                        <div class="right-align">
+                            <a href="index.html" style="color: black">خانه</a><i class="fa fa-angle-left my-padding"></i>
+                            <span id="nav"></span>
+                            <span id="subnav"></span>
+                        </div>
+                        <div ng-include="number" class="keyControl"></div>
                     </div>
-                    <div ng-include="'modules/modal.html'"></div>
-                </div>
-            </div>
-            <div class="col-sm-10 col-sm-pull-2 container-filter footer-margin" id="myFocus"  ng-keydown="detector($event)" tabindex="0">
-                <div>
-                    <div class="right-align">
-                        <a href="index.html" style="color: black">خانه</a><i class="fa fa-angle-left my-padding"></i>
-                        <span id="nav"></span>
-                        <span id="subnav"></span>
-                    </div>
-                    <div ng-include="number"  class="keyControl"></div>
                 </div>
             </div>
         </div>
+        <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
+        </footer>
     </div>
-    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
-    </footer>
 </body>
 
 </html>

@@ -1,11 +1,13 @@
-if (localStorage.accessToken == undefined) {
-    window.location.href = 'login.html'
-}
-setInterval(function () {
-    if (localStorage.accessToken == undefined) {
-        window.location.href = 'login.html'
-    }
-}, 500)
+
+// if (localStorage.accessToken == undefined) {
+//     window.location.href = 'login.html'
+// }
+// setInterval(function () {
+//     if (localStorage.accessToken == undefined) {
+//         console.log("this is interval")
+//         window.location.href = 'login.html';
+//     }
+// }, 500)
 var app = angular.module('myApp', ['angular.filter']);
 app.directive("sidebar", function () {
     return {
@@ -21,6 +23,23 @@ app.directive("sidebar", function () {
     }
 });
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
+    var myhost = "http://localhost/ArisSystem/api";
+    $scope.securityCheck = false;
+    if (localStorage.accessToken == undefined) {
+        window.location.href = 'login.html'
+        $scope.securityCheck = false;
+    }
+    else {
+        $scope.securityCheck = true;
+    }
+    $interval(function () {
+        if (localStorage.accessToken == undefined) {
+            window.location.href = 'login.html';
+            $scope.securityCheck = false;
+
+        }
+    }, 500)
+
     //theme functions
     $http.get("data/theme.json")
         .then(function (response) {
@@ -46,6 +65,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#error").modal();
         })
     // log in demo log in. it should be removed later
+    
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
         window.location.href = 'login.html';
@@ -245,7 +265,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.systemToShow = function () {
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
         var load = $http({
-            url: "http://localhost/ArisSystem/api/system/subsystem",
+            url: myhost + "/system/subsystem",
             method: "GET",
             dataType: 'json',
             // type: "HEAD",
@@ -378,7 +398,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.gettingSystemJson = function () {
         setTimeout(function () {
             $http({
-                url: "http://localhost/ArisSystem/api/system/main",
+                url: myhost + "/system/main",
                 method: "GET",
                 headers: authHeaders
             }).then(function (response) {
@@ -831,7 +851,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             "Orders": [{ "Col": "Id", "Asc": true }]
         }
         $http({
-            url: "http://localhost/ArisSystem/api/user",
+            url: myhost + "/user",
             method: "POST",
             ContentType: 'application/x-www-form-urlencoded',
             data: sendUser,
@@ -985,7 +1005,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             Personnel: $scope.editingUserData.personnel
         }
         $http({
-            url: "http://localhost/ArisSystem/api/user/Update/UserPersonnel",
+            url: myhost + "/user/Update/UserPersonnel",
             method: "POST",
             ContentType: 'application/x-www-form-urlencoded',
             data: Model,
@@ -1035,11 +1055,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
-                    $scope.finalPagination(1, 1, 'http://localhost/ArisSystem/api/user')
+                    $scope.finalPagination(1, 1, myhost + '/user')
                     return;
                 }
                 else {
-                    $scope.finalPagination(currentpage + 1, 1, 'http://localhost/ArisSystem/api/user')
+                    $scope.finalPagination(currentpage + 1, 1, myhost + '/user')
                     return;
                 }
             }
@@ -1056,7 +1076,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $("#error").modal();
                 }
                 else {
-                    $scope.finalPagination(currentpage - 1, -1, 'http://localhost/ArisSystem/api/user')
+                    $scope.finalPagination(currentpage - 1, -1, myhost + '/user')
                     return;
                 }
             }
@@ -1133,7 +1153,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             Model = JSON.stringify(Model);
             console.log(Model);
             $http({
-                url: "http://localhost/ArisSystem/api/user/Create/UserPersonnel",
+                url: myhost + "/user/Create/UserPersonnel",
                 method: "POST",
                 ContentType: 'application/x-www-form-urlencoded',
                 data: Model,
@@ -1325,7 +1345,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 if ($scope.subSystemSituation[i].itemLoaded == 0) {
 
                     $http({
-                        url: "http://localhost/ArisSystem/api/system/subsystem",
+                        url: myhost + "/system/subsystem",
                         method: "GET",
                         params: {
                             parentId: x
@@ -1359,7 +1379,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.subSystem = function (x, y, leaf) {
         if (leaf == true) {
             $http({
-                url: "http://localhost/ArisSystem/api/system/pages",
+                url: myhost + "/system/pages",
                 method: "GET",
                 params: {
                     systemId: y
@@ -1376,7 +1396,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             $http({
-                url: "http://localhost/ArisSystem/api/system/subsystem",
+                url: myhost + "/system/subsystem",
                 method: "GET",
                 params: {
                     parentId: y
@@ -1413,7 +1433,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             $http({
-                url: "http://localhost/ArisSystem/api/system/subsystem",
+                url: myhost + "/system/subsystem",
                 method: "GET",
                 params: {
                     parentId: x
@@ -1446,7 +1466,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             $http({
-                url: "http://localhost/ArisSystem/api/system/subsystem",
+                url: myhost + "/system/subsystem",
                 method: "GET",
                 params: {
                     parentId: id
@@ -1491,7 +1511,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         // $scope.number = "modules/" + value;
         $http({
-            url: "http://localhost/ArisSystem/api/system/elements",
+            url: myhost + "/system/elements",
             method: "GET",
             ContentType: 'application/x-www-form-urlencoded',
             params: mydata,
@@ -1503,7 +1523,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).catch(function (xhr, error) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.drop, x);
-            }else if(xhr.status === 404){
+            } else if (xhr.status === 404) {
                 $scope.permission = [];
                 $scope.number = "modules/" + value;
             }
@@ -1512,7 +1532,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.isAuth = function (name, permission) {
         for (var i = 0; i < $scope.permission.length; i++) {
             if ($scope.permission[i].elementName == name) {
-                if (($scope.permission[i].permission & permission) == permission ) {
+                if (($scope.permission[i].permission & permission) == permission) {
                     return true;
                 }
                 else {
@@ -2053,3 +2073,8 @@ function move() {
         }
     }
 }
+$(document).ready(function(){
+    $("h3").click(function(){
+        console.log("The paragraph was clicked.");
+    });
+});

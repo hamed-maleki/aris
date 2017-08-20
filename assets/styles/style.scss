@@ -25,7 +25,7 @@ body {
 .loader {
   position: relative;
   margin: 0 auto;
-  width: $width;
+  width: 2 * $width;
   &:before {
     content: '';
     display: block;

@@ -31,142 +31,145 @@
     <script src="assets/scripts/main.js"></script>
     <!--<script src=".dist/main.js"></script>-->
     <style>
-        .tools-logo{
+        .tools-logo {
             margin-top: 15px;
         }
     </style>
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
-    <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2 col-sm-push-10">
-                <div class="row">
-                    <div class="col-sm-12 my-padding aris-note my-margin-top">
-                        <div class="white-background border right-align">
+    <div ng-if="securityCheck">
+        <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 col-sm-push-10">
+                    <div class="row">
+                        <div class="col-sm-12 my-padding aris-note my-margin-top">
+                            <div class="white-background border right-align">
 
 
-                            <ul class="my-padding my-margin-top my-ul">
-                                <li class="pointer">
-                                    <i class="fa fa-envelope"></i>inbox
-                                    <hr>
-                                </li>
-                                <li class="pointer">
-                                    <i class="fa fa-send"></i>send
-                                    <hr>
-                                </li>
-                                <li class="pointer">
-                                    <i class="fa fa-trash"></i>trash
-                                    <hr>
-                                </li>
-                            </ul>
+                                <ul class="my-padding my-margin-top my-ul">
+                                    <li class="pointer">
+                                        <i class="fa fa-envelope"></i>inbox
+                                        <hr>
+                                    </li>
+                                    <li class="pointer">
+                                        <i class="fa fa-send"></i>send
+                                        <hr>
+                                    </li>
+                                    <li class="pointer">
+                                        <i class="fa fa-trash"></i>trash
+                                        <hr>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                        <div class="col-sm-12" ng-include="'modules/tools.html'"></div>
                     </div>
-                    <div class="col-sm-12" ng-include="'modules/tools.html'"></div>
                 </div>
-            </div>
-            <div class="col-sm-10 col-sm-pull-2 container-filter">
-                <div class="white-background border my-margin-top my-padding center responsive-margin">
-                    <div class="right-align my-margin-top">
-                        <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
+                <div class="col-sm-10 col-sm-pull-2 container-filter">
+                    <div class="white-background border my-margin-top my-padding center responsive-margin">
+                        <div class="right-align my-margin-top">
+                            <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
                             <i class="fa fa-trash-o" style="margin-left: 0"></i>
                             حذف
                         </button>
-                        <span class="button-color my-margin-top span" ng-class="userColor" style="color: white;padding: 4px 0px;">
+                            <span class="button-color my-margin-top span" ng-class="userColor" style="color: white;padding: 4px 0px;">
                             <i class="fa fa-check-square"></i>
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
                                 
                         </span>
-                        <button class="my-button btn button-color " ng-class="userColor">
+                            <button class="my-button btn button-color " ng-class="userColor">
                         مورد اول
                         </button>
-                    </div>
-                    <div class="table-container" id="myDemo">
-                        <table class="table table-hover my-table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>فرستنده</th>
-                                    <th>عنوان</th>
-                                    <th>وضعیت</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}" ng-click="showContext(cartable.title,cartable.context,$index,cartable.id)">
-                                    <td>
-                                        <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input"/>
-                                        <i ng-if="cartable.read == 1" class="fa fa-check"></i>
-                                    </td>
-                                    <td ng-style="testfont">{{cartable.author}}</td>
-                                    <td ng-style="testfont">{{cartable.title}}</td>
-                                    <td ng-style="testfont">{{cartable.situation}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </div>
+                        <div class="table-container" id="myDemo">
+                            <table class="table table-hover my-table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>فرستنده</th>
+                                        <th>عنوان</th>
+                                        <th>وضعیت</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}" ng-click="showContext(cartable.title,cartable.context,$index,cartable.id)">
+                                        <td>
+                                            <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
+                                            <i ng-if="cartable.read == 1" class="fa fa-check"></i>
+                                        </td>
+                                        <td ng-style="testfont">{{cartable.author}}</td>
+                                        <td ng-style="testfont">{{cartable.title}}</td>
+                                        <td ng-style="testfont">{{cartable.situation}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <ul class="pagination">
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
-                </div>
-                <div class="white-background border my-margin-top footer-margin" ng-show="titleShow">
-                    <div class="row">
-                        <div class="col-sm-12 right-align">
-                            <h3 class="my-padding" ng-style="testfont" id="my-title"></h3>
-                            <hr>
-                            <p class="my-padding" ng-style="testfont" id="my-context"></p>
+                        <ul class="pagination">
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                        </ul>
+                    </div>
+                    <div class="white-background border my-margin-top footer-margin" ng-show="titleShow">
+                        <div class="row">
+                            <div class="col-sm-12 right-align">
+                                <h3 class="my-padding" ng-style="testfont" id="my-title"></h3>
+                                <hr>
+                                <p class="my-padding" ng-style="testfont" id="my-context"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-            
         </div>
-    </div>
-    <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'" style="margin-top: 176px;">
-    </footer>
-    <div id="mail" class="hide" ng-class="userColor">
-        <div class="container">
-            <form>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <fa class="fa fa-close" style="color: white" onclick="mail()"></fa>
-                    </div>
-                    <div class="col-sm-12 form-group ">
-                        <input class="form-control right-align" placeholder="نام گیرنده"/>
-                    </div>
-                    <div class="col-sm-12 form-group">
-                        <input class="form-control right-align" placeholder="عنوان نامه"/>
-                    </div>
-                    <div class="col-sm-12 form-group">
-                        <textarea class="my-textarea"></textarea>
-                    </div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-2" style="margin-bottom: 15px;">
-                        <button class="btn btn-info" style="width: 100%;text-align: center">
+        <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'" style="margin-top: 176px;">
+        </footer>
+        <div id="mail" class="hide" ng-class="userColor">
+            <div class="container">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <fa class="fa fa-close" style="color: white" onclick="mail()"></fa>
+                        </div>
+                        <div class="col-sm-12 form-group ">
+                            <input class="form-control right-align" placeholder="نام گیرنده" />
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <input class="form-control right-align" placeholder="عنوان نامه" />
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <textarea class="my-textarea"></textarea>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2" style="margin-bottom: 15px;">
+                            <button class="btn btn-info" style="width: 100%;text-align: center">
                             <i class="fa fa-send" style="margin: 0;font-size: 18px;"></i>
                         </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
 
+            </div>
         </div>
+        <i class="fa fa-plus pointer mail-button" ng-class="userColor" onclick="mail()"></i>
     </div>
-    <i class="fa fa-plus pointer mail-button" ng-class="userColor" onclick="mail()"></i>
-<script>
-    $(function () {
-        Ps.initialize(document.getElementById('myDemo'));
-    });
-    $(function () {
-        prettyPrint();
-    });
-</script>
+    <script>
+        $(function () {
+            Ps.initialize(document.getElementById('myDemo'));
+        });
+        $(function () {
+            prettyPrint();
+        });
+
+    </script>
 </body>
 
 </html>
