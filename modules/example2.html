@@ -123,8 +123,22 @@
 <script src="assets/scripts/treant.js"></script>
 <script src="assets/scripts/raphael.js"></script>
 <script src="assets/scripts/example6.js"></script>
-<div class="chart" id="OrganiseChart6"></div>
+<script src="assets/scripts/basic-example.js"></script>
+  
+<div class="chart" id="OrganiseChart6" ng-init="treeLoad()"></div>
+ <div class="chart" id="basic-example"></div>  
 <script>
-    new Treant(tree_structure);
+    $(document).ready(function () {
+        new Treant(tree_structure, function () {
+            $(".node").click(function () {
+                for (var i = 0; i < this.childNodes.length; i++) {
+                    if (this.childNodes[i].className == "node-id") {
+                        alert(this.childNodes[1].innerHTML)
+                    }
+                }
 
+            })
+        });
+        new Treant(chart_config);
+    })
 </script>

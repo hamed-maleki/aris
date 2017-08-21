@@ -1,3 +1,4 @@
+
 var tree_structure = {
     chart: {
         container: "#OrganiseChart6",
@@ -31,7 +32,17 @@ var tree_structure = {
                 children: [
                     {
                         text: { name: "سومین" },
-                        image: "media/1.jpg"
+                        image: "media/1.jpg",
+                        children: [
+                            {
+                                text: { name: "هفتمین" },
+                                image: "media/1.jpg"
+                            },
+                            {
+                                text: { name: "هشتمین" },
+                                image: "media/1.jpg"
+                            }
+                        ]
                     },
                     {
                         text: { name: "چهارمین" },
@@ -43,29 +54,29 @@ var tree_structure = {
                             text: { name: "پنجمین" }
                         },
                         {
-                            pseudo: true,
+
+                            text: { name: "ششمین" },
+
                             children: [
                                 {
-                                    text: { name: "ششمین" },
-                                   
-                                    children: [
-                                        {
-                                            text: { name: "هفتمین" },
-                                            image: "media/1.jpg"
-                                        },
-                                        {
-                                            text: { name: "هشتمین" },
-                                            image: "media/1.jpg"
-                                        }
-                                    ]
+                                    text: { name: "هفتمین" },
+                                    image: "media/1.jpg"
+                                },
+                                {
+                                    text: { name: "هشتمین" },
+                                    image: "media/1.jpg"
                                 }
                             ]
+
                         }
                         ]
                     }
                 ]
             }, {
-                text: { name: "نهمین" }
+                text: {
+                    name: "نهمین",
+                    id: 5
+                }
             }, {
                 text: { name: "دهمین" }
             }

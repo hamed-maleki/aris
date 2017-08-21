@@ -1505,13 +1505,17 @@ tfoot tr td {
     padding: 0 28px;
     margin-right: 149px;
 }
-#OrganiseChart6 .node-name {
+.node-name,.node-title,.node-contact {
     color: #bbbbbb !important;
+    font-weight: normal;
     font-family: "iran-sans";
 }
 .node img{
     width: 45px;
     height: auto;
+}
+.node-name {
+    cursor: pointer;
 }
 .first-color {
     background-color: #037BC0 !important;

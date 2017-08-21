@@ -39,7 +39,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
         }
     }, 500)
-
     //theme functions
     $http.get("data/theme.json")
         .then(function (response) {
@@ -65,7 +64,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#error").modal();
         })
     // log in demo log in. it should be removed later
-    
+
     $scope.logout = function () {
         window.localStorage.removeItem('accessToken');
         window.location.href = 'login.html';
@@ -2073,8 +2072,3 @@ function move() {
         }
     }
 }
-$(document).ready(function(){
-    $("h3").click(function(){
-        console.log("The paragraph was clicked.");
-    });
-});
