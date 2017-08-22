@@ -42,7 +42,7 @@ function register() {
     var email = $("#email").val();
     var user_name = $("#user-name").val();
     var password = $("#password").val();
-    $("#loadRegister").css("display","block");
+    $("#loadRegister").css("display", "block");
     $.ajax({
         url: "http://localhost/ArisSystem/register",
         data: {
@@ -62,9 +62,9 @@ function register() {
         ContentType: 'application/x-www-form-urlencoded',
     }).then(function (response) {
         console.log(response);
-        $("#loadRegister").css("display","none");
+        $("#loadRegister").css("display", "none");
     }), function (xhr, status, error) {
-        $("#loadRegister").css("display","none");
+        $("#loadRegister").css("display", "none");
     }
 }
 function login() {
@@ -141,5 +141,46 @@ function login() {
     };
 }
 $(document).ready(function () {
+    mydate();
     $(".loading-login").delay(2000).fadeOut(1000);
+    function mydate() {
+        week = new Array("يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه", "شنبه");
+        months = new Array("فروردين", "ارديبهشت", "خرداد", "تير", "مرداد", "شهريور", "مهر", "آبان", "آذر", "دي", "بهمن", "اسفند");
+        a = new Date();
+        d = a.getDay();
+        day = a.getDate();
+        month = a.getMonth() + 1;
+        year = a.getYear();
+        year = (year == 0) ? 2000 : year;
+        (year < 1000) ? (year += 1900) : true;
+        year -= ((month < 3) || ((month == 3) && (day < 21))) ? 622 : 621;
+        switch (month) {
+            case 1: (day < 21) ? (month = 10, day += 10) : (month = 11, day -= 20); break;
+            case 2: (day < 20) ? (month = 11, day += 11) : (month = 12, day -= 19); break;
+            case 3: (day < 21) ? (month = 12, day += 9) : (month = 1, day -= 20); break;
+            case 4: (day < 21) ? (month = 1, day += 11) : (month = 2, day -= 20); break;
+            case 5:
+            case 6: (day < 22) ? (month -= 3, day += 10) : (month -= 2, day -= 21); break;
+            case 7:
+            case 8:
+            case 9: (day < 23) ? (month -= 3, day += 9) : (month -= 2, day -= 22); break;
+            case 10: (day < 23) ? (month = 7, day += 8) : (month = 8, day -= 22); break;
+            case 11:
+            case 12: (day < 22) ? (month -= 3, day += 9) : (month -= 2, day -= 21); break;
+            default: break;
+        }
+        var myday = day;
+        var myMonth = months[month - 1];
+        $("#year").html(year);
+        $("#month").html(myMonth);
+        $("#day").html(day)
+    }
+    $("#myLabel").click(function () {
+        document.getElementById('upload-photo').click()
+    })
+    $('#upload-photo').change(function (event) {
+        
+        $("#selected").html($("#upload-photo").val());
+        console.log($("#upload-photo").val());
+    });
 })

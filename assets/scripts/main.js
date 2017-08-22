@@ -1,13 +1,13 @@
 
-// if (localStorage.accessToken == undefined) {
-//     window.location.href = 'login.html'
-// }
-// setInterval(function () {
-//     if (localStorage.accessToken == undefined) {
-//         console.log("this is interval")
-//         window.location.href = 'login.html';
-//     }
-// }, 500)
+if (localStorage.accessToken == undefined) {
+    window.location.href = 'login.html'
+}
+setInterval(function () {
+    if (localStorage.accessToken == undefined) {
+        console.log("this is interval")
+        window.location.href = 'login.html';
+    }
+}, 500)
 var app = angular.module('myApp', ['angular.filter']);
 app.directive("sidebar", function () {
     return {
@@ -24,6 +24,12 @@ app.directive("sidebar", function () {
 });
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     var myhost = "http://localhost/ArisSystem/api";
+    var pathname = window.location.href;
+    var lastItem = pathname.split("/").pop(-1);
+    pathname = pathname.split("/"+lastItem)[0]
+    console.log(pathname);
+    var newLast = pathname.split("/").pop(-1);
+    console.log(newLast);
     $scope.securityCheck = false;
     if (localStorage.accessToken == undefined) {
         window.location.href = 'login.html'

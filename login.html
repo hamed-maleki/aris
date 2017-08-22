@@ -28,7 +28,7 @@
     <script src="assets/scripts/login.js"></script>
     <style>
         body {
-            min-height: 100vh;
+            height: 100vh;
         }
 
         input {
@@ -51,6 +51,72 @@
         .my-border label {
             font-size: 14px;
         }
+
+         ::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            color: white;
+        }
+
+         ::-moz-placeholder {
+            /* Firefox 19+ */
+            color: white;
+        }
+
+         :-ms-input-placeholder {
+            /* IE 10+ */
+            color: white;
+        }
+
+         :-moz-placeholder {
+            /* Firefox 18- */
+            color: white;
+        }
+
+        .blur {
+            filter: blur(20px);
+            -webkit-filter: blur(20px);
+            -moz-filter: blur(20px);
+            -o-filter: blur(20px);
+            -ms-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+        }
+
+        .blur img {
+            width: 110%;
+            height: 110%;
+            margin: -15px 0 0 -15px;
+        }
+
+        .bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            color: white;
+            width: 100%;
+        }
+
+        .bottom i {
+            font-size: 50px;
+        }
+
+        input {
+            border-radius: 0 !important;
+        }
+
+        #upload-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 225px;
+            opacity: 0;
+            padding: 14px 0;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -59,11 +125,14 @@
     <div class="loading-login">
         <img src="media/logofox.png" id="fox">
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <canvas id="canvas"></canvas>
+    </div> -->
+    <div class="blur">
+        <img src="media/orange.png">
     </div>
-    <div class="color log-form" style="background-color: rgba(0,0,0,0) !important">
-        <div class="container-fluid">
+    <div class="color log-form" style="height: 100vh;z-index: 2">
+        <div class="container-fluid" style="height: 100vh">
             <div class="col-sm-12 load-circle" style="text-align: center;display: none">
                 <div class="showbox">
                     <div class="loader">
@@ -74,14 +143,16 @@
                 </div>
                 <!--<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>-->
             </div>
-            <div class="row">
+
+            <div class="row" style="height: 100vh;display: flex;align-items: center">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
                     <div class="container log">
                         <div class="row">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-4 center">
-                                <img src="media/logofox.png" style="width: 80%;height: auto;margin: 0 auto">
+                                <!-- <img src="media/logofox.png" style="width: 80%;height: auto;margin: 0 auto"> -->
+                                <i class="fa fa-user-circle" style="text-shadow: 1px 9px 20px gray"></i>
                             </div>
                             <div class="col-sm-4"></div>
                             <div class="clearfix"></div>
@@ -89,39 +160,59 @@
                         <div class="row my-margin-top">
 
                             <div class="form-group">
-                                <div class="col-sm-8">
-                                    <input class="form-control right-align login-input" required type="text" id="user" placeholder=" نام کاربری" autofocus tabindex="1"
-                                    />
+                                <div class="col-sm-12">
+                                    <input class="form-control right-align login-input" style="box-shadow: 1px 9px 20px gray;" required type="text" id="user"
+                                        placeholder=" نام کاربری" autofocus tabindex="1" />
                                 </div>
-                                <label style="color: white; font-size: 24px" class="col-sm-4 control-label" for="lg">نام کاربری </label>
+
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-8">
-                                    <input class="form-control right-align login-input" required type="password" id="pass" placeholder=" پسورد" tabindex="2"
-                                    />
+                            <div class="col-sm-12">
+                                <div class="input-group" style="box-shadow: 1px 9px 20px gray">
+                                    <input class="form-control right-align login-input" style="border-right: none" required type="password" id="pass" placeholder=" پسورد"
+                                        tabindex="2" />
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default log-btn center" onclick="login()">
+                                            <i style="margin: 0 5px" class="fa fa-arrow-right"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <label style="color: white; font-size: 24px" class="col-sm-4 control-label" for="lg">رمز ورود</label>
                             </div>
                             <div class="clearfix"></div>
                             <div class="hide ieMessage">
                                 <p>نام کاربری و یا رمز وارد شده صحیح نمیباشد</p>
                                 <!-- <a href="#" style="color: white"> دریافت نرم افزار کروم</a>,<a href="#" style="color: white"> دریافت نرم افزار فایرفاکس</a> -->
                             </div>
-                            <div class="row my-margin-top">
-                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
+                            <!-- <div class="row">
+                                <div class="col-sm-12">
                                     <button class="btn btn-info fontchange" style="width: 100%" onclick="login()" tabindex="3">ورود</button>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <button class="btn btn-info fontchange" style="width: 100%" tabindex="4" data-toggle="modal" data-target="#personal-info">اطلاعات فردی </button>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="bottom">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- <div class="col-sm-2"></div> -->
+                    <div class="col-sm-4 pointer" style="text-align: left;font-size: 24px;">
+                        <!-- <span style="color: rgba(0, 0, 0, 1);background-color: white;padding: 5px;margin-bottom: 5px">ثبت نام</span> -->
+                         <!-- <i class="fa fa-plus-circle pointer" data-toggle="modal" data-target="#personal-info"></i>  -->
+                    </div>
+                    <div class="col-sm-8 right-align" style="direction: rtl;font-size: 20px">
+                        تاریخ امروز: <span id="day"></span>/<span id="month"></span>/<span id="year" style="margin-left: 15px"></span>|<span data-toggle="modal" data-target="#personal-info" class="pointer" style="margin: 0 15px">ثبت نام</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
     <div id="personal-info" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -140,59 +231,74 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="usr">نام:</label>
+                                    <!-- <label for="usr">نام:</label> -->
                                     <input type="text" class="form-control" autofocus style="height: 34px !important" id="name" placeholder="نام" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                         oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
-                                    <label for="family">نام خانوادگی:</label>
+                                    <!-- <label for="family">نام خانوادگی:</label> -->
                                     <input type="text" class="form-control" style="height: 34px !important" id="family" placeholder=" نام خانوادگی" required
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
-                                    <label for="father">نام پدر:</label>
+                                    <!-- <label for="father">نام پدر:</label> -->
                                     <input type="text" class="form-control" style="height: 34px !important" id="father" placeholder="نام پدر" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                         oninput="setCustomValidity('')">
                                 </div>
-                                <div>
+                                <div class="form-group">
                                     <label class="radio-inline"><input type="radio" name="gender" value="female" />زن</label>
                                     <label class="radio-inline"><input type="radio" name="gender"  value="male" checked />مرد</label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="id-badge">شماره شناسنامه:</label>
+                                    <!-- <label for="id-badge">شماره شناسنامه:</label> -->
                                     <input type="text" class="form-control" style="height: 34px !important" id="id-badge" placeholder="شماره شناسنامه" required
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
-                                    <label for="social-no">کد ملی:</label>
-                                    <input type="text" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="social-no" placeholder="XXX-XXXXXX-X"
+                                    <!-- <label for="social-no">کد ملی:</label> -->
+                                    <input type="text" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="social-no" placeholder="XXX-XXXXXX-Xکد ملی "
                                         required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="form-group">
-                                    <label for="phone">شماره موبایل:</label>
+                                    <span id="selected">
+                                        انتخاب عکس
+                                    </span>
+                                    <label id="myLabel">
+                                        <i class="fa fa-user" style="font-size: 30px;margin-right: 10px;margin-bottom: -5px;background-color: lightgray;padding: 5px"></i>
+                                        
+                                    </label>
+
+                                    <input type="file" style="height: 0px" class="form-control" id="upload-photo">
+                                </div>
+                                <div class="form-group">
+                                    <!-- <label for="phone">شماره موبایل:</label> -->
                                     <input type="tel" class="form-control" style="height: 34px !important" id="phone" placeholder="شماره موبایل" required oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                         oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">email:</label>
+                                    <!-- <label for="email">email:</label> -->
                                     <input type="email" class="form-control" style="height: 34px !important;direction: ltr;text-align: right" id="email" placeholder="example@xxx.com"
                                         required oninvalid="this.setCustomValidity('ایمیل نا معتبر است')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
-                                    <label for="user-name">نام کاربری:</label>
+                                    <!-- <label for="user-name">نام کاربری:</label> -->
                                     <input type="text" class="form-control" style="height: 34px !important" id="user-name" placeholder="نام کاربری" required
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">رمز عبور:</label>
+                                    <!-- <label for="password">رمز عبور:</label> -->
                                     <input type="password" class="form-control" style="height: 34px !important" id="password" placeholder="رمز عبور" required
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
-                                <div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-danger" type="submit" style="float: left">ثبت در سامانه</button>
+                                </div>
+                                <div class="col-sm-9">
                                     <label class="radio-inline"><input type="radio" name="active" value="1" />ارسال لینک فعال سازی به ایمیل</label>
                                     <label class="radio-inline"><input type="radio" name="active"  value="2" checked />فعال سازی توسط ادمین</label>
                                 </div>
-                                <button class="btn btn-danger" type="submit" style="float: left">ثبت در سامانه</button>
+
                             </div>
                         </div>
                     </form>
@@ -205,9 +311,6 @@
             $("#social-no").mask("999-999999-9");
         });
     </script>
-    <script src="assets/scripts/doodlescript.js"></script>
-
-
 </body>
 
 </html>
