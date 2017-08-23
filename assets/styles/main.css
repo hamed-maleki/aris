@@ -311,11 +311,11 @@ nav a:hover {
 }
 
 .fc-unthemed .fc-today {
-    background-color: #00bfff !important;
+    background-color: #F6921E !important;
 }
 
 .fc .fc-toolbar > *{
-    color: #037BC0;
+    color: white;
 }
 .fc button{
     font-size: 0.6em;
@@ -417,8 +417,8 @@ nav a:hover {
 .fc-button {
     background-color: rgba(255,255,255,0);
     box-shadow: none !important;
-    color: #037BC0 !important;
-    border: 1px solid rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
 }
 
 .fc-state-default {
@@ -457,7 +457,7 @@ nav a:hover {
 }
 
 .fc-content-skeleton a{
-    color: black;
+    color: white;
 }
 
 .fc-list-heading-alt {
@@ -501,12 +501,14 @@ nav a:hover {
 }
 
 .fc th, .fc td, .fc hr, .fc thead, .fc tbody, .fc-row{
-    background: rgba(255,255,255,1) !important;
-    border-color: rgba(0, 0, 0, 0.5) !important;
+    background: rgba(255,255,255,0) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    color: white !important;
 }
 
 .fc-view-container *, .fc-view-container *::after, .fc-view-container *::before{
-    color: black;
+    color: white;
+    font-size: 14px;
 }
 /*end od calendar*/
 /*grid system*/
@@ -528,17 +530,17 @@ nav a:hover {
 }
 
 .side-tool {
-    /* position: fixed;
-    height: 86.5vh; */
-    width: 192px;
-    background-color: rgba(255,255,255,0.8);
+    position: fixed;
+     height: 120vh; 
+    /* width: 192px;  */
+    background-color: rgba(0,0,0,0.5);
     margin-top: -25px;
     margin-left: -12px;
-    height: 563px;
-    /* width: 0px;
-    top: 63px; */
-    /* right: 0;
-    z-index: 100; */
+    /* height: 563px; */
+    width: 0px;
+    top: 0px; 
+    right: 0;
+    z-index: 100; 
 }
 
 .side-tool .border h6,.side-tool .border i {
@@ -549,6 +551,10 @@ nav a:hover {
 }
 .side-tool .border i:hover,.side-tool .border p{
     color: #C1B49A;
+}
+.side-tool input,.side-tool textarea {
+    background-color: rgba(0,0,0,0);
+    color: white;
 }
 .side-filter {
     position: fixed;
@@ -572,11 +578,14 @@ nav a:hover {
     outline: none;
 }
 .my-col-sm-6 .sub-system {
-    min-height: 80px;
+    min-height: 95px;
     position: relative;
     animation: aris;
     animation-duration: 2s;
     border-radius: 2px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
 }
 
 .my-col-sm-6 {
@@ -585,7 +594,7 @@ nav a:hover {
 
 .my-col-sm-6 i {
     font-size: 41px;
-    margin: 19px auto 0px;
+    margin: 27px auto;
 }
 
 .my-col-sm-6 a {
@@ -721,7 +730,7 @@ nav a:hover {
 }
 
 .sub-system {
-    min-height: 214px;
+    min-height: 200px;
     text-align: center;
     margin-top: 17px;
 }
@@ -742,7 +751,7 @@ nav a:hover {
 }
 
 .square {
-    min-height: 190px;
+    height: auto;
     animation: aris;
     border-radius: 2px;
 }
@@ -1372,7 +1381,7 @@ tfoot tr td {
   }
 
   100% {
-      min-height: 170px;
+      min-height: 200px;
   }
 }
 
@@ -1383,7 +1392,7 @@ tfoot tr td {
   }
 
   100% {
-      min-height: 170px;
+      min-height: 200px;
   }
 }
 
@@ -1497,7 +1506,7 @@ tfoot tr td {
 .border-left {
     border-left: 1px dotted white;
     padding: 0 28px;
-    margin-right: 149px;
+    /* margin-right: 149px; */
 }
 .node-name,.node-title,.node-contact {
     color: #bbbbbb !important;
@@ -1576,18 +1585,18 @@ tfoot tr td {
 }
 
 .top-link {
-    color: #037BC0;
+    color: white;
     margin-right: 2px;
     display: inline-block;
     font-size: 10px;
     margin-top: 10px !important;
     direction: rtl;
     padding: 5px 10px;
-    border-left: 1px solid #037BC0;
+    border-left: 1px dashed white;
 }
 
 .top-link:hover {
-    color: #037BC0;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -1853,6 +1862,13 @@ tfoot tr td {
 
 /*end of tree view*/
 /*log in page*/
+.center-align {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
 .log-form .fa-user-circle {
     font-size: 120px;
     margin-left: 0;
@@ -1865,7 +1881,7 @@ tfoot tr td {
 .log-btn {
     background-color: #F6921E;
     color: white;
-    border-left: none !important;
+    border-right: none !important;
     border-radius: 0;
 }
 .log {
@@ -1891,7 +1907,7 @@ tfoot tr td {
     width: 100%;
     height: 100em;
     z-index: 1500;
-    background-color: #F9AE40;
+    background-color: #F6921E;
     opacity: 1;
 }
 
@@ -1995,7 +2011,7 @@ tfoot tr td {
 }
 
 #alarm {
-    min-height: 170px;
+    min-height: 200px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-top: -40px;
@@ -2228,13 +2244,13 @@ body {
     }
     
     .my-col-sm-6 .sub-system{
-        min-height: 80px;
+        min-height: 95px;
         height: 80px;
         overflow: hidden;
     }
 
     .my-col-sm-6 i{
-        margin: 20px auto;
+        margin: 27px auto;
     }
     .alarm-con .border{
         min-height: 172px !important;
@@ -2466,7 +2482,7 @@ body {
     }
 
     .square {
-        min-height: 200px;
+        min-height: 195px;
     }
 
     .square h4{
@@ -2530,6 +2546,9 @@ body {
         margin: 0 auto;
         display: inline-block;
         height: 52px;
+    }
+    .center-align {
+        display: block;
     }
 }
 .fa-power-off {

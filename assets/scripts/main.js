@@ -94,7 +94,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/unload.html";
+    $scope.number = "modules/example3.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -1636,14 +1636,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $scope.theme();
     }
     // aside opening
-    // $scope.sideBar = function (x) {
-    //     $scope.sidecontainer(x);
-    //     // $(".side-tool").animate({ width: "318px" }, 'slow');
-    //     // $(".side-filter").animate({ width: "318px" }, 'slow');
-    //     // $(".container-filter a").css("pointer-events", 'none');
-    //     // $("nav a").css("pointer-events", 'none');
-    //     // $("nav i").css("pointer-events", 'none');
-    // }
+    $scope.sideBar = function (x) {
+        console.log("this is happening");
+        $scope.sidecontainer(x);
+        $(".side-tool").animate({ width: "390px" }, 'slow');
+        // $(".side-filter").animate({ width: "318px" }, 'slow');
+        $(".container-filter a").css("pointer-events", 'none');
+        $("nav a").css("pointer-events", 'none');
+        $("nav i").css("pointer-events", 'none');
+    }
     $scope.mainSystem = function () {
         $("#mainSystems").modal();
     }

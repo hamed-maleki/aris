@@ -1,13 +1,13 @@
 <div class="row effect">
     <!--calendar link container-->
-    <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(2)" ng-init="mydate()">
+    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(2)" ng-init="mydate()">
         <div class="border sub-system transform  center pointer tools my-calendar" ng-class="userColor" style="margin-top: 10px;background-color: white !important">
 
             <div ng-class="userColor" style="height: 20px;font-size: 12px">
                 <i class="fa fa-chevron-left" style="float: left;font-size: 10px;margin-top:5px;margin-left: 3px;"></i> {{myMonth}}
                 <i class="fa fa-chevron-right" style="float: right;font-size: 10px;margin-top: 5px;margin-right: 3px;"></i>
             </div>
-            <div class="center">
+            <div class="center" style="margin-top: 8px">
                 <span class=" myday" ng-style="testfont">{{myday}}</span>
             </div>
             <br>
@@ -19,7 +19,7 @@
         </div>
     </div>
     <!--note link container-->
-    <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(1)">
+    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(1)">
         <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
             <i class="fa fa-file-text-o system-icon"></i>
             <div ng-if="note.length != 0" class="badging" ng-class="userSubColor">{{note.length}}</div>
@@ -35,25 +35,25 @@
     </div>
 
     <!--chat link container-->
-    <div class="col-sm-6 my-col-sm-6" ng-click="sidecontainer(3)">
+    <div class="col-sm-6 my-col-sm-6" ng-click="sideBar(3)">
         <div class="border sub-system transform  center pointer tools" ng-class="userColor" style="margin-top: 10px;">
             <i class="fa fa-random system-icon"></i>
         </div>
     </div>
 </div>
 <!--aside part-->
-<!-- <div class="side-tool">
+ <div class="side-tool">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <p class="sub-color" style="padding-right: 15px;margin-top: 5px;">
+            <div class="col-sm-12"  style="text-align: left;margin-top: 5px">
+                <p class="sub-color" style="padding-right: 15px;margin-top: 25px;">
                     <i class="fa fa-close" style="color: white" ng-click="sideBarClose()"></i>
                 </p>
             </div>
             <sidebar></sidebar>
         </div>
     </div>
-</div> -->
+</div> 
 <!--chat area part-->
 <div id="chatbox" ng-class="userColor">
     <div class="container">
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="col-sm-12 hide" id="chat">
-                <div class="border white-background" ng-if="reciver != undefined || reciver != null" style="max-height: 200px;min-height: 200px;overflow-x: hidden"
+                <div class="border white-background" ng-if="reciver != undefined || reciver != null" style="height: 200px;overflow-x: hidden"
                     id="chatscroll">
                     <div class="row" ng-repeat="chat in chat" ng-if="chat.reciver == reciver || chat.sender == reciver" id="chatarea">
                         <div class="clearfix"></div>
