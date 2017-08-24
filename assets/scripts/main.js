@@ -985,7 +985,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.editingUserData.personnel.birthCertificateNo = x.birthCertificateNo;
         }
         if (x.nationalCode != undefined) {
-            $scope.editingUserData.personnel.nationalCode = x.nationalCode;
+            $scope.editingUserData.personnel.nationalCode = x.nationalCode[0] + x.nationalCode[1] + x.nationalCode[2] + x.nationalCode[4] + x.nationalCode[5] + x.nationalCode[6] + x.nationalCode[7] + x.nationalCode[8] + x.nationalCode[9] + x.nationalCode[11];
         }
         if (x.personnelCode != undefined) {
             $scope.editingUserData.personnel.code = x.personnelCode;
@@ -1132,7 +1132,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
             }
         }
-        console.log(code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11]);
         if (codeCheck == true) {
             var person = {
                 Name: x.name,

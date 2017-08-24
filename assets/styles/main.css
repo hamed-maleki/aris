@@ -49,7 +49,7 @@ body, html {
     color: black;
     line-height: 1.8;
     cursor: context-menu;
-    background-color: #F1F2F3 !important;
+    background-color: #ececec !important;
     font-size: 18px;
     min-height: 750px;
     width: 100%;
@@ -140,7 +140,9 @@ tr:first-child > td > .fc-day-grid-event{
     height: 0;
     border: none;
 }
-
+.badge , .badging, .aris-badge {
+    background-color: #CF4133;
+}
 tfoot {
     font-size: 14px;
 }
@@ -607,11 +609,11 @@ nav a:hover {
 }
 
 .ct-series-b .ct-bar,.ct-series-a .ct-bar,.ct-series-c .ct-bar,.ct-series-e .ct-bar,.ct-series-f .ct-bar,.ct-series-g .ct-bar{
-    stroke: #F6921E!important;
+    stroke: white!important;
 }
 
 .ct-series-d .ct-bar{
-    stroke: #F6921E;
+    stroke: white;
 }
 
 .ct-grid{
@@ -729,11 +731,11 @@ nav a:hover {
     margin-right: -235px;
 }
 
-.sub-system {
+ .sub-system {
     min-height: 200px;
     text-align: center;
     margin-top: 17px;
-}
+} 
 
 .sub-system p {
     font-size: 15px;
@@ -940,7 +942,7 @@ nav a:hover {
 .my-calendar::after{
     content: '';
     display: inline-block;
-    border-bottom: 15px solid #F6921E;
+    border-bottom: 15px solid #3B5998;
     border-left: 15px solid transparent;
     border-top:  15px solid transparent;
     position: absolute;
@@ -1525,7 +1527,7 @@ tfoot tr td {
 }
 
 .second-color {
-    background-color: #F6921E !important;
+    background-color: #3b5998 !important;
 }
 
 .third-color {
@@ -1537,7 +1539,7 @@ tfoot tr td {
 }
 
 .second-subcolor {
-    background-color: #C1B49A !important;
+    background-color: #8b9dc3 !important;
 }
 
 .third-subcolor {
@@ -1549,7 +1551,7 @@ tfoot tr td {
 }
 
 .second-systemcolor {
-    background-color: #F9AE40 !important;
+    background-color: #3b5998 !important;
 }
 
 .third-systemcolor {
