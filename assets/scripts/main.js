@@ -26,7 +26,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     var myhost = "http://localhost/ArisSystem/api";
     var pathname = window.location.href;
     var lastItem = pathname.split("/").pop(-1);
-    pathname = pathname.split("/"+lastItem)[0]
+    pathname = pathname.split("/" + lastItem)[0]
     console.log(pathname);
     var newLast = pathname.split("/").pop(-1);
     console.log(newLast);
@@ -94,7 +94,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/example3.html";
+    $scope.number = "modules/unload.html";
     $scope.limitedNote = [];
     $scope.reading = 0;
     $http.get("data/error.json")
@@ -309,13 +309,96 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     "title": $scope.subsystem[i].title,
                     "children": 1
                 }
-                $scope.subSystemSituation.push(subItem)
+                $scope.subSystemConatiner.push($scope.subsystem[i]);
+                $scope.subSystemSituation.push(subItem);
             }
         }).catch(function (xhr, status, error) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.systemToShow, 0);
             }
         })
+    }
+    $scope.header = [];
+    $scope.subSystemConatiner = [];
+    $scope.childrenLoader = function (parent, id, leaf, title) {
+        var headeContainer = {
+            "title": title,
+            "id": id
+        }
+        $scope.header.push(headeContainer);
+        if (leaf == false) {
+            $http({
+                url: myhost + "/system/subsystem",
+                method: "GET",
+                params: {
+                    parentId: id
+                },
+                headers: authHeaders,
+            }).then(function (response) {
+                $scope.subsystem = response.data
+                for (var i = 0; i < $scope.subsystem.length; i++) {
+                    $scope.subSystemConatiner.push($scope.subsystem[i]);
+                }
+                console.log($scope.subSystemConatiner);
+            }).catch(function (xhr, status, error) {
+                console.log(xhr);
+                if (refreshtoken && xhr.status === 401) {
+                    // $scope.refreshlocal($scope.drop, x);
+                }
+            })
+        }
+        else {
+            $http({
+                url: myhost + "/system/pages",
+                method: "GET",
+                params: {
+                    systemId: id
+                },
+                headers: authHeaders,
+            }).then(function (response) {
+                $scope.subsystem = [];
+                $scope.leaf = response.data
+                for (var i = 0; i < $scope.leaf.length; i++) {
+                    $scope.subSystemConatiner.push($scope.leaf[i]);
+                }
+                console.log($scope.subSystemConatiner);
+                // console.log($scope.leaf)
+                // console.log($scope.subsystem);
+                // for (var i = 0; i < $scope.systemslider.length; i++) {
+                //     if (x == $scope.systemslider[i].id) {
+                //         $scope.systemslider[i].children.push(response.data);
+                //     }
+                // }
+            }).catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.drop, x);
+                }
+            })
+        }
+    }
+    $scope.topNav = function (id, index) {
+        
+        if (index + 1 != $scope.header.length) {
+            $scope.subsystem = [];
+            $scope.leaf = [];
+            for (var i = 0; i < $scope.subSystemConatiner.length; i++) {
+                if ($scope.subSystemConatiner[i].parentId == id) {
+                    $scope.subsystem.push($scope.subSystemConatiner[i]);
+                }
+            }
+            console.log("this is subsystem");
+            console.log($scope.subsystem)
+            $scope.header = $scope.header.slice(0, index + 1);
+        }
+
+    }
+    $scope.pageLoader = function (x) {
+        console.log(x);
+        $scope.number = "/modules/" + x;
+        console.log($scope.number);
+    }
+    $scope.gettingMainSystems = function () {
+        $(".system-container").toggleClass("hide");
     }
     // $scope.myprogressBar = function () {
     //     $("#myBar").css("display", "block");
@@ -401,23 +484,28 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     var setItemToFix = []
     $scope.gettingSystemJson = function () {
-        setTimeout(function () {
-            $http({
-                url: myhost + "/system/main",
-                method: "GET",
-                headers: authHeaders
-            }).then(function (response) {
-                SHeight = true;
-                $scope.system = response.data;
-                $scope.blankSystem = $scope.system.length % 3;
-                $scope.facebookLoader = 1;
+        $http({
+            url: myhost + "/system/main",
+            method: "GET",
+            headers: authHeaders
+        }).then(function (response) {
+            var key = localStorage.getItem("parent_id")
+            SHeight = true;
+            $scope.system = response.data;
+            for (var i = 0; i < $scope.system.length; i++) {
+                // console.log("$scope.system[i]");
+                if ($scope.system[i].id == key) {
+                    $scope.firstsystem = $scope.system[i];
+                }
+            }
+            $scope.blankSystem = $scope.system.length % 3;
+            $scope.facebookLoader = 1;
+        })
+            .catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.gettingSystemJson, 0);
+                }
             })
-                .catch(function (xhr, status, error) {
-                    if (refreshtoken && xhr.status === 401) {
-                        $scope.refreshlocal($scope.gettingSystemJson, 0);
-                    }
-                })
-        }, 1000)
     }
     $scope.refreshlocal = function (x, y) {
         $.ajax({
@@ -628,7 +716,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // first page cookie for system page
     $scope.systemToLoad = function (x) {
         localStorage.setItem("parent_id", x);
-        window.location.href = "system-page.min.html";
+        window.location.href = "portotype.html";
     }
     $scope.gettingSystem = function (x, y) {
         localStorage.setItem("parent_id", x);
@@ -885,6 +973,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
+        console.log("$event");
         var evtobj = window.event ? event : $event;
         if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
             if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
@@ -1132,6 +1221,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
             }
         }
+        var photo = new FormData();
+        var data =($("#file"))[0].files[0];
+        angular.forEach(data,function(value,key){
+            photo.append(key,value);
+        })
+        // console.log(photo)
         if (codeCheck == true) {
             var person = {
                 Name: x.name,
@@ -1141,7 +1236,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 NationalCode: code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11],
                 BirthCertificateNo: x.birthCertificateNo,
                 Gender: x.gender,
-                Photo: $("#file").val()
+                Photo: photo
             }
             var user = {
                 Email: x.mail,
@@ -1510,6 +1605,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     };
     // directive for aris tag's template changer
     $scope.table = function (value, mypageId) {
+        console.log("this is happening")
+        $(".leaf").removeClass("myselect");
+        $("#leaf"+mypageId).addClass("myselect");
+        // $scope.number = "modules/" + value;
         var mydata = {
             pageId: mypageId
         }
@@ -1526,7 +1625,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.number = "modules/" + value;
         }).catch(function (xhr, error) {
             if (refreshtoken && xhr.status === 401) {
-                $scope.refreshlocal($scope.drop, x);
+                // $scope.refreshlocal($scope.drop, x);
             } else if (xhr.status === 404) {
                 $scope.permission = [];
                 $scope.number = "modules/" + value;
@@ -1644,9 +1743,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("nav a").css("pointer-events", 'none');
         $("nav i").css("pointer-events", 'none');
     }
-    $scope.mainSystem = function () {
-        $("#mainSystems").modal();
-    }
+    // $scope.mainSystem = function () {
+    //     $("#mainSystems").modal();
+    // }
     $scope.side = "note2.html";
     // fullfiling aside (calnedar and note and top link container)
     $scope.sidecontainer = function (x) {

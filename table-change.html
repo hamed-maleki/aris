@@ -38,10 +38,14 @@
 
         hr {
             border-bottom: 1px solid #F16521;
+            width: 100%;
         }
 
         .tools-logo {
             margin-top: 15px;
+        }
+        .my-col-sm-6 {
+            width: 100%;
         }
     </style>
 </head>
@@ -52,10 +56,16 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-2 col-sm-push-10 my-margin-top" ng-include="'modules/tools.html'">
+                <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
+                    <div class="row effect" style="position: relative">
+                        <div class="col-sm-12" style="padding: 0 25px;">
+                            <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="col-sm-10 col-sm-pull-2 my-margin-top">
-                    <div class="container right-align my-margin-top">
+                <div class="col-sm-11 my-margin-top">
+                    <div class="container-fluid right-align my-margin-top">
                         <h3 ng-style="testfont">نوع نمایش اعداد</h3>
                         <hr>
                         <div class="row">
@@ -78,7 +88,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="container my-margin-top right-align">
+                    <div class="container-fluid my-margin-top right-align" style="margin-top: 55px">
                         <h3 class="my-margin-top" ng-style="testfont">سایز نمایش اعداد جداول</h3>
                         <hr>
                         <div class="row my-margin-top">

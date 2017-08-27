@@ -61,7 +61,6 @@ function register() {
         dataType: 'json',
         ContentType: 'application/x-www-form-urlencoded',
     }).then(function (response) {
-        console.log(response);
         $("#loadRegister").css("display", "none");
     }), function (xhr, status, error) {
         $("#loadRegister").css("display", "none");
@@ -104,6 +103,7 @@ function login() {
     // // }
     var user = $("#user").val();
     var pass = $("#pass").val();
+    $(".log-btn").attr("disabled", 'disabled')
     $.ajax({
         url: "http://localhost/ArisSystem/login",
 
@@ -137,6 +137,7 @@ function login() {
             $(".ieMessage p").html("نام کاربری و یا رمز وارد شده صحیح نمیباشد");
         }
         $(".ieMessage").removeClass("hide");
+        $(".log-btn").prop("disabled", false);
         // $scope.responseData="Error " + err.status;
     };
 }

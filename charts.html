@@ -33,18 +33,28 @@
         .tools-logo {
             margin-top: 15px;
         }
+        .my-col-sm-6 {
+            width: 100%;
+        }
     </style>
 </head>
 
 <body id="body" ng-app="myApp" ng-controller="myCtrl">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2 col-sm-push-10 my-padding my-margin-top" ng-include="'modules/tools.html'"></div>
-            <div class="col-sm-10 col-sm-pull-2 my-padding container-filter my-margin-top" ng-init="chartLoad()">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
+                <div class="row effect" style="position: relative">
+                    <div class="col-sm-12">
+                        <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-sm-11  my-padding container-filter my-margin-top" ng-init="chartLoad()">
                 <div class="row">
-                    <div class="col-sm-7" style="margin-top: -10px">
+                    <div class="col-sm-7" style="margin-top: -10px;margin-bottom: -65px;">
                         <div class="row">
                             <div class="col-sm-12">
                                 <!--multi line chart-->
@@ -65,7 +75,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-sm-12 footer-margin">
-                        <div class="border sub-system chart" ng-class="userSubColor">
+                        <div class="border sub-system chart" ng-class="userColor">
                             <!--line chart-->
                             <p style="text-align: center" ng-style="testfont">نمودار اول</p>
                             <div class="ct-chart  ct-major-seventh" id="chart1"></div>

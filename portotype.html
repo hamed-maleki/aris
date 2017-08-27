@@ -38,28 +38,39 @@
     <script src="assets/scripts/intro.js"></script>
     <script src="assets/scripts/main.js"></script>
     <style>
+        body {
+            overflow: hidden;
+        }
         .my-col-sm-6 {
             width: 100%;
         }
 
         .main-arrow {
             display: inline-block;
-            background-color: #F6921E;
-            padding: 5px 20px;
+            background-color: #808080; 
+            padding: 5px 30px 5px 10px;
             line-height: 0.5cm;
             color: white;
             position: relative;
+            /* text-align: left; */
+            justify-content: center;
+            transition: padding 0.5s;
+            cursor: pointer;
+            
         }
-
+        .main-arrow:hover {
+            padding: 5px 60px 5px 30px
+        }
         .main-arrow::after {
             position: absolute;
             top: 0px;
-            left: -25px;
+            left: -14px;
             content: '';
-            border-right: 25px solid #F6921E;
-            border-bottom: 25px solid transparent;
-            border-top: 25px solid transparent;
+            border-right: 14.5px solid #808080;
+            border-bottom: 14.5px solid transparent;
+            border-top: 14.5px solid transparent;
             height: 100%;
+            z-index: 3;
         }
 
         .main-arrow::before {
@@ -67,10 +78,11 @@
             top: 0;
             right: 0;
             content: '';
-            border-right: 25px solid #F1F2F3;
-            border-bottom: 25px solid transparent;
-            border-top: 25px solid transparent;
+            border-right: 14.5px solid #ECECEC;
+            border-bottom: 14.5px solid transparent;
+            border-top: 14.5px solid transparent;
             height: 100%;
+            z-index: 2;
         }
 
         .system-container {
@@ -81,8 +93,11 @@
             width: 150px;
             z-index: 1;
             animation: unload 0.5s;
+            background-color: #C1B49A;  
         }
-
+        input {
+            direction: rtl;
+        }
         .system-container .my-col-sm-6 i {
             margin: 27px 0 5px;
         }
@@ -94,11 +109,12 @@
         .system-container::before {
             content: '';
             position: absolute;
-            top: 15px;
+            top: 35px;
             left: -10px;
             border-right: 10px solid #C1B49A;
             border-bottom: 10px solid transparent;
             border-top: 10px solid transparent;
+            
         }
 
         .sub-system {
@@ -106,39 +122,44 @@
             margin-bottom: 5px;
         }
         .system-li {
-            font-size: 24px;
+            font-size: 20px;
+            padding: 10px 25px;
+            margin: 0;
+        }
+        .system-li:hover {
+            background-color: #808080;
         }
         .system-li ul li {
             font-size: 20px;
         }
-    </style>
+        .chart{
+            margin: 5px auto;
+        }
+        .myselect {
+            background-color: #808080;
+        }
+</style>
+<!-- <script>
+        window.addEventListener("keydown", function (e) {
+            // space and arrow keys
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1 && !$("#tablePlusUser").hasClass('in')) {
+                e.preventDefault();
+            }
+        }, false);
+    </script> -->
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="gettingSystemJson()">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-init="systemToShow()">
         <div class="row">
-            <div class="col-sm-12 my-margin-top right-align">
-                <div class="main-arrow center">
-                    <i class="fa fa-search"></i>
-                    <p>سیستم معلول</p>
+            <div class="col-sm-12 my-margin-top right-align" style="direction: rtl" >
+                <div class="main-arrow center" style="margin-left:-4px;">
+                    <p ng-click="topNav(firstsystem.id,-1)">{{firstsystem.title}}</p>
                 </div>
-                <div class="main-arrow center">
-                    <i class="fa fa-search"></i>
-                    <p>سیستم معلول</p>
-                </div>
-                <div class="main-arrow center">
-                    <i class="fa fa-search"></i>
-                    <p>سیستم معلول</p>
-                </div>
-                <div class="main-arrow center">
-                    <i class="fa fa-search"></i>
-                    <p>سیستم معلول</p>
-                </div>
-                <div class="main-arrow center">
-                    <i class="fa fa-search"></i>
-                    <p>سیستم معلول</p>
+                <div ng-repeat="header in header" class="main-arrow center" ng-click="topNav(header.id,$index)" style="margin-right: 5px">
+                    <p>{{header.title}}</p>
                 </div>
             </div>
             <div class="col-sm-1" style="height: 80vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
@@ -147,41 +168,20 @@
                     <div class="col-sm-12">
                         <div class="row effect" style="position: relative">
                             <div class="sub-system my-padding-5 aris-animation">
-                                <div class="col-sm-6 my-col-sm-6" onclick="systemTest()" style="margin-bottom: -20px">
+                                <div class="col-sm-6 my-col-sm-6" ng-click="gettingMainSystems()" style="margin-bottom: -20px">
                                     <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
                                         <i class="fa fa-folder-open-o system-icon"></i>
                                     </div>
                                 </div>
                             </div>
-                            <div ng-class="userSubColor" class="system-container hide">
+                            <div class="system-container hide">
                                 <div id="system-scroll" class="right-align container" style="height: 330px; overflow-y: scroll;position: relative;color: white">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6 my-col-sm-6" onclick="systemTest()" style="margin-bottom: -5px">
+                                        <div class="col-sm-12" ng-repeat="system in system">
+                                            <div class="col-sm-6 my-col-sm-6" ng-click="systemToLoad(system.id)" style="margin-bottom: -5px">
                                                 <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
-                                                    <i class="fa fa-folder-open-o system-icon"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6 my-col-sm-6" onclick="systemTest()" style="margin-bottom: -5px">
-                                                <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
-                                                    <i class="fa fa-folder-open-o system-icon"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6 my-col-sm-6" onclick="systemTest()" style="margin-bottom: -5px">
-                                                <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
-                                                    <i class="fa fa-folder-open-o system-icon"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6 my-col-sm-6" onclick="systemTest()" style="margin-bottom: -5px">
-                                                <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
-                                                    <i class="fa fa-folder-open-o system-icon"></i>
-                                                    <h3>سیستم اول</h3>
+                                                    <i class="fa system-icon" ng-class="system.icon"></i>
+                                                    <p style="font-size: 14px">{{system.title}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,51 +193,33 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 right-align my-margin-top" style="background-color: white;height: 76.2vh">
-                <div class="container-fluid">
-                    <div ng-include="number" class="keyControl"></div>
+            <div class="col-sm-9 right-align my-margin-top" ng-keydown="detector($event)" id="loadedPage" style="background-color: white;height: 77vh;overflow-y: scroll">
+                <div class="container-fluid" id="myFocus"  >
+                    <div ng-include="number" class="keyControl" ></div>
                 </div>
             </div>
-            <div class="col-sm-2 right-align my-margin-top">
-                <div id="myDemo" style="height: 80vh;overflow-y: scroll;position: relative;overflow-x: hidden !important;width: 100%">
+            <div class="col-sm-2 right-align my-margin-top" >
+                <div id="myDemo" ng-class="userColor" style="height: 77vh;overflow-x: hidden !important;overflow-y: scroll;position: relative;width: 100%">
                     <ul>
-                        <li class="system-li" ng-class="userColor" data-toggle="collapse" href="#collapse1">مورد اول
-                            <ul id="collapse1" class="panel-collapse collapse">
-                                <li>
-                                    مورد اول.1
-                                </li>
-                                <li data-toggle="collapse" href="#second-li">
-                                    مورد اول.2
-                                    <ul id="second-li" class="panel-collapse collapse">
-                                        <li>مور اول2 .1</li>
-                                    </ul>
-                                </li>
-                            </ul>
+                        <li class="system-li pointer" ng-repeat="list in subsystem" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
                         </li>
-                        <li class="system-li" ng-class="userColor">
-                            مورد دوم
-                        </li>
-                        <li class="system-li" ng-class="userColor">
-                            مورد سوم
-                        </li>
-                        <li class="system-li" ng-class="userColor">
-                            مورد چهارم
+                        <li class="system-li pointer leaf" ng-repeat="list in leaf" id="leaf{{list.id}}" ng-click="table(list.path,list.id)">{{list.title}}
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>
     <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
     </footer>
     <script>
-        function systemTest() {
-            $(".system-container").toggleClass("hide");
-        }
+        // function systemTest() {
+        //     $(".system-container").toggleClass("hide");
+        // }
         $(function () {
             Ps.initialize(document.getElementById('myDemo'));
             Ps.initialize(document.getElementById('system-scroll'));
+            Ps.initialize(document.getElementById('loadedPage'));
         });
     </script>
 </body>

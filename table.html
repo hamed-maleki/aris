@@ -34,6 +34,26 @@
         .tools-logo {
             margin-top: 15px;
         }
+
+        .my-col-sm-6 {
+            width: 100%;
+        }
+
+        .system-li {
+            font-size: 20px;
+            padding: 10px 25px;
+            margin: 0;
+        }
+
+        .system-li:hover {
+            background-color: #808080;
+        }
+        .system-li{
+            font-size: 20px;
+        }
+        .system-li i{
+            padding-right: 15px;
+        }
     </style>
 </head>
 
@@ -43,33 +63,30 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-2 col-sm-push-10">
-                    <div class="row">
-                        <div class="col-sm-12 my-padding aris-note my-margin-top">
-                            <div class="white-background border right-align">
-
-
-                                <ul class="my-padding my-margin-top my-ul">
-                                    <li class="pointer">
-                                        <i class="fa fa-envelope"></i>inbox
-                                        <hr>
-                                    </li>
-                                    <li class="pointer">
-                                        <i class="fa fa-send"></i>send
-                                        <hr>
-                                    </li>
-                                    <li class="pointer">
-                                        <i class="fa fa-trash"></i>trash
-                                        <hr>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
+                    <div class="row effect" style="position: relative" >
+                        <div class="col-sm-12" style="padding: 0 25px;">    
+                            <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
                         </div>
-                        <div class="col-sm-12" ng-include="'modules/tools.html'"></div>
+
                     </div>
                 </div>
-                <div class="col-sm-10 col-sm-pull-2 container-filter">
-                    <div class="white-background border my-margin-top my-padding center responsive-margin">
+                <div class="col-sm-2 col-sm-push-9 my-margin-top right-align">
+                    <div ng-class="userColor" style="height: 84vh;overflow-x: hidden !important;width: 100%">
+                        <ul style="padding-left: 0">
+                            <li class="system-li pointer">
+                                <i class="fa fa-file-o"></i>
+                                جعبه دریافت
+                            </li>
+                            <li class="system-li pointer">
+                                <i class="fa fa-paper-plane-o"></i>
+                                جعبه ارسال
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-9 col-sm-pull-2 container-filter" style="padding: 0 0 0 10px;">
+                    <div class="white-background border my-margin-top my-padding center responsive-margin" style="height: 84vh">
                         <div class="right-align my-margin-top">
                             <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
                             <i class="fa fa-trash-o" style="margin-left: 0"></i>
@@ -168,7 +185,6 @@
         $(function () {
             prettyPrint();
         });
-
     </script>
 </body>
 
