@@ -4,7 +4,7 @@ if (localStorage.accessToken == undefined) {
 }
 setInterval(function () {
     if (localStorage.accessToken == undefined) {
-        console.log("this is interval")
+        // console.log("this is interval")
         window.location.href = 'login.html';
     }
 }, 500)
@@ -23,13 +23,9 @@ app.directive("sidebar", function () {
     }
 });
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
+    // "use strict"
     var myhost = "http://localhost/ArisSystem/api";
-    var pathname = window.location.href;
-    var lastItem = pathname.split("/").pop(-1);
-    pathname = pathname.split("/" + lastItem)[0]
-    console.log(pathname);
-    var newLast = pathname.split("/").pop(-1);
-    console.log(newLast);
+    $scope.subSystemcontainer = [];
     $scope.securityCheck = false;
     if (localStorage.accessToken == undefined) {
         window.location.href = 'login.html'
@@ -309,7 +305,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     "title": $scope.subsystem[i].title,
                     "children": 1
                 }
-                $scope.subSystemConatiner.push($scope.subsystem[i]);
+                $scope.subsystem[i].isLoaded = true;
+                $scope.subSystemcontainer.push($scope.subsystem[i]);
                 $scope.subSystemSituation.push(subItem);
             }
         }).catch(function (xhr, status, error) {
@@ -319,83 +316,87 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         })
     }
     $scope.header = [];
-    $scope.subSystemConatiner = [];
+
     $scope.childrenLoader = function (parent, id, leaf, title) {
         var headeContainer = {
             "title": title,
             "id": id
         }
         $scope.header.push(headeContainer);
-        if (leaf == false) {
-            $http({
-                url: myhost + "/system/subsystem",
-                method: "GET",
-                params: {
-                    parentId: id
-                },
-                headers: authHeaders,
-            }).then(function (response) {
-                $scope.subsystem = response.data
-                for (var i = 0; i < $scope.subsystem.length; i++) {
-                    $scope.subSystemConatiner.push($scope.subsystem[i]);
-                }
-                console.log($scope.subSystemConatiner);
-            }).catch(function (xhr, status, error) {
-                console.log(xhr);
-                if (refreshtoken && xhr.status === 401) {
-                    // $scope.refreshlocal($scope.drop, x);
-                }
-            })
+        $scope.subsystem = [];
+        for (var i = 0; i < $scope.subSystemcontainer.length; i++) {
+            if ($scope.subSystemcontainer[i].parentId == id) {
+                $scope.subsystem.push($scope.subSystemcontainer[i]);
+            }
         }
-        else {
-            $http({
-                url: myhost + "/system/pages",
-                method: "GET",
-                params: {
-                    systemId: id
-                },
-                headers: authHeaders,
-            }).then(function (response) {
-                $scope.subsystem = [];
-                $scope.leaf = response.data
-                for (var i = 0; i < $scope.leaf.length; i++) {
-                    $scope.subSystemConatiner.push($scope.leaf[i]);
-                }
-                console.log($scope.subSystemConatiner);
-                // console.log($scope.leaf)
-                // console.log($scope.subsystem);
-                // for (var i = 0; i < $scope.systemslider.length; i++) {
-                //     if (x == $scope.systemslider[i].id) {
-                //         $scope.systemslider[i].children.push(response.data);
-                //     }
-                // }
-            }).catch(function (xhr, status, error) {
-                if (refreshtoken && xhr.status === 401) {
-                    $scope.refreshlocal($scope.drop, x);
-                }
-            })
+        if ($scope.subsystem.length == 0) {
+            if (leaf == false) {
+                $http({
+                    url: myhost + "/system/subsystem",
+                    method: "GET",
+                    params: {
+                        parentId: id
+                    },
+                    headers: authHeaders,
+                }).then(function (response) {
+                    $scope.subsystem = response.data
+                    for (var i = 0; i < $scope.subsystem.length; i++) {
+                        $scope.subSystemcontainer.push($scope.subsystem[i]);
+                    }
+                }).catch(function (xhr, status, error) {
+                    console.log(xhr);
+                    if (refreshtoken && xhr.status === 401) {
+                        // $scope.refreshlocal($scope.drop, x);
+                    }
+                })
+            }
+            else {
+                $http({
+                    url: myhost + "/system/pages",
+                    method: "GET",
+                    params: {
+                        systemId: id
+                    },
+                    headers: authHeaders,
+                }).then(function (response) {
+                    $scope.subsystem = [];
+                    $scope.leaf = response.data
+                    for (var i = 0; i < $scope.leaf.length; i++) {
+                        $scope.subSystemcontainer.push($scope.leaf[i]);
+                    }
+                    // console.log($scope.leaf)
+                    // console.log($scope.subsystem);
+                    // for (var i = 0; i < $scope.systemslider.length; i++) {
+                    //     if (x == $scope.systemslider[i].id) {
+                    //         $scope.systemslider[i].children.push(response.data);
+                    //     }
+                    // }
+                }).catch(function (xhr, status, error) {
+                    if (refreshtoken && xhr.status === 401) {
+                        $scope.refreshlocal($scope.drop, x);
+                    }
+                })
+            }
         }
     }
     $scope.topNav = function (id, index) {
-        
+
         if (index + 1 != $scope.header.length) {
             $scope.subsystem = [];
             $scope.leaf = [];
-            for (var i = 0; i < $scope.subSystemConatiner.length; i++) {
-                if ($scope.subSystemConatiner[i].parentId == id) {
-                    $scope.subsystem.push($scope.subSystemConatiner[i]);
+            for (var i = 0; i < $scope.subSystemcontainer.length; i++) {
+                if ($scope.subSystemcontainer[i].parentId == id) {
+                    $scope.subsystem.push($scope.subSystemcontainer[i]);
                 }
             }
-            console.log("this is subsystem");
-            console.log($scope.subsystem)
             $scope.header = $scope.header.slice(0, index + 1);
         }
 
-    }
+    };
     $scope.pageLoader = function (x) {
-        console.log(x);
+        // console.log(x);
         $scope.number = "/modules/" + x;
-        console.log($scope.number);
+        // console.log($scope.number);
     }
     $scope.gettingMainSystems = function () {
         $(".system-container").toggleClass("hide");
@@ -489,6 +490,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             method: "GET",
             headers: authHeaders
         }).then(function (response) {
+            console.log("this is first statment");
             var key = localStorage.getItem("parent_id")
             SHeight = true;
             $scope.system = response.data;
@@ -502,6 +504,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.facebookLoader = 1;
         })
             .catch(function (xhr, status, error) {
+                console.log(xhr);
                 if (refreshtoken && xhr.status === 401) {
                     $scope.refreshlocal($scope.gettingSystemJson, 0);
                 }
@@ -973,7 +976,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        console.log("$event");
+        // console.log("$event");
         var evtobj = window.event ? event : $event;
         if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
             if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
@@ -1020,45 +1023,50 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#myFocus").focus();
         }
     }
+    $scope.currentPage = 1;
     $scope.finalPagination = function (x, y, z) {
-        $scope.firstStep = 0;
-        $(".pagination li").removeClass("active");
-        $("#userpagination" + x).addClass("active");
-        var sendUser = {
-            "Pn": x,
-            "Ps": 3,
-            "Orders": [{ "Col": "Id", "Asc": true }]
-        }
-        $http({
-            url: z,
-            method: "POST",
-            ContentType: 'application/x-www-form-urlencoded',
-            data: sendUser,
-            dataType: 'json',
-            headers: authHeaders
-        }).then(function (response) {
-            $scope.limitedEdition = response.data;
-            currentpage = x;
-            if (y != false) {
-                if (y == 1) {
-                    $scope.editingLength = 0;
+        if (x > 0 && x < $scope.paginationNumber.length+1) {
+            $scope.firstStep = 0;
+            $(".pagination li").removeClass("active");
+            $("#userpagination" + x).addClass("active");
+            $scope.currentPage = x;
+            var sendUser = {
+                "Pn": x,
+                "Ps": 3,
+                "Orders": [{ "Col": "Id", "Asc": true }]
+            }
+            $http({
+                url: z,
+                method: "POST",
+                ContentType: 'application/x-www-form-urlencoded',
+                data: sendUser,
+                dataType: 'json',
+                headers: authHeaders
+            }).then(function (response) {
+                $scope.limitedEdition = response.data;
+                currentpage = x;
+                if (y != false) {
+                    if (y == 1) {
+                        $scope.editingLength = 0;
 
-                } else if (y == -1) {
-                    $scope.editingLength = $scope.limitedEdition.length - 1;
+                    } else if (y == -1) {
+                        $scope.editingLength = $scope.limitedEdition.length - 1;
+                    }
+                    $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                    $scope.puttingInsideInput();
+                    setTimeout(function () {
+                        $(".user").css("background-color", "#FFFFFF");
+                        $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+                    }, 100)
                 }
-                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-                $scope.puttingInsideInput();
-                setTimeout(function () {
-                    $(".user").css("background-color", "#FFFFFF");
-                    $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
-                }, 100)
-            }
-        }).catch(function (xhr, status, error) {
-            if (refreshtoken && xhr.status === 401) {
-                $scope.refreshlocal($scope.finalPagination, x);
-            }
-        })
-        $scope.paginationToShow(x);
+            }).catch(function (xhr, status, error) {
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.finalPagination, x);
+                }
+            })
+            $scope.paginationToShow(x);
+        }
+
     }
     $scope.editSubmit = function (x) {
         if (x.name != undefined) {
@@ -1106,7 +1114,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
-            console.log(response)
+            // console.log(response)
             $("#editMessage").html("تغییرات با موفقیت ثبت شد");
         }).catch(function (xhr) {
             if (refreshtoken && xhr.status === 401) {
@@ -1123,14 +1131,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if (x == $scope.limitedEdition[i].user.id) {
                 $scope.editingUserData = $scope.limitedEdition[i];
                 $scope.editingLength = i;
-                console.log($scope.editingLength)
+                // console.log($scope.editingLength)
                 $scope.puttingInsideInput();
                 $scope.firstStep = 1;
             }
         }
     }
     $scope.puttingInsideInput = function () {
-        console.log("this is happening");
+        // console.log("this is happening");
         $("#edit-name").val($scope.editingUserData.personnel.name);
         $("#edit-family").val($scope.editingUserData.personnel.family);
         $("#edit-father").val($scope.editingUserData.personnel.fatherName);
@@ -1183,7 +1191,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
-        console.log($scope.editingUserData)
+        // console.log($scope.editingUserData)
         $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
@@ -1196,10 +1204,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         return code;
     }
     $scope.registerUser = function (x, y) {
+        // console.log(x);
         var codeCheck = false;
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
-        console.log(x);
+        // console.log(x);
         var code = x.nationalCode;
 
         var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
@@ -1222,9 +1231,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
         var photo = new FormData();
-        var data =($("#file"))[0].files[0];
-        angular.forEach(data,function(value,key){
-            photo.append(key,value);
+        var data = ($("#file"))[0].files[0];
+        angular.forEach(data, function (value, key) {
+            photo.append(key, value);
         })
         // console.log(photo)
         if (codeCheck == true) {
@@ -1250,7 +1259,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 Personnel: person
             }
             Model = JSON.stringify(Model);
-            console.log(Model);
+            // console.log(Model);
             $http({
                 url: myhost + "/user/Create/UserPersonnel",
                 method: "POST",
@@ -1259,7 +1268,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 dataType: 'json',
                 headers: authHeaders,
             }).then(function (response) {
-                console.log(response);
+                // console.log(response);
                 $scope.paginationNumber = [];
                 $scope.rowsCount++;
                 pageNumber = Math.ceil($scope.rowsCount / 3);
@@ -1287,10 +1296,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#social-no").css("border", "1px solid red");
             $("#social_no").focus();
         }
-
-
     }
     // pagination 5 to show
+    $scope.paginationSlide = function (x) {
+        if (x == -1) {
+            if (currentpage != 1) {
+                currentpage = currentpage - 1;
+                $scope.paginationToShow(currentpage);
+            }
+        }
+        else {
+
+        }
+        // if(currentpage == 1 && x == -1)
+    }
     $scope.paginationToShow = function (x) {
         if (x == "last") {
             x = $scope.paginationNumber.length
@@ -1605,9 +1624,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     };
     // directive for aris tag's template changer
     $scope.table = function (value, mypageId) {
-        console.log("this is happening")
+        // console.log("this is happening")
         $(".leaf").removeClass("myselect");
-        $("#leaf"+mypageId).addClass("myselect");
+        $("#leaf" + mypageId).addClass("myselect");
         // $scope.number = "modules/" + value;
         var mydata = {
             pageId: mypageId
@@ -1735,7 +1754,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // aside opening
     $scope.sideBar = function (x) {
-        console.log("this is happening");
+        // console.log("this is happening");
         $scope.sidecontainer(x);
         $(".side-tool").animate({ width: "390px" }, 'slow');
         // $(".side-filter").animate({ width: "318px" }, 'slow');
