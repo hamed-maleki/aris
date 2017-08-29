@@ -240,28 +240,28 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.theme();
     }
     // pushing in cookie
-    $scope.cookieForSide = function (x, y) {
-        var now = new Date();
-        var time = now.getTime();
-        time += 3600 * 1000;
-        now.setTime(time);
-        var searchParent = x
-        var searchId = y;
-        document.cookie = "searchParent = " + searchParent + ";expires=" + now.toUTCString() + ";path =/";
-        document.cookie = "searchId = " + searchId + ";expires=" + now.toUTCString() + ";path =/";
-    }
+    // $scope.cookieForSide = function (x, y) {
+    //     var now = new Date();
+    //     var time = now.getTime();
+    //     time += 3600 * 1000;
+    //     now.setTime(time);
+    //     var searchParent = x
+    //     var searchId = y;
+    //     document.cookie = "searchParent = " + searchParent + ";expires=" + now.toUTCString() + ";path =/";
+    //     document.cookie = "searchId = " + searchId + ";expires=" + now.toUTCString() + ";path =/";
+    // }
     // putting side bar cookie to be loaded in system page later
-    $scope.searchClick = function (x, y) {
-        $scope.cookieForSide(x, y);
-        for (var i = 0; i < $scope.system.length; i++) {
-            for (var z = 0; z < $scope.system[i].children.length; z++) {
-                if ($scope.system[i].children[z].id == x) {
-                    var item = $scope.system[i].id
-                }
-            }
-        }
-        $scope.gettingSystem(item, 0)
-    }
+    // $scope.searchClick = function (x, y) {
+    //     $scope.cookieForSide(x, y);
+    //     for (var i = 0; i < $scope.system.length; i++) {
+    //         for (var z = 0; z < $scope.system[i].children.length; z++) {
+    //             if ($scope.system[i].children[z].id == x) {
+    //                 var item = $scope.system[i].id
+    //             }
+    //         }
+    //     }
+    //     $scope.gettingSystem(item, 0)
+    // }
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
@@ -393,11 +393,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
 
     };
-    $scope.pageLoader = function (x) {
-        // console.log(x);
-        $scope.number = "/modules/" + x;
-        // console.log($scope.number);
-    }
+    // $scope.pageLoader = function (x) {
+    //     // console.log(x);
+    //     $scope.number = "/modules/" + x;
+    //     // console.log($scope.number);
+    // }
     $scope.gettingMainSystems = function () {
         $(".system-container").toggleClass("hide");
     }
@@ -415,14 +415,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     }
 
     // }
-    $scope.getSearchCookie = function () {
-        var x = $scope.getCookieValue('searchParent')
-        var y = $scope.getCookieValue('searchId')
-        $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
-        if (x != 0 && y != 0) {
-            $scope.subSystem(x, y);
-        }
-    }
+    // $scope.getSearchCookie = function () {
+    //     var x = $scope.getCookieValue('searchParent')
+    //     var y = $scope.getCookieValue('searchId')
+    //     $scope.subsystem = $scope.getCookieValue('SubSystem') ? JSON.parse($scope.getCookieValue('SubSystem')) : []
+    //     if (x != 0 && y != 0) {
+    //         $scope.subSystem(x, y);
+    //     }
+    // }
     //    note json loader
     var sliderTime;
     var sliderLength;
@@ -760,22 +760,22 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.tabledata = [];
     // button example
-    $http.get("data/buttonTest.json")
-        .then(function (response) {
-            $scope.buttons = response.data.buttons;
-        })
-    $scope.genral = function (x) {
-        $scope.loading = true;
-        switch (x) {
-            case 12:
-                var firstItem = $("#firstInput").val();
-                $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
-            case 13: console.log("second function"); break;
-            case 14: console.log("third function"); break;
-            case 15: console.log("forth function"); break;
-            default: console.log("no function fund"); break;
-        }
-    }
+    // $http.get("data/buttonTest.json")
+    //     .then(function (response) {
+    //         $scope.buttons = response.data.buttons;
+    //     })
+    // $scope.genral = function (x) {
+    //     $scope.loading = true;
+    //     switch (x) {
+    //         case 12:
+    //             var firstItem = $("#firstInput").val();
+    //             $scope.dataLoad(firstItem, 1, 1, 1, 1); break;
+    //         case 13: console.log("second function"); break;
+    //         case 14: console.log("third function"); break;
+    //         case 15: console.log("forth function"); break;
+    //         default: console.log("no function fund"); break;
+    //     }
+    // }
     //  reporting table data loader
 
     $scope.dataLoad = function (x) {
@@ -976,48 +976,55 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        // console.log("$event");
+        // $event.preventDefault();
+        console.log($event);
         var evtobj = window.event ? event : $event;
-        if ($event.keyCode == 40 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
-            if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
-                $scope.editingLength++;
-            }
-            else {
-                $scope.editingLength = 0;
-                $scope.firstStep = $scope.firstStep + 1;
-            }
-            $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-            $(".user").css("background-color", "#FFFFFF");
-            $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
-        }
-        if ($event.keyCode == 38 && !$("#search").hasClass("flag") && !$("#tablePlusUser").hasClass('in')) {
-            if ($scope.editingLength > 0) {
-                $scope.editingLength--;
-
-            }
-            else {
-                $scope.editingLength = $scope.limitedEdition.length - 1;
-            }
-            $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-            $(".user").css("background-color", "#FFFFFF");
-            $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
-        }
-        if ($event.keyCode == 13 && !$("#tablePlusUser").hasClass('in')) {
-            $scope.puttingInsideInput();
-            $("#tableEdit").modal();
-            $("#myFocus").blur();
-        }
-        if ($event.keyCode == 37 && $("#tableEdit").hasClass('in')) {
-            $scope.editUserSlide(1);
-        }
-        if ($event.keyCode == 39 && $("#tableEdit").hasClass('in')) {
-            $scope.editUserSlide(-1);
-        }
         if ($event.altKey || evtobj.altKey) {
-            if ($event.keyCode == 61 || $event.keyCode == 187) {
+            // console.log("this is happening in s");
+            if ($event.keyCode == 38) {
+                console.log("this is happening in s and arrow");
+                if ($scope.editingLength > 0) {
+                    $scope.editingLength--;
+
+                }
+                else {
+                    $scope.editingLength = $scope.limitedEdition.length - 1;
+                }
+                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                $(".user").css("background-color", "#FFFFFF");
+                $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+            }
+            if ($event.keyCode == 40) {
+                if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
+                    $scope.editingLength++;
+                }
+                else {
+                    $scope.editingLength = 0;
+                    $scope.firstStep = $scope.firstStep + 1;
+                }
+                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                $(".user").css("background-color", "#FFFFFF");
+                $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+            }
+
+            if ($event.keyCode == 13) {
+                $scope.puttingInsideInput();
+                $("#tableEdit").modal();
+                $("#myFocus").blur();
+            }
+            if ($event.keyCode == 75 || $event.keyCode == 187) {
                 $("#tablePlusUser").modal();
             }
         }
+        if ($event.keyCode == 37) {
+            $scope.editUserSlide(1);
+        }
+        if ($event.keyCode == 39) {
+            $scope.editUserSlide(-1);
+        }
+        // if ($event.altKey || evtobj.altKey) {
+        //     
+        // }
         if ($event.keyCode == 27) {
             $(".modal").modal('hide');
             $("#myFocus").focus();
@@ -1025,7 +1032,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.currentPage = 1;
     $scope.finalPagination = function (x, y, z) {
-        if (x > 0 && x < $scope.paginationNumber.length+1) {
+        if (x > 0 && x < $scope.paginationNumber.length + 1) {
             $scope.firstStep = 0;
             $(".pagination li").removeClass("active");
             $("#userpagination" + x).addClass("active");
@@ -1138,7 +1145,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.puttingInsideInput = function () {
-        // console.log("this is happening");
+        // console.log($("#activation option[value="+$scope.editingUserData.user.isActive+" ]"));
         $("#edit-name").val($scope.editingUserData.personnel.name);
         $("#edit-family").val($scope.editingUserData.personnel.family);
         $("#edit-father").val($scope.editingUserData.personnel.fatherName);
@@ -1149,7 +1156,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#edit-email").val($scope.editingUserData.user.email);
         $("#edit-user-name").val($scope.editingUserData.user.name);
         $("#edit-password").val($scope.editingUserData.user.passwordHash);
-        $("input[name=activation][value=" + $scope.editingUserData.user.isActive + "]").prop('checked', true);
+        $("#activation").val('' + $scope.editingUserData.user.isActive + '');
         $("input[name=gender][value=" + $scope.editingUserData.personnel.gender + "]").prop('checked', true);
     }
     var currentpage = 1;
@@ -1202,6 +1209,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         var nn = n.substr(n.length - 1);
         var code = n[0] + n[1] + n[2] + "-" + n[3] + n[4] + n[5] + n[6] + n[7] + n[8] + "-" + n[9];
         return code;
+    }
+    $scope.fileSelect = function (x) {
+        $("#" + x).click();
     }
     $scope.registerUser = function (x, y) {
         // console.log(x);

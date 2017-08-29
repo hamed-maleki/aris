@@ -139,37 +139,38 @@
         .myselect {
             background-color: #808080;
         }
+        input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 225px;
+            opacity: 0;
+            padding: 14px 0;
+            cursor: pointer;
+        }
 </style>
-<!-- <script>
-        window.addEventListener("keydown", function (e) {
-            // space and arrow keys
-            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1 && !$("#tablePlusUser").hasClass('in')) {
-                e.preventDefault();
-            }
-        }, false);
-    </script> -->
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="gettingSystemJson()">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="gettingSystemJson()" >
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid" ng-init="systemToShow()">
         <div class="row">
             <div class="col-sm-12 my-margin-top right-align" style="direction: rtl" >
-                <div class="main-arrow center" style="margin-left:-4px;">
+                <div class="main-arrow center" style="margin-left:-4px;" data-step="3" data-intro="مسیر دسترسی به سیستم ورد نظر شما">
                     <p ng-click="topNav(firstsystem.id,-1)">{{firstsystem.title}}</p>
                 </div>
                 <div ng-repeat="header in header" class="main-arrow center" ng-click="topNav(header.id,$index)" style="margin-right: 5px">
                     <p>{{header.title}}</p>
                 </div>
             </div>
-            <div class="col-sm-1" style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
+            <div class="col-sm-1"  style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
                 <div class="row">
                     <div class="clearfix"></div>
                     <div class="col-sm-12">
                         <div class="row effect" style="position: relative">
-                            <div class="sub-system my-padding-5 aris-animation">
-                                <div class="col-sm-6 my-col-sm-6" ng-click="gettingMainSystems()" style="margin-bottom: -20px">
+                            <div class="sub-system my-padding-5 aris-animation" >
+                                <div class="col-sm-6 my-col-sm-6" ng-click="gettingMainSystems()" style="margin-bottom: -20px" data-step="1" data-intro="دسترسی به سیستم های اصلی" >
                                     <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
                                         <i class="fa fa-folder-open-o system-icon"></i>
                                     </div>
@@ -190,16 +191,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
+                        <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'" data-step="2" data-intro="امکانات جانبی نرم افزار"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 right-align my-margin-top" ng-keydown="detector($event)" id="loadedPage" style="background-color: white;height: 77vh;overflow-y: scroll">
-                <div class="container-fluid" id="myFocus"  >
+            <div class="col-sm-9 right-align my-margin-top"  id="loadedPage" style="background-color: white;height: 77vh;overflow-y: scroll">
+                <div class="container-fluid" id="myFocus" ng-keyup="detector($event)" tabindex="1">
                     <div ng-include="number" class="keyControl" ></div>
                 </div>
             </div>
-            <div class="col-sm-2 right-align my-margin-top" >
+            <div class="col-sm-2 right-align my-margin-top" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">
                 <div id="myDemo" ng-class="userColor" style="height: 77vh;overflow-x: hidden !important;overflow-y: scroll;position: relative;width: 100%">
                     <ul>
                         <li class="system-li pointer" ng-repeat="list in subsystem" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
