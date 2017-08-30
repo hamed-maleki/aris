@@ -4,7 +4,6 @@ if (localStorage.accessToken == undefined) {
 }
 setInterval(function () {
     if (localStorage.accessToken == undefined) {
-        // console.log("this is interval")
         window.location.href = 'login.html';
     }
 }, 500)
@@ -23,7 +22,6 @@ app.directive("sidebar", function () {
     }
 });
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
-    // "use strict"
     var myhost = "http://localhost/ArisSystem/api";
     $scope.subSystemcontainer = [];
     $scope.securityCheck = false;
@@ -976,16 +974,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        // $event.preventDefault();
-        console.log($event);
         var evtobj = window.event ? event : $event;
         if ($event.altKey || evtobj.altKey) {
             // console.log("this is happening in s");
             if ($event.keyCode == 38) {
-                console.log("this is happening in s and arrow");
                 if ($scope.editingLength > 0) {
                     $scope.editingLength--;
-
                 }
                 else {
                     $scope.editingLength = $scope.limitedEdition.length - 1;
@@ -1015,13 +1009,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if ($event.keyCode == 75 || $event.keyCode == 187) {
                 $("#tablePlusUser").modal();
             }
+            if ($event.keyCode == 80) {
+                $scope.editUserSlide(-1);
+            }
+            if ($event.keyCode == 78) {
+                $scope.editUserSlide(1);
+            }
         }
-        if ($event.keyCode == 37) {
-            $scope.editUserSlide(1);
-        }
-        if ($event.keyCode == 39) {
-            $scope.editUserSlide(-1);
-        }
+        
         // if ($event.altKey || evtobj.altKey) {
         //     
         // }
@@ -1180,14 +1175,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             if ($scope.editingLength - 1 < 0) {
-                if (currentpage == 1) {
-                    $scope.error[0] = "داده قبلتری وجود ندارد";
-                    $("#error").modal();
-                }
-                else {
+              
                     $scope.finalPagination(currentpage - 1, -1, myhost + '/user')
                     return;
-                }
+                
             }
             else {
                 $scope.editingLength = $scope.editingLength - 1;
@@ -1212,15 +1203,42 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.fileSelect = function (x) {
         $("#" + x).click();
+        $scope.imgLoading = true;
+        $('#' + x).change(function (event) {
+            $scope.readURL(this);
+            $("#myimg").css("display", "block");
+        });
+
+    }
+    $scope.readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimg').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $scope.fileList = [];
+    $scope.ImageProperty = {
+        file: ''
     }
     $scope.registerUser = function (x, y) {
         // console.log(x);
+        var files = $("#plusPhoto")[0].files;
+        for (var i = 0; i < files.length; i++) {
+            $scope.ImageProperty.file = files[i];
+            $scope.fileList.push($scope.ImageProperty);
+            $scope.ImageProperty = {};
+        }
+        console.log($scope.fileList[0].file);
         var codeCheck = false;
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
         // console.log(x);
         var code = x.nationalCode;
-
         var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
         var remain = confirmCode % 11;
         if (remain < 2) {
@@ -1240,11 +1258,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
             }
         }
-        var photo = new FormData();
-        var data = ($("#file"))[0].files[0];
-        angular.forEach(data, function (value, key) {
-            photo.append(key, value);
-        })
+        // var photo = new FormData();
+        // var data = ($("#file"))[0].files[0];
+        // angular.forEach(data, function (value, key) {
+        //     photo.append(key, value);
+        // })
         // console.log(photo)
         if (codeCheck == true) {
             var person = {
@@ -1255,7 +1273,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 NationalCode: code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11],
                 BirthCertificateNo: x.birthCertificateNo,
                 Gender: x.gender,
-                Photo: photo
+                Photo: $scope.fileList[0].file
             }
             var user = {
                 Email: x.mail,
@@ -1268,38 +1286,62 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 User: user,
                 Personnel: person
             }
+            console.log(Model);
             Model = JSON.stringify(Model);
-            // console.log(Model);
-            $http({
-                url: myhost + "/user/Create/UserPersonnel",
-                method: "POST",
-                ContentType: 'application/x-www-form-urlencoded',
-                data: Model,
-                dataType: 'json',
-                headers: authHeaders,
-            }).then(function (response) {
-                // console.log(response);
-                $scope.paginationNumber = [];
-                $scope.rowsCount++;
-                pageNumber = Math.ceil($scope.rowsCount / 3);
-                for (var conter = 1; conter < pageNumber + 1; conter++) {
-                    $scope.paginationNumber.push(conter);
-                }
-                if (x.close == 1) {
-                    $("#tablePlusUser").modal('toggle');
-                }
-                else {
-                    $(".form-control").val('');
-                    $("#name").focus();
-                }
-            })
-                .catch(function (xhr, status, error) {
-                    if (refreshtoken && xhr.status === 401) {
-                        $scope.refreshlocal($scope.registerUser, x);
+
+                $http({
+                    url: myhost + "/user/Create/UserPersonnel",
+                    method: "POST",
+                    ContentType: 'application/x-www-form-urlencoded',
+                    data: Model,
+                    dataType: 'json',
+                    headers: authHeaders,
+            eventHandlers: {
+                progress: function (e) {
+                    if (e.lengthComputable) {
+                        $scope.progressBar = (e.loaded / e.total) * 100;
+                        $scope.progressCounter = $scope.progressBar;
+                        // $scope.myinterval = setInterval($scope.myprogressBar(),20)
+                        $scope.myinterval = $interval(
+                            function () {
+                                $("#myBar").css("display", "block");
+                                var elem = document.getElementById("myBar");
+                                var width = 1;
+                                if ($scope.progressCounter >= 100) {
+                                    $interval.cancel($scope.myinterval);
+                                    $("#myBar").css("display", "none");
+                                } else {
+                                    document.getElementById("myBar").style.width = $scope.progressCounter + '%';
+                                }
+                            }, 20);
                     }
-                    $("#registerAlarm").html(xhr.data[0]);
+                }
+            }
+                }).then(function (response) {
+                    // console.log(response);
+                    $scope.paginationNumber = [];
+                    $scope.rowsCount++;
+                    pageNumber = Math.ceil($scope.rowsCount / 3);
+                    for (var conter = 1; conter < pageNumber + 1; conter++) {
+                        $scope.paginationNumber.push(conter);
+                    }
+                    if (x.close == 1) {
+                        $("#tablePlusUser").modal('toggle');
+                    }
+                    else {
+                        $(".form-control").val('');
+                        $("#name").focus();
+                    }
+                    $scope.imgLoading = false;
+                    // $('#myimg').css();
                 })
-            $scope.paginationToShow(currentpage);
+                    .catch(function (xhr, status, error) {
+                        if (refreshtoken && xhr.status === 401) {
+                            $scope.refreshlocal($scope.registerUser, x);
+                        }
+                        $("#registerAlarm").html(xhr.data[0]);
+                    })
+                $scope.paginationToShow(currentpage);
         }
         else {
             $("#registerAlarm").html("کد ملی معتبر نمیباشد");

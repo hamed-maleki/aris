@@ -121,10 +121,11 @@
                                             <label for="file">انتخاب عکس:</label>
                                         </div> -->
                                         <div class="col-sm-12">
-                                            <label for="file" ng-click="fileSelect('plusPhoto')">
+                                            <label for="file" ng-click="fileSelect('plusPhoto')" ng-if="!imgLoading">
                                                     <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i>
                                             </label>
-                                            <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                            <img src="" ng-if="imgLoading" id="myimg" ng-click="fileSelect('plusPhoto')" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
+                                            <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" ng-change="testUpload()" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="5">
                                         </div>
                                     </div>
@@ -243,9 +244,6 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="password">رمز عبور:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="password">رمز عبور:</label>
@@ -258,23 +256,19 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-sm-12 my-margin-top">
-                                    <button class="btn btn-danger" type="submit" style="float: left;width: 22%" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
-                                    <button class="btn btn-danger" type="submit" style="float: left; margin-left: 15px;width: 22%" id="button2" ng-click="register.close = 2"
+                                    <button class="btn btn-danger" type="submit" tabindex="14" style="float: left;width: 22%" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
+                                    <button class="btn btn-danger" type="submit"  tabindex="15" style="float: left; margin-left: 15px;width: 22%" id="button2" ng-click="register.close = 2"
                                         value="2">ثبت و جدید</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div>
-                            <label class="radio-inline"><input type="radio" name="registeractive" value="false" ng-model="register.isActive" required />غیرفعال</label>
-                            <label class="radio-inline"><input type="radio" name="registeractive"  value="true" ng-model="register.isActive" checked required  />فعال</label>
-                        </div> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<div id="tableEdit" class="modal fade" role="dialog" ng-keyup="detector($event)" tabindex="2">
+<div id="tableEdit" class="modal fade" role="dialog" ng-keyup="detector($event)">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container right-align" style="background-color:#ECECEC">
@@ -287,14 +281,14 @@
                             <div class="form-group change" ng-if="isAuth('tdName',4)">
                                 <label for="usr">نام:</label>
                                 <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
-                                    id="edit-name" placeholder="نام">
+                                    id="edit-name" placeholder="نام" tabindex="1">
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
                             <div class="form-group change" ng-if="isAuth('tdFamily',4)">
                                 <label for="family">نام خانوادگی:</label>
                                 <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
-                                    ng-model="$paren.editor.family" placeholder=" نام خانوادگی">
+                                    ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2">
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -302,12 +296,12 @@
                             <div class="form-group change" ng-if="isAuth('tdFatherName',4)">
                                 <label for="father">نام پدر:</label>
                                 <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
-                                    id="edit-father" placeholder="نام پدر">
+                                    id="edit-father" placeholder="نام پدر" tabindex="3">
                             </div>
                             <div class="form-group change">
                                 <h5 style="direction: rtl;color: #808080; ">جنسیت:</h5>
-                                <label class="radio-inline"><input type="radio" name="gender" value="1" ng-model="editor.gender" required />زن</label>
-                                <label class="radio-inline"><input type="radio" name="gender"  value="0" ng-model="editor.gender" checked required  />مرد</label>
+                                <label class="radio-inline"><input type="radio" tabindex="4" name="gender" value="1" ng-model="editor.gender" required />زن</label>
+                                <label class="radio-inline"><input type="radio" tabindex="4" name="gender"  value="0" ng-model="editor.gender" checked required  />مرد</label>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
@@ -316,7 +310,7 @@
                                     <!-- <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i> -->
                                     <img src="media/1.jpg" style="width: 55%;margin: auto;display: block;border-radius: 5px">
                                 </label>
-                                <input type="file" class="form-control" id="editPhoto" style="height: 30px !important">
+                                <input type="file" class="form-control" id="editPhoto" style="height: 30px !important" tabindex="5">
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -324,14 +318,14 @@
                             <div class="form-group change">
                                 <label for="id-badge">شماره شناسنامه:</label>
                                 <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
-                                    value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه">
+                                    value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6">
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
                             <div class="form-group change">
                                 <label for="social-no">کد ملی:</label>
                                 <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
-                                    id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X">
+                                    id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X" tabindex="7">
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
@@ -342,14 +336,14 @@
                             <div class="form-group change">
                                 <label for="personnelCode">کد پرسنلی:</label>
                                 <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
-                                    value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه">
+                                    value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه" tabindex="8">
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
                             <div class="form-group change">
                                 <label for="phone">شماره موبایل:</label>
                                 <input type="tel" class="form-control" ng-model="editor.phone" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
-                                    placeholder="شماره موبایل">
+                                    placeholder="شماره موبایل" tabindex="9">
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -357,13 +351,13 @@
                             <div class="form-group change">
                                 <label for="email">email:</label>
                                 <input type="email" class="form-control" ng-model="editor.email" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
-                                    placeholder="example@exa.com">
+                                    placeholder="example@exa.com" tabindex="10">
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
                             <div class="form-group">
                                 <label for="activity">نوع کاربری :</label>
-                                <select id="activation" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive" tabindex="11"
+                                <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive" tabindex="11"
                                     class="form-control my-form">
                                     <option value="true">فعال</option>
                                     <option value="false">غیرفعال</option>
@@ -374,18 +368,18 @@
                             <div class="form-group change">
                                 <label for="user-name">نام کاربری:</label>
                                 <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
-                                    placeholder="نام کاربری">
+                                    placeholder="نام کاربری" tabindex="12">
                             </div>
                         </div>
                         <div class="col-sm-6 right-float">
                             <div class="form-group change">
                                 <label for="password">رمز عبور:</label>
                                 <input type="text" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
-                                    value="{{editingUserData.passwordHash}}" placeholder="رمز عبور">
+                                    value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13">
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <button class="btn btn-danger" type="submit" style="float: left;width: 100%">ثبت </button>
+                            <button class="btn btn-danger" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
                         </div>
                     </div>
                 </form>
