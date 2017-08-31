@@ -1,6 +1,19 @@
 <div ng-init="users()">
     <div class="col-sm-12 my-margin-top">
-        <div class="table-responsive printable">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-2">
+            <select style="font-size: 15px;width: 40%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                <option value="5"> 5</option>
+                <option value="10"> 10</option>
+                <option value="15"> 15</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <label>تعداد نمایش در جدول</label>
+        </div>
+    </div>
+    <div class="col-sm-12 my-margin-top">
+        <div class="table-responsive printable my-margin-top">
             <table class="table table-hover table-bordered right-align">
                 <thead>
                     <tr>
@@ -125,8 +138,9 @@
                                                     <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i>
                                             </label>
                                             <img src="" ng-if="imgLoading" id="myimg" ng-click="fileSelect('plusPhoto')" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
-                                            <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" ng-change="testUpload()" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                oninput="setCustomValidity('')" tabindex="5">
+                                            <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" ng-change="testUpload()"
+                                                oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')"
+                                                tabindex="5">
                                         </div>
                                     </div>
                                 </div>
@@ -257,8 +271,8 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-12 my-margin-top">
                                     <button class="btn btn-danger" type="submit" tabindex="14" style="float: left;width: 22%" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
-                                    <button class="btn btn-danger" type="submit"  tabindex="15" style="float: left; margin-left: 15px;width: 22%" id="button2" ng-click="register.close = 2"
-                                        value="2">ثبت و جدید</button>
+                                    <button class="btn btn-danger" type="submit" tabindex="15" style="float: left; margin-left: 15px;width: 22%" id="button2"
+                                        ng-click="register.close = 2" value="2">ثبت و جدید</button>
                                 </div>
                             </div>
                         </div>
@@ -268,7 +282,7 @@
         </div>
     </div>
 </div>
-<div id="tableEdit" class="modal fade" role="dialog" ng-keyup="detector($event)">
+<div id="tableEdit" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container right-align" style="background-color:#ECECEC">
@@ -357,8 +371,8 @@
                         <div class="col-sm-6 right-float">
                             <div class="form-group">
                                 <label for="activity">نوع کاربری :</label>
-                                <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive" tabindex="11"
-                                    class="form-control my-form">
+                                <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive"
+                                    tabindex="11" class="form-control my-form">
                                     <option value="true">فعال</option>
                                     <option value="false">غیرفعال</option>
                                 </select>

@@ -941,7 +941,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.users = function () {
         var sendUser = {
             "Pn": 1,
-            "Ps": 3,
+            "Ps": $scope.pagelength,
             "Orders": [{ "Col": "Id", "Asc": true }]
         }
         $http({
@@ -956,9 +956,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.editingLength = 0;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             var pageNumber;
-            $scope.paginationNumber = []
+            $scope.paginationNumber = [];
             $scope.rowsCount = $scope.limitedEdition[0].rowsCount
-            pageNumber = Math.ceil($scope.rowsCount / 3);
+            pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
             for (var conter = 1; conter < pageNumber + 1; conter++) {
                 $scope.paginationNumber.push(conter);
             }
@@ -974,6 +974,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
+        // console.log($event);
         var evtobj = window.event ? event : $event;
         if ($event.altKey || evtobj.altKey) {
             // console.log("this is happening in s");
@@ -1004,19 +1005,30 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if ($event.keyCode == 13) {
                 $scope.puttingInsideInput();
                 $("#tableEdit").modal();
-                $("#myFocus").blur();
+                // $("#myFocus").blur();
             }
-            if ($event.keyCode == 75 || $event.keyCode == 187) {
+            if ($event.keyCode == 61) {
                 $("#tablePlusUser").modal();
             }
-            if ($event.keyCode == 80) {
-                $scope.editUserSlide(-1);
+            if ($(".modal").hasClass("in")) {
+                if ($event.keyCode == 37) {
+                    $scope.editUserSlide(-1);
+                }
+                if ($event.keyCode == 39) {
+                    $scope.editUserSlide(1);
+                }
             }
-            if ($event.keyCode == 78) {
-                $scope.editUserSlide(1);
+            else{
+                if($event.keyCode == 37){
+                    $scope.finalPagination($scope.currentPage - 1,false,'http://localhost/ArisSystem/api/user' )
+                }
+                if($event.keyCode == 39){
+                    $scope.finalPagination($scope.currentPage + 1,false,'http://localhost/ArisSystem/api/user' )
+                }
             }
         }
         
+
         // if ($event.altKey || evtobj.altKey) {
         //     
         // }
@@ -1026,6 +1038,18 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.currentPage = 1;
+    $scope.pagelength = 5;
+    $scope.paginationRow = function(x){
+        $scope.pagelength = x;
+        $scope.currentPage = 1;
+        $(".pagination li").removeClass("active");
+        // $scope.paginationNumber = [];
+        $scope.paginationToShow(1);
+        // $scope.pages = [];
+        $scope.users();
+        
+        // $("#userpagination" + x).addClass("active");
+    }
     $scope.finalPagination = function (x, y, z) {
         if (x > 0 && x < $scope.paginationNumber.length + 1) {
             $scope.firstStep = 0;
@@ -1034,7 +1058,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.currentPage = x;
             var sendUser = {
                 "Pn": x,
-                "Ps": 3,
+                "Ps": $scope.pagelength,
                 "Orders": [{ "Col": "Id", "Asc": true }]
             }
             $http({
@@ -1118,6 +1142,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).then(function (response) {
             // console.log(response)
             $("#editMessage").html("تغییرات با موفقیت ثبت شد");
+            $("#myFocus").focus();
         }).catch(function (xhr) {
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.editSubmit, x);
@@ -1138,6 +1163,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.firstStep = 1;
             }
         }
+        $("#myFocus").focus();
     }
     $scope.puttingInsideInput = function () {
         // console.log($("#activation option[value="+$scope.editingUserData.user.isActive+" ]"));
@@ -1175,10 +1201,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             if ($scope.editingLength - 1 < 0) {
-              
-                    $scope.finalPagination(currentpage - 1, -1, myhost + '/user')
-                    return;
-                
+
+                $scope.finalPagination(currentpage - 1, -1, myhost + '/user')
+                return;
+
             }
             else {
                 $scope.editingLength = $scope.editingLength - 1;
@@ -1289,59 +1315,59 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             console.log(Model);
             Model = JSON.stringify(Model);
 
-                $http({
-                    url: myhost + "/user/Create/UserPersonnel",
-                    method: "POST",
-                    ContentType: 'application/x-www-form-urlencoded',
-                    data: Model,
-                    dataType: 'json',
-                    headers: authHeaders,
-            eventHandlers: {
-                progress: function (e) {
-                    if (e.lengthComputable) {
-                        $scope.progressBar = (e.loaded / e.total) * 100;
-                        $scope.progressCounter = $scope.progressBar;
-                        // $scope.myinterval = setInterval($scope.myprogressBar(),20)
-                        $scope.myinterval = $interval(
-                            function () {
-                                $("#myBar").css("display", "block");
-                                var elem = document.getElementById("myBar");
-                                var width = 1;
-                                if ($scope.progressCounter >= 100) {
-                                    $interval.cancel($scope.myinterval);
-                                    $("#myBar").css("display", "none");
-                                } else {
-                                    document.getElementById("myBar").style.width = $scope.progressCounter + '%';
-                                }
-                            }, 20);
+            $http({
+                url: myhost + "/user/Create/UserPersonnel",
+                method: "POST",
+                ContentType: 'application/x-www-form-urlencoded',
+                data: Model,
+                dataType: 'json',
+                headers: authHeaders,
+                eventHandlers: {
+                    progress: function (e) {
+                        if (e.lengthComputable) {
+                            $scope.progressBar = (e.loaded / e.total) * 100;
+                            $scope.progressCounter = $scope.progressBar;
+                            // $scope.myinterval = setInterval($scope.myprogressBar(),20)
+                            $scope.myinterval = $interval(
+                                function () {
+                                    $("#myBar").css("display", "block");
+                                    var elem = document.getElementById("myBar");
+                                    var width = 1;
+                                    if ($scope.progressCounter >= 100) {
+                                        $interval.cancel($scope.myinterval);
+                                        $("#myBar").css("display", "none");
+                                    } else {
+                                        document.getElementById("myBar").style.width = $scope.progressCounter + '%';
+                                    }
+                                }, 20);
+                        }
                     }
                 }
-            }
-                }).then(function (response) {
-                    // console.log(response);
-                    $scope.paginationNumber = [];
-                    $scope.rowsCount++;
-                    pageNumber = Math.ceil($scope.rowsCount / 3);
-                    for (var conter = 1; conter < pageNumber + 1; conter++) {
-                        $scope.paginationNumber.push(conter);
+            }).then(function (response) {
+                // console.log(response);
+                $scope.paginationNumber = [];
+                $scope.rowsCount++;
+                pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
+                for (var conter = 1; conter < pageNumber + 1; conter++) {
+                    $scope.paginationNumber.push(conter);
+                }
+                if (x.close == 1) {
+                    $("#tablePlusUser").modal('toggle');
+                }
+                else {
+                    $(".form-control").val('');
+                    $("#name").focus();
+                }
+                $scope.imgLoading = false;
+                // $('#myimg').css();
+            })
+                .catch(function (xhr, status, error) {
+                    if (refreshtoken && xhr.status === 401) {
+                        $scope.refreshlocal($scope.registerUser, x);
                     }
-                    if (x.close == 1) {
-                        $("#tablePlusUser").modal('toggle');
-                    }
-                    else {
-                        $(".form-control").val('');
-                        $("#name").focus();
-                    }
-                    $scope.imgLoading = false;
-                    // $('#myimg').css();
+                    $("#registerAlarm").html(xhr.data[0]);
                 })
-                    .catch(function (xhr, status, error) {
-                        if (refreshtoken && xhr.status === 401) {
-                            $scope.refreshlocal($scope.registerUser, x);
-                        }
-                        $("#registerAlarm").html(xhr.data[0]);
-                    })
-                $scope.paginationToShow(currentpage);
+            $scope.paginationToShow(currentpage);
         }
         else {
             $("#registerAlarm").html("کد ملی معتبر نمیباشد");
@@ -1380,9 +1406,17 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
         else {
-            for (var i = 0; i < 5; i++) {
-                $scope.pages.push($scope.paginationNumber[i]);
+            if($scope.paginationNumber.length > 5){
+                for (var i = 0; i < 5; i++) {
+                    $scope.pages.push($scope.paginationNumber[i]);
+                }
             }
+            else{
+                for (var i = 0; i < $scope.paginationNumber.length; i++) {
+                    $scope.pages.push($scope.paginationNumber[i]);
+                }
+            }
+            
         }
     }
     // adding camma after three digit function

@@ -48,10 +48,12 @@
         .system-li:hover {
             background-color: #808080;
         }
-        .system-li{
+
+        .system-li {
             font-size: 20px;
         }
-        .system-li i{
+
+        .system-li i {
             padding-right: 15px;
         }
     </style>
@@ -64,61 +66,62 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
-                    <div class="row effect" style="position: relative" >
-                        <div class="col-sm-12" style="padding: 0 25px;">    
+                    <div class="row effect" style="position: relative">
+                        <div class="col-sm-12" style="padding: 0 25px;">
                             <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
                         </div>
 
                     </div>
                 </div>
                 <div class="col-sm-2 col-sm-push-9 my-margin-top right-align">
-                    <div ng-class="userColor" style="height: 84vh;overflow-x: hidden !important;width: 100%">
+                    <div ng-class="userColor" style="height: 82vh;overflow-x: hidden !important;width: 100%">
                         <ul style="padding-left: 0">
                             <li class="system-li pointer">
-                                <i class="fa fa-file-o"></i>
-                                جعبه دریافت
+                                <i class="fa fa-file-o"></i> جعبه دریافت
                             </li>
                             <li class="system-li pointer">
-                                <i class="fa fa-paper-plane-o"></i>
-                                جعبه ارسال
+                                <i class="fa fa-paper-plane-o"></i> جعبه ارسال
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-9 col-sm-pull-2 container-filter" style="padding: 0 0 0 10px;">
-                    <div class="white-background border my-margin-top my-padding center responsive-margin" style="height: 84vh">
+                    <div class="white-background border my-margin-top my-padding center responsive-margin" style="height: 82vh">
                         <div class="right-align my-margin-top">
                             <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
                             <i class="fa fa-trash-o" style="margin-left: 0"></i>
                             حذف
                         </button>
-                            <span class="button-color my-margin-top span" ng-class="userColor" style="color: white;padding: 4px 0px;">
-                            <i class="fa fa-check-square"></i>
+                            <button class="my-button btn button-color" ng-class="userColor" style="color: white;padding: 4px 5px;">
+                            <!-- <i class="fa fa-check-square"></i> -->
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
                                 
-                        </span>
-                            <button class="my-button btn button-color " ng-class="userColor">
+                            </button>
+                            <!-- <button class="my-button btn button-color " ng-class="userColor">
                         مورد اول
-                        </button>
+                        </button> -->
                         </div>
                         <div class="table-container" id="myDemo">
                             <table class="table table-hover my-table">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>فرستنده</th>
+                                        <!-- <th></th> -->
+                                        <th style="width: 200px">فرستنده</th>
                                         <th>عنوان</th>
                                         <th>وضعیت</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}" ng-click="showContext(cartable.title,cartable.context,$index,cartable.id)">
-                                        <td>
-                                            <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
+                                        <!-- <td>
+                                            
                                             <i ng-if="cartable.read == 1" class="fa fa-check"></i>
+                                        </td> -->
+                                        <td ng-style="testfont" >
+                                            <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
+                                            <i class="fa fa-star-o" style="padding-right: 5px"></i> {{cartable.author}}
                                         </td>
-                                        <td ng-style="testfont">{{cartable.author}}</td>
                                         <td ng-style="testfont">{{cartable.title}}</td>
                                         <td ng-style="testfont">{{cartable.situation}}</td>
                                     </tr>
@@ -144,7 +147,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'" style="margin-top: 176px;">

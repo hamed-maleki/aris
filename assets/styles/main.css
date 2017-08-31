@@ -580,8 +580,8 @@ nav a:hover {
 .my-col-sm-6 .sub-system {
     min-height: 95px;
     position: relative;
-    animation: aris;
-    animation-duration: 2s;
+    /* animation: aris;
+    animation-duration: 2s; */
     border-radius: 2px;
     /* display: flex;
     align-items: center;
@@ -752,14 +752,14 @@ nav a:hover {
 
 .square {
     height: auto;
-    animation: aris;
+    /* animation: aris; */
     border-radius: 2px;
 }
 
-.aris-animation {
+/* .aris-animation {
     animation: unload;
     animation-duration: 1.5s;
-}
+} */
 
 .my-padding-5 {
     padding: 5px !important;
@@ -1093,7 +1093,7 @@ nav a:hover {
 }
 
 .table-container {
-    height: 70vh;
+    height: 67vh;
     position: relative;
 }
 
@@ -1102,7 +1102,7 @@ nav a:hover {
 }
 
 .my-table td,.my-table  th {
-    font-size: 20px !important;
+    font-size: 14px !important;
     padding: 15px !important;
 }
 
@@ -1317,7 +1317,7 @@ tfoot tr td {
     }
 }
 
-@keyframes aris {
+/* @keyframes aris {
     from {
     -ms-transform: scale(0, 0);
     -webkit-transform: scale(0, 0); 
@@ -1345,7 +1345,7 @@ tfoot tr td {
     transform: scale(1, 1);
     display: block;
     }
-}
+} */
 
 @keyframes animation1 {
     0% {

@@ -117,6 +117,11 @@
             padding: 14px 0;
             cursor: pointer;
         }
+        @media screen and (max-width: 1316px){
+            .modal {
+                overflow: scroll;
+            }
+        }
     </style>
 
 </head>
@@ -168,7 +173,7 @@
                             <div class="col-sm-12">
                                 <div class="input-group" style="box-shadow: 1px 9px 20px #404040">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default log-btn center" onclick="login()">
+                                        <button class="btn btn-default log-btn center" style="margin-top:0" onclick="login()">
                                             <i style="margin: 0 5px" class="fa fa-arrow-left"></i>
                                         </button>
                                     </div>
@@ -215,7 +220,7 @@
         </div>
     </div>
 
-    <div id="personal-info" class="modal fade" role="dialog">
+    <div id="personal-info" class="modal fade" role="dialog" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body right-align" style="background-color: #E0E0E0">
@@ -293,13 +298,14 @@
                                     <input type="password" class="form-control" style="height: 34px !important" id="password" placeholder="رمز عبور" required
                                         oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')">
                                 </div>
-                                <div class="col-sm-3">
-                                    <button class="btn btn-danger" type="submit" style="float: left">ثبت در سامانه</button>
-                                </div>
-                                <div class="col-sm-9">
+                                <div class="col-sm-9 col-sm-push-3">
                                     <label class="radio-inline"><input type="radio" name="active" value="1" />ارسال لینک فعال سازی به ایمیل</label>
                                     <label class="radio-inline"><input type="radio" name="active"  value="2" checked />فعال سازی توسط ادمین</label>
                                 </div>
+                                <div class="col-sm-3 col-sm-pull-9">
+                                    <button class="btn btn-danger" type="submit" style="float: left">ثبت در سامانه</button>
+                                </div>
+                                
 
                             </div>
                         </div>
