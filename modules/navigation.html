@@ -1,4 +1,9 @@
-<div  id="myBar" class="progress-bar-striped"></div>
+<div  id="myBar" class="progress-bar-striped">
+    <div id="inside-progress"></div>
+    <div class="barImg">
+        <img src="media/logofox.png" />
+    </div>
+</div>
 <div class="container-fluid effect">
     <div class="row">
         <div class="col-sm-12 ">
@@ -75,7 +80,7 @@
         </div>
     </div>
 </div>
-<p ng-style="testfont" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px">
+<p ng-style="testfont" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px;margin-bottom: 10px">
     <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"></i>
     version 1.0
 </p>
@@ -107,15 +112,6 @@
     })
 
 </script>
-<!--<script>
-        $(function () {
-            // $('#Demo').perfectScrollbar();
-            Ps.initialize(document.getElementById('search-con'));
-        });
-        $(function () {
-            prettyPrint();
-        });
-    </script>-->
 <script>
     $('#error').on('show.bs.modal', function () {
         $(".effect").css("filter", "blur(40px)")

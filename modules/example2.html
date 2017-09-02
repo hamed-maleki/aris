@@ -122,23 +122,26 @@
 
 <script src="assets/scripts/treant.js"></script>
 <script src="assets/scripts/raphael.js"></script>
-<script src="assets/scripts/example6.js"></script>
-<script src="assets/scripts/basic-example.js"></script>
-  
-<div class="chart" id="OrganiseChart6" ng-init="treeLoad()"></div>
- <div class="chart" id="basic-example"></div>  
-<script>
-    $(document).ready(function () {
-        new Treant(tree_structure, function () {
-            $(".node").click(function () {
-                for (var i = 0; i < this.childNodes.length; i++) {
-                    if (this.childNodes[i].className == "node-id") {
-                        alert(this.childNodes[1].innerHTML)
-                    }
-                }
 
-            })
-        });
-        new Treant(chart_config);
-    })
+<script src="assets/scripts/basic-example.js"></script>
+<!-- <script src="assets/scripts/example6.js"></script> -->
+  
+<!-- <div class="chart" id="OrganiseChart6"></div> -->
+ <div class="chart" id="basic-example" ng-init="treeLoad()"></div>  
+<script>
+    new Treant( chart_config );
+    // $(document).ready(function () {
+    //     console.log("this is chart");
+    //     new Treant(tree_structure, function () {
+    //         $(".node").click(function () {
+    //             for (var i = 0; i < this.childNodes.length; i++) {
+    //                 if (this.childNodes[i].className == "node-id") {
+    //                     alert(this.childNodes[1].innerHTML)
+    //                 }
+    //             }
+
+    //         })
+    //     });
+    //     new Treant(chart_config);
+    // })
 </script>

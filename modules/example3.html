@@ -1,4 +1,4 @@
-<div ng-init="users()">
+<div ng-init="users()" id="myDemo1" style="height: 72vh; overflow-y: scroll;position: relative">
     <div class="col-sm-12 my-margin-top">
         <div class="col-sm-8"></div>
         <div class="col-sm-2">
@@ -63,7 +63,7 @@
         </div>
     </div>
 </div>
-<div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="0">
+<div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="2">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container right-align" draggable="true" style="background-color: #E0E0E0">
@@ -75,9 +75,6 @@
                             <div class="row">
                                 <div class="col-sm-6 col-sm-push-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="usr">نام:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="usr">نام:</label>
@@ -90,9 +87,6 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="family">نام خانوادگی:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="family">نام خانوادگی:</label>
@@ -106,9 +100,6 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="father">نام پدر:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="father">نام پدر:</label>
@@ -130,9 +121,6 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-5 col-sm-push-7">
-                                            <label for="file">انتخاب عکس:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <label for="file" ng-click="fileSelect('plusPhoto')" ng-if="!imgLoading">
                                                     <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i>
@@ -147,9 +135,6 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="id-badge">شماره شناسنامه:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="id-badge">شماره شناسنامه:</label>
@@ -162,9 +147,6 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="social-no">کد ملی:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="social-no">کد ملی:</label>
@@ -178,9 +160,6 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="phone">شماره موبایل:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="phone">شماره موبایل:</label>
@@ -193,9 +172,6 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="phone">شماره پرسنلی :</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <label for="phone">شماره پرسنلی :</label>
                                             <input type="text" class="form-control" style="height: 30px !important" id="personnel" autocomplete="on" placeholder="شماره پرسنلی"
@@ -207,9 +183,6 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="email">email:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="email">email:</label>
@@ -222,9 +195,6 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="activity">نوع کاربری :</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="activity">نوع کاربری :</label>
@@ -240,9 +210,6 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6">
                                     <div class="row">
-                                        <!-- <div class="col-sm-4 col-sm-push-8">
-                                            <label for="user-name">نام کاربری:</label>
-                                        </div> -->
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="user-name">نام کاربری:</label>
@@ -321,7 +288,6 @@
                         <div class="col-sm-6 right-float">
                             <div class="form-group change">
                                 <label for="id-badge" ng-click="fileSelect('editPhoto')">
-                                    <!-- <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i> -->
                                     <img src="media/1.jpg" style="width: 55%;margin: auto;display: block;border-radius: 5px">
                                 </label>
                                 <input type="file" class="form-control" id="editPhoto" style="height: 30px !important" tabindex="5">
@@ -418,22 +384,22 @@
         $(".table").resizable({
             animate: true
         });
-        // $("#tablePlusUser").resizable({
-        //     ghost: true
-        // });
     });
 
 </script>
 <script>
-    // $("#tablePlusUser").draggable({
-    //     handle: ".modal-header"
-    // });
     jQuery(function ($) {
         $("#social-no").mask("999-999999-9");
         $("#edit-social-no").mask("999-999999-9");
     });
     $('#tablePlusUser').on('shown.bs.modal', function () {
         $('#name').focus();
+    });
+
+</script>
+<script>
+    $(function () {
+        Ps.initialize(document.getElementById('myDemo1'));
     });
 
 </script>

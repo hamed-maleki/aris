@@ -122,17 +122,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // subsystem header click to slide down
 
     // cartable message on click to show
-    $scope.showContext = function (title, context, x, y) {
-        $("#my-title").html(title);
-        $("#my-context").html(context);
-        $scope.titleShow = true;
-        if ($scope.cartable[x].read == 0) {
-            $scope.reading = $scope.reading - 1;
-            if ($scope.reading == 0) {
-                $(".badge").css("opacity", "0");
-            }
-        }
-        $scope.cartable[x].read = 1;
+    $scope.showContext = function () {
+        
+        $scope.emailLoader= false;
+        // $scope.mynumber = "modules/" + y+ ".html";
+        // console.log($scope.mynumber);
+        // $("#my-title").html(title);
+        // $("#my-context").html(context);
+        // $scope.titleShow = true;
+        // if ($scope.cartable[x].read == 0) {
+        //     $scope.reading = $scope.reading - 1;
+        //     if ($scope.reading == 0) {
+        //         $(".badge").css("opacity", "0");
+        //     }
+        // }
+        // $scope.cartable[x].read = 1;
     }
     // closing search results
     $scope.closingSearch = function () {
@@ -1711,12 +1715,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // directive for aris tag's template changer
     $scope.table = function (value, mypageId) {
         // console.log("this is happening")
+        $scope.emailLoader = true;
         $(".leaf").removeClass("myselect");
         $("#leaf" + mypageId).addClass("myselect");
         // $scope.number = "modules/" + value;
         var mydata = {
             pageId: mypageId
         }
+        console.log(mydata);
+        console.log(value);
         // $scope.number = "modules/" + value;
         $http({
             url: myhost + "/system/elements",
@@ -1748,6 +1755,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
         }
+    }
+    // cartable part 
+    $scope.favCartable = function(x){
+        $("#star"+x).toggleClass("fa-star-o");
+        $("#star"+x).toggleClass("fa-star");   
     }
     // chat area
     $scope.chatting = function (reciver) {
@@ -2268,17 +2280,19 @@ window.onkeydown = function (e) {
     }
 };
 function move() {
+    'use strict'
     $("#myBar").css("display", "block")
-    var elem = document.getElementById("myBar");
-    var width = 1;
+    var elem = document.getElementById("inside-progress");
+    var height = 1;
     var id = setInterval(frame, 20);
     function frame() {
-        if (width >= 100) {
+        if (height >= 100) {
             clearInterval(id);
             $("#myBar").css("display", "none");
         } else {
-            width++;
-            elem.style.width = width + '%';
+            height++;
+            console.log(height);
+            elem.style.height = height + '%';
         }
     }
 }
