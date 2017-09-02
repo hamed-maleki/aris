@@ -2281,18 +2281,23 @@ window.onkeydown = function (e) {
 };
 function move() {
     'use strict'
-    $("#myBar").css("display", "block")
+    $("#myBar").css("top","20%");
+    $("#loadingImage").removeClass('rotate');
+    $("#myBar").fadeIn();
     var elem = document.getElementById("inside-progress");
     var height = 1;
     var id = setInterval(frame, 20);
     function frame() {
         if (height >= 100) {
             clearInterval(id);
-            $("#myBar").css("display", "none");
+            $("#loadingImage").addClass('rotate');
+            $("#myBar").delay(500).animate({top: "-20%"});
+            $("#myBar").delay(1000).fadeOut();
         } else {
             height++;
             console.log(height);
             elem.style.height = height + '%';
+            elem.style.top = 100 - height + '%';
         }
     }
 }

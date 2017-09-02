@@ -199,7 +199,7 @@ p{
      background-color: #F16521;
      height: 0%;
      position: relative;
-     bottom: 0;
+     top: 100%;
      left:0;
  }
  .barImg {
