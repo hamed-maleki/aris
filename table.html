@@ -68,6 +68,18 @@
         .chart {
             margin: 5px auto;
         }
+        .myselect {
+            background-color: #808080;
+        }
+        input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 225px;
+            opacity: 0;
+            padding: 14px 0;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -82,16 +94,15 @@
                         <div class="col-sm-12" style="padding: 0 25px;">
                             <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-sm-2 col-sm-push-9 my-margin-top right-align">
                     <div ng-class="userColor" style="height: 82vh;overflow-x: hidden !important;width: 100%">
                         <ul style="padding-left: 0">
-                            <li class="system-li pointer">
+                            <li class="system-li pointer" ng-click="recive()">
                                 <i class="fa fa-file-o"></i> جعبه دریافت
                             </li>
-                            <li class="system-li pointer">
+                            <li class="system-li pointer" ng-click="send()">
                                 <i class="fa fa-paper-plane-o"></i> جعبه ارسال
                             </li>
                         </ul>
@@ -107,38 +118,36 @@
                             <span class="my-button btn button-color" ng-class="userColor" style="color: white;padding: 4px 5px;">
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
-                                
                             </span>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="table-container" id="myDemo">
-                            <table class="table table-hover my-table">
+                        <div class="table-container" >
+                            <table class="table table-hover my-table mail-box">
                                 <thead>
                                     <tr>
-                                        <th style="width: 200px" ng-style="testfont">فرستنده</th>
-                                        <th ng-style="testfont">عنوان</th>
-                                        <th ng-style="testfont">وضعیت</th>
-                                        <th></th>
+                                        <th  ng-style="testfont">فرستنده</th>
+                                        <th  ng-style="testfont">عنوان</th>
+                                        <th  ng-style="testfont">وضعیت</th>
+                                        <th style="min-width: 200px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartable in cartable" id="row{{cartable.id}}">
+                                    <tr ng-repeat="cartable in cartable|orderBy:'read'" ng-class="{true:'selected-row', false:''}[cartable.read]" id="row{{cartable.id}}" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false">
                                         <td ng-style="testfont">
                                             <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
                                             <i class="fa fa-star-o" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>                                            {{cartable.author}}
                                         </td>
-                                        <td ng-style="testfont" ng-click="table(cartable.page,cartable.pageId)">{{cartable.title}}</td>
-                                        <td ng-style="testfont" ng-click="table(cartable.page,cartable.pageId)">{{cartable.situation}}</td>
+                                        <td ng-style="testfont" ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.title}}</td>
+                                        <td ng-style="testfont" ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
                                         <td>
-                                            <i class="fa fa-tag green" style="font-size: 18px;"></i>
-                                            <i class="fa fa-tag red" style="font-size: 18px;"></i>
+                                            <i class="fa fa-tags green pointer" title="تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
+                                            <i class="fa fa-tags red pointer" title="عدم تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
-                        <ul class="pagination">
+                        <ul class="pagination" style="margin: 12px 0">
                             <li><a href="#">1</a></li>
                             <li class="active"><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
@@ -191,7 +200,6 @@
         </div>
         <script>
             $(function () {
-                Ps.initialize(document.getElementById('myDemo'));
                 Ps.initialize(document.getElementById('loadedPage'));
             });
         </script>

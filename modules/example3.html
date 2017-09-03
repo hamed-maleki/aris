@@ -50,11 +50,12 @@
             </div>
             <div class="col-sm-5 center">
                 <ul class="pagination" style="margin: 0">
-                    <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-left" ></i></a></li>
-                    <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-left"></i></a></li>
+                    <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
+                    <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-right"></i></a></li>
                     <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')">{{x}}</a></li>
-                    <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-right"></i></a></li>
-                    <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-right" ></i></a></li>
+                    <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-left"></i></a></li>
+                    <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-left" ></i></a></li>
+
                 </ul>
             </div>
             <div class="col-sm-4">

@@ -106,9 +106,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // cartable json load and number of unread message
     $http.get("data/cartable.json")
         .then(function (response) {
-            $scope.cartable = response.data.cartable;
+            $scope.reciveMails = response.data.cartable;
+            $scope.cartable = $scope.reciveMails;
             for (var x = 0; x < $scope.cartable.length; x++) {
-                if ($scope.cartable[x].read == 0) {
+                if ($scope.cartable[x].read == false) {
                     $scope.reading = $scope.reading + 1;
                 }
                 else {
@@ -119,24 +120,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $(".badge").css("opacity", "0");
             }
         })
-    // subsystem header click to slide down
-
+        $scope.send = function(){
+            $http.get("data/sendmail.json")
+            .then(function(response){
+                $scope.sendMails = response.data.cartable;
+                $scope.cartable = $scope.sendMails;
+                $scope.emailLoader = false;
+            })
+        }
+        $scope.recive = function(){
+            $scope.cartable = $scope.reciveMails;
+            $scope.emailLoader = false;
+        }
     // cartable message on click to show
     $scope.showContext = function () {
-        
-        $scope.emailLoader= false;
-        // $scope.mynumber = "modules/" + y+ ".html";
-        // console.log($scope.mynumber);
-        // $("#my-title").html(title);
-        // $("#my-context").html(context);
-        // $scope.titleShow = true;
-        // if ($scope.cartable[x].read == 0) {
-        //     $scope.reading = $scope.reading - 1;
-        //     if ($scope.reading == 0) {
-        //         $(".badge").css("opacity", "0");
-        //     }
-        // }
-        // $scope.cartable[x].read = 1;
+        $scope.emailLoader = false;
     }
     // closing search results
     $scope.closingSearch = function () {
@@ -241,29 +239,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $($scope.listItems[0]).addClass("selected")
         $scope.theme();
     }
-    // pushing in cookie
-    // $scope.cookieForSide = function (x, y) {
-    //     var now = new Date();
-    //     var time = now.getTime();
-    //     time += 3600 * 1000;
-    //     now.setTime(time);
-    //     var searchParent = x
-    //     var searchId = y;
-    //     document.cookie = "searchParent = " + searchParent + ";expires=" + now.toUTCString() + ";path =/";
-    //     document.cookie = "searchId = " + searchId + ";expires=" + now.toUTCString() + ";path =/";
-    // }
-    // putting side bar cookie to be loaded in system page later
-    // $scope.searchClick = function (x, y) {
-    //     $scope.cookieForSide(x, y);
-    //     for (var i = 0; i < $scope.system.length; i++) {
-    //         for (var z = 0; z < $scope.system[i].children.length; z++) {
-    //             if ($scope.system[i].children[z].id == x) {
-    //                 var item = $scope.system[i].id
-    //             }
-    //         }
-    //     }
-    //     $scope.gettingSystem(item, 0)
-    // }
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
@@ -282,17 +257,29 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     if (e.lengthComputable) {
                         $scope.progressBar = (e.loaded / e.total) * 100;
                         $scope.progressCounter = $scope.progressBar;
+                        $("#myBar").css("top","20%");
+                        $("#loadingImage").removeClass('rotate');
+                        $("#myBar").fadeIn();
+                        var elem = document.getElementById("inside-progress")
                         // $scope.myinterval = setInterval($scope.myprogressBar(),20)
                         $scope.myinterval = $interval(
                             function () {
-                                $("#myBar").css("display", "block");
-                                var elem = document.getElementById("myBar");
-                                var width = 1;
+                                
+                                var elem = document.getElementById("inside-progress");
+                                // var width = 1;
                                 if ($scope.progressCounter >= 100) {
                                     $interval.cancel($scope.myinterval);
-                                    $("#myBar").css("display", "none");
+                                    $("#loadingImage").addClass('rotate');
+                                    
+                                    // $("#myBar").css("display", "none");
+                                    elem.style.height = $scope.progressCounter + '%';
+                                    elem.style.top = 100 - $scope.progressCounter + '%';
+                                    $("#myBar").animate({top:"-20%"});
+                                    $("#myBar").fadeOut();
+                                    // $("#myBar").animate()
                                 } else {
-                                    document.getElementById("myBar").style.width = $scope.progressCounter + '%';
+                                    elem.style.height = $scope.progressCounter + '%';
+                                    elem.style.top = 100 - $scope.progressCounter + '%';
                                 }
                             }, 20);
                     }
@@ -978,7 +965,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        // console.log($event);
+        console.log($event);
         var evtobj = window.event ? event : $event;
         if ($event.altKey || evtobj.altKey) {
             // console.log("this is happening in s");
@@ -1014,24 +1001,24 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if ($event.keyCode == 61) {
                 $("#tablePlusUser").modal();
             }
-            if ($(".modal").hasClass("in")) {
-                if ($event.keyCode == 37) {
+            // if ($(".modal").hasClass("in")) {
+                if ($event.keyCode == 190) {
                     $scope.editUserSlide(-1);
                 }
-                if ($event.keyCode == 39) {
+                if ($event.keyCode == 188) {
                     $scope.editUserSlide(1);
                 }
-            }
-            else{
-                if($event.keyCode == 37){
-                    $scope.finalPagination($scope.currentPage - 1,false,'http://localhost/ArisSystem/api/user' )
+            // }
+            // else {
+                if ($event.keyCode == 39) {
+                    $scope.finalPagination($scope.currentPage - 1, false, 'http://localhost/ArisSystem/api/user')
                 }
-                if($event.keyCode == 39){
-                    $scope.finalPagination($scope.currentPage + 1,false,'http://localhost/ArisSystem/api/user' )
+                if ($event.keyCode == 37) {
+                    $scope.finalPagination($scope.currentPage + 1, false, 'http://localhost/ArisSystem/api/user')
                 }
-            }
+            // }
         }
-        
+
 
         // if ($event.altKey || evtobj.altKey) {
         //     
@@ -1043,7 +1030,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.currentPage = 1;
     $scope.pagelength = 5;
-    $scope.paginationRow = function(x){
+    $scope.paginationRow = function (x) {
         $scope.pagelength = x;
         $scope.currentPage = 1;
         $(".pagination li").removeClass("active");
@@ -1051,7 +1038,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.paginationToShow(1);
         // $scope.pages = [];
         $scope.users();
-        
+
         // $("#userpagination" + x).addClass("active");
     }
     $scope.finalPagination = function (x, y, z) {
@@ -1331,17 +1318,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         if (e.lengthComputable) {
                             $scope.progressBar = (e.loaded / e.total) * 100;
                             $scope.progressCounter = $scope.progressBar;
+                            $("#myBar").css("top","20%");
+                            $("#loadingImage").removeClass('rotate');
+                            $("#myBar").fadeIn();
+                            var elem = document.getElementById("inside-progress")
                             // $scope.myinterval = setInterval($scope.myprogressBar(),20)
                             $scope.myinterval = $interval(
                                 function () {
-                                    $("#myBar").css("display", "block");
+                                    
                                     var elem = document.getElementById("myBar");
-                                    var width = 1;
+                                    // var width = 1;
                                     if ($scope.progressCounter >= 100) {
                                         $interval.cancel($scope.myinterval);
-                                        $("#myBar").css("display", "none");
+                                        $("#loadingImage").addClass('rotate');
+                                        $("#myBar").delay(500).animate({top:"-20%"});
+                                        $("#myBar").delay(1000).fadeOut();
+                                        // $("#myBar").css("display", "none");
                                     } else {
-                                        document.getElementById("myBar").style.width = $scope.progressCounter + '%';
+                                        elem.style.height = $scope.progressCounter + '%';
+                                        elem.style.top = 100 - $scope.progressCounter + '%';
                                     }
                                 }, 20);
                         }
@@ -1410,17 +1405,17 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
         else {
-            if($scope.paginationNumber.length > 5){
+            if ($scope.paginationNumber.length > 5) {
                 for (var i = 0; i < 5; i++) {
                     $scope.pages.push($scope.paginationNumber[i]);
                 }
             }
-            else{
+            else {
                 for (var i = 0; i < $scope.paginationNumber.length; i++) {
                     $scope.pages.push($scope.paginationNumber[i]);
                 }
             }
-            
+
         }
     }
     // adding camma after three digit function
@@ -1713,9 +1708,22 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
     };
     // directive for aris tag's template changer
+    $scope.cartableReader = function (id,value, mypageId) {
+        $scope.emailLoader = true;
+        for (var i = 0; i < $scope.reciveMails.length; i++) {
+            if (id == $scope.reciveMails[i].id) { 
+                if($scope.reciveMails[i].read == false){
+                    $scope.reading = $scope.reading - 1;
+                }
+                $scope.reciveMails[i].read = true;
+            }
+        }
+        
+        $scope.table(value,mypageId);
+    }
     $scope.table = function (value, mypageId) {
         // console.log("this is happening")
-        $scope.emailLoader = true;
+
         $(".leaf").removeClass("myselect");
         $("#leaf" + mypageId).addClass("myselect");
         // $scope.number = "modules/" + value;
@@ -1757,9 +1765,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // cartable part 
-    $scope.favCartable = function(x){
-        $("#star"+x).toggleClass("fa-star-o");
-        $("#star"+x).toggleClass("fa-star");   
+    $scope.favCartable = function (x) {
+        $("#star" + x).toggleClass("fa-star-o");
+        $("#star" + x).toggleClass("fa-star");
     }
     // chat area
     $scope.chatting = function (reciver) {
@@ -2281,7 +2289,7 @@ window.onkeydown = function (e) {
 };
 function move() {
     'use strict'
-    $("#myBar").css("top","20%");
+    $("#myBar").css("top", "20%");
     $("#loadingImage").removeClass('rotate');
     $("#myBar").fadeIn();
     var elem = document.getElementById("inside-progress");
@@ -2291,7 +2299,7 @@ function move() {
         if (height >= 100) {
             clearInterval(id);
             $("#loadingImage").addClass('rotate');
-            $("#myBar").delay(500).animate({top: "-20%"});
+            $("#myBar").delay(500).animate({ top: "-20%" });
             $("#myBar").delay(1000).fadeOut();
         } else {
             height++;

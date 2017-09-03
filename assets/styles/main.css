@@ -1045,7 +1045,9 @@ nav a:hover {
     position: relative;
     animation: table-move 1.5s;
 }
-
+.selected-row {
+    background-color: #F5F5F5!important;
+}
 .editor {
     display: none;
 }
@@ -1128,11 +1130,15 @@ nav a:hover {
     text-align: right;
 }
 
-.my-table td,.my-table  th {
+.my-table td {
     font-size: 14px !important;
     padding: 15px !important;
 }
-
+.my-table  th{
+    font-size: 18px;
+    padding: 15px;
+    color:black !important;
+}
 .my-table tr,.my-table tr th {
     color: gray;
 }
@@ -1664,6 +1670,13 @@ tfoot tr td {
 .pagination > .active > a ,.pagination > .active > a:hover, .pagination > .active > a:focus{
     background-color: #F16521;
     border-color: #F16521;
+}
+.pagination li a {
+    float: right;
+    border-radius: 0 !important;
+}
+.mail-box td{
+    line-height: 0.1cm !important;
 }
 .myday {
     text-align: center;
