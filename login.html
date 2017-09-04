@@ -285,13 +285,11 @@
                                     <div class="col-sm-6 col-sm-pull-6">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <label for="file" ng-click="fileSelect('plusPhoto')" ng-if="!imgLoading">
+                                                <label for="file" onclick="fileSelect()" id="labelSelect">
                                                                 <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i>
                                                         </label>
-                                                <img src="" ng-if="imgLoading" id="myimg" ng-click="fileSelect('plusPhoto')" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
-                                                <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" ng-change="testUpload()"
-                                                    oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')"
-                                                    tabindex="5">
+                                                <img src=""  id="myimg" onclick="fileSelect()" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
+                                                <input type="file" style="height: 30px !important" id="plusPhoto" required tabindex="5">
                                             </div>
                                         </div>
                                     </div>

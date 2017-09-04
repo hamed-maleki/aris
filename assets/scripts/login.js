@@ -180,8 +180,25 @@ $(document).ready(function () {
         document.getElementById('upload-photo').click()
     })
     $('#upload-photo').change(function (event) {
-        
+
         $("#selected").html($("#upload-photo").val());
         console.log($("#upload-photo").val());
     });
 })
+function fileSelect() {
+    $("#plusPhoto").click();
+    // $scope.imgLoading = true;
+    $('#plusPhoto').change(function (event) {
+        // $scope.readURL(this);
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                console.log(e.target.result);
+                $('#myimg').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+        $("#labelSelect").css("display","none");
+        $("#myimg").css("display", "block");
+    });
+}

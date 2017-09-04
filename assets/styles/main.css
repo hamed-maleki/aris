@@ -1125,7 +1125,64 @@ nav a:hover {
 .table-container {
     position: relative;
 }
-
+.extra-info{
+    position: absolute;
+    top: -20px;
+    left:170px;
+    width: 300px;
+    height: 30vh;
+    border: 1px solid lightgray;
+    box-shadow: 1px 5px 10px gray;
+    background-color: white;
+    z-index: 2;
+    overflow-y: scroll;
+    line-height: 0.5cm;
+}
+.timeline-border {
+    border-right: 5px solid #037BC0;
+    margin-right: 217px;
+    margin-top: -50px;
+}
+.time-event {
+    margin-right: -203.5px;
+    position: relative;
+    margin-top: 50px
+}
+.time-event > div {
+    position: absolute;
+    width: 200px;
+    top: 7px;
+    /* right: 10px; */
+    height: 100px;
+    background-color: #037BC0;
+    color: white;
+    text-align: right;
+}
+.time-event:nth-child(even) > div{
+    right: -11px;
+}
+.time-event:nth-child(even) > div::before {
+    content: '';
+    border-top: 15px solid #037BC0;
+    border-left: 15px solid transparent;
+    position: absolute;
+    top: 0;
+    left: -5px;
+}
+.time-event:nth-child(odd) > div::before {
+    content: '';
+    border-top: 15px solid #037BC0;
+    border-right: 15px solid transparent;
+    position: absolute;
+    top: 0;
+    right: -5px; 
+}
+.time-event:nth-child(odd) > div{
+    left: 1px;
+}
+.time-event i {
+    color: #037BC0;
+}
 .table-container th {
     text-align: right;
 }

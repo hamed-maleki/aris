@@ -68,9 +68,11 @@
         .chart {
             margin: 5px auto;
         }
+
         .myselect {
             background-color: #808080;
         }
+
         input[type="file"] {
             position: absolute;
             top: 0;
@@ -121,27 +123,93 @@
                             </span>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="table-container" >
+                        <div class="table-container">
                             <table class="table table-hover my-table mail-box">
                                 <thead>
-                                    <tr>
-                                        <th  ng-style="testfont">فرستنده</th>
-                                        <th  ng-style="testfont">عنوان</th>
-                                        <th  ng-style="testfont">وضعیت</th>
-                                        <th style="min-width: 200px"></th>
+                                    <tr ng-style="testfont">
+                                        <th>نام درخواست دهنده</th>
+                                        <th>درخواست</th>
+                                        <th>مرحله</th>
+                                        <th>تاریخ ارسال</th>
+                                        <th>اطلاعات تکمیلی</th>
+                                        <th>تاریخچه</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartable in cartable|orderBy:'read'" ng-class="{true:'selected-row', false:''}[cartable.read]" id="row{{cartable.id}}" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false">
-                                        <td ng-style="testfont">
-                                            <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
-                                            <i class="fa fa-star-o" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>                                            {{cartable.author}}
-                                        </td>
-                                        <td ng-style="testfont" ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.title}}</td>
-                                        <td ng-style="testfont" ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
+                                    <tr ng-repeat="cartable in cartable|orderBy:'read'" ng-style="testfont" ng-class="{true:'selected-row', false:''}[cartable.read]"
+                                        id="row{{cartable.id}}" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false">
                                         <td>
+                                            <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
+                                            <i class="fa fa-star-o" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>{{cartable.author}}
+                                        </td>
+                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.title}}</td>
+                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
+                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
+                                            1396/06/07
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-comment-o pointer" style="font-size: 16px;padding: 0;margin: 0 5px" ng-click="extraInfo ? extraInfo = false : extraInfo = true"></i>
                                             <i class="fa fa-tags green pointer" title="تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
                                             <i class="fa fa-tags red pointer" title="عدم تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
+                                            <div style="position: relative">
+                                                <div ng-if="extraInfo" class="container extra-info">
+                                                    <div class="row my-margin-top">
+                                                        <div class="col-sm-12">
+                                                            <p>
+                                                                {{cartable.info}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-history pointer" style="font-size: 18px" ng-click="timeLine ? timeLine = false : timeLine = true"></i>
+                                            <div style="position: relative">
+                                                <div ng-if="timeLine" class="extra-info center" style="left: 95px;width: 450px;overflow-x: hidden;height: 30vh">
+                                                    <div class="my-margin-top">
+                                                        <button class="btn btn-info" ng-click="tree = true">نمایش جدول</button>
+                                                        <button class="btn btn-info" ng-click="tree = false">درختواره</button>
+                                                    </div>
+                                                    <div class="timeline-border my-margin-top" ng-if="! tree">
+                                                        <div ng-repeat="x in cartable.history" class="time-event">
+                                                            <i class="fa fa-circle"></i>
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        {{x.date}}
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        {{x.sender}}
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                    <div class="col-sm-12">
+                                                                        {{x.situation}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-if="tree">
+                                                        <table  style="margin: 5px auto">
+                                                            <tbody>
+                                                                <tr ng-repeat="x in cartable.history">
+                                                                    <td>
+                                                                        {{x.date}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{x.sender}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{x.situation}}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -156,7 +224,7 @@
                         </ul>
                     </div>
                     <div ng-if="emailLoader" ng-keyup="detector($event)" tabindex="1">
-                        <div class="white-background border my-margin-top my-padding center responsive-margin" >
+                        <div class="white-background border my-margin-top my-padding center responsive-margin">
                             <div class="right-align my-margin-top">
                                 <button class="my-button btn button-color center" ng-click="showContext()" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 18px;">
                                     <i class="fa fa-arrow-right"></i>     
