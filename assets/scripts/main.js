@@ -128,9 +128,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.emailLoader = false;
             })
         }
-        $scope.recive = function(){
+        $scope.recive = function(x){
+            console.log(x);
             $scope.cartable = $scope.reciveMails;
             $scope.emailLoader = false;
+            $scope.myFav = x;
         }
     // cartable message on click to show
     $scope.showContext = function () {
@@ -1766,8 +1768,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // cartable part 
     $scope.favCartable = function (x) {
-        $("#star" + x).toggleClass("fa-star-o");
-        $("#star" + x).toggleClass("fa-star");
+        for(var i = 0; i < $scope.cartable.length;i++){
+            if(x == $scope.cartable[i].id){
+                $scope.cartable[i].fav  = true;
+            }
+        }
     }
     // chat area
     $scope.chatting = function (reciver) {

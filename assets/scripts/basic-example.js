@@ -22,6 +22,7 @@ var config = {
         text:{
             name: "Joe Linux",
             title: "Chief Technology Officer",
+            id:2
         },
         stackChildren: true,
         image: "media/1.jpg"
@@ -57,7 +58,7 @@ var config = {
         text:{
             name: "Michael Rubin",
             title: "Chief Innovation Officer",
-            contact: {val: "we@aregreat.com", href: "mailto:we@aregreat.com"}
+            id:5
         },
         image: "media/9.jpg"
     },
@@ -94,7 +95,8 @@ var config = {
             name: "Kirk Douglas",
             title: "Chief Business Development Officer"
         },
-        image: "media/11.jpg"
+        image: "media/11.jpg",
+        id:5
     }
 
     chart_config = [

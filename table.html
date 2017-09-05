@@ -102,10 +102,13 @@
                     <div ng-class="userColor" style="height: 82vh;overflow-x: hidden !important;width: 100%">
                         <ul style="padding-left: 0">
                             <li class="system-li pointer" ng-click="recive()">
-                                <i class="fa fa-file-o"></i> جعبه دریافت
+                                <i class="fa fa-inbox"></i> جعبه دریافت
                             </li>
                             <li class="system-li pointer" ng-click="send()">
                                 <i class="fa fa-paper-plane-o"></i> جعبه ارسال
+                            </li>
+                            <li class="system-li pointer" ng-click="recive(true)">
+                                <i class="fa fa-star-o"></i>برگزیده ها
                             </li>
                         </ul>
                     </div>
@@ -113,34 +116,48 @@
                 <div class="col-sm-9 col-sm-pull-2 container-filter my-margin-top" id="loadedPage" style="background-color: white;height: 82vh;overflow-y: scroll;padding: 0 0 0 10px;">
                     <div class="white-background border my-margin-top my-padding center responsive-margin" ng-if="! emailLoader">
                         <div class="right-align my-margin-top">
+
                             <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
-                            <i class="fa fa-trash-o" style="margin-left: 0"></i>
-                            حذف
+                                حذف
+                                <i class="fa fa-trash-o" style="margin-left: 0"></i>
+                            
                             </button>
                             <span class="my-button btn button-color" ng-class="userColor" style="color: white;padding: 4px 5px;">
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
                             </span>
+                            <button class="my-button btn button-color" ng-class="userColor" ng-click="checking = false">
+                                خوانده نشده ها
+                                <i class="fa fa-low-vision" style="margin-left: 0"></i>
+                                
+                            </button>
+                            <button class="my-button btn button-color" ng-class="userColor" ng-click="checking = undefined">
+                                همه موارد
+                                <i class="fa fa-sort-amount-asc" style="margin-left: 0"></i>
+                                
+                            </button>
                         </div>
                         <div class="clearfix"></div>
                         <div class="table-container">
                             <table class="table table-hover my-table mail-box">
                                 <thead>
                                     <tr ng-style="testfont">
-                                        <th>نام درخواست دهنده</th>
-                                        <th>درخواست</th>
-                                        <th>مرحله</th>
-                                        <th>تاریخ ارسال</th>
-                                        <th>اطلاعات تکمیلی</th>
-                                        <th>تاریخچه</th>
+                                        <th style="width:200px">نام درخواست دهنده</th>
+                                        <th style="width:250px">درخواست</th>
+                                        <th style="width: 150px">مرحله</th>
+                                        <th style="width:150px">تاریخ ارسال</th>
+                                        <th style="width:120px">اطلاعات تکمیلی</th>
+                                        <th style="width: 100px">تاریخچه</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartable in cartable|orderBy:'read'" ng-style="testfont" ng-class="{true:'selected-row', false:''}[cartable.read]"
+                                    <tr ng-repeat="cartable in cartable|orderBy:'read'|filter:{ read: checking}:true|filter:{ fav: myFav}:true" ng-style="testfont" ng-class="{true:'selected-row', false:''}[cartable.read]"
                                         id="row{{cartable.id}}" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false">
                                         <td>
                                             <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
-                                            <i class="fa fa-star-o" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>{{cartable.author}}
+                                            <i class="fa fa-star-o" ng-if="! cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>
+                                            <i class="fa fa-star" ng-if="cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>
+                                            {{cartable.author}}
                                         </td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.title}}</td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
@@ -192,7 +209,7 @@
                                                         </div>
                                                     </div>
                                                     <div ng-if="tree">
-                                                        <table  style="margin: 5px auto">
+                                                        <table style="margin: 5px auto">
                                                             <tbody>
                                                                 <tr ng-repeat="x in cartable.history">
                                                                     <td>
@@ -269,6 +286,7 @@
         <script>
             $(function () {
                 Ps.initialize(document.getElementById('loadedPage'));
+                // Ps.initialize(document.getElementsByClassName('time-event'));
             });
         </script>
 </body>
