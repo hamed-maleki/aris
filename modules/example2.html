@@ -119,22 +119,221 @@
         </div>
     </div>
 </div>  -->
+<div id="addingUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="2">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <!-- <button class="btn btn-info">اختصاص افراد به این پست</button>
+                    <button class="btn btn-info">افراد دارای این سمت</button> -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 my-margin-top">
+                            <ul class="user-list">
+                                <li class="center" ng-class="userColor" ng-click="registeringUser = false">اختصاص افراد به این سمت</li>
+                                <li class="center" ng-class="userColor" ng-click="registeringUser =true">افراد دارای این سمت</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12 my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-push-6 col-sm-6">
+                                    <label ng-style="testfont" class="right-float">نام واحد :</label>
+                                    <input type="text" id="unitName" class="form-control right-align">
+                                </div>
+                                <div class="col-sm-6 col-sm-pull-6">
+                                    <label ng-style="testfont" class="right-float">کد واحد :</label>
+                                    <input type="text" id="unitCode" class="form-control right-align">
+                                </div>
+                            </div>
+                            <!-- <input type="text" class="form-control elementClass"> -->
+                            <div class="table-responsive my-margin-top">
 
+                                <table class="table table-hover table-bordered right-align">
+                                    <thead>
+                                        <tr ng-style="testfont">
+
+                                            <th style="width: 50px">
+                                                نام و نام خانوادگی
+                                            </th>
+                                            <th style="width: 30px">
+                                                کد پست
+                                            </th>
+                                            <th style="width: 20px">
+                                                شروع پست
+                                            </th>
+                                            <th style="width: 20px">
+                                                پایان پست
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-style="testfont">
+                                            <td>
+                                                <p style="display: flex">
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                        </tr>
+                                        <tr ng-style="testfont">
+                                            <td>
+                                                <p style="display: flex">
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                        </tr>
+                                        <tr ng-style="testfont">
+                                            <td>
+                                                <p style="display: flex">
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                        </tr>
+                                        <tr ng-style="testfont">
+                                            <td>
+                                                <p style="display: flex">
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                        </tr>
+                                        <tr ng-style="testfont">
+                                            <td>
+                                                <p style="display: flex">
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control elementClass">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 center" style="direction: ltr">
+                            <ul class="pagination" style="margin: 0" data-step="9" data-intro="صفحه مورد نظر خود را انتخاب کنید" data-position='left'>
+                                <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-right" ></i></a></li>
+                                <li><a href="#" style="color: black"><i class="fa fa-angle-right"></i></a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">1</a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">10</a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">100</a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">10</a></li>
+                                <li><a href="#" style="color: black"><i class="fa fa-angle-left"></i></a></li>
+                                <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-left" ></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12  my-margin-top" ng-if="registeringUser">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered right-align">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                نام
+                                            </th>
+                                            <th>
+                                                نام خانوادگی
+                                            </th>
+                                            <th>
+                                                کد پرسنلی
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                علی
+                                            </td>
+                                            <td>
+                                                قولبگ
+                                            </td>
+                                            <td>
+                                                123456
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="assets/scripts/treant.js"></script>
 <script src="assets/scripts/raphael.js"></script>
+<!-- <script src="assets/scripts/collapsable.js"></script> -->
 <script src="assets/scripts/basic-example.js"></script>
 <!-- <script src="assets/scripts/example6.js"></script> -->
 <!-- <div class="chart" id="OrganiseChart6"></div> -->
+<!-- <input type="text" class="form-control elementClass"> -->
 <div class="chart" id="basic-example" ng-init="treeLoad()"></div>
+<!-- <div class="chart" id="collapsable-example" ng-init="treeLoad()"></div> -->
+
 <script>
     new Treant(chart_config);
     $(document).ready(function () {
         $(".node").click(function () {
             for (var i = 0; i < this.childNodes.length; i++) {
-                if (this.childNodes[i].className == "node-name") {
-                    console.log(this.childNodes[1].innerHTML)
+                if (this.childNodes[i].className == "node-id") {
+                    $("#addingUser").modal();
+                    $("#unitCode").val(this.childNodes[1].innerHTML);
+                    $("#unitName").val(this.childNodes[0].innerHTML)
                 }
             }
         })
     })
+
+</script>
+<script>
+    $(".modal").draggable({
+        handle: ".modal-body"
+    });
+    $(function () {
+        $("#elementId, .elementClass").persianDatepicker();
+        $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
+        $(".pdp").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
+        $("#pdp1").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
+    });
+
 </script>

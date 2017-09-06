@@ -5,97 +5,80 @@ var config = {
             type: 'step'
         },
         node: {
-            HTMLclass: 'nodeExample1'
+            HTMLclass: 'nodeExample1',
         }
     },
     ceo = {
         text: {
-            name: "Mark Hill",
-            title: "Chief executive officer",
-            contact: "Tel: 01 213 123 134",
+            name: "مدیریت استان",
+            id:0
         },
-        image: "media/2.jpg"
     },
 
     cto = {
         parent: ceo,
         text:{
-            name: "Joe Linux",
-            title: "Chief Technology Officer",
+            name: "معاونت",
             id:2
         },
-        stackChildren: true,
-        image: "media/1.jpg"
+        // stackChildren: true,
     },
     cbo = {
         parent: ceo,
-        stackChildren: true,
+        // stackChildren: true,
         text:{
-            name: "Linda May",
-            title: "Chief Business Officer",
+            name: "معاونت",
+            id:3
         },
-        image: "media/5.jpg"
     },
     cdo = {
         parent: ceo,
         text:{
             name: "John Green",
-            title: "Chief accounting officer",
-            contact: "Tel: 01 213 123 134",
+            id:4
         },
-        image: "media/6.jpg"
     },
     cio = {
         parent: cto,
         text:{
             name: "Ron Blomquist",
-            title: "Chief Information Security Officer"
+            id:5
         },
-        image: "media/8.jpg"
     },
     ciso = {
         parent: cto,
         text:{
             name: "Michael Rubin",
-            title: "Chief Innovation Officer",
-            id:5
+            id:6
         },
-        image: "media/9.jpg"
     },
     cio2 = {
         parent: cdo,
         text:{
             name: "Erica Reel",
-            title: "Chief Customer Officer"
+            id:7
         },
-        link: {
-            href: "http://www.google.com"
-        },
-        image: "media/10.jpg"
     },
     ciso2 = {
         parent: cbo,
         text:{
             name: "Alice Lopez",
-            title: "Chief Communications Officer"
+            id:8
         },
-        image: "media/7.jpg"
     },
     ciso3 = {
         parent: cbo,
         text:{
             name: "Mary Johnson",
-            title: "Chief Brand Officer"
+            id:9
         },
-        image: "media/4.jpg"
     },
     ciso4 = {
         parent: cbo,
         text:{
             name: "Kirk Douglas",
-            title: "Chief Business Development Officer"
+            id:10
         },
-        image: "media/11.jpg",
         id:5
     }
 
@@ -112,10 +95,6 @@ var config = {
         ciso3,
         ciso4
     ];
-
-
-
-
     // Antoher approach, same result
     // JSON approach
 

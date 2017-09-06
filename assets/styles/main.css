@@ -683,7 +683,6 @@ nav a:hover {
 
 .border { 
     color: #f5f7f8;
-    /* box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); */
 }
 
 .rounded-pic {
@@ -1255,7 +1254,7 @@ tfoot tr td {
 }
 
 .modal-body input {
-    height: 20px;
+    height: 30px;
 }
 
 .modal-body p{
@@ -1597,10 +1596,19 @@ tfoot tr td {
     padding: 0 28px;
     /* margin-right: 149px; */
 }
-.node-name,.node-title,.node-contact {
+.Treant > .node {
+    width: 100px;
+}
+.node-id {
+    display: none;
+}
+.node-name,.node-title {
     color: #bbbbbb !important;
     font-weight: normal;
     font-family: "iran-sans";
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
 }
 .node img{
     width: 45px;
@@ -1608,6 +1616,12 @@ tfoot tr td {
 }
 .node-name {
     cursor: pointer;
+}
+.user-list li{
+    display: inline-block;
+    width: 49.5%;
+    color: white;
+    padding: 10px 0;
 }
 .first-color {
     background-color: #037BC0 !important;

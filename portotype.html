@@ -123,7 +123,7 @@
             margin-bottom: 5px;
         }
         .system-li {
-            font-size: 20px;
+            font-size: 16px;
             padding: 10px 25px;
             margin: 0;
         }
@@ -131,7 +131,7 @@
             background-color: #808080;
         }
         .system-li ul li {
-            font-size: 20px;
+            font-size: 16px;
         }
         .chart{
             margin: 5px auto;
@@ -148,6 +148,7 @@
             padding: 14px 0;
             cursor: pointer;
         }
+
 </style>
 </head>
 
@@ -203,9 +204,9 @@
             <div class="col-sm-2 right-align my-margin-top" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">
                 <div id="myDemo" ng-class="userColor" style="height: 77vh;overflow-x: hidden !important;overflow-y: scroll;position: relative;width: 100%">
                     <ul>
-                        <li class="system-li pointer" ng-repeat="list in subsystem" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
+                        <li class="system-li pointer" ng-repeat="list in subsystem" ng-style="testfont" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
                         </li>
-                        <li class="system-li pointer leaf" ng-repeat="list in leaf" id="leaf{{list.id}}" ng-click="table(list.path,list.id)">{{list.title}}
+                        <li class="system-li pointer leaf" ng-repeat="list in leaf" ng-style="testfont" id="leaf{{list.id}}" ng-click="table(list.path,list.id)">{{list.title}}
                         </li>
                     </ul>
                 </div>
