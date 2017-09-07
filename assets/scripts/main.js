@@ -43,6 +43,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $http.get("data/theme.json")
         .then(function (response) {
             $scope.testfont = response.data.testfont;
+            console.log($scope.testfont);
             $scope.tableFont = response.data.tableFont;
             $scope.numberType = response.data.numberType;
             $scope.time = response.data.screensaver;
@@ -51,6 +52,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.userColor = response.data.userColor;
             $scope.userSubColor = response.data.userSubColor;
             $scope.userSystemColor = response.data.userSystemColor;
+            console.log(localStorage.font)
+            if (localStorage.userColor != undefined) {
+                $scope.userColor = localStorage.userColor;
+                $scope.userSubColor = localStorage.userSubColor;
+                $scope.userSystemColor = localStorage.userSystemColor;
+            }
+            if(localStorage.font != undefined){
+                $scope.testfont = JSON.parse(localStorage.font);
+            }
             var timeout;
             $(document).on("mousemove keydown click", function () {
                 $(".loading-login1").fadeOut(1000)
@@ -120,20 +130,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $(".badge").css("opacity", "0");
             }
         })
-        $scope.send = function(){
-            $http.get("data/sendmail.json")
-            .then(function(response){
+    $scope.send = function () {
+        $http.get("data/sendmail.json")
+            .then(function (response) {
                 $scope.sendMails = response.data.cartable;
                 $scope.cartable = $scope.sendMails;
                 $scope.emailLoader = false;
             })
-        }
-        $scope.recive = function(x){
-            console.log(x);
-            $scope.cartable = $scope.reciveMails;
-            $scope.emailLoader = false;
-            $scope.myFav = x;
-        }
+    }
+    $scope.recive = function (x) {
+        console.log(x);
+        $scope.cartable = $scope.reciveMails;
+        $scope.emailLoader = false;
+        $scope.myFav = x;
+    }
     // cartable message on click to show
     $scope.showContext = function () {
         $scope.emailLoader = false;
@@ -259,24 +269,24 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     if (e.lengthComputable) {
                         $scope.progressBar = (e.loaded / e.total) * 100;
                         $scope.progressCounter = $scope.progressBar;
-                        $("#myBar").css("top","20%");
+                        $("#myBar").css("top", "20%");
                         $("#loadingImage").removeClass('rotate');
                         $("#myBar").fadeIn();
                         var elem = document.getElementById("inside-progress")
                         // $scope.myinterval = setInterval($scope.myprogressBar(),20)
                         $scope.myinterval = $interval(
                             function () {
-                                
+
                                 var elem = document.getElementById("inside-progress");
                                 // var width = 1;
                                 if ($scope.progressCounter >= 100) {
                                     $interval.cancel($scope.myinterval);
                                     $("#loadingImage").addClass('rotate');
-                                    
+
                                     // $("#myBar").css("display", "none");
                                     elem.style.height = $scope.progressCounter + '%';
                                     elem.style.top = 100 - $scope.progressCounter + '%';
-                                    $("#myBar").animate({top:"-20%"});
+                                    $("#myBar").animate({ top: "-20%" });
                                     $("#myBar").fadeOut();
                                     // $("#myBar").animate()
                                 } else {
@@ -1004,20 +1014,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $("#tablePlusUser").modal();
             }
             // if ($(".modal").hasClass("in")) {
-                if ($event.keyCode == 190) {
-                    $scope.editUserSlide(-1);
-                }
-                if ($event.keyCode == 188) {
-                    $scope.editUserSlide(1);
-                }
+            if ($event.keyCode == 190) {
+                $scope.editUserSlide(-1);
+            }
+            if ($event.keyCode == 188) {
+                $scope.editUserSlide(1);
+            }
             // }
             // else {
-                if ($event.keyCode == 39) {
-                    $scope.finalPagination($scope.currentPage - 1, false, 'http://localhost/ArisSystem/api/user')
-                }
-                if ($event.keyCode == 37) {
-                    $scope.finalPagination($scope.currentPage + 1, false, 'http://localhost/ArisSystem/api/user')
-                }
+            if ($event.keyCode == 39) {
+                $scope.finalPagination($scope.currentPage - 1, false, 'http://localhost/ArisSystem/api/user')
+            }
+            if ($event.keyCode == 37) {
+                $scope.finalPagination($scope.currentPage + 1, false, 'http://localhost/ArisSystem/api/user')
+            }
             // }
         }
 
@@ -1320,20 +1330,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         if (e.lengthComputable) {
                             $scope.progressBar = (e.loaded / e.total) * 100;
                             $scope.progressCounter = $scope.progressBar;
-                            $("#myBar").css("top","20%");
+                            $("#myBar").css("top", "20%");
                             $("#loadingImage").removeClass('rotate');
                             $("#myBar").fadeIn();
                             var elem = document.getElementById("inside-progress")
                             // $scope.myinterval = setInterval($scope.myprogressBar(),20)
                             $scope.myinterval = $interval(
                                 function () {
-                                    
+
                                     var elem = document.getElementById("myBar");
                                     // var width = 1;
                                     if ($scope.progressCounter >= 100) {
                                         $interval.cancel($scope.myinterval);
                                         $("#loadingImage").addClass('rotate');
-                                        $("#myBar").delay(500).animate({top:"-20%"});
+                                        $("#myBar").delay(500).animate({ top: "-20%" });
                                         $("#myBar").delay(1000).fadeOut();
                                         // $("#myBar").css("display", "none");
                                     } else {
@@ -1710,18 +1720,18 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
     };
     // directive for aris tag's template changer
-    $scope.cartableReader = function (id,value, mypageId) {
+    $scope.cartableReader = function (id, value, mypageId) {
         $scope.emailLoader = true;
         for (var i = 0; i < $scope.reciveMails.length; i++) {
-            if (id == $scope.reciveMails[i].id) { 
-                if($scope.reciveMails[i].read == false){
+            if (id == $scope.reciveMails[i].id) {
+                if ($scope.reciveMails[i].read == false) {
                     $scope.reading = $scope.reading - 1;
                 }
                 $scope.reciveMails[i].read = true;
             }
         }
-        
-        $scope.table(value,mypageId);
+
+        $scope.table(value, mypageId);
     }
     $scope.table = function (value, mypageId) {
         // console.log("this is happening")
@@ -1767,10 +1777,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // cartable part 
+    $scope.myDatePicker = function(){
+        $(".elementClass").persianDatepicker();
+    }
     $scope.favCartable = function (x) {
-        for(var i = 0; i < $scope.cartable.length;i++){
-            if(x == $scope.cartable[i].id){
-                $scope.cartable[i].fav  = true;
+        for (var i = 0; i < $scope.cartable.length; i++) {
+            if (x == $scope.cartable[i].id) {
+                if($scope.cartable[i].fav == false){
+                    $scope.cartable[i].fav = true;
+                }
+                else{
+                    $scope.cartable[i].fav = false;
+                }
+                
             }
         }
     }
@@ -1800,33 +1819,39 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         switch (element) {
 
             case '1':
+                
                 $scope.testfont = {
                     "font-family": "samim"
                 };
+                localStorage.setItem('font', JSON.stringify($scope.testfont));
                 $("#firstcheck").removeClass("hide");
                 break;
             case '2':
                 $scope.testfont = {
                     "font-family": "iran-sans"
                 };
+                localStorage.setItem('font', JSON.stringify($scope.testfont));
                 $("#secondcheck").removeClass("hide");
                 break;
             case '3':
                 $scope.testfont = {
                     "font-family": "dubai"
                 };
+                localStorage.setItem('font', JSON.stringify($scope.testfont));
                 $("#thirdcheck").removeClass("hide");
                 break;
             case '4':
                 $scope.testfont = {
                     "font-family": "shabnam"
                 };
+                localStorage.setItem('font', JSON.stringify($scope.testfont));
                 $("#forthcheck").removeClass("hide");
                 break;
             case '5':
                 $scope.testfont = {
                     "font-family": "sahel"
                 };
+                localStorage.setItem('font', JSON.stringify($scope.testfont));
                 $("#fifthcheck").removeClass("hide");
                 break;
         }
@@ -1844,16 +1869,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#color" + element).css("display", "inline-block");
         switch (element) {
             case '1':
+                localStorage.setItem('userColor', "first-color");
+                localStorage.setItem('userSubColor', "first-subcolor");
+                localStorage.setItem('userSystemColor', "first-systemcolor");
                 $scope.userColor = "first-color";
                 $scope.userSubColor = "first-subcolor";
                 $scope.userSystemColor = "first-systemcolor";
                 break;
             case '2':
+                localStorage.setItem('userColor', "second-color");
+                localStorage.setItem('userSubColor', "second-subcolor");
+                localStorage.setItem('userSystemColor', "second-systemcolor");
                 $scope.userColor = "second-color";
                 $scope.userSubColor = "second-subcolor";
                 $scope.userSystemColor = "second-systemcolor";
                 break;
             case '3':
+                localStorage.setItem('userColor', "third-color");
+                localStorage.setItem('userSubColor', "third-subcolor");
+                localStorage.setItem('userSystemColor', "third-systemcolor");
                 $scope.userColor = "third-color";
                 $scope.userSubColor = "third-subcolor";
                 $scope.userSystemColor = "third-systemcolor";

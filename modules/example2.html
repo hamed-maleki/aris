@@ -123,8 +123,6 @@
     <div class="modal-dialog">
         <div class="modal-body">
             <div class="modal-content">
-                <!-- <button class="btn btn-info">اختصاص افراد به این پست</button>
-                    <button class="btn btn-info">افراد دارای این سمت</button> -->
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 my-margin-top">
@@ -133,35 +131,42 @@
                                 <li class="center" ng-class="userColor" ng-click="registeringUser =true">افراد دارای این سمت</li>
                             </ul>
                         </div>
-                        <div class="col-sm-12 my-margin-top">
+                        <div class="col-sm-12 my-margin-top" ng-if="! registeringUser">
                             <div class="row">
                                 <div class="col-sm-push-6 col-sm-6">
                                     <label ng-style="testfont" class="right-float">نام واحد :</label>
-                                    <input type="text" id="unitName" class="form-control right-align">
+                                    <span id="unitName" style="padding-right: 15px"></span>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6">
                                     <label ng-style="testfont" class="right-float">کد واحد :</label>
-                                    <input type="text" id="unitCode" class="form-control right-align">
+                                    <span id="unitCode" style="padding-right: 15px"></span>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-sm-6"></div>
+                                    <div class="col-sm-6 my-margin-top">
+                                        <label ng-style="testfont" class="right-float">
+                                                    جستجو بر اساس نام و نام خانوادگی
+                                        </label>
+                                        <input type="text" class="form-control right-align" />
+                                    </div>
                                 </div>
                             </div>
-                            <!-- <input type="text" class="form-control elementClass"> -->
-                            <div class="table-responsive my-margin-top">
+                            <div class="table-responsive my-margin-top" ng-init="myDatePicker()">
 
                                 <table class="table table-hover table-bordered right-align">
                                     <thead>
                                         <tr ng-style="testfont">
-
                                             <th style="width: 50px">
-                                                نام و نام خانوادگی
+                                                نام و نام خانوادگی<br>
                                             </th>
                                             <th style="width: 30px">
-                                                کد پست
+                                                کد پست<br>
                                             </th>
                                             <th style="width: 20px">
-                                                شروع پست
+                                                شروع پست<br>
                                             </th>
                                             <th style="width: 20px">
-                                                پایان پست
+                                                پایان پست<br>
                                             </th>
                                         </tr>
                                     </thead>
@@ -169,7 +174,8 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی
+                                                    قولبگ
                                                 </p>
                                             </td>
                                             <td>
@@ -185,7 +191,8 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی
+                                                    قولبگ
                                                 </p>
                                             </td>
                                             <td>
@@ -201,7 +208,8 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی
+                                                    قولبگ
                                                 </p>
                                             </td>
                                             <td>
@@ -217,7 +225,8 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی
+                                                    قولبگ
                                                 </p>
                                             </td>
                                             <td>
@@ -233,7 +242,8 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی قولبگ
+                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> محمد علی
+                                                    قولبگ
                                                 </p>
                                             </td>
                                             <td>
@@ -250,14 +260,19 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-sm-12 center" style="direction: ltr">
+                        <div class="col-sm-4" ng-if="! registeringUser">
+                            <button class="btn btn-danger">
+                                    ثبت افراد
+                                </button>
+                        </div>
+                        <div class="col-sm-8 center" style="direction: ltr" ng-if="! registeringUser">
                             <ul class="pagination" style="margin: 0" data-step="9" data-intro="صفحه مورد نظر خود را انتخاب کنید" data-position='left'>
                                 <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-right" ></i></a></li>
                                 <li><a href="#" style="color: black"><i class="fa fa-angle-right"></i></a></li>
                                 <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">1</a></li>
-                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">10</a></li>
-                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">100</a></li>
-                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">10</a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">2</a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">3</a></li>
+                                <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">4</a></li>
                                 <li><a href="#" style="color: black"><i class="fa fa-angle-left"></i></a></li>
                                 <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-left" ></i></a></li>
                             </ul>
@@ -317,8 +332,8 @@
             for (var i = 0; i < this.childNodes.length; i++) {
                 if (this.childNodes[i].className == "node-id") {
                     $("#addingUser").modal();
-                    $("#unitCode").val(this.childNodes[1].innerHTML);
-                    $("#unitName").val(this.childNodes[0].innerHTML)
+                    $("#unitCode").html(this.childNodes[1].innerHTML);
+                    $("#unitName").html(this.childNodes[0].innerHTML)
                 }
             }
         })
@@ -329,11 +344,4 @@
     $(".modal").draggable({
         handle: ".modal-body"
     });
-    $(function () {
-        $("#elementId, .elementClass").persianDatepicker();
-        $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
-        $(".pdp").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
-        $("#pdp1").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
-    });
-
 </script>

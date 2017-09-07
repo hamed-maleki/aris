@@ -50,7 +50,7 @@
         .system-li {
             font-size: 20px;
             padding: 10px 25px;
-            margin: 0;
+            margin: 7.5px 0;
         }
 
         .system-li:hover {
@@ -101,14 +101,36 @@
                 <div class="col-sm-2 col-sm-push-9 my-margin-top right-align">
                     <div ng-class="userColor" style="height: 82vh;overflow-x: hidden !important;width: 100%">
                         <ul style="padding-left: 0">
-                            <li class="system-li pointer" ng-style="testfont" ng-click="recive()">
-                                <i class="fa fa-inbox"></i> جعبه دریافت
+                            <li class="system-li pointer container-fluid" ng-style="testfont" ng-click="recive()">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-inbox"></i>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        جعبه دریافت
+                                    </div>
+                                </div>
+
                             </li>
-                            <li class="system-li pointer" ng-style="testfont" ng-click="send()">
-                                <i class="fa fa-paper-plane-o"></i> جعبه ارسال
+                            <li class="system-li pointer container-fluid" ng-style="testfont" ng-click="send()">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-paper-plane-o"></i>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        جعبه ارسال
+                                    </div>
+                                </div>
                             </li>
-                            <li class="system-li pointer" ng-style="testfont" ng-click="recive(true)">
-                                <i class="fa fa-star-o"></i>برگزیده ها
+                            <li class="system-li pointer container-fluid" ng-style="testfont" ng-click="recive(true)">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        برگزیده ها
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -151,13 +173,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cartable in cartable|orderBy:'read'|filter:{ read: checking}:true|filter:{ fav: myFav}:true" ng-style="testfont" ng-class="{true:'selected-row', false:''}[cartable.read]"
-                                        id="row{{cartable.id}}" ng-mouseenter="hovering = true" ng-mouseleave="hovering = false">
+                                    <tr ng-repeat="cartable in cartable|orderBy:'read'|filter:{ read: checking}:true|filter:{ fav: myFav}:true" ng-style="testfont"
+                                        ng-class="{true:'selected-row', false:''}[cartable.read]" id="row{{cartable.id}}" ng-mouseenter="hovering = true"
+                                        ng-mouseleave="hovering = false">
                                         <td>
                                             <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
                                             <i class="fa fa-star-o" ng-if="! cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>
-                                            <i class="fa fa-star" ng-if="cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>
-                                            {{cartable.author}}
+                                            <i class="fa fa-star" ng-if="cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>                                            {{cartable.author}}
                                         </td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.title}}</td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
@@ -232,18 +254,22 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ul class="pagination" style="margin: 12px 0">
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
+                        <ul class="pagination" style="margin: 0" data-step="9" data-intro="صفحه مورد نظر خود را انتخاب کنید" data-position='left'>
+                            <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-right" ></i></a></li>
+                            <li><a href="#" style="color: black"><i class="fa fa-angle-right"></i></a></li>
+                            <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">1</a></li>
+                            <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">2</a></li>
+                            <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">3</a></li>
+                            <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">4</a></li>
+                            <li id="pagination{{x}}"><a href="#" ng-click="pagination(x)">5</a></li>
+                            <li><a href="#" style="color: black"><i class="fa fa-angle-left"></i></a></li>
+                            <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-left" ></i></a></li>
                         </ul>
                     </div>
                     <div ng-if="emailLoader" ng-keyup="detector($event)" tabindex="1">
                         <div class="white-background border my-margin-top my-padding center responsive-margin">
                             <div class="right-align my-margin-top">
-                                <button class="my-button btn button-color center" ng-click="showContext()" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 18px;">
+                                <button class="my-button btn button-color center" ng-click="showContext()" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 15px;">
                                     <i class="fa fa-arrow-right"></i>     
                                 </button>
                             </div>
