@@ -58,7 +58,7 @@
         }
 
         .system-li {
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .system-li i {
@@ -98,6 +98,10 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="col-sm-11">
+                    <div style="width: 85%;display: inline-block"></div>
+                    <div style="width: 15%;display: inline-block"></div>
+                </div> -->
                 <div class="col-sm-2 col-sm-push-9 my-margin-top right-align">
                     <div ng-class="userColor" style="height: 82vh;overflow-x: hidden !important;width: 100%">
                         <ul style="padding-left: 0">
@@ -177,11 +181,16 @@
                                         ng-class="{true:'selected-row', false:''}[cartable.read]" id="row{{cartable.id}}" ng-mouseenter="hovering = true"
                                         ng-mouseleave="hovering = false">
                                         <td>
-                                            <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" />
+                                            <input type="checkbox" value="{{cartable.id}}" style="margin-top: -5px" class="modal_input cartable-input" />
                                             <i class="fa fa-star-o" ng-if="! cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>
                                             <i class="fa fa-star" ng-if="cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>                                            {{cartable.author}}
+                                            <i class="fa fa-check" ng-if="emailType == 'sent'"></i>
+                                            <i class="fa fa-check" ng-if="emailType == 'sent' && cartable.reciverRead == true" style="margin-right: -20px"></i>
                                         </td>
-                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.title}}</td>
+                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
+                                            {{cartable.title}}
+
+                                        </td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
                                             1396/06/07
@@ -271,6 +280,9 @@
                             <div class="right-align my-margin-top">
                                 <button class="my-button btn button-color center" ng-click="showContext()" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 15px;">
                                     <i class="fa fa-arrow-right"></i>     
+                                </button>
+                                <button class="my-button btn button-color center" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 15px;">
+                                        <i class="fa fa-arrow-right"></i>     
                                 </button>
                             </div>
                             <div ng-include="number"></div>

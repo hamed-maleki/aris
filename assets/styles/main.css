@@ -1189,11 +1189,11 @@ nav a:hover {
 }
 
 .my-table td {
-    font-size: 14px !important;
+    font-size: 13px !important;
     padding: 15px !important;
 }
 .my-table  th{
-    font-size: 18px;
+    font-size: 16px;
     padding: 15px;
     color:black !important;
 }

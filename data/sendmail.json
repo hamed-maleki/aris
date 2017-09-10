@@ -8,7 +8,8 @@
             "read":true,
             "id":23,
             "page":"example3.html",
-            "pageId":4
+            "pageId":4,
+            "reciverRead": false
         },
         {
             "author":"دبیرخانه",
@@ -18,7 +19,8 @@
             "read":true,
             "id":24,
             "page":"example2.html",
-            "pageId":3
+            "pageId":3,
+            "reciverRead": false
         },
         {
             "author":"دبیرخانه",
@@ -28,7 +30,8 @@
             "read":true,
             "id":25,
             "page":"example4.html",
-            "pageId":5
+            "pageId":5,
+            "reciverRead": false
         },
         {
             "author":"دبیرخانه",
@@ -38,7 +41,8 @@
             "read":true,
             "id":26,
             "page":"example3.html",
-            "pageId":4
+            "pageId":4,
+            "reciverRead": false
         },
         {
             "author":"دبیرخانه",
@@ -48,7 +52,8 @@
             "read":true,
             "id":27,
             "page":"example2.html",
-            "pageId":3
+            "pageId":3,
+            "reciverRead": true
         },
         {
             "author":"دبیرخانه",
@@ -58,7 +63,8 @@
             "read":true,
             "id":28,
             "page":"example4.html",
-            "pageId": 5
+            "pageId": 5,
+            "reciverRead": true
         },
         {
             "author":"دیرخانه",
@@ -68,7 +74,8 @@
             "read":true,
             "id":29,
             "page":"example4.html",
-            "pageId": 5
+            "pageId": 5,
+            "reciverRead": false
         },
         {
             "author":"دبیرخانه",
@@ -78,7 +85,8 @@
             "read":true,
             "id":30,
             "page":"example4.html",
-            "pageId": 5
+            "pageId": 5,
+            "reciverRead": false
         },
         {
             "author":"دبیرخانه",
@@ -88,7 +96,8 @@
             "read":true,
             "id":31,
             "page":"example4.html",
-            "pageId": 5
+            "pageId": 5,
+            "reciverRead": false
         }
     ]
 }

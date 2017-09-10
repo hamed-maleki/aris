@@ -136,6 +136,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.sendMails = response.data.cartable;
                 $scope.cartable = $scope.sendMails;
                 $scope.emailLoader = false;
+                $scope.emailType = "sent";
             })
     }
     $scope.recive = function (x) {
@@ -143,6 +144,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.cartable = $scope.reciveMails;
         $scope.emailLoader = false;
         $scope.myFav = x;
+        $scope.emailType = "recive";
     }
     // cartable message on click to show
     $scope.showContext = function () {

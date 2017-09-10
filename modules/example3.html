@@ -1,16 +1,10 @@
 <div ng-init="users()" id="myDemo1" style="height: 72vh; overflow-y: scroll;position: relative">
     <div class="col-sm-12 my-margin-top">
-        <div class="col-sm-8"></div>
-        <div class="col-sm-2">
-            <select style="font-size: 15px;width: 40%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
-                <option value="5"> 5</option>
-                <option value="10"> 10</option>
-                <option value="15"> 15</option>
-            </select>
+        <div class="col-sm-1" style="text-align: left">
+            {{currentPage}} /{{paginationNumber[paginationNumber.length-1]}}
         </div>
-        <div class="col-sm-2">
-            <label>تعداد نمایش در جدول</label>
-        </div>
+        <div class="col-sm-4"></div>
+
     </div>
     <div class="col-sm-12 my-margin-top">
         <div class="table-responsive printable my-margin-top">
@@ -46,20 +40,42 @@
             <div class="col-sm-3" style="text-align: left">
                 <i class="fa fa-plus-square-o pointer" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip" data-placement="right"
                     title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
-                    data-position='right'></i>
+                    data-position='right' style='margin-left: 17px'></i>
             </div>
             <div class="col-sm-5 center">
                 <ul class="pagination" style="margin: 0">
                     <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
                     <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-right"></i></a></li>
                     <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')">{{x}}</a></li>
+                    <li ng-click="pageToGo ? pageToGo = false : pageToGo = true">
+                        <a href="#" style="color:black">
+                            ...
+                        </a>
+                    </li>
                     <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-left"></i></a></li>
                     <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-left" ></i></a></li>
 
                 </ul>
+                <div class="input-group" ng-if="pageToGo" style="width: 20%;margin: 0 auto">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default log-btn center" style="margin-top:0;" ng-click="finalPagination(myPageNumber,false,'http://localhost/ArisSystem/api/user')">
+                                <i style="margin: 0 -3px" class="fa fa-arrow-left"></i>
+                        </button>
+                    </div>
+                    <input class="form-control right-align login-input" ng-model="myPageNumber" type="text" 
+                        tabindex="2" />
+
+                </div>
             </div>
-            <div class="col-sm-4">
-                {{currentPage}} /{{paginationNumber[paginationNumber.length-1]}}
+            <div class="col-sm-2 right-align">
+                <select style="font-size: 15px;width: 40%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                        <option value="5"> 5</option>
+                        <option value="10"> 10</option>
+                        <option value="15"> 15</option>
+                    </select>
+            </div>
+            <div class="col-sm-2" style="text-align: left">
+                <label>تعداد نمایش در جدول</label>
             </div>
         </div>
     </div>
@@ -79,9 +95,9 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="usr">نام:</label>
-                                                <input type="text" ng-model="register.name" class="form-control" style="height: 30px !important" id="name" placeholder="نام"
+                                                <input type="text" ng-model="register.name" class="form-control right-align" style="height: 30px !important" id="name" placeholder="نام"
                                                     autocomplete="on" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="1">
+                                                    oninput="setCustomValidity('')" tabindex="21">
                                             </div>
                                         </div>
                                     </div>
@@ -91,9 +107,9 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="family">نام خانوادگی:</label>
-                                                <input type="text" ng-model="register.family" class="form-control" style="height: 30px !important" id="family" autocomplete="on"
+                                                <input type="text" ng-model="register.family" class="form-control right-align" style="height: 30px !important" id="family" autocomplete="on"
                                                     placeholder=" نام خانوادگی" required ng-model="register.family" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="2">
+                                                    oninput="setCustomValidity('')" tabindex="22">
                                             </div>
                                         </div>
                                     </div>
@@ -104,9 +120,9 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="father">نام پدر:</label>
-                                                <input type="text" class="form-control" style="height: 30px !important" id="father" autocomplete="on" placeholder="نام پدر"
+                                                <input type="text" class="form-control right-align" style="height: 30px !important" id="father" autocomplete="on" placeholder="نام پدر"
                                                     required ng-model="register.fatherName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="3">
+                                                    oninput="setCustomValidity('')" tabindex="23">
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -114,8 +130,8 @@
                                             <div class="form-group">
                                                 <label>جنسیت:</label>
                                                 <br>
-                                                <label class="radio-inline"><input type="radio" tabindex="4" name="registerGender" value="1" ng-model="register.gender" required />زن</label>
-                                                <label class="radio-inline"><input type="radio" tabindex="4" name="registerGender"  value="0" ng-model="register.gender" checked required  />مرد</label>
+                                                <label class="radio-inline"><input type="radio" tabindex="24" name="registerGender" value="1" ng-model="register.gender" required />زن</label>
+                                                <label class="radio-inline"><input type="radio" tabindex="24" name="registerGender"  value="0" ng-model="register.gender" checked required  />مرد</label>
                                             </div>
                                         </div>
                                     </div>
@@ -129,7 +145,7 @@
                                             <img src="" ng-if="imgLoading" id="myimg" ng-click="fileSelect('plusPhoto')" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
                                             <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" ng-change="testUpload()"
                                                 oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')"
-                                                tabindex="5">
+                                                tabindex="25">
                                         </div>
                                     </div>
                                 </div>
@@ -139,9 +155,9 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="id-badge">شماره شناسنامه:</label>
-                                                <input type="text" class="form-control" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
+                                                <input type="text" class="form-control right-align" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
                                                     required ng-model="register.birthCertificateNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="6">
+                                                    oninput="setCustomValidity('')" tabindex="26">
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +169,7 @@
                                                 <label for="social-no">کد ملی:</label>
                                                 <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="social-no" autocomplete="on"
                                                     placeholder="XXX-XXXXXX-X" required ng-model="register.nationalCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" autocomplete="on" tabindex="7">
+                                                    oninput="setCustomValidity('')" autocomplete="on" tabindex="27">
                                             </div>
                                         </div>
                                     </div>
@@ -164,9 +180,9 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="phone">شماره موبایل:</label>
-                                                <input type="tel" class="form-control" style="height: 30px !important" id="phone" autocomplete="on" placeholder="شماره موبایل"
+                                                <input type="tel" class="form-control right-align" style="height: 30px !important" id="phone" autocomplete="on" placeholder="شماره موبایل"
                                                     required ng-model="register.mobileNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="8">
+                                                    oninput="setCustomValidity('')" tabindex="28">
                                             </div>
                                         </div>
                                     </div>
@@ -175,9 +191,9 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <label for="phone">شماره پرسنلی :</label>
-                                            <input type="text" class="form-control" style="height: 30px !important" id="personnel" autocomplete="on" placeholder="شماره پرسنلی"
+                                            <input type="text" class="form-control right-align" style="height: 30px !important" id="personnel" autocomplete="on" placeholder="شماره پرسنلی"
                                                 required ng-model="register.personnelCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                oninput="setCustomValidity('')" tabindex="9">
+                                                oninput="setCustomValidity('')" tabindex="29">
                                         </div>
                                     </div>
                                 </div>
@@ -187,9 +203,9 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="email">email:</label>
-                                                <input type="email" class="form-control" style="height: 30px !important" id="email" autocomplete="on" placeholder="ایمیل"
+                                                <input type="email" class="form-control right-align" style="height: 30px !important" id="email" autocomplete="on" placeholder="ایمیل"
                                                     required ng-model="register.mail" oninvalid="this.setCustomValidity('ایمیل نامعتبر است')"
-                                                    oninput="setCustomValidity('')" tabindex="10">
+                                                    oninput="setCustomValidity('')" tabindex="30">
                                             </div>
                                         </div>
                                     </div>
@@ -199,7 +215,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="activity">نوع کاربری :</label>
-                                                <select style="height: 30px;width: 100% !important;font-size: 12px" ng-model="register.isActive" tabindex="11" class="form-control my-form"
+                                                <select style="height: 30px;width: 100% !important;font-size: 12px" ng-model="register.isActive" tabindex="31" class="form-control my-form"
                                                     name="kindDocument">
                                                     <option value="true"  selected>فعال</option>
                                                     <option value="false" >غیرفعال</option>
@@ -214,11 +230,11 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="user-name">نام کاربری:</label>
-                                                <input type="text" class="form-control" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
+                                                <input type="text" class="form-control right-align" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
                                                     name="testing1" id="user-name" ng-minlength="3" ng-maxlength="10" autocomplete="on"
                                                     placeholder="نام کاربری" required ng-model="register.userName" ng-model-options="{debounce: 500}"
                                                     val="username" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="12">
+                                                    oninput="setCustomValidity('')" tabindex="32">
                                                 <p class="red" style="position: absolute; top: 32px;" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد </p>
                                             </div>
                                         </div>
@@ -229,17 +245,17 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="password">رمز عبور:</label>
-                                                <input type="password" class="form-control" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
+                                                <input type="password" class="form-control right-align" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
                                                     required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="13">
+                                                    oninput="setCustomValidity('')" tabindex="33">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-sm-12 my-margin-top">
-                                    <button class="btn btn-danger" type="submit" tabindex="14" style="float: left;width: 22%" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
-                                    <button class="btn btn-danger" type="submit" tabindex="15" style="float: left; margin-left: 15px;width: 22%" id="button2"
+                                    <button class="btn btn-danger" type="submit" tabindex="34" style="float: left;width: 22%" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
+                                    <button class="btn btn-danger" type="submit" tabindex="35" style="float: left; margin-left: 15px;width: 22%" id="button2"
                                         ng-click="register.close = 2" value="2">ثبت و جدید</button>
                                 </div>
                             </div>
