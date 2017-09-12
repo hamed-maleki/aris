@@ -2100,14 +2100,17 @@ tfoot tr td {
 
 .mail-button {
     position: fixed;
-    bottom: 30px;
+    bottom: 17px;
     left: 30px;
     padding: 15px 17px;
     color: white;
     z-index: 2;
     border-radius: 50%;
+    transition: box-shadow 1s;
 }
-
+.mail-button:hover {
+    box-shadow: 5px 4px 5px rgba(0,0,0,0.3);
+}
 #search {
     height: 25px;
     border-radius: 5px !important;

@@ -21,6 +21,7 @@ app.directive("sidebar", function () {
         }
     }
 });
+
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     var myhost = "http://localhost/ArisSystem/api";
     $scope.subSystemcontainer = [];
@@ -162,7 +163,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.searchSystem = $scope.system;
             $(".searchResult").css({ "display": "block", "background-color": "#f1f2f3" })
             $scope.searchItem = $("#search").val();
-
         }
         else {
             $scope.searchSystem = [];
@@ -213,7 +213,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $('.searchResult').animate({ scrollTop: 300 * page }, 'slow');
                     page++
                 }
-
             }
         }
         // it got executed when enter key is pressed
@@ -225,7 +224,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         if ($($scope.listItems[i]).attr('value') == $scope.system[i].title) {
                             $scope.gettingSystem($scope.system[i].id, 1)
                         }
-
                     }
                     // cheking if that is a child leef
                     // if (!$($scope.listItems[i]).hasClass("child")) {
@@ -237,7 +235,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     //     var nameLink = $($scope.listItems[i]).attr('name');
                     //     $scope.searchClick($scope.listItems[i].id, nameLink)
                     // }
-
                 }
             }
         }
@@ -460,7 +457,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.slider = function (x) {
         if (x == -1) {
-
             $scope.myslider = $scope.myslider - 2;
         }
         $timeout.cancel(sliderTime);
@@ -979,7 +975,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        console.log($event);
         var evtobj = window.event ? event : $event;
         if ($event.altKey || evtobj.altKey) {
             // console.log("this is happening in s");
@@ -1098,6 +1093,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.paginationToShow(x);
         }
 
+    }
+    $scope.sharingForm = function(){
+        console.log($scope.limitedEdition);
+        console.log($scope.number);
     }
     $scope.editSubmit = function (x) {
         if (x.name != undefined) {
@@ -1366,6 +1365,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 if (x.close == 1) {
                     $("#tablePlusUser").modal('toggle');
+                    $("#focusPlace").focus();
                 }
                 else {
                     $(".form-control").val('');
@@ -1755,6 +1755,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
+            console.log(response.data);
             $scope.permission = response.data;
             $scope.number = "modules/" + value;
         }).catch(function (xhr, error) {
@@ -2227,8 +2228,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
 
 }])
-
-
 // right click and f12 and other ways to open inspect element preventer
 // $(document).keydown(function(event){
 //     if(event.keyCode==123){

@@ -114,7 +114,6 @@
                                         جعبه دریافت
                                     </div>
                                 </div>
-
                             </li>
                             <li class="system-li pointer container-fluid" ng-style="testfont" ng-click="send()">
                                 <div class="row">
@@ -142,7 +141,10 @@
                 <div class="col-sm-9 col-sm-pull-2 container-filter my-margin-top" id="loadedPage" style="background-color: white;height: 82vh;overflow-y: scroll;padding: 0 0 0 10px;">
                     <div class="white-background border my-margin-top my-padding center responsive-margin" ng-if="! emailLoader">
                         <div class="right-align my-margin-top">
-
+                            <button class="my-button btn button-color" ng-class="userColor">
+                                بارگذاری مجدد
+                                <i class="fa fa-refresh" style="margin-left: 0"></i>
+                            </button>
                             <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
                                 حذف
                                 <i class="fa fa-trash-o" style="margin-left: 0"></i>
@@ -197,8 +199,8 @@
                                         </td>
                                         <td>
                                             <i class="fa fa-comment-o pointer" style="font-size: 16px;padding: 0;margin: 0 5px" ng-click="extraInfo ? extraInfo = false : extraInfo = true"></i>
-                                            <i class="fa fa-tags green pointer" title="تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
-                                            <i class="fa fa-tags red pointer" title="عدم تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
+                                            <i class="fa fa-tags green pointer" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right" title="تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
+                                            <i class="fa fa-tags red pointer" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="left" title="عدم تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
                                             <div style="position: relative">
                                                 <div ng-if="extraInfo" class="container extra-info">
                                                     <div class="row my-margin-top">
@@ -275,14 +277,15 @@
                             <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-left" ></i></a></li>
                         </ul>
                     </div>
-                    <div ng-if="emailLoader" ng-keyup="detector($event)" tabindex="1">
+                    <div ng-if="emailLoader" id="focusPlace" ng-keyup="detector($event)" tabindex="1">
                         <div class="white-background border my-margin-top my-padding center responsive-margin">
                             <div class="right-align my-margin-top">
+                                <button class="my-button btn button-color center" ng-click="sharingForm()" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 15px;">
+                                    اشتراک گذاری این فرم
+                                    <i class="fa fa-share-alt"></i>     
+                                </button>
                                 <button class="my-button btn button-color center" ng-click="showContext()" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 15px;">
                                     <i class="fa fa-arrow-right"></i>     
-                                </button>
-                                <button class="my-button btn button-color center" ng-class="userColor" style="color: white;padding: 4px 15px;font-size: 15px;">
-                                        <i class="fa fa-arrow-right"></i>     
                                 </button>
                             </div>
                             <div ng-include="number"></div>
@@ -322,9 +325,13 @@
             <i class="fa fa-plus pointer mail-button" ng-class="userColor" onclick="mail()"></i>
         </div>
         <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <script>
             $(function () {
                 Ps.initialize(document.getElementById('loadedPage'));
-                // Ps.initialize(document.getElementsByClassName('time-event'));
             });
         </script>
 </body>

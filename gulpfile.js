@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
 // var sass = require('gulp-sass');
  bundle = require('gulp-bundle-assets');
-var concat = require('gulp-concat');
+// var concat = require('gulp-concat');
 gulp.task('bundle',function(){
     return gulp.src('./bundle.config.js')
     .pipe(bundle())
