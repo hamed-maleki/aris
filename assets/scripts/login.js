@@ -101,11 +101,15 @@ function login() {
     // // else{
     // //     window.location.href = 'index.html';
     // // }
+    var first = $(location).attr('pathname');
+    first.indexOf(1);
+    first.toLowerCase();
+    first = first.split("/")[1];
     var user = $("#user").val();
     var pass = $("#pass").val();
     $(".log-btn").attr("disabled", 'disabled')
     $.ajax({
-        url: "http://localhost/Aris/login",
+        url: "/"+first+"/login",//"//"http://localhost/Aris/login",
 
         data: {
             username: user,
@@ -119,15 +123,17 @@ function login() {
         error: AjaxFailed
     })
     function AjaxSucceeded(response) {
-        $(".load-circle").css("display", "none")
-        //console.log(JSON.parse(response));
+        $(".load-circle").css("display", "none");
+        // console.log('response');
+        // console.log(response);
+       // console.log(JSON.parse(response));
         //$scope.userName = response.data.userName;
         //Store the token information in the localStorage
         //So that it can be accessed for other views
         // localStorage.setItem('userName', response.userName);
         localStorage.setItem('accessToken', response.access_token);
         localStorage.setItem('refreshToken', response.refresh_token);
-         window.location.href = 'index.html';
+        window.location.href = 'index.html';
     }
     function AjaxFailed(err, response) {
         $(".load-circle").css("display", "none")

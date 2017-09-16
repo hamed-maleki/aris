@@ -52,8 +52,8 @@
                     <div class="col-sm-12">
                         <ul class="pagination" style="margin: 0">
                             <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
-                            <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-right"></i></a></li>
-                            <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')">{{x}}</a></li>
+                            <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
+                            <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'/Aris/api/user')">{{x}}</a></li>
                             <li >
                                 <a id="pageLink" href="#" style="color:black;padding: 0;height: 39px;min-width: 39px">
                                     <span id="pageSpan" ng-click="findPage(0)">...</span>
@@ -67,7 +67,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-left"></i></a></li>
+                            <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )"><i class="fa fa-angle-left"></i></a></li>
                             <li>
                                 <a href="#" style="color: black" ng-click="paginationToShow('last')">
                                     <i class="fa fa-angle-double-left" ></i>
@@ -381,7 +381,7 @@
                         <div class="col-sm-6 right-float">
                             <div class="form-group change">
                                 <label for="password">رمز عبور:</label>
-                                <input type="text" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
+                                <input type="password" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
                                     value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13">
                             </div>
                         </div>
@@ -416,5 +416,4 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
     });
-
 </script>

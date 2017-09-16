@@ -759,7 +759,41 @@ nav a:hover {
 .search-bar form {
     margin-right: -235px;
 }
+.min-window {
+    background-color: white;
+    height: 82vh;
+    overflow: scroll;
+    padding: 0 10px;
+}
+.max-window {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    /* animation: maximize 1s; */
+}
+@keyframes maximize {
+    from{
+        width: 75%;
+        height: 82vh;
+    }
+    to{
+        width: 100%;
+        height: 100vh;
+    }
+}
 
+@-webkit-keyframes maximize {
+   from{
+        width: 75%;
+        height: 82vh;
+    }
+    to{
+        width: 100%;
+        height: 100vh;
+    }
+}
  .sub-system {
     min-height: 200px;
     text-align: center;

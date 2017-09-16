@@ -23,7 +23,11 @@ app.directive("sidebar", function () {
 });
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
-    var myhost = "http://localhost/Aris/api";
+    $scope.host = $(location).attr('pathname');
+    $scope.host.indexOf(1);
+    $scope.host.toLowerCase();
+    $scope.host = $scope.host.split("/")[1];
+    var myhost = "/"+$scope.host+"/api";
     $scope.subSystemcontainer = [];
     $scope.securityCheck = false;
     if (localStorage.accessToken == undefined) {
@@ -59,7 +63,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.userSubColor = localStorage.userSubColor;
                 $scope.userSystemColor = localStorage.userSystemColor;
             }
-            if(localStorage.font != undefined){
+            if (localStorage.font != undefined) {
                 $scope.testfont = JSON.parse(localStorage.font);
             }
             var timeout;
@@ -511,7 +515,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.refreshlocal = function (x, y) {
         $.ajax({
-            url: "http://localhost/Aris/login",
+            url: "/"+$scope.host+"/login",
             data: {
                 refresh_token: refreshtoken,
                 grant_type: 'refresh_token'
@@ -1020,10 +1024,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // }
             // else {
             if ($event.keyCode == 39) {
-                $scope.finalPagination($scope.currentPage - 1, false, 'http://localhost/Aris/api/user')
+                $scope.finalPagination($scope.currentPage - 1, false, '/'+$scope.host+'/api/user')
             }
             if ($event.keyCode == 37) {
-                $scope.finalPagination($scope.currentPage + 1, false, 'http://localhost/Aris/api/user')
+                $scope.finalPagination($scope.currentPage + 1, false, '/'+$scope.host+'/api/user')
             }
             // }
         }
@@ -1094,24 +1098,27 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
 
     }
-    $scope.findPage = function(x){
-        if($scope.pageToGo == false){
+    $scope.findPage = function (x) {
+        if ($scope.pageToGo == false) {
             $("#pageLink").animate({ width: "160px" });
-            $("#pageSpan").css("float","left");
+            $("#pageSpan").css("float", "left");
             $scope.pageToGo = true;
         }
-        else{
+        else {
             $("#pageLink").animate({ width: "39px" });
             $scope.pageToGo = false;
-            $("#pageSpan").css("float","none");
-            if(x != 0){
-                $scope.finalPagination(x,false,'http://localhost/Aris/api/user')
-            }  
+            $("#pageSpan").css("float", "none");
+            if (x != 0) {
+                $scope.finalPagination(x, false, '/'+$scope.host+'/api/user')
+            }
         }
     }
-    $scope.sharingForm = function(){
+    $scope.sharingForm = function () {
         console.log($scope.limitedEdition);
         console.log($scope.number);
+    }
+    $scope.maxWindow = function () {
+        $("#loadedPage").toggleClass('max-window');
     }
     $scope.editSubmit = function (x) {
         if (x.name != undefined) {
@@ -1404,7 +1411,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#social_no").focus();
         }
     }
-    $scope.responseAlarm = function(responeMessage){
+    $scope.responseAlarm = function (responeMessage) {
         // $scope.responsing = true;
         $scope.responeMessage = responeMessage;
         $("#response").fadeIn();
@@ -1805,19 +1812,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // cartable part 
-    $scope.myDatePicker = function(){
+    $scope.myDatePicker = function () {
         $(".elementClass").persianDatepicker();
     }
     $scope.favCartable = function (x) {
         for (var i = 0; i < $scope.cartable.length; i++) {
             if (x == $scope.cartable[i].id) {
-                if($scope.cartable[i].fav == false){
+                if ($scope.cartable[i].fav == false) {
                     $scope.cartable[i].fav = true;
                 }
-                else{
+                else {
                     $scope.cartable[i].fav = false;
                 }
-                
+
             }
         }
     }
@@ -1847,7 +1854,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         switch (element) {
 
             case '1':
-                
+
                 $scope.testfont = {
                     "font-family": "samim"
                 };
