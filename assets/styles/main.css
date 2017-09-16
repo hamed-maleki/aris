@@ -46,6 +46,10 @@
 *:focus {
     outline: none !important;
 }
+a:focus {
+    color: inherit;
+    text-decoration: none;
+}
 body, html {
     padding:0px;
     font-family: "iran-sans" !important;
@@ -759,7 +763,7 @@ nav a:hover {
  .sub-system {
     min-height: 200px;
     text-align: center;
-    margin-top: 17px;
+    margin-top: 12px;
 } 
 
 .sub-system p {
@@ -1741,8 +1745,8 @@ tfoot tr td {
 }
 
 .pagination > .active > a ,.pagination > .active > a:hover, .pagination > .active > a:focus{
-    background-color: #F16521;
-    border-color: #F16521;
+    background-color: #CF4133;
+    border-color: #CF4133;
 }
 .pagination li a {
     float: right;
@@ -1756,7 +1760,22 @@ tfoot tr td {
     color: #808080 !important;
     font-size: 24px;
 }
-
+#response {
+    position: fixed;
+    bottom: 100px;
+    right: 0;
+    z-index: 3;
+    display: none;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+.inner-response {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 300px;
+}
 /*end of fonts and badges*/
 /*note*/
 #note {
@@ -2241,6 +2260,12 @@ body {
     padding-top: 100%; 
 }
 
+.loading-login1 div {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
 .circular {
   animation: rotate 2s linear infinite;
   height: 100%;
@@ -2293,20 +2318,97 @@ body {
 .ps-scrollbar-x {
     display: none;
 }
+.alarm-message {
+    perspective: 150px;
+    -webkit-perspective: 150px;
+     min-height: 200px;
+}
+.alarm-icon {
+    text-align: right;
+    padding-right: 30px;
+    position: relative;
+    z-index: 3;
+}
+@media screen and (max-width: 1366px) and (min-width: 1360px){
+    .center-align {
+        height: 50vh;
+        padding: 0 91px;
+        margin-top: 120px;
+    }
+    .sub-system {
+        min-height: 162px;
+        margin-top: 14px;
+    }
+    .sub-system h4 {
+        margin-top: 16px !important;
+    }
+    .my-col-sm-6 .sub-system {
+        min-height: 80px;
+    }
+    .tools-icon i{
+        font-size: 29px;
+        margin: 26px 0;
+    }
+    .alarm-message {
+        height: 127px;
+        overflow-y: hidden;
+    }
+    .alarm-con {
+        height: 181px;
+        overflow: hidden;
+    }
+}
+@media screen and (max-height:720px) and (max-width:1280px){
+    .center-align {
+        padding: 0 120px;
+        display: block;
+        margin-bottom: 0px;
+        height: 40vh;
+    }
+    .sub-system{
+        min-height: 170px;
+    }
+    .sub-system h4 {
+        margin-top: 17px !important;
+    }
+    .my-col-sm-6 .sub-system{
+        min-height: 75px !important;
+    }
+    .tools-icon i {
+        font-size: 36px;
+        margin: 22px auto;
+    }
+    .alarm-con {
+        height: 181px;
+        overflow: hidden;
+    }
+}
+@media screen and (max-width: 1280px){
+    .tools-logo {
+        width: 55%;
+    }
+    .center-align {
+        padding: 0 120px;
+    }
+    #aris-logo {
+        width: 17%;
+    }
+    #aris-typo {
+        width: 38%;
+    }
+    .aris-badge {
+        left: 43px;
+    }
+    
+    #user-info span {
+        font-size: 15px;
+    }
+    
+}
 @media screen and (max-width: 1316px){
     .fa-bars {
         margin: 22px 5px;
     }
-
-    #setting-bar{
-        width: 25%;
-        left: 296px;
-    }
-
-    /*#user-info{
-        width: 25%;
-        left: 122px;
-    }*/
     #chart3 {
     height: 163px;
     }
@@ -2327,10 +2429,6 @@ body {
     .logo-holder {
         height: 64px;
         margin-right: -5px;
-    }
-
-    .aris-badge {
-        left: 33px;
     }
     .badging {
         right: 3%;

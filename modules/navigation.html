@@ -1,7 +1,7 @@
-<div  id="myBar" class="progress-bar-striped">
+<div id="myBar" class="progress-bar-striped">
     <div id="inside-progress"></div>
     <div class="barImg">
-        <img src="media/logofox.png" id="loadingImage"/>
+        <img src="media/logofox.png" id="loadingImage" />
     </div>
 </div>
 <div class="container-fluid effect">
@@ -71,7 +71,7 @@
                 <div class="col-sm-5" style="text-align: right;margin-top: 10px">
                     <span class="border-right border-left">
                         <!--link to first page-->
-                        <a href="index.min.html" ng-style="testfont" style="font-size: 21px">
+                        <a href="index.html" ng-style="testfont" style="font-size: 21px" >
                             شرکت ملی گاز ایران
                         </a>
                     </span>
@@ -81,8 +81,7 @@
     </div>
 </div>
 <p ng-style="testfont" style="text-align: left;color: #C1B49A;background-color: white;height: 8px; padding-top: 5px;padding-left: 223px;margin-bottom: 10px">
-    <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"></i>
-    version 1.0
+    <i class="fa fa-question-circle-o pointer" onclick="javascript:introJs().setOptions({ 'nextLabel': 'بعد', 'prevLabel': 'قبل', 'skipLabel': 'خروج', 'doneLabel': 'اتمام' }).start();"></i>    version 1.0
 </p>
 
 <!--error modal-->
@@ -103,8 +102,18 @@
         </div>
     </div>
 </div>
+<div id="response" class="container" ng-class="userSubColor">
+    <div class="row inner-response">
+        <div class="col-sm-12 center">
+            <p>{{responeMessage}}</p>
+        </div>
+    </div>
+</div>
 <div class="loading-login1" ng-class="userColor">
-    <img src="media/logofox.png" id="fox" class="fox">
+    <div>
+        <img src="media/logofox.png" id="fox" class="fox">
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {

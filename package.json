@@ -1,0 +1,29 @@
+{
+  "name": "aris",
+  "version": "1.0.0",
+  "description": "this project has been created for officals in iran and i hope to be develop as soon as possible. the backend will be done by sp.net and forn end has been done by angularjs. the backend will be done by sp.net and forn end has been done by angularjs.",
+  "main": "bundle.config.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-bundle-assets": "^2.28.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^3.1.0",
+    "local-web-server": "^1.2.7"
+  },
+  "devDependencies": {
+    "gulp-sass": "^3.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamed-maleki/aris.git"
+  },
+  "author": "hamed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamed-maleki/aris/issues"
+  },
+  "homepage": "https://github.com/hamed-maleki/aris#readme"
+}

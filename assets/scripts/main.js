@@ -23,7 +23,7 @@ app.directive("sidebar", function () {
 });
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
-    var myhost = "http://localhost/ArisSystem/api";
+    var myhost = "http://localhost/Aris/api";
     $scope.subSystemcontainer = [];
     $scope.securityCheck = false;
     if (localStorage.accessToken == undefined) {
@@ -511,7 +511,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.refreshlocal = function (x, y) {
         $.ajax({
-            url: "http://localhost/ArisSystem/login",
+            url: "http://localhost/Aris/login",
             data: {
                 refresh_token: refreshtoken,
                 grant_type: 'refresh_token'
@@ -1020,10 +1020,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // }
             // else {
             if ($event.keyCode == 39) {
-                $scope.finalPagination($scope.currentPage - 1, false, 'http://localhost/ArisSystem/api/user')
+                $scope.finalPagination($scope.currentPage - 1, false, 'http://localhost/Aris/api/user')
             }
             if ($event.keyCode == 37) {
-                $scope.finalPagination($scope.currentPage + 1, false, 'http://localhost/ArisSystem/api/user')
+                $scope.finalPagination($scope.currentPage + 1, false, 'http://localhost/Aris/api/user')
             }
             // }
         }
@@ -1093,6 +1093,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.paginationToShow(x);
         }
 
+    }
+    $scope.findPage = function(x){
+        if($scope.pageToGo == false){
+            $("#pageLink").animate({ width: "160px" });
+            $("#pageSpan").css("float","left");
+            $scope.pageToGo = true;
+        }
+        else{
+            $("#pageLink").animate({ width: "39px" });
+            $scope.pageToGo = false;
+            $("#pageSpan").css("float","none");
+            if(x != 0){
+                $scope.finalPagination(x,false,'http://localhost/Aris/api/user')
+            }  
+        }
     }
     $scope.sharingForm = function(){
         console.log($scope.limitedEdition);
@@ -1366,6 +1381,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 if (x.close == 1) {
                     $("#tablePlusUser").modal('toggle');
                     $("#focusPlace").focus();
+                    $scope.responseAlarm("ثبت کاربران با موفقیت انجام شد");
                 }
                 else {
                     $(".form-control").val('');
@@ -1387,6 +1403,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#social-no").css("border", "1px solid red");
             $("#social_no").focus();
         }
+    }
+    $scope.responseAlarm = function(responeMessage){
+        // $scope.responsing = true;
+        $scope.responeMessage = responeMessage;
+        $("#response").fadeIn();
+        $("#response").delay(3000).fadeOut();
+        // setTimeout(function(){
+        //     $scope.responsing = false;
+        // }, 5000)
     }
     // pagination 5 to show
     $scope.paginationSlide = function (x) {

@@ -105,7 +105,7 @@ function login() {
     var pass = $("#pass").val();
     $(".log-btn").attr("disabled", 'disabled')
     $.ajax({
-        url: "http://localhost/ArisSystem/login",
+        url: "http://localhost/Aris/login",
 
         data: {
             username: user,
@@ -127,7 +127,7 @@ function login() {
         // localStorage.setItem('userName', response.userName);
         localStorage.setItem('accessToken', response.access_token);
         localStorage.setItem('refreshToken', response.refresh_token);
-        window.location.href = 'index.html';
+         window.location.href = 'index.html';
     }
     function AjaxFailed(err, response) {
         $(".load-circle").css("display", "none")

@@ -1,5 +1,5 @@
 body {
-  background-color: #eee; }
+  background-color: black; }
 
 .showbox {
   position: absolute;
@@ -9,10 +9,14 @@ body {
   right: 0;
   padding: 5%; }
 
+.img {
+  margin: 0;
+  padding: 10px; }
+
 .loader {
   position: relative;
   margin: 0 auto;
-  width: 100px; }
+  width: 200px; }
   .loader:before {
     content: '';
     display: block;
@@ -54,7 +58,7 @@ body {
 @keyframes color {
   100%,
   0% {
-    stroke: #d62d20; }
+    stroke: red; }
   40% {
     stroke: #0057e7; }
   66% {

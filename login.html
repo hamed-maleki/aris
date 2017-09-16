@@ -29,6 +29,7 @@
     <style>
         body {
             height: 100vh;
+            overflow: hidden;
         }
 
         input {
@@ -117,9 +118,11 @@
             padding: 14px 0;
             cursor: pointer;
         }
+
         .myselect {
             background-color: #808080;
         }
+
         input[type="file"] {
             position: absolute;
             top: 0;
@@ -129,6 +132,7 @@
             padding: 14px 0;
             cursor: pointer;
         }
+
         @media screen and (max-width: 1316px) {
             .modal {
                 overflow: scroll;
@@ -142,9 +146,6 @@
     <div class="loading-login">
         <img src="media/logofox.png" id="fox">
     </div>
-    <!-- <div class="container">
-        <canvas id="canvas"></canvas>
-    </div> -->
     <div class="blur">
         <img src="media/blue1.jpg">
     </div>
@@ -174,13 +175,11 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="row my-margin-top">
-
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <input class="form-control right-align login-input" style="box-shadow: 1px 9px 20px #404040;" required type="text" id="user"
                                         placeholder=" نام کاربری" autofocus tabindex="1" />
                                 </div>
-
                             </div>
                             <div class="col-sm-12">
                                 <div class="input-group" style="box-shadow: 1px 9px 20px #404040">
@@ -191,7 +190,6 @@
                                     </div>
                                     <input class="form-control right-align login-input" style="border-right: none" required type="password" id="pass" placeholder=" پسورد"
                                         tabindex="2" />
-
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -288,7 +286,7 @@
                                                 <label for="file" onclick="fileSelect()" id="labelSelect">
                                                                 <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i>
                                                         </label>
-                                                <img src=""  id="myimg" onclick="fileSelect()" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
+                                                <img src="" id="myimg" onclick="fileSelect()" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
                                                 <input type="file" style="height: 30px !important" id="plusPhoto" required tabindex="5">
                                             </div>
                                         </div>

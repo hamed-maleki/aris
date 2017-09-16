@@ -47,36 +47,38 @@
                     title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
                     data-position='right' style='margin-left: 17px'></i>
             </div>
-            <div class="col-sm-6 center">
+            <div class="col-sm-7 center">
                 <div class="row">
-                    <div class="col-sm-2">
-                        <div class="input-group" ng-if="pageToGo" style="width: 100%;margin: 0 auto;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default log-btn center" style="margin-top:0;" ng-click="finalPagination(myPageNumber,false,'http://localhost/ArisSystem/api/user')">
-                                    <i style="margin: 0 -3px" class="fa fa-arrow-left"></i>
-                                </button>
-                            </div>
-                            <input class="form-control right-align login-input" ng-model="myPageNumber" type="text" tabindex="2" />
-                        </div>
-                    </div>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
                         <ul class="pagination" style="margin: 0">
                             <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
                             <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-right"></i></a></li>
                             <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'http://localhost/ArisSystem/api/user')">{{x}}</a></li>
-                            <li ng-click="pageToGo ? pageToGo = false : pageToGo = true">
-                                <a href="#" style="color:black">
-                                    ...
+                            <li >
+                                <a id="pageLink" href="#" style="color:black;padding: 0;height: 39px;min-width: 39px">
+                                    <span id="pageSpan" ng-click="findPage(0)">...</span>
+                                    <div class="input-group" ng-if="pageToGo" style="width: 80%;margin: 0 auto;direction: ltr;">
+                                        <div class="input-group-btn" style="position: absolute;top: 2px">
+                                            <button class="btn btn-default log-btn center" style="margin-top:0;background-color: #CF4133" ng-click="findPage(myPageNumber)">
+                                                <i style="margin: 0 -3px" class="fa fa-arrow-left"></i>
+                                            </button>
+                                        </div>
+                                        <input class="form-control right-align login-input" ng-model="myPageNumber" type="text" tabindex="2" style="margin-top: 2px;"/>
+                                    </div>
                                 </a>
                             </li>
                             <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'http://localhost/ArisSystem/api/user' )"><i class="fa fa-angle-left"></i></a></li>
-                            <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-left" ></i></a></li>
+                            <li>
+                                <a href="#" style="color: black" ng-click="paginationToShow('last')">
+                                    <i class="fa fa-angle-double-left" ></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2 right-align">
-                <select style="font-size: 15px;width: 40%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+            <div class="col-sm-1 right-align">
+                <select style="font-size: 15px;width: 90%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
                     <option value="5"> 5</option>
                     <option value="10"> 10</option>
                     <option value="15"> 15</option>
@@ -414,4 +416,5 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
     });
+
 </script>

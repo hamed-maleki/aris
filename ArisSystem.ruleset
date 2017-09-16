@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Rules for ArisSystem" Description="Code analysis rules for ArisSystem.csproj." ToolsVersion="14.0">
+  <IncludeAll Action="Warning" />
+</RuleSet>

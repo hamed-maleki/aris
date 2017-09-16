@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
-// var sass = require('gulp-sass');
+//  sass = require('gulp-sass');
  bundle = require('gulp-bundle-assets');
-// var concat = require('gulp-concat');
+var concat = require('gulp-concat');
 gulp.task('bundle',function(){
     return gulp.src('./bundle.config.js')
     .pipe(bundle())
@@ -14,6 +14,9 @@ gulp.task('bundle',function(){
 //             return f.base;
 //         }))
 // });
+// gulp.task('default', function () {
+//     gulp.watch('assets/styles/*.scss', ['sass']);
+//   });
 // gulp.task('bundle', function() {
 //   return gulp.src('./assets/scripts/*.js')
 //     .pipe(bundle())
