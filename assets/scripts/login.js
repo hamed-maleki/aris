@@ -199,7 +199,6 @@ function fileSelect() {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                // console.log(e.target.result);
                 $('#myimg').attr('src', e.target.result);
             }
             reader.readAsDataURL(this.files[0]);

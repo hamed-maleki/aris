@@ -16,54 +16,15 @@
     </div>
     <div class="col-sm-6">
         <div class="row">
-            <div class="col-sm-3" style="padding: 0px 2px">
-                <div class="white-background" style="border-radius: 2px">
+            <div class="col-sm-3" ng-repeat="folder in minimizedFolder" style="padding: 0px 2px;float: left">
+                <div class="white-background" style="border-radius: 2px" >
                     <div class="row">
                         <div class="col-sm-5 right-align">
-                            <i class="fa fa-window-maximize pointer" style="color: gray;font-size: 12px"></i>
-                            <i class="fa fa-close" style="color: gray;font-size: 12px"></i>
+                            <i class="fa fa-window-maximize pointer" style="color: gray;font-size: 12px" ng-click="closeMin(folder.id,1)"></i>
+                            <i class="fa fa-close" style="color: gray;font-size: 12px" ng-click="closeMin(folder.id,0)"></i>
                         </div>
                         <div class="col-sm-7" ng-style="testfont" style="direction: rtl;padding-right: 20px;color: gray">
-                            برگ ...
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3" style="padding: 0px 2px">
-                <div class="white-background" style="border-radius: 2px">
-                    <div class="row">
-                        <div class="col-sm-5 right-align">
-                            <i class="fa fa-window-maximize pointer" style="color: gray;font-size: 12px"></i>
-                            <i class="fa fa-close" style="color: gray;font-size: 12px"></i>
-                        </div>
-                        <div class="col-sm-7" ng-style="testfont" style="direction: rtl;padding-right: 20px;color: gray">
-                            برگ ...
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3" style="padding: 0px 2px">
-                <div class="white-background" style="border-radius: 2px">
-                    <div class="row">
-                        <div class="col-sm-5 right-align">
-                            <i class="fa fa-window-maximize pointer" style="color: gray;font-size: 12px"></i>
-                            <i class="fa fa-close" style="color: gray;font-size: 12px"></i>
-                        </div>
-                        <div class="col-sm-7" ng-style="testfont" style="direction: rtl;padding-right: 20px;color: gray">
-                            برگ ...
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3" style="padding: 0px 2px">
-                <div class="white-background" style="border-radius: 2px">
-                    <div class="row">
-                        <div class="col-sm-5 right-align">
-                            <i class="fa fa-window-maximize pointer" style="color: gray;font-size: 12px"></i>
-                            <i class="fa fa-close" style="color: gray;font-size: 12px"></i>
-                        </div>
-                        <div class="col-sm-7" ng-style="testfont" style="direction: rtl;padding-right: 20px;color: gray">
-                            برگ ...
+                            {{folder.value}}
                         </div>
                     </div>
                 </div>

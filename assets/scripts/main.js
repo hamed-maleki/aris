@@ -24,10 +24,11 @@ app.directive("sidebar", function () {
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     $scope.host = $(location).attr('pathname');
+    $scope.minimizedFolder = [];
     $scope.host.indexOf(1);
     $scope.host.toLowerCase();
     $scope.host = $scope.host.split("/")[1];
-    var myhost = "/"+$scope.host+"/api";
+    var myhost = "/" + $scope.host + "/api";
     $scope.subSystemcontainer = [];
     $scope.securityCheck = false;
     if (localStorage.accessToken == undefined) {
@@ -515,7 +516,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.refreshlocal = function (x, y) {
         $.ajax({
-            url: "/"+$scope.host+"/login",
+            url: "/" + $scope.host + "/login",
             data: {
                 refresh_token: refreshtoken,
                 grant_type: 'refresh_token'
@@ -1024,15 +1025,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // }
             // else {
             if ($event.keyCode == 39) {
-                $scope.finalPagination($scope.currentPage - 1, false, '/'+$scope.host+'/api/user')
+                $scope.finalPagination($scope.currentPage - 1, false, '/' + $scope.host + '/api/user')
             }
             if ($event.keyCode == 37) {
-                $scope.finalPagination($scope.currentPage + 1, false, '/'+$scope.host+'/api/user')
+                $scope.finalPagination($scope.currentPage + 1, false, '/' + $scope.host + '/api/user')
             }
             // }
         }
-
-
         // if ($event.altKey || evtobj.altKey) {
         //     
         // }
@@ -1098,6 +1097,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
 
     }
+    $scope.pageToGo = false;
     $scope.findPage = function (x) {
         if ($scope.pageToGo == false) {
             $("#pageLink").animate({ width: "160px" });
@@ -1109,7 +1109,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.pageToGo = false;
             $("#pageSpan").css("float", "none");
             if (x != 0) {
-                $scope.finalPagination(x, false, '/'+$scope.host+'/api/user')
+                $scope.finalPagination(x, false, '/' + $scope.host + '/api/user')
             }
         }
     }
@@ -1119,6 +1119,39 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.maxWindow = function () {
         $("#loadedPage").toggleClass('max-window');
+    }
+    $scope.minWindow = function () {
+        var j = 0;
+        var newFolder = {
+            pageId: $scope.currentPageId,
+            value: $scope.currentValue,
+            id: $scope.currentId
+        }
+        for (var i = 0; i < $scope.minimizedFolder.length; i++) {
+            if ($scope.currentId == $scope.minimizedFolder[i].id) {
+                j = j + 1;
+            }
+        }
+        setTimeout(function () {
+            if ($scope.minimizedFolder.length < 4 && j == 0) {
+                $scope.minimizedFolder.unshift(newFolder);
+            }
+        }, 500)
+
+        $scope.showContext()
+        $(".min-anime").css("display", "block");
+        $(".min-anime").delay(500).fadeOut();
+    }
+    $scope.closeMin = function (x,y) {
+        for (var i = 0; i < $scope.minimizedFolder.length; i++) {
+            if (x == $scope.minimizedFolder[i].id) {
+                if(y == 1){
+                    $scope.cartableReader($scope.minimizedFolder[i].id,$scope.minimizedFolder[i].value,$scope.minimizedFolder[i].pageId)
+                }
+                $scope.minimizedFolder.splice(i, 1) 
+            }
+        }
+        
     }
     $scope.editSubmit = function (x) {
         if (x.name != undefined) {
@@ -1756,6 +1789,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // directive for aris tag's template changer
     $scope.cartableReader = function (id, value, mypageId) {
         $scope.emailLoader = true;
+        $scope.currentPageId = mypageId;
+        $scope.currentId = id;
+        $scope.currentValue = value;
+        $scope.table(value, mypageId);
         for (var i = 0; i < $scope.reciveMails.length; i++) {
             if (id == $scope.reciveMails[i].id) {
                 if ($scope.reciveMails[i].read == false) {
@@ -1764,12 +1801,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.reciveMails[i].read = true;
             }
         }
-
-        $scope.table(value, mypageId);
     }
     $scope.table = function (value, mypageId) {
-        // console.log("this is happening")
-
         $(".leaf").removeClass("myselect");
         $("#leaf" + mypageId).addClass("myselect");
         // $scope.number = "modules/" + value;

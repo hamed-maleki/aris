@@ -89,6 +89,7 @@
     <div ng-if="securityCheck">
         <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
         </nav>
+        <div class="min-anime"></div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
@@ -191,7 +192,6 @@
                                         </td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
                                             {{cartable.title}}
-
                                         </td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
@@ -214,7 +214,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </td>
                                         <td>
                                             <i class="fa fa-history pointer" style="font-size: 18px" ng-click="timeLine ? timeLine = false : timeLine = true"></i>
@@ -283,9 +282,9 @@
                         <div class="white-background border my-margin-top my-padding center responsive-margin">
                             <div class="row">
                                 <div class="col-sm-4 right-align my-margin-top">
-                                    <i class="fa fa-window-minimize pointer" style="color: gray;float: left;font-size: 12px"></i>
-                                    <i class="fa fa-window-restore pointer" style="color: gray;float: left;font-size: 12px" ng-click="maxWindow()"></i>
                                     <i class="fa fa-close" style="color: gray;float: left;font-size: 12px" ng-click="showContext()" ></i>
+                                    <i class="fa fa-window-restore pointer" style="color: gray;float: left;font-size: 12px" ng-click="maxWindow()"></i>
+                                    <i class="fa fa-window-minimize pointer" style="color: gray;float: left;font-size: 12px" ng-click="minWindow()"></i>
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="right-align my-margin-top">
@@ -299,7 +298,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div ng-include="number"></div>
                         </div>
                     </div>
