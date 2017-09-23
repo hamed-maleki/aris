@@ -1,4 +1,4 @@
-<form style="min-height: 427px">
+<!-- <form style="min-height: 427px">
     <div class="row">
         <div class="col-sm-12 my-margin-top right-align">
             <p>تعیین فیلتر بر روی شناورها</p>
@@ -129,71 +129,85 @@
             </div>
         </div>
     </div>
-</form>
-<!-- <div class="row">
-    <div class="col-sm-12">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="drogging well" style="z-index: 2">
-                    dragg this one
+</form> -->
+<div class="container" id="myDemo1">
+    <div class="row">
+        <!-- <div class="col-sm-1" ng-repeat="obj in NewBranch">
+            <div class="my-border" ng-drag="true" ng-drag-data="obj" ng-drag-success="mydrag($data,$event);">
+                {{obj.name}}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-1">
+            <div class="my-border" style="min-height: 20px;" ng-drop="true" ng-drop-success="myDrop($data,$event)"></div>
+        </div>
+        <div class="col-sm-1" ng-repeat="newObj in finalBranch">
+            <div class="my-border" style="min-height: 20px;">
+                {{newObj.name}}
+            </div>
+        </div>
+        <div class="clearfix"></div> -->
+        <div class="col-sm-9 my-margin-top">
+            <div class="row" ng-drop="true" ng-drop-success="myDrop($data,$event)">
+                <div class="col-sm-12" style="color: lightgray">
+                    عنوان جدول
+                </div>
+                <div class="col-sm-12 my-border">
+                    ستون ها
+                </div>
+                <div class="col-sm-10 my-border" style="min-height: 50px"></div>
+                <div class="col-sm-2 my-border" style="min-height: 50px;">
+                    سطرها
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="drogging well" style="z-index: 2">
-                    dragg this one
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="drogging well" style="z-index: 2">
-                    dragg this one
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="drogging well" style="z-index: 2">
-                    dragg this one
+            <div  ng-drop="true" ng-drop-success="myDrop($data,$event)" style="min-height: 10vh">
+                <div class="row">
+                    <div class="col-sm-12"  id="myDemo1">
+                        <div class="table-responsive printable my-margin-top">
+                            <table class="table table-hover table-bordered right-align">
+                                
+                                <thead>
+                                    <tr>
+                                        <th style="width: 300px;" ng-if="finalBranch.length != 0"></th>
+                                        <th ng-repeat="data in finalBranch" style="width: 300px;" >{{data.name}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sortable">
+                                    <tr data-step="4" class="user" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' >
+                                        <td ng-if="finalBranch.length != 0">نام سطر</td>
+                                        <td ng-repeat="data in finalBranch">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <caption ng-if="finalBranch.length != 0" class="center" ng-style="tableFont">عنوان جدول</caption>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="well droping">
-                    drop here
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="well droping">
-                    drop here
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="well droping">
-                    drop here
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="well droping">
-                    drop here
+        <div class="col-sm-3 my-margin-top">
+            <div ng-init="gettingTree()" class="tree-border">
+                <div class="right-align" ng-style="testfont" ng-repeat="tree in treeToShow" style="padding-right: 5px">
+                    <!-- <input type="checkbox" />  -->
+                    {{tree.name}}
+                    <i class="fa fa-angle-down pointer" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
+                    <hr>
+                    <div id="tree{{tree.id}}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="assets/scripts/dargging.js"></script>
 <script>
-    $(function () {
-        $(".drogging").draggable({
-            drop: function(event, ui){
-                // $(this).find().css("opacity", "0.5");
-                console.log($(this).html())
-            }
-        });
-        $(".droping").droppable({
-            drop:function(event, ui){
-                $(this).css("padding", "30px")
-                $(this).find(".drogging").css("opacity","1");
-            }
-        });
-    });
-
-</script> -->
+    $(document).ready(function () {
+        $("table").jsdragtable();
+    })
+    // $(function () {
+    //     Ps.initialize(document.getElementById('myDemo1'));
+    //     $("#sortable").sortable();
+    //     $("#sortable").disableSelection();
+    // });
+</script>

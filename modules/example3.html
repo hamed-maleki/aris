@@ -1,4 +1,4 @@
-<div ng-init="users()" id="myDemo1" style="height: 72vh; overflow-y: scroll;position: relative">
+<div ng-init="users()" id="myDemo1">
     <div class="col-sm-12 my-margin-top">
         <div class="col-sm-1" style="text-align: left">
             {{currentPage}} / {{paginationNumber[paginationNumber.length-1]}}
@@ -24,7 +24,7 @@
                         <th style="width: 300px">نام پدر</th>
                     </tr>
                 </thead>
-                <tbody id="sortable">
+                <tbody >
                     <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
                         ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
                         ng-click="editUser(data.user.id)">
@@ -397,7 +397,7 @@
 <script src="assets/scripts/dargging.js"></script>
 <script>
     $(document).ready(function () {
-        $("table").jsdragtable();
+        // $("table").jsdragtable();
         $('[data-toggle="tooltip"]').tooltip();
         $(".modal").draggable({
             handle: ".modal-body"
@@ -411,9 +411,9 @@
     $('#tablePlusUser').on('hidden.bs.modal', function () {
         $('#focusPlace').focus();
     });
-    $(function () {
-        Ps.initialize(document.getElementById('myDemo1'));
-        $("#sortable").sortable();
-        $("#sortable").disableSelection();
-    });
+    // $(function () {
+    //     Ps.initialize(document.getElementById('myDemo1'));
+    //     $("#sortable").sortable();
+    //     $("#sortable").disableSelection();
+    // });
 </script>

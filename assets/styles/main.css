@@ -685,6 +685,10 @@ nav a:hover {
     text-shadow: -10px 15px 20px rgba(0,0,0,0.7); 
 }
 
+.my-border {
+    border: 1px solid lightgray;
+    color: lightgray;
+}
 .border { 
     color: #f5f7f8;
 }
@@ -782,7 +786,7 @@ nav a:hover {
     z-index: 3;
     top: 18vh;
     left: 20vh;
-    animation: minimize 0.5s;
+    animation: minimize 0.25s;
     border-radius: 5px;
     display: none;
 }
@@ -2288,7 +2292,7 @@ body {
 
 .showbox {
   position: absolute;
-  top: 0;
+  top: -20px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -2409,6 +2413,9 @@ body {
     }
 }
 @media screen and (max-height:720px) and (max-width:1280px){
+    .my-col-sm-6 i {
+        margin: 19px auto;
+    }
     .center-align {
         padding: 0 120px;
         display: block;
