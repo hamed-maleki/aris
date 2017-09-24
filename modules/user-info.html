@@ -6,7 +6,9 @@
                     <span class="fa fa-close" onclick="fade()"></span>
                 </div>
                 <div class="col-sm-5 my-margin-top">
-                    <img class="rounded-pic info-pic" src="{{img}}"  />
+                    <img ng-if="img != undefined" class="rounded-pic info-pic" src="{{img}}"  />
+                    <img ng-if="img == undefined && gendar == 'male'" class="rounded-pic info-pic" src="media/male.png"  />
+                    <img ng-if="img == undefined && gendar == 'female'" class="rounded-pic info-pic" src="media/female.png"  />
                 </div>
                 <div class="col-sm-7 my-margin-top right-align" style="padding-top: 16px;">
                     <span class="perssonel-name">{{name}}</span>

@@ -7,7 +7,7 @@ setInterval(function () {
         window.location.href = 'login.html';
     }
 }, 500)
-var app = angular.module('myApp', ['angular.filter','ngDraggable']);
+var app = angular.module('myApp', ['angular.filter', 'ngDraggable']);
 app.directive("sidebar", function () {
     return {
         scope: true,
@@ -23,7 +23,7 @@ app.directive("sidebar", function () {
 });
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
-    'use strict';
+    // 'use strict';
     $scope.host = $(location).attr('pathname');
     $scope.minimizedFolder = [];
     $scope.host.indexOf(1);
@@ -39,6 +39,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     else {
         $scope.securityCheck = true;
     }
+
     $interval(function () {
         if (localStorage.accessToken == undefined) {
             window.location.href = 'login.html';
@@ -56,6 +57,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.time = response.data.screensaver;
             $scope.name = response.data.name;
             $scope.img = response.data.img;
+            $scope.gendar = response.data.gendar;
             $scope.userColor = response.data.userColor;
             $scope.userSubColor = response.data.userSubColor;
             $scope.userSystemColor = response.data.userSystemColor;
@@ -1143,44 +1145,61 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $(".min-anime").css("display", "block");
         $(".min-anime").delay(250).fadeOut();
     }
-    $scope.closeMin = function (x,y) {
+    $scope.closeMin = function (x, y) {
         for (var i = 0; i < $scope.minimizedFolder.length; i++) {
             if (x == $scope.minimizedFolder[i].id) {
-                if(y == 1){
-                    $scope.cartableReader($scope.minimizedFolder[i].id,$scope.minimizedFolder[i].value,$scope.minimizedFolder[i].pageId)
+                if (y == 1) {
+                    $scope.cartableReader($scope.minimizedFolder[i].id, $scope.minimizedFolder[i].value, $scope.minimizedFolder[i].pageId)
                 }
-                $scope.minimizedFolder.splice(i, 1) 
+                $scope.minimizedFolder.splice(i, 1)
             }
         }
-        
+
     }
     $scope.finalBranch = [];
-    $scope.mydrag = function(data,evt){
+    $scope.reportTableRow = [];
+    $scope.reportTable = [];
+    $scope.mydrag = function (data, evt) {
+    }
+    $scope.makingTableReport = function(data, evt){
+        $scope.reportTable.push(data);
+        console.log($scope.reportTable);
+    }
+    $scope.myDrop = function (data, evt) {
         var flag = false;
-        for(var i = 0; i < $scope.tree.length; i++){
-            if($scope.tree[i].id == data){
-                for(var j = 0; j< $scope.finalBranch.length; j++){
-                    if($scope.finalBranch[j].id == data){
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if ($scope.tree[i].id == data) {
+                for (var j = 0; j < $scope.finalBranch.length; j++) {
+                    if ($scope.finalBranch[j].id == data) {
                         var flag = true
                     }
                 }
-                if(flag == false){
+                if (flag == false) {
                     $scope.finalBranch.push($scope.tree[i]);
                 }
                 // $scope.tree.splice(i, 1);
             }
         }
-        // $scope.creatingNode(x);
-        // var index = $scope.tree.indexOf(data);
-        // if (index > -1) {
-        //     $scope.tree.splice(index, 1);
-        // }
-    }
-    $scope.myDrop = function(data,evt){
         $("table").jsdragtable();
         Ps.initialize(document.getElementById('myDemo1'));
         $("#sortable").sortable();
         $("#sortable").disableSelection();
+    }
+    $scope.makingTableRow = function (data, evt) {
+        var flag = false;
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if ($scope.tree[i].id == data) {
+                for (var j = 0; j < $scope.reportTableRow.length; j++) {
+                    if ($scope.reportTableRow[j].id == data) {
+                        var flag = true
+                    }
+                }
+                if (flag == false) {
+                    $scope.reportTableRow.push($scope.tree[i]);
+                }
+                // $scope.tree.splice(i, 1);
+            }
+        }
     }
     $scope.editSubmit = function (x) {
         if (x.name != undefined) {
@@ -2053,6 +2072,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // closing aside
+
     $scope.sideBarClose = function () {
         $(".side-tool").animate({ width: "0px" });
         $(".side-filter").animate({ width: "0px" });
@@ -2140,7 +2160,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].parent == x) {
                 // $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='"+$scope.tree[i].id+"' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
-                $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='"+$scope.tree[i].id+"' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
+                $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
             }
         }
     }

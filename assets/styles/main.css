@@ -1783,7 +1783,15 @@ tfoot tr td {
     font-size: 16px;
     cursor: pointer;
 }
-
+.table tbody tr:nth-child(odd) .fa-close{
+    color: #f9f9f9;
+}
+.table tbody tr:nth-child(odd) .fa-close:hover {
+    color: lightgray;
+}
+.table .fa-close:hover {
+    color: lightgray;
+}
 .fa-close:hover {
     color: #F16521;
 }
@@ -1974,8 +1982,8 @@ tfoot tr td {
 /*end of message and chat box*/
 /*tree view*/
 .tree-border {
-    border: 1px solid gray;
-    border-radius: 5px;
+    border: 1px solid lightgray;
+    /* border-radius: 5px; */
     margin-top: 5px;
     text-align: right;
     padding-right: 15px;

@@ -108,6 +108,7 @@ function login() {
     var user = $("#user").val();
     var pass = $("#pass").val();
     $(".log-btn").attr("disabled", 'disabled')
+    
     $.ajax({
         url: "/"+first+"/login",//"//"http://localhost/Aris/login",
 
@@ -206,4 +207,10 @@ function fileSelect() {
         $("#labelSelect").css("display","none");
         $("#myimg").css("display", "block");
     });
+}
+function keyToEnter(event){
+    console.log(event);
+    if(event.charCode == 13 || event.keyCode == 13){
+        login()
+    }
 }

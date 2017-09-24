@@ -24,8 +24,13 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <span class="border-right">
                         <!--user information part-->
-                        <img data-toggle="tooltip" data-placement="bottom" title="تنظیمات پروفایل" src="{{img}}" alt="user photo" class="rounded-pic pointer"
+
+                        <img ng-if="img != undefined" data-toggle="tooltip" data-placement="bottom" title="تنظیمات پروفایل" src="{{img}}" alt="user photo" class="rounded-pic pointer"
                             onclick="fade()" />
+                            <img ng-if="img == undefined && gendar == 'male'" data-toggle="tooltip" data-placement="bottom" title="تنظیمات پروفایل" src="media/male.png" alt="user photo" class="rounded-pic pointer"
+                            onclick="fade()" style="background-color: #C1B49A" />
+                            <img ng-if="img == undefined && gendar == 'female'" data-toggle="tooltip" data-placement="bottom" title="تنظیمات پروفایل" src="media/female.png" alt="user photo" class="rounded-pic pointer"
+                            onclick="fade()" style="background-color: #C1B49A" />
                             <!--informaton dropdown-->
                             <div style="color: black" id="user-info" class="dropdown-border" ng-include="'modules/user-info.html'">
                             </div>

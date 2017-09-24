@@ -130,7 +130,7 @@
         </div>
     </div>
 </form> -->
-<div class="container" id="myDemo1">
+<div class="container-fluid" id="myDemo1">
     <div class="row">
         <!-- <div class="col-sm-1" ng-repeat="obj in NewBranch">
             <div class="my-border" ng-drag="true" ng-drag-data="obj" ng-drag-success="mydrag($data,$event);">
@@ -147,36 +147,40 @@
             </div>
         </div>
         <div class="clearfix"></div> -->
-        <div class="col-sm-9 my-margin-top">
-            <div class="row" ng-drop="true" ng-drop-success="myDrop($data,$event)">
-                <div class="col-sm-12" style="color: lightgray">
+        <div class="col-sm-9">
+            <div class="row" >
+                <div  ng-drop="true" ng-drop-success="makingTableReport($data,$event)" style="color: lightgray">
                     عنوان جدول
                 </div>
-                <div class="col-sm-12 my-border">
+                <div ng-drop="true" ng-drop-success="myDrop($data,$event)" class="col-sm-12 my-border">
                     ستون ها
                 </div>
                 <div class="col-sm-10 my-border" style="min-height: 50px"></div>
-                <div class="col-sm-2 my-border" style="min-height: 50px;">
+                <div class="col-sm-2 my-border" ng-drop="true" ng-drop-success="makingTableRow($data,$event)" style="min-height: 50px;">
                     سطرها
                 </div>
             </div>
-            <div  ng-drop="true" ng-drop-success="myDrop($data,$event)" style="min-height: 10vh">
+            <div ng-drop="true" ng-drop-success="myDrop($data,$event)" style="min-height: 10vh">
                 <div class="row">
-                    <div class="col-sm-12"  id="myDemo1">
-                        <div class="table-responsive printable my-margin-top">
-                            <table class="table table-hover table-bordered right-align">
-                                
+                    <div id="myDemo1" ng-repeat="table in reportTable">
+                        <div class="table-responsive printable my-margin-top" >
+                            <table class="table table-hover table-bordered table-striped right-align">
                                 <thead>
                                     <tr>
                                         <th style="width: 300px;" ng-if="finalBranch.length != 0"></th>
-                                        <th ng-repeat="data in finalBranch" style="width: 300px;" >{{data.name}}</th>
+                                        <th ng-repeat="data in finalBranch" style="width: 300px;cursor: move">
+                                            {{data.name}}
+                                            <i class="fa fa-close"></i>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="sortable">
-                                    <tr data-step="4" class="user" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' >
-                                        <td ng-if="finalBranch.length != 0">نام سطر</td>
+                                    <tr class="user" ng-repeat="row in reportTableRow" style="cursor: move">
+                                        <td ng-if="finalBranch.length != 0">
+                                            {{row.name}}
+                                            <i class="fa fa-close"></i>
+                                        </td>
                                         <td ng-repeat="data in finalBranch">
-                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -184,16 +188,15 @@
                             </table>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3 my-margin-top">
+        <div class="col-sm-3" style="margin-top: 28px">
             <div ng-init="gettingTree()" class="tree-border">
                 <div class="right-align" ng-style="testfont" ng-repeat="tree in treeToShow" style="padding-right: 5px">
-                    <!-- <input type="checkbox" />  -->
                     {{tree.name}}
                     <i class="fa fa-angle-down pointer" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
-                    <hr>
                     <div id="tree{{tree.id}}"></div>
                 </div>
             </div>
@@ -201,13 +204,3 @@
     </div>
 </div>
 <script src="assets/scripts/dargging.js"></script>
-<script>
-    $(document).ready(function () {
-        $("table").jsdragtable();
-    })
-    // $(function () {
-    //     Ps.initialize(document.getElementById('myDemo1'));
-    //     $("#sortable").sortable();
-    //     $("#sortable").disableSelection();
-    // });
-</script>
