@@ -1,15 +1,78 @@
 <div ng-init="users()" id="myDemo1">
+        
     <div class="col-sm-12 my-margin-top">
         <div class="col-sm-1" style="text-align: left">
             {{currentPage}} / {{paginationNumber[paginationNumber.length-1]}}
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-11 right-align">
+            <i class="fa fa-gear pointer" ng-click="tableSetting ? tableSetting = false : tableSetting = true"></i>
+            <div class="table-setting container" ng-if="tableSetting">
+                <div class="row">
+                    <div class="col-sm-12 right-align">
+                        <i class="fa fa-close" ng-click="tableSetting = false"></i>
+                    </div>
+                    <div class="col-sm-12 right-align">
+                        <label>تعداد ردیف : </label>
+                    </div>
+                    <div class="col-sm-12 right-align">
+                        <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                            <option value="5"> 5</option>
+                            <option value="10"> 10</option>
+                            <option value="15"> 15</option>
+                        </select>
+                    </div>
+                    <!-- you can read adress by the moon stil be allright -->
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12 my-margin-top">
+                        <label>اندازه فونت : </label>
+                        <div class="row right-align">
+                            <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                14
+                            </div>
+                            <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                16
+                            </div>
+                            <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                18
+                            </div>
+                            <form>
+                                <input type="range" min="14" max="18" value="14" step="2" style="width: 85%;margin: 0 auto;display: block" ng-model="size" ng-change="tablefontChange(size)"
+                                />
+                            </form>
+                        </div>
+                    </div>
+                    <hr style="width: 100%;border-top-color: #BFBFBF">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>export :</label>
+                            </div>
+                            <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                <i class="fa fa-file-pdf-o pointer"></i>
+                            </div>
+                            <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                <i class="fa fa-file-excel-o pointer"></i>
+                            </div>
+                            <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                <i class="fa fa-file-word-o pointer"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-sm-12 my-margin-top">
         <div class="table-responsive printable my-margin-top">
             <table class="table table-hover table-bordered right-align">
                 <thead>
-                    <tr>
+                    <tr ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
+                        <span style="position: absolute;top:40px;right:48%;color: #CF4133;font-size: 20px">
+                            <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
+                        </span>
+                        <span style="position: absolute;top:20px;left:-2%;color: #CF4133;font-size: 20px">
+                            <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
+                        </span>
                         <!-- <th style="width: 150px;">
                             نام کاربری
                         </th>
@@ -17,14 +80,43 @@
                         <th style="width: 300px" ng-if="isAuth('tdFamily',1)">نام خانوادگی</th>
                         <th style="width: 300px" ng-if="isAuth('tdFatherName',4)">نام پدر</th> -->
                         <th style="width: 150px;">
+                            <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
+                            <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
+                            <i class="fa fa-filter pointer" ng-if="searchFlag" style="float: right;margin-top: 7px"></i>
+                            <i class="fa fa-filter" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i>
+
                             نام کاربری
                         </th>
                         <th style="width: 300px;" id="thName">نام </th>
                         <th style="width: 300px">نام خانوادگی</th>
                         <th style="width: 300px">نام پدر</th>
                     </tr>
+                    <tr id="search-part" class="collapse" ng-class="userSubColor">
+                        <span ng-if="searchFlag" style="position: absolute;top:95px;right:48%;color: #CF4133;font-size: 20px">
+                            <i class="fa fa-filter pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
+                        </span>
+                        <span ng-if="searchFlag" style="position: absolute;top:65px;left:-2%;color: #CF4133;font-size: 20px">
+                            <i class="fa fa-filter pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
+                        </span>
+                        <th>
+                            <input type="text" class="form-control">
+                        </th>
+                        <th>
+                            <select class="form-control">
+                                <option value="5"> 5</option>
+                                <option value="10"> 10</option>
+                                <option value="15"> 15</option>
+                            </select>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control">
+                        </th>
+                        <th>
+                            <input type="text" class="form-control">
+                        </th>
+                    </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
                         ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
                         ng-click="editUser(data.user.id)">
@@ -43,9 +135,11 @@
         </div>
         <div class="row">
             <div class="col-sm-2" style="text-align: left">
-                <i class="fa fa-plus-square-o pointer" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip" data-placement="right"
+                <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip" data-placement="right"
                     title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
-                    data-position='right' style='margin-left: 17px'></i>
+                    data-position='right' ></i>
+                    <i class="fa fa-trash-o pointer table-accessory-tools"></i>
+
             </div>
             <div class="col-sm-7 center">
                 <div class="row">
@@ -54,7 +148,7 @@
                             <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
                             <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
                             <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'/Aris/api/user')">{{x}}</a></li>
-                            <li >
+                            <li>
                                 <a id="pageLink" href="#" style="color:black;padding: 0;height: 39px;min-width: 39px">
                                     <span id="pageSpan" ng-click="findPage(0)">...</span>
                                     <div class="input-group" ng-if="pageToGo" style="width: 80%;margin: 0 auto;direction: ltr;">
@@ -77,16 +171,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-1 right-align">
-                <select style="font-size: 15px;width: 90%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
-                    <option value="5"> 5</option>
-                    <option value="10"> 10</option>
-                    <option value="15"> 15</option>
-                </select>
-            </div>
-            <div class="col-sm-2" style="text-align: left">
-                <label>تعداد نمایش در جدول</label>
-            </div>
+
         </div>
     </div>
 </div>
@@ -416,4 +501,5 @@
     //     $("#sortable").sortable();
     //     $("#sortable").disableSelection();
     // });
+
 </script>

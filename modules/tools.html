@@ -1,7 +1,8 @@
 <div class="row effect">
     <!--calendar link container-->
-    
-    <div class="col-sm-6 my-col-sm-6 tools-icon" ng-click="sideBar(2)" ng-init="mydate()">
+
+    <div class="col-sm-6 my-col-sm-6 tools-icon" ng-click="sideBar(2)" ng-init="mydate()" data-toggle="tooltip" data-placement="top"
+        title="تقویم">
         <div class="border sub-system transform  center pointer tools my-calendar" ng-class="userColor" style="margin-top: 10px;background-color: white !important">
 
             <div ng-class="userColor" style="height: 20px;font-size: 12px">
@@ -20,7 +21,7 @@
         </div>
     </div>
     <!--note link container-->
-    <div class="col-sm-6 my-col-sm-6 tools-icon" ng-click="sideBar(1)">
+    <div class="col-sm-6 my-col-sm-6 tools-icon" ng-click="sideBar(1)" data-toggle="tooltip" data-placement="top" title="یادداشت">
         <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
             <i class="fa fa-file-text-o system-icon"></i>
             <div ng-if="note.length != 0" class="badging">{{note.length}}</div>
@@ -28,7 +29,7 @@
     </div>
     <div class="clearfix"></div>
     <!--top-links link container-->
-    <div class="col-sm-6 my-col-sm-6 tools-icon" onclick="display('chatbox')">
+    <div class="col-sm-6 my-col-sm-6 tools-icon" onclick="display('chatbox')" data-toggle="tooltip" data-placement="top" title="چت باکس">
         <div class="border sub-system transform  center pointer tools" ng-class="userSubColor" style="margin-top: 10px">
             <!--<i class="fa fa-random system-icon"></i>-->
             <img src="media/logofox.png" class="tools-logo">
@@ -37,17 +38,17 @@
     </div>
 
     <!--chat link container-->
-    <div class="col-sm-6 my-col-sm-6 tools-icon" ng-click="sideBar(3)">
+    <div class="col-sm-6 my-col-sm-6 tools-icon" ng-click="sideBar(3)" data-toggle="tooltip" data-placement="top" title="لینک های پربازدید">
         <div class="border sub-system transform  center pointer tools" ng-class="userColor" style="margin-top: 10px;">
             <i class="fa fa-random system-icon"></i>
         </div>
     </div>
 </div>
 <!--aside part-->
- <div class="side-tool">
+<div class="side-tool">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12"  style="text-align: left;margin-top: 5px">
+            <div class="col-sm-12" style="text-align: left;margin-top: 5px">
                 <p class="sub-color" style="padding-right: 15px;margin-top: 25px;text-align: left">
                     <i class="fa fa-close" style="color: white;margin-left: -5px;margin-top: 8px" ng-click="sideBarClose()"></i>
                 </p>
@@ -55,7 +56,7 @@
             <sidebar></sidebar>
         </div>
     </div>
-</div> 
+</div>
 <!--chat area part-->
 <div id="chatbox" ng-class="userColor">
     <div class="container">
@@ -119,3 +120,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

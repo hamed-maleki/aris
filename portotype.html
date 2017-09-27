@@ -42,26 +42,32 @@
         /* body {
             overflow: hidden;
         } */
+
         .my-col-sm-6 {
             width: 100%;
         }
 
         .main-arrow {
             display: inline-block;
-            background-color: #808080; 
+            background-color: #808080;
             padding: 5px 30px 5px 10px;
             line-height: 0.5cm;
             color: white;
             position: relative;
             /* text-align: left; */
             justify-content: center;
-            transition: padding 0.5s;
+            transition: padding 0.5s, background-color 0.5s;
             cursor: pointer;
             min-height: 28px;
             min-width: 10px;
         }
+
         .main-arrow:hover {
-            padding: 5px 60px 5px 30px
+            padding: 5px 60px 5px 30px;
+            background-color: #a6a6a6;
+        }
+        .main-arrow:hover::after {
+            border-right: 14.5px solid #a6a6a6;
         }
         .main-arrow::after {
             position: absolute;
@@ -73,6 +79,7 @@
             border-top: 14.5px solid transparent;
             height: 100%;
             z-index: 3;
+            transition: border-right 0.5s;
         }
 
         .main-arrow::before {
@@ -95,11 +102,13 @@
             width: 150px;
             z-index: 1;
             animation: unload 0.5s;
-            background-color: #C1B49A;  
+            background-color: #C1B49A;
         }
+
         input {
             direction: rtl;
         }
+
         .system-container .my-col-sm-6 i {
             margin: 27px 0 5px;
         }
@@ -116,30 +125,35 @@
             border-right: 10px solid #C1B49A;
             border-bottom: 10px solid transparent;
             border-top: 10px solid transparent;
-            
         }
 
         .sub-system {
             min-height: 0px;
             margin-bottom: 5px;
         }
+
         .system-li {
             font-size: 16px;
             padding: 10px 25px;
             margin: 0;
         }
+
         .system-li:hover {
             background-color: #808080;
         }
+
         .system-li ul li {
             font-size: 16px;
         }
-        .chart{
+
+        .chart {
             margin: 5px auto;
         }
+
         .myselect {
             background-color: #808080;
         }
+
         input[type="file"] {
             position: absolute;
             top: 0;
@@ -149,16 +163,15 @@
             padding: 14px 0;
             cursor: pointer;
         }
-
-</style>
+    </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="gettingSystemJson()" >
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="gettingSystemJson()">
     <nav class="border" ng-class="userColor" ng-include="'modules/navigation.html'">
     </nav>
     <div class="container-fluid" ng-init="systemToShow()">
         <div class="row">
-            <div class="col-sm-12 my-margin-top right-align" style="direction: rtl" >
+            <div class="col-sm-12 my-margin-top right-align" style="direction: rtl">
                 <div class="main-arrow center" style="margin-left:-4px;" data-step="3" data-intro="مسیر دسترسی به سیستم ورد نظر شما">
                     <p ng-click="topNav(firstsystem.id,-1)">{{firstsystem.title}}</p>
                 </div>
@@ -166,13 +179,13 @@
                     <p>{{header.title}}</p>
                 </div>
             </div>
-            <div class="col-sm-1"  style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
+            <div class="col-sm-1" style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
                 <div class="row">
                     <div class="clearfix"></div>
                     <div class="col-sm-12">
                         <div class="row effect" style="position: relative">
-                            <div class="sub-system my-padding-5 aris-animation" >
-                                <div class="col-sm-6 my-col-sm-6" ng-click="gettingMainSystems()" style="margin-bottom: -20px" data-step="1" data-intro="دسترسی به سیستم های اصلی" >
+                            <div class="sub-system my-padding-5 aris-animation" data-toggle="tooltip" data-placement="top" title="سیستم های شما">
+                                <div class="col-sm-6 my-col-sm-6" ng-click="gettingMainSystems()" style="margin-bottom: -20px" data-step="1" data-intro="دسترسی به سیستم های اصلی">
                                     <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
                                         <i class="fa fa-folder-open-o system-icon"></i>
                                     </div>
@@ -181,6 +194,7 @@
                             <div class="system-container hide">
                                 <div id="system-scroll" class="right-align container" style="height: 330px; overflow-y: scroll;position: relative;color: white">
                                     <div class="row">
+                                        <i class="fa fa-close" ng-click="gettingMainSystems()" style="padding-right: 15px;"></i>
                                         <div class="col-sm-12" ng-repeat="system in system">
                                             <div class="col-sm-6 my-col-sm-6" ng-click="systemToLoad(system.id)" style="margin-bottom: -5px">
                                                 <div class="border sub-system transform  center pointer  tools" ng-class="userColor" style="margin-top: 10px;">
@@ -197,9 +211,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 right-align my-margin-top"  id="loadedPage" style="background-color: white;height: 77vh;overflow-y: scroll">
+            <div class="col-sm-9 right-align my-margin-top" id="loadedPage" style="background-color: white;height: 77vh;overflow-y: scroll">
                 <div class="container-fluid" id="myFocus" ng-keyup="detector($event)" tabindex="1">
-                    <div ng-include="number" class="keyControl" ></div>
+                    <div ng-include="number" class="keyControl"></div>
                 </div>
             </div>
             <div class="col-sm-2 right-align my-margin-top" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">

@@ -132,60 +132,57 @@
 </form> -->
 <div class="container-fluid" id="myDemo1">
     <div class="row">
-        <!-- <div class="col-sm-1" ng-repeat="obj in NewBranch">
-            <div class="my-border" ng-drag="true" ng-drag-data="obj" ng-drag-success="mydrag($data,$event);">
-                {{obj.name}}
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-sm-1">
-            <div class="my-border" style="min-height: 20px;" ng-drop="true" ng-drop-success="myDrop($data,$event)"></div>
-        </div>
-        <div class="col-sm-1" ng-repeat="newObj in finalBranch">
-            <div class="my-border" style="min-height: 20px;">
-                {{newObj.name}}
-            </div>
-        </div>
-        <div class="clearfix"></div> -->
-        <div class="col-sm-9">
-            <div class="row" >
-                <div  ng-drop="true" ng-drop-success="makingTableReport($data,$event)" style="color: lightgray">
-                    عنوان جدول
+        <div class="col-sm-12" ng-if="!reportTitling">
+            <div class="row">
+                <div class="col-sm-4 my-margin-top"></div>
+                <div class="col-sm-4 right-align my-margin-top">
+                    <i class="fa fa-plus pointer" ng-class="userColor" ng-click="creatReportTitle(reportTitle)" style="color: white;padding: 10px 30px;margin-right: -30px"></i>
                 </div>
-                <div ng-drop="true" ng-drop-success="myDrop($data,$event)" class="col-sm-12 my-border">
-                    ستون ها
-                </div>
-                <div class="col-sm-10 my-border" style="min-height: 50px"></div>
-                <div class="col-sm-2 my-border" ng-drop="true" ng-drop-success="makingTableRow($data,$event)" style="min-height: 50px;">
-                    سطرها
+                <div class="col-sm-4 my-margin-top">
+                    <input type="text" class="form-control right-align" ng-model="reportTitle" style="height: 38px;border-radius: 0" ng-style="tableFont" placeholder="عنوان گزارش"/>
                 </div>
             </div>
-            <div ng-drop="true" ng-drop-success="myDrop($data,$event)" style="min-height: 10vh">
+        </div>
+        <div class="col-sm-9 my-margin-top" style="height: 72vh; overflow-y: auto">
+            <div ng-drop="true" ng-drop-success="makingTableReport($data,$event)" style="color: lightgray">
+                {{reportTitle}}
+                <br>
+                عنوان جدول
+            </div>
+            <div ng-if="reportTable.length != 0" ng-drop="true" style="min-height: 10vh">
                 <div class="row">
-                    <div id="myDemo1" ng-repeat="table in reportTable">
-                        <div class="table-responsive printable my-margin-top" >
+                    <div ng-repeat="mytable in reportTable">
+                        <div class="table-responsive printable my-margin-top">
                             <table class="table table-hover table-bordered table-striped right-align">
-                                <thead>
+                                <thead ng-drop="true" ng-drop-success="myDrop($data,$event,$index)">
                                     <tr>
-                                        <th style="width: 300px;" ng-if="finalBranch.length != 0"></th>
+                                        <th style="width: 300px;" ng-if="table.col != 0"></th>
                                         <th ng-repeat="data in finalBranch" style="width: 300px;cursor: move">
                                             {{data.name}}
                                             <i class="fa fa-close"></i>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="sortable">
-                                    <tr class="user" ng-repeat="row in reportTableRow" style="cursor: move">
-                                        <td ng-if="finalBranch.length != 0">
+                                <tbody id="sortable{{mytable.id}}">
+                                    <tr class="user" ng-repeat="row in mytable.row" style="cursor: move">
+                                        <td ng-drop="true" colspan="{{finalBranch.length+1}}" ng-drop-success="makingTableRow($data,$event,$index)" ng-if="mytable.col.length != 0">
                                             {{row.name}}
                                             <i class="fa fa-close"></i>
                                         </td>
-                                        <td ng-repeat="data in finalBranch">
-                                        </td>
+                                        <!-- <td ng-repeat="data in mytable.col">
+                                        </td> -->
                                     </tr>
                                 </tbody>
-                                <caption ng-if="finalBranch.length != 0" class="center" ng-style="tableFont">عنوان جدول</caption>
+                                <caption ng-if="mytable.length != 0" class="center" ng-style="tableFont">{{mytable.name}}</caption>
                             </table>
+                        </div>
+                        <div ng-if="finalBranch.length == 0" ng-drop="true" ng-drop-success="myDrop($data,$event,$index)" class="col-sm-12 my-border">
+                            ستون ها
+                        </div>
+                        <div ng-if="mytable.row == undefined" class="col-sm-10 my-border" style="min-height: 50px"></div>
+                        <div ng-if="mytable.row == undefined" class="col-sm-2 my-border" ng-drop="true" ng-drop-success="makingTableRow($data,$event,$index)"
+                            style="min-height: 50px;">
+                            سطرها
                         </div>
                     </div>
                     <div class="clearfix"></div>

@@ -51,7 +51,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $http.get("data/theme.json")
         .then(function (response) {
             $scope.testfont = response.data.testfont;
-            console.log($scope.testfont);
             $scope.tableFont = response.data.tableFont;
             $scope.numberType = response.data.numberType;
             $scope.time = response.data.screensaver;
@@ -61,7 +60,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.userColor = response.data.userColor;
             $scope.userSubColor = response.data.userSubColor;
             $scope.userSystemColor = response.data.userSystemColor;
-            console.log(localStorage.font)
             if (localStorage.userColor != undefined) {
                 $scope.userColor = localStorage.userColor;
                 $scope.userSubColor = localStorage.userSubColor;
@@ -149,7 +147,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             })
     }
     $scope.recive = function (x) {
-        console.log(x);
         $scope.cartable = $scope.reciveMails;
         $scope.emailLoader = false;
         $scope.myFav = x;
@@ -352,7 +349,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         $scope.subSystemcontainer.push($scope.subsystem[i]);
                     }
                 }).catch(function (xhr, status, error) {
-                    console.log(xhr);
                     if (refreshtoken && xhr.status === 401) {
                         // $scope.refreshlocal($scope.drop, x);
                     }
@@ -372,8 +368,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     for (var i = 0; i < $scope.leaf.length; i++) {
                         $scope.subSystemcontainer.push($scope.leaf[i]);
                     }
-                    // console.log($scope.leaf)
-                    // console.log($scope.subsystem);
                     // for (var i = 0; i < $scope.systemslider.length; i++) {
                     //     if (x == $scope.systemslider[i].id) {
                     //         $scope.systemslider[i].children.push(response.data);
@@ -402,9 +396,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
     };
     // $scope.pageLoader = function (x) {
-    //     // console.log(x);
     //     $scope.number = "/modules/" + x;
-    //     // console.log($scope.number);
     // }
     $scope.gettingMainSystems = function () {
         $(".system-container").toggleClass("hide");
@@ -417,7 +409,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //         clearInterval($scope.myinterval);
     //         $("#myBar").css("display", "none");
     //     } else {
-    //         console.log("this is happening 2")
     //         document.getElementById("myBar").style.width = $scope.progressCounter + '%';
     //         $scope.progressCounter ++;
     //     }
@@ -497,12 +488,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             method: "GET",
             headers: authHeaders
         }).then(function (response) {
-            console.log("this is first statment");
             var key = localStorage.getItem("parent_id")
             SHeight = true;
             $scope.system = response.data;
             for (var i = 0; i < $scope.system.length; i++) {
-                // console.log("$scope.system[i]");
                 if ($scope.system[i].id == key) {
                     $scope.firstsystem = $scope.system[i];
                 }
@@ -511,7 +500,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.facebookLoader = 1;
         })
             .catch(function (xhr, status, error) {
-                console.log(xhr);
                 if (refreshtoken && xhr.status === 401) {
                     $scope.refreshlocal($scope.gettingSystemJson, 0);
                 }
@@ -544,7 +532,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
         function AjaxFailed(err, response) {
-            // console.log(err);
             // window.location.href = "login.html"
         }
     }
@@ -985,7 +972,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.detector = function ($event) {
         var evtobj = window.event ? event : $event;
         if ($event.altKey || evtobj.altKey) {
-            // console.log("this is happening in s");
             if ($event.keyCode == 38) {
                 if ($scope.editingLength > 0) {
                     $scope.editingLength--;
@@ -1117,8 +1103,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.sharingForm = function () {
-        console.log($scope.limitedEdition);
-        console.log($scope.number);
     }
     $scope.maxWindow = function () {
         $("#loadedPage").toggleClass('max-window');
@@ -1161,11 +1145,22 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.reportTable = [];
     $scope.mydrag = function (data, evt) {
     }
-    $scope.makingTableReport = function(data, evt){
-        $scope.reportTable.push(data);
-        console.log($scope.reportTable);
+    $scope.makingTableReport = function (data, evt) {
+        var flag = false;
+        for (var i = 0; i < $scope.tree.length; i++) {
+            if ($scope.tree[i].id == data) {
+                for (var j = 0; j < $scope.reportTable.length; j++) {
+                    if ($scope.reportTable[j].id == data) {
+                        var flag = true
+                    }
+                }
+                if (flag == false) {
+                    $scope.reportTable.push($scope.tree[i]);
+                }
+            }
+        }
     }
-    $scope.myDrop = function (data, evt) {
+    $scope.myDrop = function (data, evt, x) {
         var flag = false;
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].id == data) {
@@ -1180,26 +1175,94 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 // $scope.tree.splice(i, 1);
             }
         }
-        $("table").jsdragtable();
-        Ps.initialize(document.getElementById('myDemo1'));
-        $("#sortable").sortable();
-        $("#sortable").disableSelection();
+        // var flag = false;
+        // var elementToPush = {
+        //     name: '',
+        //     id: ''
+        // };
+        // var colContainer = [];
+        // for (var i = 0; i < $scope.tree.length; i++) {
+        //     if ($scope.tree[i].id == data) {
+        //         // for (var j = 0; j < $scope.finalBranch.length; j++) {
+        //         //     if ($scope.finalBranch[j].id == data) {
+        //         //         var flag = true
+        //         //     }
+        //         // }
+        //         // if (flag == false) {
+        //         //     $scope.finalBranch.push($scope.tree[i]);
+        //         // }
+        //         elementToPush.name = $scope.tree[i].name;
+        //         elementToPush.id = $scope.tree[i].id;
+        //     }
+        // }
+        // if ($scope.reportTable[x].col == undefined) {
+        //     colContainer[0] = elementToPush;
+        //     console.log(colContainer[0]);
+        //     $scope.reportTable[x].col = colContainer;
+        //     console.log($scope.reportTable[x].col);
+        // }
+        // else {
+        //     $scope.reportTable[x].col.push(elementToPush);
+        // }
+
+
+        // $("table").jsdragtable();
+        // Ps.initialize(document.getElementById('myDemo1'));
     }
-    $scope.makingTableRow = function (data, evt) {
+    $scope.creatReportTitle = function(x){
+        if(x == undefined){
+            alert("عنوان گزارش نمیتواند خالی باشد");
+        }
+        else{
+            $scope.reportTitle = x;
+            $scope.reportTitling = true;
+        }
+        
+    }
+    $scope.makingTableRow = function (data, evt, x) {
         var flag = false;
+        var elementToPush = {
+            name: '',
+            id: ''
+        };
+        var colContainer = [];
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].id == data) {
-                for (var j = 0; j < $scope.reportTableRow.length; j++) {
-                    if ($scope.reportTableRow[j].id == data) {
-                        var flag = true
-                    }
-                }
-                if (flag == false) {
-                    $scope.reportTableRow.push($scope.tree[i]);
-                }
-                // $scope.tree.splice(i, 1);
+                // for (var j = 0; j < $scope.finalBranch.length; j++) {
+                //     if ($scope.finalBranch[j].id == data) {
+                //         var flag = true
+                //     }
+                // }
+                // if (flag == false) {
+                //     $scope.finalBranch.push($scope.tree[i]);
+                // }
+                elementToPush.name = $scope.tree[i].name;
+                elementToPush.id = $scope.tree[i].id;
             }
         }
+        if ($scope.reportTable[x].row == undefined) {
+            colContainer[0] = elementToPush;
+            $scope.reportTable[x].row = colContainer;
+
+        }
+        else {
+            $scope.reportTable[x].row.push(elementToPush);
+        }
+        // var flag = false;
+        // for (var i = 0; i < $scope.tree.length; i++) {
+        //     if ($scope.tree[i].id == data) {
+        //         for (var j = 0; j < $scope.reportTableRow.length; j++) {
+        //             if ($scope.reportTableRow[j].id == data) {
+        //                 var flag = true
+        //             }
+        //         }
+        //         if (flag == false) {
+        //             $scope.reportTableRow.push($scope.tree[i]);
+        //             $("#sortable" + $scope.tree[i].id).sortable();
+        //             $("#sortable" + $scope.tree[i].id).disableSelection();
+        //         }
+        //     }
+        // }
     }
     $scope.editSubmit = function (x) {
         if (x.name != undefined) {
@@ -1247,7 +1310,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
-            // console.log(response)
             $("#editMessage").html("تغییرات با موفقیت ثبت شد");
             $("#myFocus").focus();
         }).catch(function (xhr) {
@@ -1265,7 +1327,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if (x == $scope.limitedEdition[i].user.id) {
                 $scope.editingUserData = $scope.limitedEdition[i];
                 $scope.editingLength = i;
-                // console.log($scope.editingLength)
                 $scope.puttingInsideInput();
                 $scope.firstStep = 1;
             }
@@ -1273,7 +1334,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#myFocus").focus();
     }
     $scope.puttingInsideInput = function () {
-        // console.log($("#activation option[value="+$scope.editingUserData.user.isActive+" ]"));
         $("#edit-name").val($scope.editingUserData.personnel.name);
         $("#edit-family").val($scope.editingUserData.personnel.family);
         $("#edit-father").val($scope.editingUserData.personnel.fatherName);
@@ -1322,7 +1382,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
-        // console.log($scope.editingUserData)
         $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
@@ -1359,18 +1418,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         file: ''
     }
     $scope.registerUser = function (x, y) {
-        // console.log(x);
         var files = $("#plusPhoto")[0].files;
         for (var i = 0; i < files.length; i++) {
             $scope.ImageProperty.file = files[i];
             $scope.fileList.push($scope.ImageProperty);
             $scope.ImageProperty = {};
         }
-        console.log($scope.fileList[0].file);
         var codeCheck = false;
         $("#registerAlarm").html(" ");
         $("#social-no").css("border", "1px solid #ccc");
-        // console.log(x);
         var code = x.nationalCode;
         var confirmCode = (Number(code[0]) * 10) + (Number(code[1]) * 9) + (Number(code[2]) * 8) + (Number(code[4]) * 7) + (Number(code[5]) * 6) + (Number(code[6]) * 5) + (Number(code[7]) * 4) + (Number(code[8]) * 3) + (Number(code[9]) * 2);
         var remain = confirmCode % 11;
@@ -1396,7 +1452,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // angular.forEach(data, function (value, key) {
         //     photo.append(key, value);
         // })
-        // console.log(photo)
         if (codeCheck == true) {
             var person = {
                 Name: x.name,
@@ -1419,7 +1474,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 User: user,
                 Personnel: person
             }
-            console.log(Model);
             Model = JSON.stringify(Model);
 
             $http({
@@ -1459,7 +1513,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     }
                 }
             }).then(function (response) {
-                // console.log(response);
                 $scope.paginationNumber = [];
                 $scope.rowsCount++;
                 pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
@@ -1857,8 +1910,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         var mydata = {
             pageId: mypageId
         }
-        console.log(mydata);
-        console.log(value);
         // $scope.number = "modules/" + value;
         $http({
             url: myhost + "/system/elements",
@@ -1868,7 +1919,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
-            console.log(response.data);
             $scope.permission = response.data;
             $scope.number = "modules/" + value;
         }).catch(function (xhr, error) {
@@ -1928,7 +1978,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
 
     $scope.tablefontChange = function (size) {
-        $scope.tableFont[0] = $("#points-font").val();
+        // $("tr").css("font-size",size+"px");
+        $scope.tableFont = {
+            "font-size": size+"px"
+        }
+    }
+    $scope.searchToggle = function(){
+        $("#search-part").slideToggle();
+        $("#search-toggle-icon").toggleClass("fa-chevron-down");
+        $("#search-toggle-icon").toggleClass("fa-chevron-up");
+        if($scope.searchFlag){
+            $scope.searchFlag = false;
+        }
+        else{
+            $scope.searchFlag = true;
+        }
     }
     $scope.fontChanger = function (element) {
         $(".fa-check-circle-o").addClass("hide");
@@ -2015,7 +2079,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // aside opening
     $scope.sideBar = function (x) {
-        // console.log("this is happening");
         $scope.sidecontainer(x);
         $(".side-tool").animate({ width: "390px" }, 'slow');
         // $(".side-filter").animate({ width: "318px" }, 'slow');
@@ -2039,7 +2102,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 //         if (e.lengthComputable) {
                 //             $scope.progressBar = (e.loaded / e.total) * 100;
                 //             $scope.progressCounter = $scope.progressBar;
-                //             // console.log($scope.progressCounter)
                 //             $scope.interval = setInterval($scope.myprogressBar(), 20);
                 //         }
                 //     }
@@ -2048,9 +2110,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.note = response.data.note;
                 $scope.message = response.data.message;
                 $scope.alarm = response.data.alarm;
-                for (var i = 0; i < 3; i++) {
-                    $scope.limitedNote.push($scope.note[i]);
-                }
+                // for (var i = 0; i < 3; i++) {
+                //     $scope.limitedNote.push($scope.note[i]);
+                // }
             });
             $scope.side = "note2.html";
         }
@@ -2072,7 +2134,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // closing aside
-
+    $scope.closingExtraInfo = function(){
+        // $(".extra-info").css("display","none");
+        $scope.extraInfo = false;
+    }
     $scope.sideBarClose = function () {
         $(".side-tool").animate({ width: "0px" });
         $(".side-filter").animate({ width: "0px" });
@@ -2458,7 +2523,6 @@ function move() {
             $("#myBar").delay(1000).fadeOut();
         } else {
             height++;
-            console.log(height);
             elem.style.height = height + '%';
             elem.style.top = 100 - height + '%';
         }

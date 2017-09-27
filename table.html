@@ -148,10 +148,10 @@
                                 <i class="fa fa-trash-o" style="margin-left: 0"></i>
                             
                             </button>
-                            <span class="my-button btn button-color" ng-class="userColor" style="color: white;padding: 4px 5px;">
+                            <!-- <span class="my-button btn button-color" ng-class="userColor" style="color: white;padding: 4px 5px;">
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
-                            </span>
+                            </span> -->
                             <button class="my-button btn button-color" ng-class="userColor" ng-click="checking = false">
                                 خوانده نشده ها
                                 <i class="fa fa-low-vision" style="margin-left: 0"></i>
@@ -168,6 +168,9 @@
                             <table class="table table-hover my-table mail-box">
                                 <thead>
                                     <tr ng-style="testfont">
+                                        <th style="width: 30px">
+                                                <input class="select" type="checkbox" style="margin-right: 7px;"  ng-click="inboxing()" />
+                                        </th>
                                         <th style="width:200px">نام درخواست دهنده</th>
                                         <th style="width:250px">درخواست</th>
                                         <th style="width: 150px">مرحله</th>
@@ -182,6 +185,8 @@
                                         ng-mouseleave="hovering = false">
                                         <td>
                                             <input type="checkbox" value="{{cartable.id}}" style="margin-top: -5px" class="modal_input cartable-input" />
+                                        </td>
+                                        <td>
                                             <i class="fa fa-star-o" ng-if="! cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>
                                             <i class="fa fa-star" ng-if="cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>                                            {{cartable.author}}
                                             <i class="fa fa-check" ng-if="emailType == 'sent'"></i>
@@ -204,6 +209,7 @@
                                                 <div ng-if="extraInfo" class="container extra-info">
                                                     <div class="row my-margin-top">
                                                         <div class="col-sm-12">
+                                                            <i class="fa fa-close" ng-click="closingExtraInfo()"></i>
                                                             <p>
                                                                 {{cartable.info}}
                                                             </p>
@@ -279,7 +285,7 @@
                         <div class="white-background border my-margin-top my-padding center responsive-margin">
                             <div class="row">
                                 <div class="col-sm-4 right-align my-margin-top">
-                                    <i class="fa fa-close" style="color: gray;float: left;font-size: 12px" ng-click="showContext()" ></i>
+                                    <i class="fa fa-close" style="color: gray;float: left;font-size: 12px" ng-click="showContext()"></i>
                                     <i class="fa fa-window-restore pointer" style="color: gray;float: left;font-size: 12px" ng-click="maxWindow()"></i>
                                     <i class="fa fa-window-minimize pointer" style="color: gray;float: left;font-size: 12px" ng-click="minWindow()"></i>
                                 </div>

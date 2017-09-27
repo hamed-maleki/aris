@@ -209,7 +209,6 @@ function fileSelect() {
     });
 }
 function keyToEnter(event){
-    console.log(event);
     if(event.charCode == 13 || event.keyCode == 13){
         login()
     }

@@ -192,11 +192,11 @@ p{
     z-index: 10;
     display: none;
 }
- /* thead {
-     background-color: rgba(59,89,152,0.5);
-     color: white;
+ thead {
+     background-color: #bfbfbf;
+     color: white !important;
  }
- thead tr {
+ /* thead tr {
      color: white !important;
  } */
  #inside-progress{
@@ -1250,7 +1250,7 @@ nav a:hover {
 .my-table  th{
     font-size: 16px;
     padding: 15px;
-    color:black !important;
+    color:white !important;
 }
 .my-table tr,.my-table tr th {
     color: gray;
@@ -1259,7 +1259,35 @@ nav a:hover {
 .my-table tr:hover,.my-table tr th:hover{
     color: black;
 }
-
+.table-setting {
+    width: 22%;
+    min-height: 300px;
+    position: absolute;
+    top: -10px;
+    right: 5%;
+    z-index: 3;
+    animation: aris 0.25s;
+    background-color: rgba(0,0,0,1);
+}
+.table-setting label{
+    color: white;
+}
+.table-accessory-tools {
+    margin-left: 0;
+    margin-right: 5px;
+    border: 1px solid #BFBFBF;
+    font-size: 23px;
+    padding: 6.5px 8.5px;
+}
+.table-setting::before {
+    content: '';
+    border-top: 10px solid transparent;
+    border-left: 10px solid rgba(0,0,0,1);
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    top: 12px;
+    right: -10px;
+}
 select option {
     font-size: 12px !important;
     background-color: gray !important;
