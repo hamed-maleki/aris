@@ -1976,9 +1976,27 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#chatarea").scrollTop = $("#chatarea").scrollHeight;
         }, 100);
     }
-
+    $scope.tableFontSize = 14;
+    $scope.tableSetting = false;
+    $scope.tableSettingFunction = function(){
+        if($scope.tableSetting == false){
+            $scope.tableSetting = true;
+            
+        }
+        else{
+            $scope.tableSetting = false;
+        }
+        
+    }
+    // $scope.setFont = function(){
+    //     console.log($scope.tableFontSize)
+    //     $("#fontRange").val($scope.tableFontSize);
+    //     console.log($("#fontRange").val())
+    // }
     $scope.tablefontChange = function (size) {
+        $("#fontRange").val($scope.tableFontSize);
         // $("tr").css("font-size",size+"px");
+        $scope.tableFontSize  = size;
         $scope.tableFont = {
             "font-size": size+"px"
         }

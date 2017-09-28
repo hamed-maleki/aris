@@ -1,76 +1,28 @@
 <div ng-init="users()" id="myDemo1">
-        
+
     <div class="col-sm-12 my-margin-top">
-        <div class="col-sm-1" style="text-align: left">
+        <!-- <div class="checkbox">
+            <label>
+                <input type="checkbox" value="">
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+            </label>
+        </div> -->
+        <!-- <div class="col-sm-1 center" style="border: 1px solid #BFBFBF;margin-bottom: 5px">
             {{currentPage}} / {{paginationNumber[paginationNumber.length-1]}}
-        </div>
-        <div class="col-sm-11 right-align">
-            <i class="fa fa-gear pointer" ng-click="tableSetting ? tableSetting = false : tableSetting = true"></i>
-            <div class="table-setting container" ng-if="tableSetting">
-                <div class="row">
-                    <div class="col-sm-12 right-align">
-                        <i class="fa fa-close" ng-click="tableSetting = false"></i>
-                    </div>
-                    <div class="col-sm-12 right-align">
-                        <label>تعداد ردیف : </label>
-                    </div>
-                    <div class="col-sm-12 right-align">
-                        <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
-                            <option value="5"> 5</option>
-                            <option value="10"> 10</option>
-                            <option value="15"> 15</option>
-                        </select>
-                    </div>
-                    <!-- you can read adress by the moon stil be allright -->
-                    <div class="clearfix"></div>
-                    <div class="col-sm-12 my-margin-top">
-                        <label>اندازه فونت : </label>
-                        <div class="row right-align">
-                            <div class="col-sm-4 center" style="color: white;font-size: 16px;">
-                                14
-                            </div>
-                            <div class="col-sm-4 center" style="color: white;font-size: 16px;">
-                                16
-                            </div>
-                            <div class="col-sm-4 center" style="color: white;font-size: 16px;">
-                                18
-                            </div>
-                            <form>
-                                <input type="range" min="14" max="18" value="14" step="2" style="width: 85%;margin: 0 auto;display: block" ng-model="size" ng-change="tablefontChange(size)"
-                                />
-                            </form>
-                        </div>
-                    </div>
-                    <hr style="width: 100%;border-top-color: #BFBFBF">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>export :</label>
-                            </div>
-                            <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                <i class="fa fa-file-pdf-o pointer"></i>
-                            </div>
-                            <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                <i class="fa fa-file-excel-o pointer"></i>
-                            </div>
-                            <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                <i class="fa fa-file-word-o pointer"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div> -->
+        <!-- <div class="col-sm-11 right-align" style="padding: 0">
+
+        </div> -->
     </div>
     <div class="col-sm-12 my-margin-top">
-        <div class="table-responsive printable my-margin-top">
-            <table class="table table-hover table-bordered right-align">
+        <div class="table-responsive my-margin-top printable my-margin-top">
+            <table class="table table-hover table-bordered right-align my-margin-top">
                 <thead>
                     <tr ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
-                        <span style="position: absolute;top:40px;right:48%;color: #CF4133;font-size: 20px">
+                        <span style="position: absolute;top:20px;right:48%;color: #CF4133;font-size: 20px">
                             <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
                         </span>
-                        <span style="position: absolute;top:20px;left:-2%;color: #CF4133;font-size: 20px">
+                        <span style="position: absolute;top:0px;left:-2%;color: #CF4133;font-size: 20px">
                             <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
                         </span>
                         <!-- <th style="width: 150px;">
@@ -83,19 +35,17 @@
                             <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
                             <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-filter pointer" ng-if="searchFlag" style="float: right;margin-top: 7px"></i>
-                            <i class="fa fa-filter" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i>
-
-                            نام کاربری
+                            <i class="fa fa-filter" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i>                            نام کاربری
                         </th>
                         <th style="width: 300px;" id="thName">نام </th>
                         <th style="width: 300px">نام خانوادگی</th>
                         <th style="width: 300px">نام پدر</th>
                     </tr>
                     <tr id="search-part" class="collapse" ng-class="userSubColor">
-                        <span ng-if="searchFlag" style="position: absolute;top:95px;right:48%;color: #CF4133;font-size: 20px">
+                        <span ng-if="searchFlag" style="position: absolute;top:75px;right:48%;color: #CF4133;font-size: 20px">
                             <i class="fa fa-filter pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
                         </span>
-                        <span ng-if="searchFlag" style="position: absolute;top:65px;left:-2%;color: #CF4133;font-size: 20px">
+                        <span ng-if="searchFlag" style="position: absolute;top:45px;left:-2%;color: #CF4133;font-size: 20px">
                             <i class="fa fa-filter pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
                         </span>
                         <th>
@@ -134,14 +84,13 @@
             </table>
         </div>
         <div class="row">
-            <div class="col-sm-2" style="text-align: left">
-                <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip" data-placement="right"
-                    title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
-                    data-position='right' ></i>
-                    <i class="fa fa-trash-o pointer table-accessory-tools"></i>
-
+            <div class="col-sm-3" style="text-align: left">
+                <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
+                    data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+                    data-position='right'></i>
+                <i class="fa fa-trash-o pointer table-accessory-tools"></i>
             </div>
-            <div class="col-sm-7 center">
+            <div class="col-sm-6 center">
                 <div class="row">
                     <div class="col-sm-12">
                         <ul class="pagination" style="margin: 0">
@@ -149,7 +98,7 @@
                             <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
                             <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'/Aris/api/user')">{{x}}</a></li>
                             <li>
-                                <a id="pageLink" href="#" style="color:black;padding: 0;height: 39px;min-width: 39px">
+                                <a id="pageLink" href="#" style="color:black;padding: 0;height: 40px;min-width: 39px">
                                     <span id="pageSpan" ng-click="findPage(0)">...</span>
                                     <div class="input-group" ng-if="pageToGo" style="width: 80%;margin: 0 auto;direction: ltr;">
                                         <div class="input-group-btn" style="position: absolute;top: 2px">
@@ -168,6 +117,62 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 right-align">
+                <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction()"></i>
+                <div class="table-setting container" ng-if="tableSetting">
+                    <div class="row">
+                        <div class="col-sm-12 right-align">
+                            <i class="fa fa-close" ng-click="tableSettingFunction()"></i>
+                        </div>
+                        <div class="col-sm-12 right-align">
+                            <label>تعداد ردیف : </label>
+                        </div>
+                        <div class="col-sm-12 right-align">
+                            <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                                    <option value="5"> 5</option>
+                                    <option value="10"> 10</option>
+                                    <option value="15"> 15</option>
+                                </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-12 my-margin-top">
+                            <label>اندازه فونت : </label>
+                            <div class="row right-align">
+                                <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                    14
+                                </div>
+                                <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                    16
+                                </div>
+                                <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                    18
+                                </div>
+                                <form>
+                                    <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block" ng-model="size"
+                                        ng-change="tablefontChange(size)" />
+                                </form>
+                            </div>
+                        </div>
+                        <hr style="width: 100%;border-top-color: #BFBFBF">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>export :</label>
+                                </div>
+                                <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                    <i class="fa fa-file-pdf-o pointer"></i>
+                                </div>
+                                <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                    <i class="fa fa-file-excel-o pointer"></i>
+                                </div>
+                                <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                    <i class="fa fa-file-word-o pointer"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
