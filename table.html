@@ -74,7 +74,7 @@
             background-color: #808080;
         }
 
-        /* input[type="file"] {
+        input[type="file"] {
             position: absolute;
             top: 0;
             left: 0;
@@ -83,65 +83,6 @@
             padding: 14px 0;
             cursor: pointer;
         }
-
-        .checkbox label:after,
-        .radio label:after {
-            content: '';
-            display: table;
-            clear: both;
-        }
-
-        .checkbox .cr,
-        .radio .cr {
-            position: relative;
-            display: inline-block;
-            border: 1px solid #a9a9a9;
-            border-radius: .25em;
-            width: 1.3em;
-            height: 1.3em;
-            float: left;
-            margin-right: .5em;
-        }
-
-        .radio .cr {
-            border-radius: 50%;
-        }
-
-        .checkbox .cr .cr-icon,
-        .radio .cr .cr-icon {
-            position: absolute;
-            font-size: .8em;
-            line-height: 0;
-            top: 50%;
-            left: -34%;
-        }
-
-        .radio .cr .cr-icon {
-            margin-left: 0.04em;
-        }
-
-        .checkbox label input[type="checkbox"],
-        .radio label input[type="radio"] {
-            display: none;
-        }
-
-        .checkbox label input[type="checkbox"]+.cr>.cr-icon,
-        .radio label input[type="radio"]+.cr>.cr-icon {
-            transform: scale(3) rotateZ(-20deg);
-            opacity: 0;
-            transition: all .3s ease-in;
-        }
-
-        .checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
-        .radio label input[type="radio"]:checked+.cr>.cr-icon {
-            transform: scale(1) rotateZ(0deg);
-            opacity: 1;
-        }
-
-        .checkbox label input[type="checkbox"]:disabled+.cr,
-        .radio label input[type="radio"]:disabled+.cr {
-            opacity: .5;
-        } */
     </style>
 </head>
 
@@ -228,13 +169,13 @@
                                 <thead>
                                     <tr ng-style="testfont">
                                         <th style="width: 30px">
-                                            <input class="select" type="checkbox" style="margin-right: 7px;"  ng-click="inboxing()" />
-                                            <!-- <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">
-                                                    <span class="cr"><i class="cr-icon fa fa-thumbs-o-up"></i></span>
+                                            <!-- <input class="select" type="checkbox" style="margin-right: 7px;" ng-click="inboxing()" /> -->
+                                            <div  class="checkbox" ng-click="inboxing()">
+                                                <label >
+                                                    <input class="select" type="checkbox"  >
+                                                    <span class="cr" style="top:6px; margin-right: 14px;border-color: white;"><i class="cr-icon fa fa-check" style="color:white"></i></span>
                                                 </label>
-                                            </div> -->
+                                            </div>
                                         </th>
                                         <th style="width:200px">نام درخواست دهنده</th>
                                         <th style="width:250px">درخواست</th>
@@ -249,7 +190,13 @@
                                         ng-class="{true:'selected-row', false:''}[cartable.read]" id="row{{cartable.id}}" ng-mouseenter="hovering = true"
                                         ng-mouseleave="hovering = false">
                                         <td>
-                                            <input type="checkbox" value="{{cartable.id}}" style="margin-top: -5px" class="modal_input cartable-input" />
+                                            <!-- <input type="checkbox" value="{{cartable.id}}" style="margin-top: -5px" class="modal_input cartable-input" /> -->
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="{{cartable.id}}" class="modal_input cartable-input" >
+                                                    <span class="cr my-cr"><i class="cr-icon fa fa-check"></i></span>
+                                                </label>
+                                            </div>
                                         </td>
                                         <td>
                                             <i class="fa fa-star-o" ng-if="! cartable.fav" style="padding-right: 5px;color: #CF4133" id="star{{cartable.id}}" ng-click="favCartable(cartable.id)"></i>

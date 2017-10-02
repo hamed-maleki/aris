@@ -121,14 +121,14 @@
 </div>  -->
 <div id="addingUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="2">
     <div class="modal-dialog">
-        <div class="modal-body">
+        <div class="modal-body" style="background-color: transparent">
             <div class="modal-content">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 my-margin-top">
                             <ul class="user-list">
-                                <li class="center" ng-class="userColor" ng-click="registeringUser = false">اختصاص افراد به این سمت</li>
-                                <li class="center" ng-class="userColor" ng-click="registeringUser =true">افراد دارای این سمت</li>
+                                <li class="center pointer" ng-class="userColor" ng-click="registeringUser = false">اختصاص افراد به این سمت</li>
+                                <li class="center pointer" ng-class="userColor" ng-click="registeringUser =true">افراد دارای این سمت</li>
                             </ul>
                         </div>
                         <div class="col-sm-12 my-margin-top" ng-if="! registeringUser">
@@ -174,7 +174,12 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> 
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input class="select" type="checkbox"  >
+                                                            <span class="cr" style="margin-left: 5px;top: 3px;"><i class="cr-icon fa fa-check"></i></span>
+                                                        </label>
+                                                    </div>
                                                     محمد علی قولبگ
                                                 </p>
                                             </td>
@@ -191,7 +196,12 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> 
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input class="select" type="checkbox"  >
+                                                            <span class="cr" style="margin-left: 5px;top: 3px;"><i class="cr-icon fa fa-check"></i></span>
+                                                        </label>
+                                                    </div>
                                                     محمد علی قولبگ
                                                 </p>
                                             </td>
@@ -208,7 +218,12 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input class="select" type="checkbox"  >
+                                                            <span class="cr" style="margin-left: 5px;top: 3px;"><i class="cr-icon fa fa-check"></i></span>
+                                                        </label>
+                                                    </div>
                                                     محمد علی قولبگ
                                                 </p>
                                             </td>
@@ -225,7 +240,12 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> 
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input class="select" type="checkbox" />
+                                                            <span class="cr" style="margin-left: 5px;top: 3px;"><i class="cr-icon fa fa-check"></i></span>
+                                                        </label>
+                                                    </div>
                                                     محمد علی قولبگ
                                                 </p>
                                             </td>
@@ -242,7 +262,12 @@
                                         <tr ng-style="testfont">
                                             <td>
                                                 <p style="display: flex">
-                                                    <input type="checkbox" style="margin-left: 10px;height: 15px"> 
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input class="select" type="checkbox"  >
+                                                            <span class="cr" style="margin-left: 5px;top: 3px;"><i class="cr-icon fa fa-check"></i></span>
+                                                        </label>
+                                                    </div>
                                                     محمد علی قولبگ
                                                 </p>
                                             </td>
@@ -344,4 +369,5 @@
     $(".modal").draggable({
         handle: ".modal-body"
     });
+
 </script>

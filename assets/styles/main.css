@@ -1831,7 +1831,16 @@ tfoot tr td {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
-
+.paginationOrder {
+    width: 120px;
+    display: inline-block;
+    height: 24px;
+    border: none;
+    box-shadow: none;
+    margin-top: 0;
+    font-size: 17px;
+    text-align: center;
+}
 .pagination > .active > a ,.pagination > .active > a:hover, .pagination > .active > a:focus{
     background-color: #CF4133;
     border-color: #CF4133;
@@ -1839,6 +1848,72 @@ tfoot tr td {
 .pagination li a {
     float: right;
     border-radius: 0 !important;
+}
+.my-cr {
+    background-color: white;
+}
+.checkbox label:after,
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    margin-right: .5em;
+}
+
+.checkbox {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: -43%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none !important;
+}
+
+.checkbox label input[type="checkbox"]+.cr>.cr-icon,
+.radio label input[type="radio"]+.cr>.cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .2s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
+.radio label input[type="radio"]:checked+.cr>.cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.cr,
+.radio label input[type="radio"]:disabled+.cr {
+    opacity: .5;
 }
 .mail-box td{
     line-height: 0.1cm !important;

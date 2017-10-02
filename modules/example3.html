@@ -1,5 +1,4 @@
 <div ng-init="users()" id="myDemo1">
-
     <div class="col-sm-12 my-margin-top">
         <!-- <div class="checkbox">
             <label>
@@ -34,7 +33,7 @@
                         <th style="width: 150px;">
                             <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
                             <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
-                            <i class="fa fa-filter pointer" ng-if="searchFlag" style="float: right;margin-top: 7px"></i>
+                            <i class="fa fa-search pointer" ng-if="searchFlag" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-filter" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i>                            نام کاربری
                         </th>
                         <th style="width: 300px;" id="thName">نام </th>
@@ -88,11 +87,11 @@
                 <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
                     data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
                     data-position='right'></i>
-                <i class="fa fa-trash-o pointer table-accessory-tools"></i>
+                <!-- <i class="fa fa-trash-o pointer table-accessory-tools"></i> -->
             </div>
             <div class="col-sm-6 center">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <!-- <div class="col-sm-12">
                         <ul class="pagination" style="margin: 0">
                             <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
                             <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
@@ -117,11 +116,29 @@
                                 </a>
                             </li>
                         </ul>
+                    </div> -->
+                    <div class="col-sm-12">
+                        <ul class="pagination" style="margin: 0">
+                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه"
+                                    ng-click="finalPagination(1,false,'/Aris/api/user' )"><i class="fa fa-angle-double-right" ></i></a></li>
+                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل"
+                                    ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
+                            <li>
+                                <a href="#" style="color: black">
+                                    <input  type="text" class="form-control paginationOrder" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}"> 
+                                </a>
+                            </li>
+                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد"
+                                    ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )"><i class="fa fa-angle-left"></i></a></li>
+                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه"
+                                    ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )"><i class="fa fa-angle-double-left" ></i></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="col-sm-3 right-align">
-                <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction()"></i>
+                <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction()" data-toggle="tooltip"
+                    data-placement="left" title="تنظیمات جدول"></i>
                 <div class="table-setting container" ng-if="tableSetting">
                     <div class="row">
                         <div class="col-sm-12 right-align">
@@ -163,13 +180,13 @@
                                     <label>export :</label>
                                 </div>
                                 <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                    <i class="fa fa-file-pdf-o pointer"></i>
+                                    <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
                                 </div>
                                 <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                    <i class="fa fa-file-excel-o pointer"></i>
+                                    <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
                                 </div>
                                 <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                    <i class="fa fa-file-word-o pointer"></i>
+                                    <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
                                 </div>
                             </div>
                         </div>
@@ -183,65 +200,74 @@
 <div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="2">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body container right-align" draggable="true" style="background-color: #E0E0E0">
+            <div class="modal-body container right-align" draggable="true">
                 <form name="registering" ng-submit="registerUser(register,test)" data-step="6" data-intro="فرم را پر کرده و دکمه ثبت را کلیک کنید"
                     data-position='right'>
                     <div class="row">
                         <div class="col-sm-12">
                             <p id="registerAlarm" class="red" style="animation: testing 2s infinite steps(1)"></p>
                             <div class="row">
-                                <div class="col-sm-6 col-sm-push-6">
+                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-9 right-align">
+                                            <input type="text" ng-model="register.name" class="form-control right-align" style="height: 30px !important" id="name" placeholder="نام"
+                                                autocomplete="on" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" tabindex="21">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="usr" style="margin-top: 6px">نام :</label>
+                                        </div>
+                                        <!-- <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="usr">نام:</label>
                                                 <input type="text" ng-model="register.name" class="form-control right-align" style="height: 30px !important" id="name" placeholder="نام"
                                                     autocomplete="on" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                     oninput="setCustomValidity('')" tabindex="21">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-sm-pull-6">
+                                <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="family">نام خانوادگی:</label>
-                                                <input type="text" ng-model="register.family" class="form-control right-align" style="height: 30px !important" id="family"
-                                                    autocomplete="on" placeholder=" نام خانوادگی" required ng-model="register.family"
-                                                    oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')"
-                                                    tabindex="22">
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" ng-model="register.family" class="form-control right-align" style="height: 30px !important" id="family"
+                                                autocomplete="on" placeholder=" نام خانوادگی" required ng-model="register.family"
+                                                oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')"
+                                                tabindex="22">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="family" style="margin-top: 6px">نام خانوادگی:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-6 col-sm-push-6">
+                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="father">نام پدر:</label>
-                                                <input type="text" class="form-control right-align" style="height: 30px !important" id="father" autocomplete="on" placeholder="نام پدر"
-                                                    required ng-model="register.fatherName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="23">
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control right-align" style="height: 30px !important" id="father" autocomplete="on" placeholder="نام پدر"
+                                                required ng-model="register.fatherName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" tabindex="23">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="father" style="margin-top: 6px">نام پدر:</label>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-9 my-margin-top">
                                             <div class="form-group">
-                                                <label>جنسیت:</label>
-                                                <br>
-                                                <label class="radio-inline"><input type="radio" tabindex="24" name="registerGender" value="1" ng-model="register.gender" required />زن</label>
-                                                <label class="radio-inline"><input type="radio" tabindex="24" name="registerGender"  value="0" ng-model="register.gender" checked required  />مرد</label>
+                                                <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="24" name="registerGender" value="1" ng-model="register.gender" required style="margin-top: -6px"/>زن</label>
+                                                <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="24" name="registerGender"  value="0" ng-model="register.gender" checked required  style="margin-top: -6px" />مرد</label>
                                             </div>
+                                        </div>
+                                        <div class="col-sm-3 center my-margin-top center" style="padding: 0">
+                                            <label style="margin-top: 6px">جنسیت:</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-sm-pull-6">
+                                <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-9">
                                             <label for="file" ng-click="fileSelect('plusPhoto')" ng-if="!imgLoading">
-                                                <i class="fa fa-user" style="font-size: 102px;margin-right: 62px;background-color: lightgray;padding: 5px 24px"></i>
+                                                <i class="fa fa-user" style="font-size: 102px;background-color: lightgray;padding: 5px 24px"></i>
                                             </label>
                                             <img src="" ng-if="imgLoading" id="myimg" ng-click="fileSelect('plusPhoto')" style="height: 120px;width: auto;margin: 0 auto;display: none;border-radius: 5px">
                                             <input type="file" style="height: 30px !important" id="plusPhoto" required ng-model="register.photo" ng-change="testUpload()"
@@ -251,105 +277,107 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-6 col-sm-push-6">
+                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="id-badge">شماره شناسنامه:</label>
-                                                <input type="text" class="form-control right-align" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
-                                                    required ng-model="register.birthCertificateNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="26">
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control right-align" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
+                                                required ng-model="register.birthCertificateNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" tabindex="26">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="id-badge" style="margin-top: 6px">شماره شناسنامه:</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-sm-pull-6">
+                                <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="social-no">کد ملی:</label>
-                                                <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="social-no" autocomplete="on"
-                                                    placeholder="XXX-XXXXXX-X" required ng-model="register.nationalCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" autocomplete="on" tabindex="27">
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="social-no" autocomplete="on"
+                                                placeholder="XXX-XXXXXX-X" required ng-model="register.nationalCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" autocomplete="on" tabindex="27">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="social-no" style="margin-top: 6px">کد ملی:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-6 col-sm-push-6">
+                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="phone">شماره موبایل:</label>
-                                                <input type="tel" class="form-control right-align" style="height: 30px !important" id="phone" autocomplete="on" placeholder="شماره موبایل"
-                                                    required ng-model="register.mobileNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="28">
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <input type="tel" class="form-control right-align" style="height: 30px !important" id="phone" autocomplete="on" placeholder="شماره موبایل"
+                                                required ng-model="register.mobileNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" tabindex="28">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="phone" style="margin-top: 6px;">شماره موبایل:</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-sm-pull-6">
+                                <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <label for="phone">شماره پرسنلی :</label>
+                                        <div class="col-sm-9">
                                             <input type="text" class="form-control right-align" style="height: 30px !important" id="personnel" autocomplete="on" placeholder="شماره پرسنلی"
                                                 required ng-model="register.personnelCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="29">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-sm-6 col-sm-push-6">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="email">email:</label>
-                                                <input type="email" class="form-control right-align" style="height: 30px !important" id="email" autocomplete="on" placeholder="ایمیل"
-                                                    required ng-model="register.mail" oninvalid="this.setCustomValidity('ایمیل نامعتبر است')"
-                                                    oninput="setCustomValidity('')" tabindex="30">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-sm-pull-6">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="activity">نوع کاربری :</label>
-                                                <select style="height: 30px;width: 100% !important;font-size: 12px" ng-model="register.isActive" tabindex="31" class="form-control my-form"
-                                                    name="kindDocument">
-                                                    <option value="true"  selected>فعال</option>
-                                                    <option value="false" >غیرفعال</option>
-                                                </select>
-                                            </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="phone" style="margin-top: 6px">شماره پرسنلی :</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-6 col-sm-push-6">
+                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="user-name">نام کاربری:</label>
-                                                <input type="text" class="form-control right-align" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
-                                                    name="testing1" id="user-name" ng-minlength="3" ng-maxlength="10" autocomplete="on"
-                                                    placeholder="نام کاربری" required ng-model="register.userName" ng-model-options="{debounce: 500}"
-                                                    val="username" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="32">
-                                                <p class="red" style="position: absolute; top: 32px;" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد </p>
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <input type="email" class="form-control right-align" style="height: 30px !important" id="email" autocomplete="on" placeholder="ایمیل"
+                                                required ng-model="register.mail" oninvalid="this.setCustomValidity('ایمیل نامعتبر است')"
+                                                oninput="setCustomValidity('')" tabindex="30">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="email" style="margin-top: 6px">email:</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-sm-pull-6">
+                                <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="password">رمز عبور:</label>
-                                                <input type="password" class="form-control right-align" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
-                                                    required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
-                                                    oninput="setCustomValidity('')" tabindex="33">
-                                            </div>
+                                        <div class="col-sm-9">
+                                            <select style="height: 30px;width: 100% !important;font-size: 12px" ng-model="register.isActive" tabindex="31" class="form-control my-form"
+                                                name="kindDocument">
+                                                <option value="true"  selected>فعال</option>
+                                                <option value="false" >غیرفعال</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="activity" style="margin-top: 6px">نوع کاربری :</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6 col-sm-push-6 my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control right-align" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
+                                                name="testing1" id="user-name" ng-minlength="3" ng-maxlength="10" autocomplete="on"
+                                                placeholder="نام کاربری" required ng-model="register.userName" ng-model-options="{debounce: 500}"
+                                                val="username" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" tabindex="32">
+                                            <p class="red" style="position: absolute; top: 32px;" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد </p>
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="user-name" style="margin-top: 6px">نام کاربری:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-sm-pull-6 my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control right-align" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
+                                                required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
+                                                oninput="setCustomValidity('')" tabindex="33">
+                                        </div>
+                                        <div class="col-sm-3 center" style="padding: 0">
+                                            <label for="password">رمز عبور:</label>
                                         </div>
                                     </div>
                                 </div>
@@ -374,109 +402,161 @@
                 <i class="fa fa-chevron-circle-left" style="position: absolute;top: 45%;left: -12%;font-size: 50px;" ng-click="editUserSlide(1)"></i>
                 <i class="fa fa-chevron-circle-right" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
                 <p id="editMessage" class="green" style="animation: testing 2s infinite steps(1)"></p>
-                <form ng-submit="editSubmit(editor,editingUserData.personnelName)">
+                <form ng-submit="editSubmit(editor,editingUserData.personnelName)" style="padding: 0 7px">
                     <div class="row" style="direction: rtl">
                         <div class="col-sm-6 right-float">
-                            <div class="form-group change" ng-if="isAuth('tdName',4)">
-                                <label for="usr">نام:</label>
-                                <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
-                                    id="edit-name" placeholder="نام" tabindex="1">
+                            <div class="row" ng-if="isAuth('tdName',4)">
+                                <div class="col-sm-9">
+                                    <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
+                                        id="edit-name" placeholder="نام" tabindex="1">
+                                </div>
+                                <div class="col-sm-3 center change" style="padding: 0">
+                                    <label for="usr" style="margin-top: 6px">نام:</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change" ng-if="isAuth('tdFamily',4)">
-                                <label for="family">نام خانوادگی:</label>
-                                <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
-                                    ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change" ng-if="isAuth('tdFatherName',4)">
-                                <label for="father">نام پدر:</label>
-                                <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
-                                    id="edit-father" placeholder="نام پدر" tabindex="3">
-                            </div>
-                            <div class="form-group change">
-                                <h5 style="direction: rtl;color: #808080; ">جنسیت:</h5>
-                                <label class="radio-inline"><input type="radio" tabindex="4" name="gender" value="1" ng-model="editor.gender" required />زن</label>
-                                <label class="radio-inline"><input type="radio" tabindex="4" name="gender"  value="0" ng-model="editor.gender" checked required  />مرد</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="id-badge" ng-click="fileSelect('editPhoto')">
-                                    <img src="media/1.jpg" style="width: 55%;margin: auto;display: block;border-radius: 5px">
-                                </label>
-                                <input type="file" class="form-control" id="editPhoto" style="height: 30px !important" tabindex="5">
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row" ng-if="isAuth('tdFamily',4)">
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
+                                        ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2">
+                                </div>
+                                <div class="col-sm-3 center change" style="padding: 0">
+                                    <label for="family" style="margin-top: 6px">نام خانوادگی:</label>
+                                </div>
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="id-badge">شماره شناسنامه:</label>
-                                <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
-                                    value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6">
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row" ng-if="isAuth('tdFatherName',4)">
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
+                                        id="edit-father" placeholder="نام پدر" tabindex="3">
+                                </div>
+                                <div class="col-sm-3 center change" style="padding: 0">
+                                    <label for="father" style="margin-top: 6px">نام پدر:</label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-9 my-margin-top">
+                                    <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender" value="1" ng-model="editor.gender" required style="margin-top: -6px" />زن</label>
+                                    <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender"  value="0" ng-model="editor.gender" checked required style="margin-top: -6px" />مرد</label>
+                                </div>
+                                <div class="col-sm-3 center change my-margin-top" style="padding: 0">
+                                    <label style="margin-top: 6px">جنسیت :</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="social-no">کد ملی:</label>
-                                <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
-                                    id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X" tabindex="7">
-                            </div>
-                        </div>
-                        <div class="col-sm-6 right-float">
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="personnelCode">کد پرسنلی:</label>
-                                <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
-                                    value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه" tabindex="8">
-                            </div>
-                        </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="phone">شماره موبایل:</label>
-                                <input type="tel" class="form-control" ng-model="editor.phone" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
-                                    placeholder="شماره موبایل" tabindex="9">
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <label for="id-badge" ng-click="fileSelect('editPhoto')">
+                                        <img src="media/1.jpg" style="width: 55%;margin: auto;display: block;border-radius: 5px">
+                                    </label>
+                                    <input type="file" class="form-control" id="editPhoto" style="height: 30px !important" tabindex="5">
+                                </div>
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="email">email:</label>
-                                <input type="email" class="form-control" ng-model="editor.email" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
-                                    placeholder="example@exa.com" tabindex="10">
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
+                                        value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6">
+                                </div>
+                                <div class="col-sm-3 center change" style="padding: 0">
+                                    <label for="id-badge" style="margin-top: 6px">شماره شناسنامه:</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group">
-                                <label for="activity">نوع کاربری :</label>
-                                <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive"
-                                    tabindex="11" class="form-control my-form">
-                                    <option value="true">فعال</option>
-                                    <option value="false">غیرفعال</option>
-                                </select>
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
+                                        id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X"
+                                        tabindex="7">
+                                </div>
+                                <div class="col-sm-3 center change" style="padding: 0">
+                                    <label for="social-no" style="margin-top: 6px">کد ملی:</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="user-name">نام کاربری:</label>
-                                <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
-                                    placeholder="نام کاربری" tabindex="12">
+                        <div class="clearfix"></div>
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
+                                        value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه" tabindex="8">
+                                </div>
+                                <div class="col-sm-3 center change" style="padding: 0">
+                                    <label for="personnelCode" style="margin-top: 6px">کد پرسنلی:</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 right-float">
-                            <div class="form-group change">
-                                <label for="password">رمز عبور:</label>
-                                <input type="password" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
-                                    value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13">
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="tel" class="form-control" ng-model="editor.phone" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
+                                        placeholder="شماره موبایل" tabindex="9">
+                                </div>
+                                <div class="col-sm-3 center" style="padding: 0">
+                                    <label for="phone" style="margin-top: 6px">شماره موبایل:</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-danger" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" ng-model="editor.email" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
+                                        placeholder="example@exa.com" tabindex="10">
+                                </div>
+                                <div class="col-sm-3 center" style="padding: 0">
+                                    <label for="email" style="margin-top: 6px">email:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive"
+                                        tabindex="11" class="form-control my-form">
+                                        <option value="true">فعال</option>
+                                        <option value="false">غیرفعال</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 center" style="padding: 0">
+                                    <label for="activity" style="margin-top: 6px">نوع کاربری :</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
+                                        placeholder="نام کاربری" tabindex="12">
+                                </div>
+                                <div class="col-sm-3 center" style="padding: 0">
+                                    <label for="user-name" style="margin-top: 6px">نام کاربری:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 right-float my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
+                                        value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13">
+                                </div>
+                                <div class="col-sm-3 center" style="padding: 0">
+                                    <label for="password" style="margin-top: 6px">رمز عبور:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 my-margin-top">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <button class="btn btn-danger" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

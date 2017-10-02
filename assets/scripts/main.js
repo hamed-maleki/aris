@@ -971,6 +971,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
         var evtobj = window.event ? event : $event;
+        // console.log(evtobj);
+        if(evtobj.keyCode == 13){
+            // console.log("this is enter key");
+            if($(".paginationOrder").is(":focus")){
+                var page = $(".paginationOrder").val();
+                $scope.finalPagination(page,false,'/Aris/api/user');
+            }
+        }
         if ($event.altKey || evtobj.altKey) {
             if ($event.keyCode == 38) {
                 if ($scope.editingLength > 0) {
@@ -1077,6 +1085,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
                     }, 100)
                 }
+                $(".paginationOrder").val("");
             }).catch(function (xhr, status, error) {
                 if (refreshtoken && xhr.status === 401) {
                     $scope.refreshlocal($scope.finalPagination, x);
