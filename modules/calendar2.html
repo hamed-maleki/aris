@@ -62,10 +62,14 @@
 </script>
 <script>
     // full calendar plug in calling
-    var myevent
-    $.getJSON("data/events.json").success(function (response) {
+    var myevent;
+    // $.getJSON("data/events.json").success(function (response) {
         $('[data-toggle="tooltip"]').tooltip();
-        myevent = response
+        if(localStorage.event != undefined){
+            console.log("this is event");
+            myevent = JSON.parse(localStorage.event);
+            console.log(myevent);
+        }
         var firstLoad = true;
         $('#calendar').fullCalendar({
 
@@ -93,7 +97,7 @@
             editable: true,
             eventLimit: true,
         });
-    });
+    // });
     // $.each($.fullCalendar.locales, function (localeCode) {
     //     $('#locale-selector').append(
     //         $('<option/>')

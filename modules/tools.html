@@ -13,7 +13,10 @@
                 <span class=" myday" ng-style="testfont">{{myday}}</span>
             </div>
             <br>
-            <div style="color:#808080;font-size: 12px;margin-top: -43px">{{dayname}}</div>
+            <div style="color:#808080;font-size: 12px;margin-top: -43px;position: relative">
+                {{dayname}}
+                <div ng-if="eventNumber != 0" style="background-color: #CF4133;color: white;font-weight: normal;position: absolute;top: -39px;right: 18%;font-size: 14px;padding: 0px 9px;border-radius: 50%">{{eventNumber}}</div>
+            </div>
             <!--<p class="myMonth center"></p>-->
             <!-- <i class="fa fa-calendar-o system-icon"></i>
             <div class="badging sub-color" ng-if="eventNumber != 0">{{eventNumber}}</div>

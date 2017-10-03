@@ -107,18 +107,23 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     })
     $scope.number = "modules/unload.html";
     $scope.limitedNote = [];
+
     $scope.reading = 0;
     $http.get("data/error.json")
         .then(function (response) {
             $scope.error = response.data.error;
         })
     $scope.calendarsubmit = function (start, finish, title) {
-        $scope.calendar = {
-            "title": title,
-            "start": $("#start1").val(),
-            "end": $("#finish1").val()
+        var calendar = {
+            title: "",
+            start: "",
+            end: ""
         }
-        $scope.events.push($scope.calendar);
+        calendar.title = title;
+        calendar.start = $("#start1").val();
+        calendar.finish = $("#finish1").val();
+        $scope.events.push(calendar);
+        localStorage.setItem('event', JSON.stringify($scope.events));
     }
     // cartable json load and number of unread message
     $http.get("data/cartable.json")
@@ -423,11 +428,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     }
     // }
     //    note json loader
+    $scope.note = [];
+    if(localStorage.note != undefined){
+        $scope.note = JSON.parse(localStorage.note);
+    }
     var sliderTime;
     var sliderLength;
     $http.get("data/note.json")
         .then(function (response) {
-            $scope.note = response.data.note;
+            // $scope.note = response.data.note;
             $scope.message = response.data.message;
             $scope.alarm = response.data.alarm;
             $scope.sliderAlarm = $scope.alarm[0];
@@ -738,6 +747,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#notetitle").val("");
         $("#notearea").val("");
         $scope.note.push(newItem);
+        localStorage.setItem('note', JSON.stringify($scope.note));
     }
     // removing note from note pad
     $scope.removeItem = function (no, x) {
@@ -746,6 +756,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else if (no == 2) {
             $scope.note.splice(x, 1);
+            localStorage.setItem('note', JSON.stringify($scope.note));
         }
     }
     // form data laoder
@@ -971,12 +982,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
         var evtobj = window.event ? event : $event;
-        // console.log(evtobj);
-        if(evtobj.keyCode == 13){
-            // console.log("this is enter key");
-            if($(".paginationOrder").is(":focus")){
+        if (evtobj.keyCode == 13) {
+            if ($(".paginationOrder").is(":focus")) {
                 var page = $(".paginationOrder").val();
-                $scope.finalPagination(page,false,'/Aris/api/user');
+                $scope.finalPagination(page, false, '/Aris/api/user');
             }
         }
         if ($event.altKey || evtobj.altKey) {
@@ -1094,6 +1103,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.paginationToShow(x);
         }
 
+    }
+    $scope.tableSearch = function(search){
+        console.log(search);
     }
     $scope.pageToGo = false;
     $scope.findPage = function (x) {
@@ -1218,15 +1230,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $("table").jsdragtable();
         // Ps.initialize(document.getElementById('myDemo1'));
     }
-    $scope.creatReportTitle = function(x){
-        if(x == undefined){
+    $scope.creatReportTitle = function (x) {
+        if (x == undefined) {
             alert("عنوان گزارش نمیتواند خالی باشد");
         }
-        else{
+        else {
             $scope.reportTitle = x;
             $scope.reportTitling = true;
         }
-        
+
     }
     $scope.makingTableRow = function (data, evt, x) {
         var flag = false;
@@ -1274,6 +1286,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
     }
     $scope.editSubmit = function (x) {
+        console.log(x)
         if (x.name != undefined) {
             $scope.editingUserData.personnel.name = x.name;
         }
@@ -1695,14 +1708,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.eventNumber = 0;
-
-    // event of day declaring
-    $http({
-        method: "GET",
-        url: "data/events.json",
-    }).then(function (response) {
-        $scope.events = response;
-        var date = new Date();
+    $scope.events = [];
+    if(localStorage.event != undefined){
+        $scope.events = JSON.parse(localStorage.event);
+    }
+    var date = new Date();
         var month = (date.getMonth() + 1);
         var day = date.getDate();
         var year = date.getFullYear();
@@ -1712,10 +1722,26 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.eventNumber += 1;
             }
         }
-    }).catch(function () {
-        $scope.error[0] = "خطا در دستیابی به اطلاعات";
-        $("#error").modal();
-    })
+    // event of day declaring
+    // $http({
+    //     method: "GET",
+    //     url: "data/events.json",
+    // }).then(function (response) {
+    //     $scope.events = response;
+    //     var date = new Date();
+    //     var month = (date.getMonth() + 1);
+    //     var day = date.getDate();
+    //     var year = date.getFullYear();
+    //     var today = (year + '/' + month + '/' + day).toString();
+    //     for (var i = 0; i < $scope.events.length; i++) {
+    //         if ($scope.events[i].start == today) {
+    //             $scope.eventNumber += 1;
+    //         }
+    //     }
+    // }).catch(function () {
+    //     $scope.error[0] = "خطا در دستیابی به اطلاعات";
+    //     $("#error").modal();
+    // })
     // chat controller
     // $interval(function () {
     //     return $http.get("data/chat.json").then(function (response) {
@@ -1987,15 +2013,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.tableFontSize = 14;
     $scope.tableSetting = false;
-    $scope.tableSettingFunction = function(){
-        if($scope.tableSetting == false){
+    $scope.tableSettingFunction = function () {
+        if ($scope.tableSetting == false) {
             $scope.tableSetting = true;
-            
+
         }
-        else{
+        else {
             $scope.tableSetting = false;
         }
-        
+
     }
     // $scope.setFont = function(){
     //     console.log($scope.tableFontSize)
@@ -2005,19 +2031,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.tablefontChange = function (size) {
         $("#fontRange").val($scope.tableFontSize);
         // $("tr").css("font-size",size+"px");
-        $scope.tableFontSize  = size;
+        $scope.tableFontSize = size;
         $scope.tableFont = {
-            "font-size": size+"px"
+            "font-size": size + "px"
         }
     }
-    $scope.searchToggle = function(){
+    $scope.searchToggle = function () {
         $("#search-part").slideToggle();
         $("#search-toggle-icon").toggleClass("fa-chevron-down");
         $("#search-toggle-icon").toggleClass("fa-chevron-up");
-        if($scope.searchFlag){
+        if ($scope.searchFlag) {
             $scope.searchFlag = false;
         }
-        else{
+        else {
             $scope.searchFlag = true;
         }
     }
@@ -2120,6 +2146,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // fullfiling aside (calnedar and note and top link container)
     $scope.sidecontainer = function (x) {
         if (x == 1) {
+            if(localStorage.note != undefined){
+                $scope.note = JSON.parse(localStorage.note);
+            }
+            
             $http({
                 method: "GET",
                 url: "data/note.json",
@@ -2134,7 +2164,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 //     }
                 // }
             }).then(function (response) {
-                $scope.note = response.data.note;
+                // $scope.note = response.data.note;
                 $scope.message = response.data.message;
                 $scope.alarm = response.data.alarm;
                 // for (var i = 0; i < 3; i++) {
@@ -2161,7 +2191,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     // closing aside
-    $scope.closingExtraInfo = function(){
+    $scope.closingExtraInfo = function () {
         // $(".extra-info").css("display","none");
         $scope.extraInfo = false;
     }
