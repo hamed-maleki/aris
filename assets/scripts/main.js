@@ -2028,7 +2028,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     $("#fontRange").val($scope.tableFontSize);
     //     console.log($("#fontRange").val())
     // }
-    $scope.tablefontChange = function (size) {
+    $scope.tablefontChange = function (size) { 
         $("#fontRange").val($scope.tableFontSize);
         // $("tr").css("font-size",size+"px");
         $scope.tableFontSize = size;

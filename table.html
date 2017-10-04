@@ -139,11 +139,11 @@
                 <div class="col-sm-9 col-sm-pull-2 container-filter my-margin-top min-window" id="loadedPage">
                     <div class="white-background border my-margin-top my-padding center responsive-margin" ng-if="! emailLoader">
                         <div class="right-align my-margin-top">
-                            <button class="my-button btn button-color" ng-class="userColor">
+                            <button class="my-button btn button-color" ng-class="userColor" ng-style="testfont">
                                 بارگذاری مجدد
                                 <i class="fa fa-refresh" style="margin-left: 0"></i>
                             </button>
-                            <button class="my-button btn button-color" ng-class="userColor" ng-click="delete()">
+                            <button class="my-button btn button-color" ng-class="userColor" ng-style="testfont" ng-click="delete()">
                                 حذف
                                 <i class="fa fa-trash-o" style="margin-left: 0"></i>
                             
@@ -152,12 +152,12 @@
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
                             </span> -->
-                            <button class="my-button btn button-color" ng-class="userColor" ng-click="checking = false">
+                            <button class="my-button btn button-color" ng-style="testfont" ng-class="userColor" ng-click="checking = false">
                                 خوانده نشده ها
                                 <i class="fa fa-low-vision" style="margin-left: 0"></i>
                                 
                             </button>
-                            <button class="my-button btn button-color" ng-class="userColor" ng-click="checking = undefined">
+                            <button class="my-button btn button-color" ng-class="userColor" ng-style="testfont" ng-click="checking = undefined">
                                 همه موارد
                                 <i class="fa fa-sort-amount-asc" style="margin-left: 0"></i>
                                 
@@ -177,12 +177,12 @@
                                                 </label>
                                             </div>
                                         </th>
-                                        <th style="width:200px">نام درخواست دهنده</th>
-                                        <th style="width:250px">درخواست</th>
-                                        <th style="width: 150px">مرحله</th>
-                                        <th style="width:150px">تاریخ ارسال</th>
-                                        <th style="width:120px">اطلاعات تکمیلی</th>
-                                        <th style="width: 100px">تاریخچه</th>
+                                        <th style="width:200px" ng-style="testfont">نام درخواست دهنده</th>
+                                        <th style="width:250px" ng-style="testfont">درخواست</th>
+                                        <th style="width: 150px" ng-style="testfont">مرحله</th>
+                                        <th style="width:150px" ng-style="testfont">تاریخ ارسال</th>
+                                        <th style="width:120px" ng-style="testfont">اطلاعات تکمیلی</th>
+                                        <th style="width: 100px" ng-style="testfont">تاریخچه</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,14 +204,14 @@
                                             <i class="fa fa-check" ng-if="emailType == 'sent'"></i>
                                             <i class="fa fa-check" ng-if="emailType == 'sent' && cartable.reciverRead == true" style="margin-right: -20px"></i>
                                         </td>
-                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
+                                        <td ng-style="testfont" ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
                                             {{cartable.title}}
                                         </td>
-                                        <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
+                                        <td ng-style="testfont" ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">{{cartable.situation}}</td>
                                         <td ng-click="cartableReader(cartable.id,cartable.page,cartable.pageId)">
                                             1396/06/07
                                         </td>
-                                        <td>
+                                        <td ng-style="testfont">
                                             <i class="fa fa-comment-o pointer" style="font-size: 16px;padding: 0;margin: 0 5px" ng-click="extraInfo ? extraInfo = false : extraInfo = true"></i>
                                             <i class="fa fa-tags green pointer" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right" title="تایید"
                                                 ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
@@ -230,7 +230,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td ng-style="testfont">
                                             <i class="fa fa-history pointer" style="font-size: 18px" ng-click="timeLine ? timeLine = false : timeLine = true"></i>
                                             <div style="position: relative">
                                                 <div ng-if="timeLine" class="extra-info center" style="left: 95px;width: 450px;overflow-x: hidden;height: 30vh">

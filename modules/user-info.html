@@ -10,8 +10,8 @@
                     <img ng-if="img == undefined && gendar == 'male'" class="rounded-pic info-pic" src="media/male.png"  />
                     <img ng-if="img == undefined && gendar == 'female'" class="rounded-pic info-pic" src="media/female.png"  />
                 </div>
-                <div class="col-sm-7 my-margin-top right-align" style="padding-top: 16px;">
-                    <span class="perssonel-name">{{name}}</span>
+                <div class="col-sm-7 my-margin-top right-align" style="padding-top: 16px;font-size: 15px">
+                    <span class="perssonel-name" ng-style="testfont">{{name}}</span>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
                                 <i class="fa fa-key"></i>
                             </div>
                             <div class="col-sm-8 right-align">
-                                <p>تغییر رمز</p>
+                                <p ng-style="testfont">تغییر رمز</p>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                                 <i class="fa fa-power-off" style="padding-right: 15px;"></i>
                             </div>
                             <div class="col-sm-8 right-align">
-                                <p>خروج</p>
+                                <p ng-style="testfont">خروج</p>
                             </div>
                         </div>
                     </div>

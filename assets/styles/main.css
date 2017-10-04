@@ -1,8 +1,8 @@
 @font-face {
 	font-family: 'iran-sans';
-	src: url('font/iran_sans.eot') format('eot'),
-		url('font/iran-sans.woff') format('woff'),
-		url('font/iran_sans.ttf') format('ttf');
+	src: url('font/Vazir.eot') format('eot'),
+		url('font/Vazir.woff') format('woff'),
+		url('font/Vazir.ttf') format('ttf');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -49,6 +49,12 @@
 a:focus {
     color: inherit;
     text-decoration: none;
+}
+input {
+    text-align: right;
+}
+select {
+    font-size: 10px !important;
 }
 body, html {
     padding:0px;
@@ -126,11 +132,10 @@ hr{
 
 label {
     color: gray;
-    font-size: 14px;
+    font-size: 12px;
     direction: rtl;
     font-family: "iran-sans";
     font-weight: normal;
-    vertical-align: middle;
     display: inline-block;
 }
 
@@ -477,8 +482,8 @@ nav a:hover {
     content: "";
     width: 0;
     height: 0;
-    border-bottom: 20px solid #F16521;
-    border-left:20px solid transparent;
+    border-bottom: 25px solid #CF4133;
+    border-left:25px solid transparent;
     position: absolute;
     bottom: -6px;
     right: -2px;
@@ -540,7 +545,10 @@ nav a:hover {
 
 .fc-view-container *, .fc-view-container *::after, .fc-view-container *::before{
     color: white;
-    font-size: 14px;
+    font-size: 12px;
+}
+.fc-basic-view .fc-day-number, .fc-basic-view .fc-week-number {
+    padding: 12px 2px !important;
 }
 /*end od calendar*/
 /*grid system*/
@@ -714,7 +722,12 @@ nav a:hover {
 .left-align {
     text-align: left;
 }
-
+.modal-body form .left-align {
+    padding: 0;
+}
+.modal-body form .left-align label {
+    margin-top: 7px;
+}
 .center {
     text-align: center;
 }
@@ -773,9 +786,9 @@ nav a:hover {
     position: absolute;
     width: 100%;
     height: 100vh;
-    top: 0;
+    top: -15px;
     right: 0;
-    
+    z-index: 3;
 }
 .min-anime {
     position: absolute;
@@ -852,7 +865,9 @@ nav a:hover {
 .right-align {
     text-align: right;
 }
-
+.left-align {
+    text-align: left;
+}
 .system-li>h4{
     margin: 10px -7px 0 0px;
     color: white;
@@ -1111,6 +1126,7 @@ nav a:hover {
 .table tbody > tr > td {
     padding: 3px;
     font-size: 14px;
+    vertical-align: middle;
 }
 
 #user-info li{
@@ -1345,7 +1361,7 @@ tfoot tr td {
     font-size: 14px;
 }
 
-.modal-body .fa-user:hover {
+.modal-body .fa-user:hover, .modal-body .fa-chevron-circle-right:hover,.modal .fa-chevron-circle-left:hover  {
     color: red;
     cursor: pointer;
 }
@@ -1867,6 +1883,7 @@ tfoot tr td {
     width: 1.3em;
     height: 1.3em;
     margin-right: .5em;
+    margin-top: 3px;
 }
 .checkbox, .radio label{
     display: inline-block;
@@ -1882,13 +1899,13 @@ tfoot tr td {
     font-size: .8em;
     line-height: 0;
     top: 50%;
-    left: -43%;
+    left: -56%;
 }
 .radio .cr .cr-icon{
     position: absolute;
     font-size: .8em;
     line-height: 0;
-    top: 50%;
+    top: 49%;
     left: 17%;
 }
 .radio .cr .cr-icon {

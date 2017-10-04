@@ -1,5 +1,157 @@
 <div ng-init="users()" id="myDemo1">
-    <div class="col-sm-12 my-margin-top">
+    <!-- <div class="col-sm-12 my-margin-top">
+    </div> -->
+    <div class="col-sm-1" style="margin-bottom: 25px">
+        <i class="fa fa-chevron-down pointer" style="margin-top: 9px" data-toggle="collapse" data-target="#search-form"></i>
+    </div>
+    <div class="col-sm-9" style="margin-bottom: 25px">
+        <hr style="width: 100%">
+    </div>
+    <div class="col-sm-2" ng-style="testfont" style="margin-bottom: 25px">
+        جستجوی پیشرفته
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-sm-12 collapse" id="search-form">
+        <form>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" tabindex="33" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>نام پدر :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" tabindex="32" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>نام خانوادگی :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" tabindex="31" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>نام :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" tabindex="36" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>شماره پرسنلی :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" tabindex="35" id="search-social-number" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>کد ملی :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="text" tabindex="34" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>شماره شناسنامه :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4 my-margin-top"></div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="tel" tabindex="38" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>شماره موبایل :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="radio" tabindex="37" style="margin: 0">
+                                <label>
+                                    <input  type="radio"  name="searchGender"  value="1" >
+                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                    <span>زن</span>
+                                </label>
+                                <label>
+                                    <input  type="radio"  name="searchGender"  value="0" checked>
+                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                    <span>مرد</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>جنسیت :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input type="email" tabindex="41" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>email :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <select tabindex="40" style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form" name="kindDocument">
+                                <option value="true"  selected>فعال</option>
+                                <option value="false" >غیرفعال</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>نوع کاربری :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <input tabindex="39" type="text" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>نام کاربری :</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4 my-margin-top">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <button class="btn btn-danger" style="width: 100%;">جستجو</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="col-sm-12 my-margin-top">
         <div class="table-responsive my-margin-top printable my-margin-top">
@@ -50,13 +202,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
+                    <tr ng-style="testfont" data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
                         ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
                         ng-click="editUser(data.user.id)">
-                        <td ng-style="tableFont">{{data.user.name}}</td>
-                        <td ng-style="tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td>
-                        <td ng-style="tableFont" ng-if="isAuth('tdFamily',1)">{{data.personnel.family}}</td>
-                        <td ng-style="tableFont" style="width: 50px;" ng-if="isAuth('tdFatherName',4)">
+                        <td ng-style="testfont;tableFont">{{data.user.name}}</td>
+                        <td ng-style="testfont;tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td>
+                        <td ng-style="testfont;tableFont" ng-if="isAuth('tdFamily',1)">{{data.personnel.family}}</td>
+                        <td ng-style="testfont;tableFont" style="width: 50px;" ng-if="isAuth('tdFatherName',4)">
                             <p style="line-height: 0.2cm;margin: 5px">{{data.personnel.fatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
                                     data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnel.name}} {{data.personnel.family}}"></i>
@@ -109,7 +261,7 @@
                                     ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right" style="margin: 0 auto"></i></a></li>
                             <li>
                                 <a href="#" style="color: black">
-                                    <input  type="text" class="form-control paginationOrder" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}"> 
+                                    <input  type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}"> 
                                 </a>
                             </li>
                             <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد"
@@ -121,8 +273,11 @@
                 </div>
             </div>
             <div class="col-sm-3 right-align">
+                <i class="fa fa-search pointer table-accessory-tools" style="margin-right: 0" data-toggle="modal" data-target="#search-user"
+                    data-toggle="tooltip" data-placement="left" title="جستجو پیشرفته"></i>
                 <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction()" data-toggle="tooltip"
                     data-placement="left" title="تنظیمات جدول"></i>
+
                 <div class="table-setting container" ng-if="tableSetting">
                     <div class="row">
                         <div class="col-sm-12 right-align">
@@ -180,6 +335,142 @@
         </div>
     </div>
 </div>
+<div id="search-user" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body container" draggable="true" style="display: flex;justify-content: center;align-items: center;min-height: 330px">
+                <form style="margin-left: 25px">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>نام خانوادگی :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>نام :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="radio " style="margin: 0">
+                                    <label>
+                                        <input  type="radio"  name="modalGender"  value="1" required>
+                                        <span class="cr"  style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                        <span>زن</span>
+                                    </label>
+                                    <label>
+                                        <input  type="radio"  name="modalGender"  value="0" required checked>
+                                        <span class="cr" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                        <span>مرد</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>جنسیت :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>نام پدر :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>شماره شناسنامه :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>کد ملی :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="tel" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>شماره موبایل :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>شماره پرسنلی :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <select style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form">
+                                    <option value="true"  selected>فعال</option>
+                                    <option value="false" >غیرفعال</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>نوع کاربری :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="col-sm-4 left-align">
+                                <label>نام کاربری :</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-6 my-margin-top">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <button class="btn btn-danger" style="width: 100%">جستجو</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="2">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -192,12 +483,12 @@
                             <div class="row">
                                 <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9 right-align">
+                                        <div class="col-sm-8 right-align">
                                             <input type="text" ng-model="register.name" class="form-control right-align" style="height: 30px !important" id="name" placeholder="نام"
                                                 autocomplete="on" required autofocus oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="21">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="usr" class="my-label">نام :</label>
                                         </div>
                                         <!-- <div class="col-sm-12">
@@ -212,13 +503,13 @@
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="text" ng-model="register.family" class="form-control right-align" style="height: 30px !important" id="family"
                                                 autocomplete="on" placeholder=" نام خانوادگی" required ng-model="register.family"
                                                 oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')" oninput="setCustomValidity('')"
                                                 tabindex="22">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="family" class="my-label">نام خانوادگی:</label>
                                         </div>
                                     </div>
@@ -226,16 +517,16 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control right-align" style="height: 30px !important" id="father" autocomplete="on" placeholder="نام پدر"
                                                 required ng-model="register.fatherName" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="23">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="father" class="my-label">نام پدر:</label>
                                         </div>
                                         <div class="clearfix"></div>
-                                        <div class="col-sm-9 my-margin-top">
+                                        <div class="col-sm-8 my-margin-top">
                                             <div class="radio " style="margin: 0">
                                                 <label>
                                                     <input  type="radio"  name="registerGender" tabindex="24" value="1" ng-model="register.gender" required>
@@ -253,14 +544,14 @@
                                                 <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="24" name="registerGender"  value="0" ng-model="register.gender" checked required  style="margin-top: -6px" />مرد</label>
                                             </div> -->
                                         </div>
-                                        <div class="col-sm-3 label-container my-margin-top center">
+                                        <div class="col-sm-4 label-container my-margin-top center">
                                             <label class="my-label">جنسیت:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <label for="file" ng-click="fileSelect('plusPhoto')" ng-if="!imgLoading">
                                                 <i class="fa fa-user" style="font-size: 102px;background-color: lightgray;padding: 5px 24px"></i>
                                             </label>
@@ -274,24 +565,24 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control right-align" style="height: 30px !important" id="id-badge" autocomplete="on" placeholder="شماره شناسنامه"
                                                 required ng-model="register.birthCertificateNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="26">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="id-badge" class="my-label">شماره شناسنامه:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control right-align" style="height: 30px !important;direction: ltr;" id="social-no" autocomplete="on"
                                                 placeholder="XXX-XXXXXX-X" required ng-model="register.nationalCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" autocomplete="on" tabindex="27">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="social-no" class="my-label">کد ملی:</label>
                                         </div>
                                     </div>
@@ -299,24 +590,24 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="tel" class="form-control right-align" style="height: 30px !important" id="phone" autocomplete="on" placeholder="شماره موبایل"
                                                 required ng-model="register.mobileNo" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="28">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="phone" class="my-label">شماره موبایل:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control right-align" style="height: 30px !important" id="personnel" autocomplete="on" placeholder="شماره پرسنلی"
                                                 required ng-model="register.personnelCode" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="29">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="phone" class="my-label">شماره پرسنلی :</label>
                                         </div>
                                     </div>
@@ -324,26 +615,26 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="email" class="form-control right-align" style="height: 30px !important" id="email" autocomplete="on" placeholder="ایمیل"
                                                 required ng-model="register.mail" oninvalid="this.setCustomValidity('ایمیل نامعتبر است')"
                                                 oninput="setCustomValidity('')" tabindex="30">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="email" class="my-label">email:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <select style="height: 30px;width: 100% !important;font-size: 12px" ng-model="register.isActive" tabindex="31" class="form-control my-form"
                                                 name="kindDocument">
                                                 <option value="true"  selected>فعال</option>
                                                 <option value="false" >غیرفعال</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="activity" class="my-label">نوع کاربری :</label>
                                         </div>
                                     </div>
@@ -351,7 +642,7 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-6 col-sm-push-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="text" class="form-control right-align" ng-keypress="myfocus = true" ng-blur="myfocus = false" style="height: 30px !important;"
                                                 name="testing1" id="user-name" ng-minlength="3" ng-maxlength="10" autocomplete="on"
                                                 placeholder="نام کاربری" required ng-model="register.userName" ng-model-options="{debounce: 500}"
@@ -359,19 +650,19 @@
                                                 oninput="setCustomValidity('')" tabindex="32">
                                             <p class="red" style="position: absolute; top: 32px;" ng-if="!registering.testing1.$valid && myfocus">تعداد کاراکترها صحیح نمیباشد </p>
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="user-name" class="my-label">نام کاربری:</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-sm-pull-6 my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="password" class="form-control right-align" style="height: 30px !important" id="password" autocomplete="on" placeholder="رمز عبور"
                                                 required ng-model="register.passwordHash" oninvalid="this.setCustomValidity('لطفا این قسمت را پر کنید')"
                                                 oninput="setCustomValidity('')" tabindex="33">
                                         </div>
-                                        <div class="col-sm-3 label-container">
+                                        <div class="col-sm-4 label-container">
                                             <label for="password" class="my-label">رمز عبور:</label>
                                         </div>
                                     </div>
@@ -394,29 +685,29 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container right-align" style="background-color:#ECECEC">
-                <i class="fa fa-chevron-circle-left" style="position: absolute;top: 45%;left: -12%;font-size: 50px;" ng-click="editUserSlide(1)"></i>
-                <i class="fa fa-chevron-circle-right" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
+                <i class="fa fa-chevron-circle-left pointer" style="position: absolute;top: 45%;left: -12%;font-size: 50px;" ng-click="editUserSlide(1)"></i>
+                <i class="fa fa-chevron-circle-right pointer" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
                 <p id="editMessage" class="green" style="animation: testing 2s infinite steps(1)"></p>
                 <form ng-submit="editSubmit(editor,editingUserData.personnelName)" style="padding: 0 7px">
                     <div class="row" style="direction: rtl">
                         <div class="col-sm-6 right-float">
                             <div class="row" ng-if="isAuth('tdName',4)">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
                                         id="edit-name" placeholder="نام" tabindex="1">
                                 </div>
-                                <div class="col-sm-3 label-container change">
+                                <div class="col-sm-4 label-container change">
                                     <label for="usr" class="my-label">نام:</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row" ng-if="isAuth('tdFamily',4)">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
                                         ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2">
                                 </div>
-                                <div class="col-sm-3 label-container change">
+                                <div class="col-sm-4 label-container change">
                                     <label for="family" class="my-label">نام خانوادگی:</label>
                                 </div>
                             </div>
@@ -424,38 +715,38 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row" ng-if="isAuth('tdFatherName',4)">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
                                         id="edit-father" placeholder="نام پدر" tabindex="3">
                                 </div>
-                                <div class="col-sm-3 label-container change">
+                                <div class="col-sm-4 label-container change">
                                     <label for="father" class="my-label">نام پدر:</label>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-9 my-margin-top">
-                                        <div class="radio " style="margin: 0">
-                                                <label>
+                                <div class="col-sm-8 my-margin-top">
+                                    <div class="radio " style="margin: 0">
+                                        <label>
                                                     <input  type="radio"  name="gender" ng-value="1" ng-model="$parent.editor.gender" required>
                                                     <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
                                                     <span>زن</span>
                                                 </label>
-                                                <label>
+                                        <label>
                                                     <input  type="radio"  name="gender" ng-value="0" ng-model="$parent.editor.gender" required checked>
                                                     <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
                                                     <span>مرد</span>
                                                 </label>
-                                            </div>
+                                    </div>
                                     <!-- <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender" value="1" ng-model="editor.gender" required style="margin-top: -6px" />زن</label>
                                     <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender"  value="0" ng-model="editor.gender" checked required style="margin-top: -6px" />مرد</label> -->
                                 </div>
-                                <div class="col-sm-3 label-container change my-margin-top">
+                                <div class="col-sm-4 label-container change my-margin-top">
                                     <label class="my-label">جنسیت :</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <label for="id-badge" ng-click="fileSelect('editPhoto')">
                                         <img src="media/1.jpg" style="width: 55%;margin: auto;display: block;border-radius: 5px">
                                     </label>
@@ -466,23 +757,23 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
                                         value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6">
                                 </div>
-                                <div class="col-sm-3 label-container change">
+                                <div class="col-sm-4 label-container change">
                                     <label for="id-badge" class="my-label">شماره شناسنامه:</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
                                         id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X"
                                         tabindex="7">
                                 </div>
-                                <div class="col-sm-3 label-container change">
+                                <div class="col-sm-4 label-container change">
                                     <label for="social-no" class="my-label">کد ملی:</label>
                                 </div>
                             </div>
@@ -490,22 +781,22 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
                                         value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه" tabindex="8">
                                 </div>
-                                <div class="col-sm-3 label-container change">
+                                <div class="col-sm-4 label-container change">
                                     <label for="personnelCode" class="my-label">کد پرسنلی:</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="tel" class="form-control" ng-model="editor.phone" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
                                         placeholder="شماره موبایل" tabindex="9">
                                 </div>
-                                <div class="col-sm-3 label-container">
+                                <div class="col-sm-4 label-container">
                                     <label for="phone" class="my-label">شماره موبایل:</label>
                                 </div>
                             </div>
@@ -513,54 +804,54 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="email" class="form-control" ng-model="editor.email" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
                                         placeholder="example@exa.com" tabindex="10">
                                 </div>
-                                <div class="col-sm-3 label-container">
+                                <div class="col-sm-4 label-container">
                                     <label for="email" class="my-label">email:</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive"
                                         tabindex="11" class="form-control my-form">
                                         <option value="true">فعال</option>
                                         <option value="false">غیرفعال</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-3 label-container">
+                                <div class="col-sm-4 label-container">
                                     <label for="activity" class="my-label">نوع کاربری :</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
                                         placeholder="نام کاربری" tabindex="12">
                                 </div>
-                                <div class="col-sm-3 label-container">
+                                <div class="col-sm-4 label-container">
                                     <label for="user-name" class="my-label">نام کاربری:</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 right-float my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <input type="password" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
                                         value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13">
                                 </div>
-                                <div class="col-sm-3 label-container">
+                                <div class="col-sm-4 label-container">
                                     <label for="password" class="my-label">رمز عبور:</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 my-margin-top">
                             <div class="row">
-                                <div class="col-sm-9">
+                                <div class="col-sm-8">
                                     <button class="btn btn-danger" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
                                 </div>
                             </div>
@@ -581,6 +872,7 @@
         });
         $("#social-no").mask("999-999999-9");
         $("#edit-social-no").mask("999-999999-9");
+        $("#search-social-number").mask("999-999999-9");
     });
     $('#tablePlusUser').on('shown.bs.modal', function () {
         $('#name').focus();
