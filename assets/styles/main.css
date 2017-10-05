@@ -552,6 +552,9 @@ nav a:hover {
 }
 /*end od calendar*/
 /*grid system*/
+.form-control {
+    border-radius: 2px;
+}
 .badging{
     position: absolute;
     top: 16px;
@@ -1269,7 +1272,7 @@ nav a:hover {
     color:white !important;
 }
 .my-table tr,.my-table tr th {
-    color: gray;
+    color: black;
 }
 
 .my-table tr:hover,.my-table tr th:hover{
@@ -1292,8 +1295,11 @@ nav a:hover {
     margin-left: 0;
     margin-right: 5px;
     border: 1px solid #BFBFBF;
-    font-size: 23px;
+    font-size: 20px;
     padding: 6.5px 8.5px;
+}
+.pagination > li > a, .pagination > li > span {
+    padding: 4px 12px;
 }
 .table-setting::before {
     content: '';
@@ -1740,7 +1746,7 @@ tfoot tr td {
 }
 
 .second-subcolor {
-    background-color: #8b9dc3 !important;
+    background-color: #6c89c6!important;
 }
 
 .third-subcolor {
@@ -2891,7 +2897,6 @@ body {
         width: 65% !important;
         margin-right: 0;
     }
-
     .btn {
         width: 100%;
         margin-top: 15px;

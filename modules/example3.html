@@ -1,14 +1,15 @@
 <div ng-init="users()" id="myDemo1">
     <!-- <div class="col-sm-12 my-margin-top">
     </div> -->
-    <div class="col-sm-1" style="margin-bottom: 25px">
-        <i class="fa fa-chevron-down pointer" style="margin-top: 9px" data-toggle="collapse" data-target="#search-form"></i>
+    <div class="col-sm-1" style="margin-bottom: 25px;font-size: 16px;">
+        
     </div>
     <div class="col-sm-9" style="margin-bottom: 25px">
         <hr style="width: 100%">
     </div>
-    <div class="col-sm-2" ng-style="testfont" style="margin-bottom: 25px">
+    <div class="col-sm-2" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
         جستجوی پیشرفته
+        <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px" ></i>
     </div>
     <div class="clearfix"></div>
     <div class="col-sm-12 collapse" id="search-form">
@@ -145,8 +146,8 @@
                 <div class="clearfix"></div>
                 <div class="col-sm-4 my-margin-top">
                     <div class="row">
-                        <div class="col-sm-8">
-                            <button class="btn btn-danger" style="width: 100%;">جستجو</button>
+                        <div class="col-sm-8 left-align">
+                            <button class="btn btn-primary" >جستجو</button>
                         </div>
                     </div>
                 </div>
@@ -157,7 +158,7 @@
         <div class="table-responsive my-margin-top printable my-margin-top">
             <table class="table table-hover table-bordered right-align my-margin-top">
                 <thead>
-                    <tr ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
+                    <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
                         <span style="position: absolute;top:20px;right:48%;color: #CF4133;font-size: 20px">
                             <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
                         </span>
@@ -461,8 +462,8 @@
                     <div class="clearfix"></div>
                     <div class="col-sm-6 my-margin-top">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <button class="btn btn-danger" style="width: 100%">جستجو</button>
+                            <div class="col-sm-8" style="text-align: left">
+                                <button class="btn btn-primary">جستجو</button>
                             </div>
                         </div>
                     </div>

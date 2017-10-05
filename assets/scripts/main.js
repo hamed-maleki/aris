@@ -1435,6 +1435,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             reader.readAsDataURL(input.files[0]);
         }
     }
+    $scope.searchFormToggle = function(){
+        $("#search-form").slideToggle();
+        $("#search-chevron").toggleClass('fa-chevron-down');
+        $("#search-chevron").toggleClass('fa-chevron-up');
+    }
     $scope.fileList = [];
     $scope.ImageProperty = {
         file: ''
