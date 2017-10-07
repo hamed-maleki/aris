@@ -2265,6 +2265,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // slideing next level of tree for first time it get data from sever and in next steps it just slide 
     $scope.nodeSlide = function (x) {
+        
         if ($("#tree" + x).hasClass("flag")) {
             $("#tree" + x).slideToggle();
         }
@@ -2279,6 +2280,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         } else {
             $("#treeIcon" + x).removeClass("fa-folder-open-o")
             $("#treeIcon" + x).addClass("fa-folder-o")
+            
         }
     }
     // creating second level and deeper levels by using laoded data
@@ -2295,6 +2297,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
         }
+        $(".tree").height($("#tree1").height()-15 + "px");
     }
     var parent = 0;//variable to check main branch of moving node
     var selected = 0;//variable to check children of mving node

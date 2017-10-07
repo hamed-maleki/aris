@@ -786,8 +786,10 @@ nav a:hover {
     padding: 0 10px;
 }
 .tree {
-    position: relative;
+    position: absolute;
     height: auto;
+    top: 15px;
+    right: 30px;
 }
 .tree::before {
     content: '';
