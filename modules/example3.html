@@ -7,7 +7,7 @@
     <div class="col-sm-9" style="margin-bottom: 25px">
         <hr style="width: 100%">
     </div>
-    <div class="col-sm-2" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
+    <div class="col-sm-2 pointer" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
         جستجوی پیشرفته
         <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px" ></i>
     </div>
@@ -224,7 +224,6 @@
                 <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
                     data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
                     data-position='right'></i>
-                <!-- <i class="fa fa-trash-o pointer table-accessory-tools"></i> -->
             </div>
             <div class="col-sm-6 center">
                 <div class="row">
@@ -477,7 +476,7 @@
         <div class="modal-content">
             <div class="modal-body container right-align" draggable="true">
                 <form name="registering" ng-submit="registerUser(register,test)" data-step="6" data-intro="فرم را پر کرده و دکمه ثبت را کلیک کنید"
-                    data-position='right'>
+                    data-position='right' style="margin-left: 25px">
                     <div class="row">
                         <div class="col-sm-12">
                             <p id="registerAlarm" class="red" style="animation: testing 2s infinite steps(1)"></p>
@@ -670,8 +669,8 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-sm-12 my-margin-top">
-                                    <button class="btn btn-danger" type="submit" tabindex="34" style="float: left;width: 22%" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
-                                    <button class="btn btn-danger" type="submit" tabindex="35" style="float: left; margin-left: 15px;width: 22%" id="button2"
+                                    <button class="btn btn-primary" type="submit" tabindex="34" style="float: left;" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
+                                    <button class="btn btn-primary" type="submit" tabindex="35" style="float: left; margin-left: 15px;" id="button2"
                                         ng-click="register.close = 2" value="2">ثبت و جدید</button>
                                 </div>
                             </div>
@@ -689,7 +688,7 @@
                 <i class="fa fa-chevron-circle-left pointer" style="position: absolute;top: 45%;left: -12%;font-size: 50px;" ng-click="editUserSlide(1)"></i>
                 <i class="fa fa-chevron-circle-right pointer" style="position: absolute;top: 45%;right: -12%;font-size: 50px;" ng-click="editUserSlide(-1)"></i>
                 <p id="editMessage" class="green" style="animation: testing 2s infinite steps(1)"></p>
-                <form ng-submit="editSubmit(editor,editingUserData.personnelName)" style="padding: 0 7px">
+                <form ng-submit="editSubmit(editor,editingUserData.personnelName)" style="padding: 0 7px;margin-left:25px ">
                     <div class="row" style="direction: rtl">
                         <div class="col-sm-6 right-float">
                             <div class="row" ng-if="isAuth('tdName',4)">
@@ -727,15 +726,15 @@
                                 <div class="col-sm-8 my-margin-top">
                                     <div class="radio " style="margin: 0">
                                         <label>
-                                                    <input  type="radio"  name="gender" ng-value="1" ng-model="$parent.editor.gender" required>
-                                                    <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
-                                                    <span>زن</span>
-                                                </label>
+                                            <input  type="radio"  name="gender" ng-value="1" ng-model="$parent.editor.gender" required>
+                                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                            <span>زن</span>
+                                        </label>
                                         <label>
-                                                    <input  type="radio"  name="gender" ng-value="0" ng-model="$parent.editor.gender" required checked>
-                                                    <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
-                                                    <span>مرد</span>
-                                                </label>
+                                            <input  type="radio"  name="gender" ng-value="0" ng-model="$parent.editor.gender" required checked>
+                                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                            <span>مرد</span>
+                                        </label>
                                     </div>
                                     <!-- <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender" value="1" ng-model="editor.gender" required style="margin-top: -6px" />زن</label>
                                     <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender"  value="0" ng-model="editor.gender" checked required style="margin-top: -6px" />مرد</label> -->
@@ -853,7 +852,7 @@
                         <div class="col-sm-6 my-margin-top">
                             <div class="row">
                                 <div class="col-sm-8">
-                                    <button class="btn btn-danger" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
+                                    <button class="btn btn-primary" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
                                 </div>
                             </div>
                         </div>
@@ -866,7 +865,6 @@
 <script src="assets/scripts/dargging.js"></script>
 <script>
     $(document).ready(function () {
-        // $("table").jsdragtable();
         $('[data-toggle="tooltip"]').tooltip();
         $(".modal").draggable({
             handle: ".modal-body"
@@ -881,5 +879,4 @@
     $('#tablePlusUser').on('hidden.bs.modal', function () {
         $('#focusPlace').focus();
     });
-
 </script>

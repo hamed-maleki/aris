@@ -191,9 +191,9 @@
         </div>
         <div class="col-sm-3" style="margin-top: 28px">
             <div ng-init="gettingTree()" class="tree-border">
-                <div class="right-align" ng-style="testfont" ng-repeat="tree in treeToShow" style="padding-right: 5px">
+                <div class="right-align tree" ng-style="testfont" ng-repeat="tree in treeToShow" style="padding-right: 5px">
                     {{tree.name}}
-                    <i class="fa fa-angle-down pointer" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
+                    <i class="fa fa-folder-o pointer" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
                     <div id="tree{{tree.id}}"></div>
                 </div>
             </div>

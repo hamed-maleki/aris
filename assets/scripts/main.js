@@ -998,7 +998,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+                $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
             }
             if ($event.keyCode == 40) {
                 if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
@@ -1010,7 +1010,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+                $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
             }
 
             if ($event.keyCode == 13) {
@@ -1344,7 +1344,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.editUser = function (x) {
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
-        $("#user" + x).css("background-color", "yellow");
+        $("#user" + x).css("background-color", "rgb(255,255,153)");
         for (var i = 0; i < $scope.limitedEdition.length; i++) {
             if (x == $scope.limitedEdition[i].user.id) {
                 $scope.editingUserData = $scope.limitedEdition[i];
@@ -2274,11 +2274,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         $("#treeIcon" + x).toggleClass("flag")
         if ($("#treeIcon" + x).hasClass("flag")) {
-            $("#treeIcon" + x).removeClass("fa-angle-down")
-            $("#treeIcon" + x).addClass("fa-angle-up")
+            $("#treeIcon" + x).removeClass("fa-folder-o")
+            $("#treeIcon" + x).addClass("fa-folder-open-o")
         } else {
-            $("#treeIcon" + x).removeClass("fa-angle-up")
-            $("#treeIcon" + x).addClass("fa-angle-down")
+            $("#treeIcon" + x).removeClass("fa-folder-open-o")
+            $("#treeIcon" + x).addClass("fa-folder-o")
         }
     }
     // creating second level and deeper levels by using laoded data
@@ -2286,8 +2286,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#tree" + x).html("")
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].parent == x) {
-                // $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='"+$scope.tree[i].id+"' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
-                $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
+                if($scope.tree[i].leaf == false){
+                    // $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='"+$scope.tree[i].id+"' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
+                $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' style='margin-right:0px' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span><i style='margin-left:-12px' class='fa fa-folder-o pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div>")($scope))
+                }
+                else {
+                    $("#tree" + x).append($compile("<div class='tree-view1' ><span ng-drag='true' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span></div>")($scope))
+                }
             }
         }
     }

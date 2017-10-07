@@ -781,9 +781,23 @@ nav a:hover {
 }
 .min-window {
     background-color: white;
-    height: 82vh;
+    height: 85vh;
     overflow: scroll;
     padding: 0 10px;
+}
+.tree {
+    position: relative;
+    height: auto;
+}
+.tree::before {
+    content: '';
+    display: block;
+    border-left: 1px dashed #00bfff;
+    width: 0;
+    position: absolute;
+    top: 22px;
+    right: 15px;
+    height: 100%;
 }
 .max-window {
     position: absolute;
@@ -2113,6 +2127,8 @@ tfoot tr td {
     text-align: right;
     padding-right: 15px;
     direction: rtl;
+    height: auto;
+    overflow-y: hidden;
 }
 
 .tree-view {
@@ -2120,6 +2136,25 @@ tfoot tr td {
     text-align: right;
     direction: ltr;
     position: relative;
+    height: auto;
+    overflow-y: hidden;
+}
+.tree-view1 {
+    padding: 0px 15px 0px 0px;
+    text-align: right;
+    direction: ltr;
+    position: relative;
+    height: auto;
+    overflow-y: hidden;
+}
+.tree-view::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    height: 100%;
+    width: 0;
+    border-right: 1px dashed #00bfff;
+    right: 25px;
 }
 
 .tree-view input {
@@ -2149,7 +2184,15 @@ tfoot tr td {
 .tree-span {
     padding: 0 20px;
 }
-
+.tree-span::before {
+    content: '';
+    border-top: 1px dashed #00bfff;
+    position: absolute;
+    width: 4%;
+    height: 1px;
+    right: 11px;
+    top: 17px;
+}
 .editAlarm {
     color: red;
     animation: testing 0.5s infinite alternate;
@@ -2171,6 +2214,7 @@ tfoot tr td {
     border-radius: 50%;
     margin-top: 3px;
     cursor: pointer;
+    margin-left: 0px;
 }
 
 /*end of tree view*/
