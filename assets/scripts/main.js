@@ -105,7 +105,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/unload.html";
+    $scope.number = "modules/example1.html";
     $scope.limitedNote = [];
 
     $scope.reading = 0;
@@ -2297,7 +2297,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
         }
-        $(".tree").height($("#tree1").height()-15 + "px");
     }
     var parent = 0;//variable to check main branch of moving node
     var selected = 0;//variable to check children of mving node

@@ -139,15 +139,15 @@
                     <i class="fa fa-plus pointer" ng-class="userColor" ng-click="creatReportTitle(reportTitle)" style="color: white;padding: 10px 30px;margin-right: -30px"></i>
                 </div>
                 <div class="col-sm-4 my-margin-top">
-                    <input type="text" class="form-control right-align" ng-model="reportTitle" style="height: 38px;border-radius: 0" ng-style="tableFont" placeholder="عنوان گزارش"/>
+                    <input type="text" class="form-control right-align" ng-model="reportTitle" style="height: 38px;border-radius: 0" ng-style="tableFont"
+                        placeholder="عنوان گزارش" />
                 </div>
             </div>
         </div>
         <div class="col-sm-9 my-margin-top" style="height: 72vh; overflow-y: auto">
             <div ng-drop="true" ng-drop-success="makingTableReport($data,$event)" style="color: lightgray">
                 {{reportTitle}}
-                <br>
-                عنوان جدول
+                <br> عنوان جدول
             </div>
             <div ng-if="reportTable.length != 0" ng-drop="true" style="min-height: 10vh">
                 <div class="row">
@@ -189,13 +189,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3" style="margin-top: 28px">
-            <div ng-init="gettingTree()" class="tree-border">
-                <div class="right-align" ng-style="testfont" ng-repeat="tree in treeToShow" style="padding-right: 5px">
-                    {{tree.name}}
-                    <i class="fa fa-folder-o pointer" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
-                    <div id="tree{{tree.id}}"></div>
-                    <div class="tree"></div>
+        <div class="col-sm-3 " style="margin-top: 28px;">
+            <div ng-init="gettingTree()">
+                <div class="right-align tree" ng-style="testfont" ng-repeat="tree in treeToShow" style="padding-right: 5px">
+                        {{tree.name}}
+                        <i class="fa fa-folder-o pointer" id="treeIcon{{tree.id}}" ng-click="nodeSlide(tree.id)"></i>
+                        <div id="tree{{tree.id}}"></div>
                 </div>
             </div>
         </div>

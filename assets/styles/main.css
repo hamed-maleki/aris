@@ -790,14 +790,70 @@ nav a:hover {
     height: auto;
     top: 15px;
     right: 30px;
+    padding: 5px 15px;
+    overflow-y: hidden
 }
+.chart-tree-view {
+    padding-right: 20px;
+    position: relative;
+    margin-top: 10px;
+}
+.chart-tree-view .chart-tree-border::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-right: 3px solid gray;
+    top:5px;
+    right: 2px;
+    height: auto;
+    bottom: 40px;
+}
+.chart-tree-view .formal-chart-right-border::before {
+    content: '';
+    width: 17px;
+    border-top:3px solid gray;
+    position: absolute;
+    top: 21px;
+    right: -35px;
+    height: 1px;
+}
+/* .chart-tree-view .chart-tree-border>.formal-chart:last-child,.formal-chart:last-child{
+    position: relative;
+    top: 45px;
+} */
+.formal-chart {
+    display: inline-block;
+    /* padding: 5px 10px; */
+    color: white;
+    font-size: 14px;
+    margin-top: 5px;
+    position: relative;
+}
+
+.formal-chart-edit {
+    position: absolute;
+    background-color: #ECECEC;
+    box-shadow: 0px 2px 10px gray;
+    min-height: 50px;
+    width: 280px;
+    left: -305px;
+    top: 0px;
+    padding: 5px 7px;
+}
+.tree i {
+    color: #00bfff;
+}
+.fa-stack i {
+    margin-left: 3px;
+}
+
 .tree::before {
     content: '';
     display: block;
     border-left: 1px dashed #00bfff;
     width: 0;
     position: absolute;
-    top: 22px;
+    top: 25px;
     right: 15px;
     height: 100%;
 }

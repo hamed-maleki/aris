@@ -1,242 +1,239 @@
-<form class="form-inline">
-    <div class="row">
-        <div class="col-sm-6 right-align col-sm-push-6" data-step="4" data-intro="اطلاعات درخواستی را وارد کنید" data-position='left'>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class=" my-padding right-align">
-                        <input type="number" tabindex="1" min="0" id="firstInput" ng-model="firstItem" autofocus required ng-keypress="checking($event)"
-                            class="form-control my-form" />
+<!-- <form class='form-inline'>
+    <div class='row'>
+        <div class='col-sm-6 right-align col-sm-push-6' data-step='4' data-intro='اطلاعات درخواستی را وارد کنید' data-position='left'>
+            <div class='row'>
+                <div class='col-sm-12'>
+                    <div class=' my-padding right-align'>
+                        <input type='number' tabindex='1' min='0' id='firstInput' ng-model='firstItem' autofocus required ng-keypress='checking($event)'
+                            class='form-control my-form' />
                         <label>کدسرفصل حساب</label>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-push-6">
-                    <div class="form-group my-padding right-align">
-                        <input type="number" min="0" tabindex="2" required ng-model="thirdItem" class="form-control my-form" />
+                <div class='col-sm-6 col-sm-push-6'>
+                    <div class='form-group my-padding right-align'>
+                        <input type='number' min='0' tabindex='2' required ng-model='thirdItem' class='form-control my-form' />
                         <label>آیتم اول:</label>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-pull-6">
-                    <div class="form-group my-padding right-align">
-                        <input type="number" tabindex="3" min="0" required ng-model="secondItem" class="form-control my-form" />
+                <div class='col-sm-6 col-sm-pull-6'>
+                    <div class='form-group my-padding right-align'>
+                        <input type='number' tabindex='3' min='0' required ng-model='secondItem' class='form-control my-form' />
                         <label>آیتم دوم:</label>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-push-6">
-                    <div class="form-group my-padding right-align">
-                        <input type="text" id="pdp" tabindex="5" required ng-model="fifthItem" class="form-control my-form" />
+                <div class='col-sm-6 col-sm-push-6'>
+                    <div class='form-group my-padding right-align'>
+                        <input type='text' id='pdp' tabindex='5' required ng-model='fifthItem' class='form-control my-form' />
                         <label>آیتم اول:</label>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-pull-6">
-                    <div class="form-group my-padding right-align">
-                        <input type="text" id="pdp1" tabindex="6" required ng-model="forthItem" class="form-control my-form" />
+                <div class='col-sm-6 col-sm-pull-6'>
+                    <div class='form-group my-padding right-align'>
+                        <input type='text' id='pdp1' tabindex='6' required ng-model='forthItem' class='form-control my-form' />
                         <label>آیتم دوم:</label>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-push-6">
-                    <div class="form-group my-padding right-align">
-                        <input type="text" tabindex="7" required ng-model="seventhItem" class="form-control my-form" />
+                <div class='col-sm-6 col-sm-push-6'>
+                    <div class='form-group my-padding right-align'>
+                        <input type='text' tabindex='7' required ng-model='seventhItem' class='form-control my-form' />
                         <label>آیتم اول:</label>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-pull-6">
-                    <div class="form-group my-padding right-align">
-                        <input type="text" tabindex="8" required ng-model="sixthItem" class="form-control my-form" />
+                <div class='col-sm-6 col-sm-pull-6'>
+                    <div class='form-group my-padding right-align'>
+                        <input type='text' tabindex='8' required ng-model='sixthItem' class='form-control my-form' />
                         <label>آیتم دوم:</label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-sm-pull-6">
-            <textarea class="my-textarea right-align" tabindex="4" style="height: 90px;"></textarea>
-            <button class="btn">...</button>
+        <div class='col-sm-6 col-sm-pull-6'>
+            <textarea class='my-textarea right-align' tabindex='4' style='height: 90px;'></textarea>
+            <button class='btn'>...</button>
         </div>
-        <!--inputs for table; they may change in back-end matching level-->
-        <div class="clearfix"></div>
-        <!--buttons for table data loader-->
-        <!--<div class="col-sm-12 my-margin-top">
-            <button class="btn btn-info" tabindex="9" style="margin-top: -15px">
-                <i class="fa fa-info"></i>
+        inputs for table; they may change in back-end matching level
+        <div class='clearfix'></div>
+        buttons for table data loader
+        <div class='col-sm-12 my-margin-top'>
+            <button class='btn btn-info' tabindex='9' style='margin-top: -15px'>
+                <i class='fa fa-info'></i>
                 نوشته مربوطه
             </button>
-            <button class="btn btn-info" tabindex="10" style="margin-top: -15px" data-toggle="modal" data-target="#error">
-                <i class="fa fa-tree"></i>
+            <button class='btn btn-info' tabindex='10' style='margin-top: -15px' data-toggle='modal' data-target='#error'>
+                <i class='fa fa-tree'></i>
                 نوشته مربوطه
             </button>
-            <button ng-click="dataLoad([firstItem,secondItem,thirdItem,sixthItem,seventhItem])" class="btn btn-info" tabindex="11" style="margin-top: -15px">
-                <i class="fa fa-pencil-square-o"></i>
+            <button ng-click='dataLoad([firstItem,secondItem,thirdItem,sixthItem,seventhItem])' class='btn btn-info' tabindex='11' style='margin-top: -15px'>
+                <i class='fa fa-pencil-square-o'></i>
                 نوشته مربوطه
             </button>
-        </div>-->
-        <div class="col-sm-12 my-margin-top" data-step="5" data-intro="عملیات مورد نظر را انتخاب کنید" data-position='right'>
-            <button class="btn btn-info buttons" ng-repeat="button in buttons" ng-if="button.situation == false && button.access == 1"
-                ng-disabled="button.situation" ng-click="genral(button.id)" style="margin: -15px 2px 0px">
-                <i ng-if="loading" class="fa fa-spinner fa-pulse"></i>
-                <i class="fa fa-tree" ng-if="!loading"></i>
+        </div>
+        <div class='col-sm-12 my-margin-top' data-step='5' data-intro='عملیات مورد نظر را انتخاب کنید' data-position='right'>
+            <button class='btn btn-info buttons' ng-repeat='button in buttons' ng-if='button.situation == false && button.access == 1'
+                ng-disabled='button.situation' ng-click='genral(button.id)' style='margin: -15px 2px 0px'>
+                <i ng-if='loading' class='fa fa-spinner fa-pulse'></i>
+                <i class='fa fa-tree' ng-if='!loading'></i>
                 {{button.name}}
             </button>
-            <span class="btn-info btn" disabled ng-repeat="button in buttons" ng-if="button.situation" style="margin-top: -15px">
-                <i ng-if="loading" class="fa fa-spinner fa-pulse"></i>
-                <i class="fa fa-tree" ng-if="!loading"></i>
+            <span class='btn-info btn' disabled ng-repeat='button in buttons' ng-if='button.situation' style='margin-top: -15px'>
+                <i ng-if='loading' class='fa fa-spinner fa-pulse'></i>
+                <i class='fa fa-tree' ng-if='!loading'></i>
                 {{button.name}}
             </span>
         </div>
     </div>
 </form>
-<div class="row " style="min-height: 232px;">
-    <div class="col-sm-12 table-responsive" style="text-align: center">
-        <div class="row">
-            <div class="col-sm-2">
-                <i class="fa fa-chevron-left pointer" ng-click="subTableFlash(1)"></i>
+<div class='row ' style='min-height: 232px;'>
+    <div class='col-sm-12 table-responsive' style='text-align: center'>
+        <div class='row'>
+            <div class='col-sm-2'>
+                <i class='fa fa-chevron-left pointer' ng-click='subTableFlash(1)'></i>
             </div>
-            <div class="col-sm-8"></div>
-            <div class="col-sm-2">
-                <i class="fa fa-chevron-right pointer" ng-click="subTableFlash(-1)"></i>
+            <div class='col-sm-8'></div>
+            <div class='col-sm-2'>
+                <i class='fa fa-chevron-right pointer' ng-click='subTableFlash(-1)'></i>
             </div>
         </div>
-        <div class="table-responsive tabling" ng-show="! loading">
-            <!--data table-->
-            <table class="table table-hover table-striped table-bordered right-align">
+        <div class='table-responsive tabling' ng-show='! loading'>
+            <table class='table table-hover table-striped table-bordered right-align'>
                 <thead>
                     <tr>
                         <th>
-                            <input class="select" type="checkbox" ng-click="inboxing()" />
+                            <input class='select' type='checkbox' ng-click='inboxing()' />
                         </th>
-                        <th style="width: 10px;" class="pointer" ng-click="orderBy('row')">
-                            <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس ردیف">
+                        <th style='width: 10px;' class='pointer' ng-click='orderBy('row')'>
+                            <span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس ردیف'>
                                 ردیف
                             </span>
                         </th>
-                        <th style="width: 110px;" class="pointer" ng-click="orderBy('title')">
-                            <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس سرفصل">
+                        <th style='width: 110px;' class='pointer' ng-click='orderBy('title')'>
+                            <span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس سرفصل'>
                                 سرفصل حساب
                             </span>
                         </th>
-                        <th style="width: 400px;" class="pointer" ng-click="orderBy('description')"><span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس سرفصل">عنوان سرفصل حساب</span></th>
-                        <th colspan="2">گردش عملیات
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div ng-click="orderBy('debt')" class="pointer">
-                                        <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس بدهکاری">بدهکار</span>
+                        <th style='width: 400px;' class='pointer' ng-click='orderBy('description')'><span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس سرفصل'>عنوان سرفصل حساب</span></th>
+                        <th colspan='2'>گردش عملیات
+                            <div class='row'>
+                                <div class='col-sm-6'>
+                                    <div ng-click='orderBy('debt')' class='pointer'>
+                                        <span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس بدهکاری'>بدهکار</span>
                                     </div>
                                 </div>
-                                <div class="col-sm-6" style="border-left: 1px solid black">
-                                    <div ng-click="orderBy('credit')" class="pointer">
-                                        <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس بستانکاری">بستانکار</span>
+                                <div class='col-sm-6' style='border-left: 1px solid black'>
+                                    <div ng-click='orderBy('credit')' class='pointer'>
+                                        <span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس بستانکاری'>بستانکار</span>
                                     </div>
                                 </div>
                             </div>
                         </th>
-                        <th style="width: 10px" ng-click="orderBy('situation')" class="pointer">
-                            <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس وضعیت">
+                        <th style='width: 10px' ng-click='orderBy('situation')' class='pointer'>
+                            <span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس وضعیت'>
                                 تشخیص
                             </span>
                         </th>
-                        <th style="width: 200px" class="pointer" ng-click="orderBy('remain')">
-                            <span data-toggle="tooltip" data-placement="right" title="مرتب سازی بر اساس مبلغ مانده">مانده به ریال</span>
+                        <th style='width: 200px' class='pointer' ng-click='orderBy('remain')'>
+                            <span data-toggle='tooltip' data-placement='right' title='مرتب سازی بر اساس مبلغ مانده'>مانده به ریال</span>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="table in limitedEdition|orderBy:myorder" contenteditable="false" my-main-directive id="row{{table.id}}" class="myrow">
-                        <td class="center">
-                            <input type="checkbox" class="modal_input" value="{{table.id}}" id="check{{table.id}}" />
+                    <tr ng-repeat='table in limitedEdition|orderBy:myorder' contenteditable='false' my-main-directive id='row{{table.id}}' class='myrow'>
+                        <td class='center'>
+                            <input type='checkbox' class='modal_input' value='{{table.id}}' id='check{{table.id}}' />
                         </td>
                         <td>{{table.row}}</td>
-                        <td ng-style="testfont" id="title{{table.id}}">{{table.title}}</td>
-                        <td ng-style="testfont" id="description{{table.id}}">{{table.description}}</td>
-                        <td id="credit{{table.id}}" style="width: 200px;" ng-style="tableFont" contenteditable="false">{{table.credit}}</td>
-                        <td id="debt{{table.id}}" style="width: 200px;" ng-style="tableFont" contenteditable="false">{{table.debt}}</td>
-                        <td ng-if="table.situation === 'بستانکار' || table.situation === '-'" class="green" ng-style="testfont">{{table.situation}}</td>
-                        <td ng-if="table.situation === 'بدهکار'" class="red" ng-style="testfont">{{table.situation}}</td>
-                        <td id="remain{{table.id}}" ng-if="table.situation === 'بستانکار' || table.situation === '-'" ng-style="tableFont" class="green">{{table.remain}}</td>
-                        <td id="remain{{table.id}}" ng-if="table.situation === 'بدهکار'" class="red" ng-style="tableFont">
+                        <td ng-style='testfont' id='title{{table.id}}'>{{table.title}}</td>
+                        <td ng-style='testfont' id='description{{table.id}}'>{{table.description}}</td>
+                        <td id='credit{{table.id}}' style='width: 200px;' ng-style='tableFont' contenteditable='false'>{{table.credit}}</td>
+                        <td id='debt{{table.id}}' style='width: 200px;' ng-style='tableFont' contenteditable='false'>{{table.debt}}</td>
+                        <td ng-if='table.situation === 'بستانکار' || table.situation === '-'' class='green' ng-style='testfont'>{{table.situation}}</td>
+                        <td ng-if='table.situation === 'بدهکار'' class='red' ng-style='testfont'>{{table.situation}}</td>
+                        <td id='remain{{table.id}}' ng-if='table.situation === 'بستانکار' || table.situation === '-'' ng-style='tableFont' class='green'>{{table.remain}}</td>
+                        <td id='remain{{table.id}}' ng-if='table.situation === 'بدهکار'' class='red' ng-style='tableFont'>
                             {{table.remain}}
 
                         </td>
                     </tr>
                 </tbody>
                 <tfoot>
-                    <td colspan="4">
+                    <td colspan='4'>
                         جمع کل این فرم:
                     </td>
-                    <td id="creditSum" class="table-number"></td>
-                    <td id="debtSum" class="table-number"></td>
-                    <td id="totalSituation" class="table-number"></td>
-                    <td id="totalSum" class="table-number"></td>
+                    <td id='creditSum' class='table-number'></td>
+                    <td id='debtSum' class='table-number'></td>
+                    <td id='totalSituation' class='table-number'></td>
+                    <td id='totalSum' class='table-number'></td>
                 </tfoot>
             </table>
         </div>
-        <div class="col-sm-12" ng-show="loading" style="text-align: center">
-            <div class="showbox">
-                <div class="loader">
-                    <svg class="circular" viewBox="25 25 50 50">
-                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="100" />
+        <div class='col-sm-12' ng-show='loading' style='text-align: center'>
+            <div class='showbox'>
+                <div class='loader'>
+                    <svg class='circular' viewBox='25 25 50 50'>
+                        <circle class='path' cx='50' cy='50' r='20' fill='none' stroke-width='3' stroke-miterlimit='100' />
                     </svg>
                 </div>
             </div>
-            <!--<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>-->
         </div>
-        <!--pagination part it depond on develop process -->
-        <div class="col-sm-4 editor" style="text-align: left">
-            <i class="fa fa-plus pointer" data-toggle="modal" data-target="#tablePlus" title="اضافه کردن" data-step="7" data-intro="برای اضافه کردن ردیف کلیک کنید"
+        <div class='col-sm-4 editor' style='text-align: left'>
+            <i class='fa fa-plus pointer' data-toggle='modal' data-target='#tablePlus' title='اضافه کردن' data-step='7' data-intro='برای اضافه کردن ردیف کلیک کنید'
                 data-position='left'></i>
-            <i class="fa fa-edit pointer" ng-click="tableEdit()" data-toggle="tooltip" data-placement="right" title="ویرایش" data-step="6"
-                data-intro="برای ویرایش یک ردیف را انتخاب کنید" data-position='left'></i>
-            <i class="fa fa-trash-o pointer" ng-click="tableDeleting()" data-toggle="tooltip" data-placement="right" title="حذف" data-step="8"
-                data-intro="برای حذف یک ردیف را انتخاب کنید" data-position='left'></i>
+            <i class='fa fa-edit pointer' ng-click='tableEdit()' data-toggle='tooltip' data-placement='right' title='ویرایش' data-step='6'
+                data-intro='برای ویرایش یک ردیف را انتخاب کنید' data-position='left'></i>
+            <i class='fa fa-trash-o pointer' ng-click='tableDeleting()' data-toggle='tooltip' data-placement='right' title='حذف' data-step='8'
+                data-intro='برای حذف یک ردیف را انتخاب کنید' data-position='left'></i>
         </div>
-        <div class="col-sm-4">
-            <ul class="pagination" style="margin: 0" data-step="9" data-intro="صفحه مورد نظر خود را انتخاب کنید" data-position='left'>
-                <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-left" ></i></a></li>
-                <li><a href="#" style="color: black"><i class="fa fa-angle-left"></i></a></li>
-                <li ng-repeat="x in paginationNumber" id="pagination{{x}}"><a href="#" ng-click="pagination(x)">{{x}}</a></li>
-                <li><a href="#" style="color: black"><i class="fa fa-angle-right"></i></a></li>
-                <li><a href="#" style="color: black" ng-click="paginationToShow('last')"><i class="fa fa-angle-double-right" ></i></a></li>
+        <div class='col-sm-4'>
+            <ul class='pagination' style='margin: 0' data-step='9' data-intro='صفحه مورد نظر خود را انتخاب کنید' data-position='left'>
+                <li><a href='#' style='color: black' ng-click='paginationToShow(1)'><i class='fa fa-angle-double-left' ></i></a></li>
+                <li><a href='#' style='color: black'><i class='fa fa-angle-left'></i></a></li>
+                <li ng-repeat='x in paginationNumber' id='pagination{{x}}'><a href='#' ng-click='pagination(x)'>{{x}}</a></li>
+                <li><a href='#' style='color: black'><i class='fa fa-angle-right'></i></a></li>
+                <li><a href='#' style='color: black' ng-click='paginationToShow('last')'><i class='fa fa-angle-double-right' ></i></a></li>
             </ul>
         </div>
-        <div class="col-sm-4 editConfirm" style="display: none">
-            <i class="fa fa-save pointer" ng-click="confirmEdit()" data-toggle="tooltip" data-placement="right" title="تایید"></i>
-            <i class="fa fa-close pointer" ng-click="cancelEdit()" style="color: black" data-toggle="tooltip" data-placement="right"
-                title="انصراف"></i>
+        <div class='col-sm-4 editConfirm' style='display: none'>
+            <i class='fa fa-save pointer' ng-click='confirmEdit()' data-toggle='tooltip' data-placement='right' title='تایید'></i>
+            <i class='fa fa-close pointer' ng-click='cancelEdit()' style='color: black' data-toggle='tooltip' data-placement='right'
+                title='انصراف'></i>
         </div>
     </div>
 </div>
-<div id="tablePlus" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body container" style="padding-top: 118px">
-                <div class="row">
-                    <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
+<div id='tablePlus' class='modal fade' role='dialog'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-body container' style='padding-top: 118px'>
+                <div class='row'>
+                    <div class='col-sm-4 col-sm-push-8 right-align my-margin-top'>
                         <label>سرفصل حساب</label>
                     </div>
-                    <div class="col-sm-8 col-sm-pull-4">
-                        <input class="form-control right-align login-input" ng-model="type" tabindex="10">
+                    <div class='col-sm-8 col-sm-pull-4'>
+                        <input class='form-control right-align login-input' ng-model='type' tabindex='10'>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
+                    <div class='clearfix'></div>
+                    <div class='col-sm-4 col-sm-push-8 right-align my-margin-top'>
                         <label>عنوان سرفصل حساب</label>
                     </div>
-                    <div class="col-sm-8 col-sm-pull-4">
-                        <input class="form-control right-align login-input" ng-model="title" tabindex="11">
+                    <div class='col-sm-8 col-sm-pull-4'>
+                        <input class='form-control right-align login-input' ng-model='title' tabindex='11'>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
+                    <div class='clearfix'></div>
+                    <div class='col-sm-4 col-sm-push-8 right-align my-margin-top'>
                         <label>بستانکاری</label>
                     </div>
-                    <div class="col-sm-8 col-sm-pull-4">
-                        <input type="number" class="form-control right-align login-input" ng-model="debt" tabindex="12">
+                    <div class='col-sm-8 col-sm-pull-4'>
+                        <input type='number' class='form-control right-align login-input' ng-model='debt' tabindex='12'>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-4 col-sm-push-8 right-align my-margin-top">
+                    <div class='clearfix'></div>
+                    <div class='col-sm-4 col-sm-push-8 right-align my-margin-top'>
                         <label>بدهی</label>
                     </div>
-                    <div class="col-sm-8 col-sm-pull-4">
-                        <input type="number" class="form-control right-align login-input" ng-model="credit" tabindex="13">
+                    <div class='col-sm-8 col-sm-pull-4'>
+                        <input type='number' class='form-control right-align login-input' ng-model='credit' tabindex='13'>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-6 my-margin-top">
-                        <button class="btn btn-danger" tabindex="14" ng-click="tablePlus(type,title,debt,credit)">ثبت اطلاعات</button>
+                    <div class='clearfix'></div>
+                    <div class='col-sm-6 my-margin-top'>
+                        <button class='btn btn-danger' tabindex='14' ng-click='tablePlus(type,title,debt,credit)'>ثبت اطلاعات</button>
                     </div>
                 </div>
             </div>
@@ -245,20 +242,514 @@
 </div>
 
 <script>
-    $(".modal").draggable({
-        handle: ".modal-body"
+    $('.modal').draggable({
+        handle: '.modal-body'
     });
     $(function () {
-        $("#elementId, .elementClass").persianDatepicker();
-        $("#pdpDefault").persianDatepicker({ alwaysShow: false, });
-        $("#pdp").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
-        $("#pdp1").persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
+        $('#elementId, .elementClass').persianDatepicker();
+        $('#pdpDefault').persianDatepicker({ alwaysShow: false, });
+        $('#pdp').persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
+        $('#pdp1').persianDatepicker({ cellWidth: 40, cellHeight: 40, fontSize: 18 });
     });
 
 </script>
 <script>
     $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
+        $('[data-toggle='tooltip']').tooltip();
+    }); 
 
-</script>
+</script>-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 my-margin-top">
+            <div class="chart-tree-view first-tree">
+
+                <div class="formal-chart" data-toggle="collapse" data-target="#first-tree">
+                    <div class='row ' ng-class='userColor'>
+                        <div class='col-sm-4 left-align'>
+                            <i class='fa fa-close pointer'></i>
+                        </div>
+                        <div class='col-sm-8 right-align'>
+                            <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                        </div>
+                        <div class='clearfix'></div>
+                        <div class='col-sm-4 left-align'>
+                            <span class='fa-stack'>
+                                <i class='fa fa-user fa-stack-1x'></i>
+                                <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                            </span>
+                        </div>
+                        <div class='col-sm-8 right-align'>
+                            <span>سردسته</span>
+                        </div>
+                    </div>
+                    <div class='formal-chart-edit' ng-if='formalChart == true'>
+                        <div class='row'>
+                            <div class='col-sm-12 left-align'>
+                                <i class='fa fa-close' ng-click='formalChart = false'></i>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-8 my-margin-top'>
+                                <input type='text' class='form-control'>
+                            </div>
+                            <div class='col-sm-4 left-align my-margin-top'>
+                                <label>نام زیر دسته :</label>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-8  my-margin-top'>
+                                <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                    <option value='1'  selected>ندارد</option>
+                                    <option value='2' >چند گانه</option>
+                                    <option value='3' >تک نفر</option>
+                                </select>
+                            </div>
+                            <div class='col-sm-4 left-align  my-margin-top'>
+                                <label>انتصاب فرد :</label>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-8 my-margin-top'>
+                                <button class='btn btn-primary'>
+                                    ایجاد زیر دسته
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-tree-border collapse" id="first-tree">
+                <div class="chart-tree-view " >
+                    <div class="chart-tree-border">
+                        <div class="formal-chart formal-chart-right-border">
+                            <div class='row ' ng-class='userColor'>
+                                <div class='col-sm-4 left-align'>
+                                    <i class='fa fa-close pointer'></i>
+                                </div>
+                                <div class='col-sm-8 right-align'>
+                                    <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-4 left-align'>
+                                    <span class='fa-stack'>
+                                                <i class='fa fa-user fa-stack-1x'></i>
+                                                <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                            </span>
+                                </div>
+                                <div class='col-sm-8 right-align'>
+                                    <span>سردسته</span>
+                                </div>
+                            </div>
+                            <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                <div class='row'>
+                                    <div class='col-sm-12 left-align'>
+                                        <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                    </div>
+                                    <div class='clearfix'></div>
+                                    <div class='col-sm-8 my-margin-top'>
+                                        <input type='text' class='form-control'>
+                                    </div>
+                                    <div class='col-sm-4 left-align my-margin-top'>
+                                        <label>نام زیر دسته :</label>
+                                    </div>
+                                    <div class='clearfix'></div>
+                                    <div class='col-sm-8  my-margin-top'>
+                                        <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                    <option value='1'  selected>ندارد</option>
+                                                    <option value='2' >چند گانه</option>
+                                                    <option value='3' >تک نفر</option>
+                                                </select>
+                                    </div>
+                                    <div class='col-sm-4 left-align  my-margin-top'>
+                                        <label>انتصاب فرد :</label>
+                                    </div>
+                                    <div class='clearfix'></div>
+                                    <div class='col-sm-8 my-margin-top'>
+                                        <button class='btn btn-primary'>
+                                                    ایجاد زیر دسته
+                                                </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-tree-view">
+                            <div class="formal-chart formal-chart-right-border">
+                                <div class='row ' ng-class='userColor'>
+                                    <div class='col-sm-4 left-align'>
+                                        <i class='fa fa-close pointer'></i>
+                                    </div>
+                                    <div class='col-sm-8 right-align'>
+                                        <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                    </div>
+                                    <div class='clearfix'></div>
+                                    <div class='col-sm-4 left-align'>
+                                        <span class='fa-stack'>
+                                                    <i class='fa fa-user fa-stack-1x'></i>
+                                                    <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                                </span>
+                                    </div>
+                                    <div class='col-sm-8 right-align'>
+                                        <span>سردسته</span>
+                                    </div>
+                                </div>
+                                <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                    <div class='row'>
+                                        <div class='col-sm-12 left-align'>
+                                            <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-8 my-margin-top'>
+                                            <input type='text' class='form-control'>
+                                        </div>
+                                        <div class='col-sm-4 left-align my-margin-top'>
+                                            <label>نام زیر دسته :</label>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-8  my-margin-top'>
+                                            <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                        <option value='1'  selected>ندارد</option>
+                                                        <option value='2' >چند گانه</option>
+                                                        <option value='3' >تک نفر</option>
+                                                    </select>
+                                        </div>
+                                        <div class='col-sm-4 left-align  my-margin-top'>
+                                            <label>انتصاب فرد :</label>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-8 my-margin-top'>
+                                            <button class='btn btn-primary'>
+                                                        ایجاد زیر دسته
+                                                    </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-tree-view">
+                            <div class="chart-tree-border">
+                                <div class="formal-chart formal-chart-right-border">
+                                    <div class='row ' ng-class='userColor'>
+                                        <div class='col-sm-4 left-align'>
+                                            <i class='fa fa-close pointer'></i>
+                                        </div>
+                                        <div class='col-sm-8 right-align'>
+                                            <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-4 left-align'>
+                                            <span class='fa-stack'>
+                                                        <i class='fa fa-user fa-stack-1x'></i>
+                                                        <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                                    </span>
+                                        </div>
+                                        <div class='col-sm-8 right-align'>
+                                            <span>سردسته</span>
+                                        </div>
+                                    </div>
+                                    <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                        <div class='row'>
+                                            <div class='col-sm-12 left-align'>
+                                                <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8 my-margin-top'>
+                                                <input type='text' class='form-control'>
+                                            </div>
+                                            <div class='col-sm-4 left-align my-margin-top'>
+                                                <label>نام زیر دسته :</label>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8  my-margin-top'>
+                                                <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                            <option value='1'  selected>ندارد</option>
+                                                            <option value='2' >چند گانه</option>
+                                                            <option value='3' >تک نفر</option>
+                                                        </select>
+                                            </div>
+                                            <div class='col-sm-4 left-align  my-margin-top'>
+                                                <label>انتصاب فرد :</label>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8 my-margin-top'>
+                                                <button class='btn btn-primary'>
+                                                            ایجاد زیر دسته
+                                                        </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart-tree-view">
+                                    <div class="formal-chart formal-chart-right-border">
+                                        <div class='row ' ng-class='userColor'>
+                                            <div class='col-sm-4 left-align'>
+                                                <i class='fa fa-close pointer'></i>
+                                            </div>
+                                            <div class='col-sm-8 right-align'>
+                                                <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-4 left-align'>
+                                                <span class='fa-stack'>
+                                                                    <i class='fa fa-user fa-stack-1x'></i>
+                                                                    <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                                                </span>
+                                            </div>
+                                            <div class='col-sm-8 right-align'>
+                                                <span>سردسته</span>
+                                            </div>
+                                        </div>
+                                        <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                            <div class='row'>
+                                                <div class='col-sm-12 left-align'>
+                                                    <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                                <div class='col-sm-8 my-margin-top'>
+                                                    <input type='text' class='form-control'>
+                                                </div>
+                                                <div class='col-sm-4 left-align my-margin-top'>
+                                                    <label>نام زیر دسته :</label>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                                <div class='col-sm-8  my-margin-top'>
+                                                    <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                                        <option value='1'  selected>ندارد</option>
+                                                                        <option value='2' >چند گانه</option>
+                                                                        <option value='3' >تک نفر</option>
+                                                                    </select>
+                                                </div>
+                                                <div class='col-sm-4 left-align  my-margin-top'>
+                                                    <label>انتصاب فرد :</label>
+                                                </div>
+                                                <div class='clearfix'></div>
+                                                <div class='col-sm-8 my-margin-top'>
+                                                    <button class='btn btn-primary'>
+                                                                        ایجاد زیر دسته
+                                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-tree-view">
+                            <div class="formal-chart formal-chart-right-border">
+                                <div class='row ' ng-class='userColor'>
+                                    <div class='col-sm-4 left-align'>
+                                        <i class='fa fa-close pointer'></i>
+                                    </div>
+                                    <div class='col-sm-8 right-align'>
+                                        <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                    </div>
+                                    <div class='clearfix'></div>
+                                    <div class='col-sm-4 left-align'>
+                                        <span class='fa-stack'>
+                                                            <i class='fa fa-user fa-stack-1x'></i>
+                                                            <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                                        </span>
+                                    </div>
+                                    <div class='col-sm-8 right-align'>
+                                        <span>سردسته</span>
+                                    </div>
+                                </div>
+                                <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                    <div class='row'>
+                                        <div class='col-sm-12 left-align'>
+                                            <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-8 my-margin-top'>
+                                            <input type='text' class='form-control'>
+                                        </div>
+                                        <div class='col-sm-4 left-align my-margin-top'>
+                                            <label>نام زیر دسته :</label>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-8  my-margin-top'>
+                                            <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                                <option value='1'  selected>ندارد</option>
+                                                                <option value='2' >چند گانه</option>
+                                                                <option value='3' >تک نفر</option>
+                                                            </select>
+                                        </div>
+                                        <div class='col-sm-4 left-align  my-margin-top'>
+                                            <label>انتصاب فرد :</label>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-8 my-margin-top'>
+                                            <button class='btn btn-primary'>
+                                                                ایجاد زیر دسته
+                                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-tree-view">
+                    <!-- <div class="chart-tree-border"> -->
+                    <div class="formal-chart formal-chart-right-border">
+
+                        <div class='row ' ng-class='userColor'>
+                            <div class='col-sm-4 left-align'>
+                                <i class='fa fa-close pointer'></i>
+                            </div>
+                            <div class='col-sm-8 right-align'>
+                                <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-4 left-align'>
+                                <span class='fa-stack'>
+                                            <i class='fa fa-user fa-stack-1x'></i>
+                                            <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                        </span>
+                            </div>
+                            <div class='col-sm-8 right-align'>
+                                <span>سردسته</span>
+                            </div>
+                        </div>
+                        <div class='formal-chart-edit' ng-if='formalChart == true'>
+                            <div class='row'>
+                                <div class='col-sm-12 left-align'>
+                                    <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8 my-margin-top'>
+                                    <input type='text' class='form-control'>
+                                </div>
+                                <div class='col-sm-4 left-align my-margin-top'>
+                                    <label>نام زیر دسته :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8  my-margin-top'>
+                                    <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                <option value='1'  selected>ندارد</option>
+                                                <option value='2' >چند گانه</option>
+                                                <option value='3' >تک نفر</option>
+                                            </select>
+                                </div>
+                                <div class='col-sm-4 left-align  my-margin-top'>
+                                    <label>انتصاب فرد :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8 my-margin-top'>
+                                    <button class='btn btn-primary'>
+                                                ایجاد زیر دسته
+                                            </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="chart-tree-view">
+                                <div class="formal-chart formal-chart-right-border">
+                                    <div class='row ' ng-class='userColor'>
+                                        <div class='col-sm-4 left-align'>
+                                            <i class='fa fa-close pointer'></i>
+                                        </div>
+                                        <div class='col-sm-8 right-align'>
+                                            <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-4 left-align'>
+                                            <span class='fa-stack'>
+                                                <i class='fa fa-user fa-stack-1x'></i>
+                                                <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                            </span>
+                                        </div>
+                                        <div class='col-sm-8 right-align'>
+                                            <span>سردسته</span>
+                                        </div>
+                                    </div>
+                                    <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                        <div class='row'>
+                                            <div class='col-sm-12 left-align'>
+                                                <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8 my-margin-top'>
+                                                <input type='text' class='form-control'>
+                                            </div>
+                                            <div class='col-sm-4 left-align my-margin-top'>
+                                                <label>نام زیر دسته :</label>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8  my-margin-top'>
+                                                <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                    <option value='1'  selected>ندارد</option>
+                                                    <option value='2' >چند گانه</option>
+                                                    <option value='3' >تک نفر</option>
+                                                </select>
+                                            </div>
+                                            <div class='col-sm-4 left-align  my-margin-top'>
+                                                <label>انتصاب فرد :</label>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8 my-margin-top'>
+                                                <button class='btn btn-primary'>
+                                                    ایجاد زیر دسته
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-tree-view">
+                                <div class="formal-chart formal-chart-right-border">
+                                    <div class='row ' ng-class='userColor'>
+                                        <div class='col-sm-4 left-align'>
+                                            <i class='fa fa-close pointer'></i>
+                                        </div>
+                                        <div class='col-sm-8 right-align'>
+                                            <i class='fa fa-ellipsis-h pointer' ng-click='formalChart ? formalChart= false : formalChart = true'></i>
+                                        </div>
+                                        <div class='clearfix'></div>
+                                        <div class='col-sm-4 left-align'>
+                                            <span class='fa-stack'>
+                                                    <i class='fa fa-user fa-stack-1x'></i>
+                                                    <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                                </span>
+                                        </div>
+                                        <div class='col-sm-8 right-align'>
+                                            <span>سردسته</span>
+                                        </div>
+                                    </div>
+                                    <div class='formal-chart-edit' ng-if='formalChart == true'>
+                                        <div class='row'>
+                                            <div class='col-sm-12 left-align'>
+                                                <i class='fa fa-close' ng-click='formalChart = false'></i>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8 my-margin-top'>
+                                                <input type='text' class='form-control'>
+                                            </div>
+                                            <div class='col-sm-4 left-align my-margin-top'>
+                                                <label>نام زیر دسته :</label>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8  my-margin-top'>
+                                                <select style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form' name='kindDocument'>
+                                                        <option value='1'  selected>ندارد</option>
+                                                        <option value='2' >چند گانه</option>
+                                                        <option value='3' >تک نفر</option>
+                                                    </select>
+                                            </div>
+                                            <div class='col-sm-4 left-align  my-margin-top'>
+                                                <label>انتصاب فرد :</label>
+                                            </div>
+                                            <div class='clearfix'></div>
+                                            <div class='col-sm-8 my-margin-top'>
+                                                <button class='btn btn-primary'>
+                                                        ایجاد زیر دسته
+                                                    </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
