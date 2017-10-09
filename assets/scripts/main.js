@@ -2283,6 +2283,135 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             
         }
     }
+    $scope.chartTree = [];
+    $scope.chartTreeMaker = function(item,person,parent){
+        var icon;
+        if(person == 0){
+            icon = "fa-ban";
+        }else if (person == 1){
+            icon = "fa-user";
+        }
+        else{
+            icon = "fa-users";
+        }
+        var id = $scope.chartTree.length;
+        var itemToPush = {
+            "name": item,
+            "person":person,
+            "id": id,
+            "parent": parent,
+            "icon": icon
+        }
+        $scope.chartTree.push(itemToPush);
+        $scope.treeFirstItem = true;
+        $scope.chartTreeAppend(parent);
+        // if(parent == null){
+        //     $scope.chartTreeAppend('first');
+        // }
+        // else{
+        //     
+        // }
+        
+    }
+    $scope.chartTreeAppend = function(x){
+        $("#chart-tree-" + x).html("");
+        for(var i = 0;i < $scope.chartTree.length; i++){
+            if($scope.chartTree[i].parent == x){
+                $("#chart-tree-"+x).append(
+                    $compile(
+                        "<div class='chart-tree-view'>\
+                            <div class='formal-chart formal-chart-right-border'>\
+                                <div class='row' ng-class='userColor'>\
+                                    <div class='col-sm-4 left-align'>\
+                                        <i class='fa fa-close pointer' ng-click='chartDelete("+$scope.chartTree[i].id+")'></i>\
+                                    </div>\
+                                    <div class='col-sm-8 right-align'>\
+                                        <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+$scope.chartTree[i].id+")'></i>\
+                                    </div>\
+                                    <div class='clearfix'></div>\
+                                    <div class='col-sm-4 left-align'>\
+                                        <i class='fa "+$scope.chartTree[i].icon+"'></i>\
+                                    </div>\
+                                    <div class='co-sm-8 center'>\
+                                        <span class='pointer' data-toggle='collapse' data-target='#chart-tree-"+$scope.chartTree[i].id+"'>\
+                                            "+ $scope.chartTree[i].name+"\
+                                        </span>\
+                                    </div>\
+                                </div>\
+                                <div class='formal-chart-edit hide' id='chart-edit-"+$scope.chartTree[i].id+"'>\
+                                    <div class='row'>\
+                                        <div class='col-sm-12 left-align'>\
+                                            <i class='fa fa-close' ng-click=closeEdit("+$scope.chartTree[i].id+")></i>\
+                                        </div>\
+                                        <div class='clearfix'></div>\
+                                        <div class='col-sm-8 my-margin-top'>\
+                                            <input type='text' class='form-control'ng-model='itemName'>\
+                                        </div>\
+                                        <div class='col-sm-4 left-align my-margin-top'>\
+                                            <label>نام زیر دسته :</label>\
+                                        </div>\
+                                        <div class='clearfix'></div>\
+                                        <div class='col-sm-8  my-margin-top'>\
+                                            <select style='height: 30px;width: 100% !important;font-size: 12px' ng-model='person' class='form-control my-form' name='kindDocument'>\
+                                                    <option value=0  selected>ندارد</option>\
+                                                    <option value=1 >تک نفر</option>\
+                                                    <option value=2 >چند گانه</option>\
+                                                </select>\
+                                        </div>\
+                                        <div class='col-sm-4 left-align  my-margin-top'>\
+                                            <label>انتصاب فرد :</label>\
+                                        </div>\
+                                        <div class='clearfix'></div>\
+                                        <div class='col-sm-8 left-align my-margin-top'>\
+                                            <button class='btn btn-primary' ng-click='chartTreeMaker(itemName,person,"+$scope.chartTree[i].id+")'>\
+                                                    ایجاد زیر دسته\
+                                                </button>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                            <div class='chart-tree-border collapse in' id='chart-tree-"+$scope.chartTree[i].id+"'></div>\
+                        </div>"
+                    )($scope)
+                )
+                for(var j = 0; j< $scope.chartTree.length;j++){
+                    if($scope.chartTree[j].parent == $scope.chartTree[i].id){
+                        $scope.chartTreeAppend($scope.chartTree[i].id);
+                    }
+                }
+            }
+        }
+    }
+    $scope.showingEdit = function(x){
+        $(".formal-chart-edit").addClass("hide");
+        $("#chart-edit-"+x).removeClass("hide");
+    }
+    $scope.closeEdit = function(x){
+        $("#chart-edit-"+x).addClass("hide");
+    }
+    $scope.chartDelete = function(x){
+        var id;
+        var child = 0;
+        for(var j = 0; j < $scope.chartTree.length; j ++){
+            if($scope.chartTree[j].parent == x){
+                child= child + 1;
+            }
+        }
+        console.log(child)
+        if(child > 0){
+            $scope.error[0] = "شما نمیتوانید سرشاخه را حذف کنید";
+            $("#error").modal();
+        }
+        else{
+            for(var i = 0; i< $scope.chartTree.length;i++){
+                if($scope.chartTree[i].id == x){
+                    id = $scope.chartTree[i].parent
+                    $scope.chartTree.splice(i,1);      
+                    $scope.chartTreeAppend(id);
+                }
+            }
+        }
+    }
     // creating second level and deeper levels by using laoded data
     $scope.creatingNode = function (x) {
         $("#tree" + x).html("")
