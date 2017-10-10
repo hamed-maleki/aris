@@ -557,14 +557,15 @@ nav a:hover {
 }
 .badging{
     position: absolute;
-    top: 16px;
-    right: 18%;
+    right: 16%;
+    top: 19px;
     display: inline-block;
     animation: aris;
     animation-duration: 1s;
     border-radius: 50%;
-    padding: 0px 8px;
+    padding: 0px 9px;
     font-size: 14px;
+    color: white;
 }
 
 #error {
@@ -586,8 +587,11 @@ nav a:hover {
     top: 0px; 
     right: 0;
     z-index: 100; 
+    /* display: none; */
 }
-
+.side-tool p .fa-close {
+    display: none;
+}
 .side-tool .border h6,.side-tool .border i {
     color: #C1B49A;
 }
@@ -834,7 +838,18 @@ nav a:hover {
     position: relative;
     width: 18%;
 }
-
+.dropdown-menu {
+    top: 142%;
+    left: 0;
+    border-radius: 0;
+}
+.dropdown-menu > li > a{
+    color: gray;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #808080;
+    color: white;
+}
 .formal-chart-edit {
     position: absolute;
     background-color: #ECECEC;
@@ -1265,12 +1280,15 @@ nav a:hover {
 }
 
 .my-button {
-    font-size: 14px;
-    color: white;
+    font-size: 16px;
+    color: #6B6B6B;
     border-radius: 0;
-    margin: 5px 5px;
+    margin: 5px 0px;
+    background-color: white;
 }
-
+.my-button:hover, .my-button:focus {
+    color: #6B6B6B;
+}
 .button-color {
     border-radius: 2px;
 }
@@ -1828,7 +1846,7 @@ tfoot tr td {
 }
 
 .third-subcolor {
-    background-color: #4CAF50 !important;
+    background-color: #7d97a5 !important;
 }
 
 .first-systemcolor {
@@ -2504,7 +2522,7 @@ tfoot tr td {
 .searchContainer{
     display: inline-block;
     position: relative;
-    width: 37%;
+    width: 27%;
 }
 
 .selected {
@@ -2584,7 +2602,9 @@ body {
   animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
   stroke-linecap: round;
 }
-
+.window-height {
+    height: 85vh;
+}
 @keyframes rotate {
   100% {
     transform: rotate(360deg); }
@@ -2637,6 +2657,9 @@ body {
         padding: 0 91px;
         margin-top: 120px;
     }
+    .min-window,.window-height {
+        height: 82vh;
+    }
     .sub-system {
         min-height: 162px;
         margin-top: 14px;
@@ -2663,6 +2686,12 @@ body {
 @media screen and (max-height:720px) and (max-width:1280px){
     .my-col-sm-6 i {
         margin: 19px auto;
+    }
+    .min-window {
+        height: 79vh;
+    }
+    .window-height {
+        height: 79vh;
     }
     .center-align {
         padding: 0 120px;

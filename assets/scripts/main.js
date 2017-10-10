@@ -1149,6 +1149,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.showContext()
         $(".min-anime").css("display", "block");
         $(".min-anime").delay(250).fadeOut();
+        $scope.number = "modules/unload.html";
     }
     $scope.closeMin = function (x, y) {
         for (var i = 0; i < $scope.minimizedFolder.length; i++) {
@@ -1944,6 +1945,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.table = function (value, mypageId) {
+        $scope.currentPageId = mypageId;
+        $scope.currentValue = value;
         $(".leaf").removeClass("myselect");
         $("#leaf" + mypageId).addClass("myselect");
         // $scope.number = "modules/" + value;
@@ -2137,12 +2140,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // aside opening
     $scope.sideBar = function (x) {
+        $(".side-tool p .fa-close").css("display", "block");
         $scope.sidecontainer(x);
         $(".side-tool").animate({ width: "390px" }, 'slow');
         // $(".side-filter").animate({ width: "318px" }, 'slow');
-        $(".container-filter a").css("pointer-events", 'none');
-        $("nav a").css("pointer-events", 'none');
-        $("nav i").css("pointer-events", 'none');
+        // $(".container-filter a").css("pointer-events", 'none');
+        // $("nav a").css("pointer-events", 'none');
+        // $("nav i").css("pointer-events", 'none');
     }
     // $scope.mainSystem = function () {
     //     $("#mainSystems").modal();
@@ -2202,6 +2206,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.sideBarClose = function () {
         $(".side-tool").animate({ width: "0px" });
+        $(".side-tool p .fa-close").css("display", "none");
         $(".side-filter").animate({ width: "0px" });
         $(".container-filter a").css("pointer-events", '');
         $("nav a").css("pointer-events", '');

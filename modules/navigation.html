@@ -52,6 +52,41 @@
                             <!-- <div style="color: black" id="setting-bar" class="dropdown-border" ng-include="'modules/setting-bar.html'">
                             </div> -->
                         </span>
+                        <span class="border-right right-align dropdown" style="margin-right: 5px;">
+                            <i  data-placement="bottom" title="امکانات" data-toggle="dropdown" data-toggle="tooltip" class="fa fa-wrench font pointer dropdown-toggle"></i>
+                            <ul class="dropdown-menu" ng-init="mydate()">
+                                <li>
+                                    <a href="#" class="right-align" ng-style="testfont" ng-click="sideBar(2)">
+                                        <i class="fa fa-calendar-o" style="margin: 0 !important;float: left"></i>
+                                        {{myday}}  {{myMonth}}
+                                        <div ng-if="eventNumber != 0" style="background-color: #CF4133;color: white;font-weight: normal;position: absolute;top: 9px;right: 60%;font-size: 12px;padding: 0px 5px;border-radius: 50%">{{eventNumber}}</div>
+                                    </a>
+                                </li>
+                                <hr style="margin: 10px auto">
+                                <li>
+                                    <a href="#" class="right-align" ng-style="testfont" ng-click="sideBar(1)">
+                                        <i class="fa fa-file-text-o" style="margin: 0 !important;float: left"></i>
+                                        <div ng-if="note.length != 0" style="background-color: #CF4133;color: white;font-weight: normal;position: absolute;right: 60%;font-size: 12px;padding: 0px 5px;border-radius: 50%">{{note.length}}</div>
+                                        یادداشت ها
+                                    </a>
+                                </li>
+                                <hr style="margin: 10px auto">
+                                <li onclick="display('chatbox')">
+                                    <a href="#" class="right-align" ng-style="testfont">
+                                        <img src="media/logofox.png" style="float: left;width: 16%;margin-top: -3px;">
+                                        <div ng-if="note.length != 0" style="background-color: #CF4133;color: white;font-weight: normal;position: absolute;right: 60%;font-size: 12px;padding: 0px 5px;border-radius: 50%">{{note.length}}</div>
+                                        چت باکس
+                                    </a>
+                                </li>
+                                <hr style="margin: 10px auto">
+                                <li>
+                                    <a href="#" class="right-align" ng-style="testfont" ng-click="sideBar(3)">
+                                        <i class="fa fa-random" style="margin: 0 !important;float: left"></i>
+                                        پربازدیدها
+                                    </a>
+                                </li>
+                              </ul>
+                        </span>
                         <span class="border-right right-align" style="margin-right: 5px;">
                             <i data-toggle="tooltip" data-placement="bottom" title="جستجو" class="fa fa-search font pointer" onclick="searching()"></i>
                         </span>
@@ -74,6 +109,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="col-sm-5" style="text-align: right;">
@@ -120,6 +156,82 @@
     </div>
 
 </div>
+<div class="side-tool">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" style="text-align: left;margin-top: 35px">
+                    <p class="sub-color" style="padding-right: 15px;margin-top: 25px;text-align: left">
+                        <i class="fa fa-close" style="color: white;margin-left: -5px;margin-top: 8px" ng-click="sideBarClose()"></i>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+                <sidebar></sidebar>
+            </div>
+        </div>
+    </div>
+    <!--chat area part-->
+    <div id="chatbox" ng-class="userColor">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" onclick="showing()">
+                    <div class="row pointer">
+                        <div class="col-sm-3">
+                            <i class="fa fa-comment"></i>
+                        </div>
+                        <div class="col-sm-9">
+                            <p ng-style="testfont">محل ارتباط شما</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 hide" id="chat">
+                    <div class="border white-background" ng-if="reciver != undefined || reciver != null" style="height: 200px;overflow-x: hidden"
+                        id="chatscroll">
+                        <div class="row" ng-repeat="chat in chat" ng-if="chat.reciver == reciver || chat.sender == reciver" id="chatarea">
+                            <div class="clearfix"></div>
+                            <div class="row" ng-if="chat.type == 'recive'">
+                                <div class="col-sm-8" style="text-align: left">
+                                    <p class="chatresponse">
+                                        {{chat.content}}<br>
+                                        <span style="font-size: 8px;text-align: left">{{chat.sender}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row" ng-if="chat.type == 'send'">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-7">
+                                    <p class='chat'>
+                                        {{chat.content}}
+                                    </p>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input list="people" id="reciver" ng-model="reciver" class="form-control form-control1" placeholder="انتخاب فرد" style="width: 100%;margin: 10px auto;"
+                            />
+                            <datalist id="people">
+                                <option value="فرد اول" />
+                                <option value="فرد لااول" />
+                                <option value="فردیفغ اول" />
+                                <option value="فرد ایباول" />
+                            </datalist>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="my-textarea" id="chattext" style="margin-bottom: 5px;"></textarea>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn my-button " ng-class="userColor" ng-click="chatting(reciver)">ارسال</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();

@@ -49,7 +49,7 @@
 
         .main-arrow {
             display: inline-block;
-            background-color: #808080;
+            background-color: gray;
             padding: 5px 30px 5px 10px;
             line-height: 0.5cm;
             color: white;
@@ -76,7 +76,7 @@
             top: 0px;
             left: -14px;
             content: '';
-            border-right: 14.5px solid #808080;
+            border-right: 14.5px solid grey;
             border-bottom: 14.5px solid transparent;
             border-top: 14.5px solid transparent;
             height: 100%;
@@ -89,11 +89,15 @@
             top: 0;
             right: 0;
             content: '';
-            border-right: 14.5px solid #ECECEC;
+            border-right: 14.5px solid white;
             border-bottom: 14.5px solid transparent;
             border-top: 14.5px solid transparent;
             height: 100%;
             z-index: 2;
+        }
+
+        .main-arrow p {
+            font-size: 12px;
         }
 
         .system-container {
@@ -165,7 +169,11 @@
             padding: 14px 0;
             cursor: pointer;
         }
-
+        @media screen and (max-height:1366px){
+            body{
+                overflow-y: hidden;
+            }
+        }
     </style>
 </head>
 
@@ -174,15 +182,8 @@
     </nav>
     <div class="container-fluid" ng-init="systemToShow()">
         <div class="row">
-            <div class="col-sm-12 my-margin-top right-align" style="direction: rtl">
-                <div class="main-arrow center" style="margin-left:-4px;" data-step="3" data-intro="مسیر دسترسی به سیستم ورد نظر شما">
-                    <p ng-click="topNav(firstsystem.id,-1)">{{firstsystem.title}}</p>
-                </div>
-                <div ng-repeat="header in header" class="main-arrow center" ng-click="topNav(header.id,$index)" style="margin-right: 5px">
-                    <p>{{header.title}}</p>
-                </div>
-            </div>
-            <div class="col-sm-1" style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
+
+            <!-- <div class="col-sm-1" style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
                 <div class="row">
                     <div class="clearfix"></div>
                     <div class="col-sm-12">
@@ -213,14 +214,34 @@
                         <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'" data-step="2" data-intro="امکانات جانبی نرم افزار"></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-9 right-align my-margin-top" id="loadedPage" style="background-color: white;height: 77vh;overflow-y: scroll">
+            </div> -->
+            <div class="col-sm-10 right-align my-margin-top min-window" id="loadedPage">
                 <div class="container-fluid" id="myFocus" ng-keyup="detector($event)" tabindex="1">
+                    <div class="col-sm-12 my-margin-top right-align" style="direction: rtl">
+                        <div class="main-arrow center" style="margin-left:-4px;" data-step="3" data-intro="مسیر دسترسی به سیستم ورد نظر شما">
+                            <p ng-click="topNav(firstsystem.id,-1)">{{firstsystem.title}}</p>
+                        </div>
+                        <div ng-repeat="header in header" class="main-arrow center" ng-click="topNav(header.id,$index)" style="margin-right: 5px">
+                            <p>{{header.title}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 right-align" ng-if="number != 'modules/unload.html'">
+                        <button class="my-button btn center" ng-click="sharingForm()" style="padding: 4px 5px;font-size: 14px;">
+                            <i class="fa fa-share-alt" style="margin: 0 7px"></i>     
+                        </button>
+                        <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="minWindow()">
+                            <i class="fa fa-window-minimize pointer" style="margin: 0 7px"></i>
+                        </button>
+                        <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="maxWindow()">
+                            <i class="fa fa-window-restore pointer" style="margin: 0 7px"></i>
+                        </button>
+                    </div>
+                    <hr style="margin: 10px auto;width: 100%;">
                     <div ng-include="number" class="keyControl"></div>
                 </div>
             </div>
-            <div class="col-sm-2 right-align my-margin-top" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">
-                <div id="myDemo" ng-class="userColor" style="height: 77vh;overflow-x: hidden !important;overflow-y: scroll;position: relative;width: 100%">
+            <div class="col-sm-2 right-align my-margin-top" style="padding: 0 0 0 10px" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">
+                <div id="myDemo" class="window-height" ng-class="userSubColor">
                     <ul>
                         <li class="system-li pointer" ng-repeat="list in subsystem" ng-style="testfont" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
                         </li>
@@ -239,7 +260,7 @@
         // }
         $(function () {
             Ps.initialize(document.getElementById('myDemo'));
-            Ps.initialize(document.getElementById('system-scroll'));
+            // Ps.initialize(document.getElementById('system-scroll'));
             Ps.initialize(document.getElementById('loadedPage'));
         });
     </script>

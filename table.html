@@ -83,8 +83,14 @@
             padding: 14px 0;
             cursor: pointer;
         }
+
         .system-li {
             font-size: 18px;
+        }
+        @media screen and (max-height:1366px){
+            body{
+                overflow-y: hidden;
+            }
         }
     </style>
 </head>
@@ -96,15 +102,15 @@
         <div class="min-anime"></div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
+                <!-- <div class="col-sm-1 my-padding my-margin-top" style="height: 80vh;display: flex;align-items: center;justify-content: center;">
                     <div class="row effect" style="position: relative">
                         <div class="col-sm-12" style="padding: 0 25px;">
                             <div class="sub-system my-padding-5 aris-animation" style="width: 100%" ng-include="'modules/tools.html'"></div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-2 col-sm-push-9 my-margin-top right-align">
-                    <div ng-class="userSubColor" style="height: 85vh;overflow-x: hidden !important;width: 100%">
+                </div> -->
+                <div class="col-sm-2 col-sm-push-10 my-margin-top right-align" style="padding: 0 0 0 10px;">
+                    <div class="window-height" ng-class="userSubColor" style="overflow-x: hidden !important;width: 100%">
                         <ul style="padding-left: 0">
                             <li class="system-li pointer container-fluid" ng-style="testfont" ng-click="recive()">
                                 <div class="row">
@@ -139,13 +145,13 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-9 col-sm-pull-2 container-filter my-margin-top min-window" id="loadedPage">
+                <div class="col-sm-10 col-sm-pull-2 container-filter my-margin-top min-window" id="loadedPage">
                     <div class="white-background border my-margin-top my-padding center responsive-margin" ng-if="! emailLoader">
                         <div class="right-align my-margin-top">
-                            <button class="my-button btn" ng-class="userColor" ng-style="testfont">
+                            <button class="my-button btn" ng-style="testfont">
                                 <i class="fa fa-refresh" style="margin-left: 0"></i>
                             </button>
-                            <button class="my-button btn" ng-class="userColor" ng-style="testfont" ng-click="delete()">
+                            <button class="my-button btn" ng-style="testfont" ng-click="delete()">
                                 <i class="fa fa-trash-o" style="margin-left: 0"></i>
                             
                             </button>
@@ -153,15 +159,16 @@
                                 اتنخاب همه
                             <input class="select" type="checkbox"  ng-click="inboxing()" />
                             </span> -->
-                            <button class="my-button btn" ng-style="testfont" ng-class="userColor" ng-click="checking = false">
+                            <button class="my-button btn" ng-style="testfont" ng-click="checking = false">
                                 <i class="fa fa-low-vision" style="margin-left: 0"></i>
                                 
                             </button>
-                            <button class="my-button btn" ng-class="userColor" ng-style="testfont" ng-click="checking = undefined">
+                            <button class="my-button btn" ng-style="testfont" ng-click="checking = undefined">
                                 <i class="fa fa-sort-amount-asc" style="margin-left: 0"></i>
                                 
                             </button>
                         </div>
+                        <hr style="margin: 5px auto;width: 100%;">
                         <div class="clearfix"></div>
                         <div class="table-container">
                             <table class="table table-hover my-table mail-box" style="color: black !important">
@@ -172,7 +179,7 @@
                                             <div class="checkbox" ng-click="inboxing()">
                                                 <label>
                                                     <input class="select" type="checkbox"  >
-                                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white"><i class="cr-icon fa fa-check"></i></span>
+                                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white;border: 1px solid white"><i class="cr-icon fa fa-check"></i></span>
                                                 </label>
                                             </div>
                                         </th>
@@ -296,27 +303,30 @@
                         <div class="white-background border my-margin-top my-padding center responsive-margin">
                             <div class="row">
                                 <div class="col-sm-4 left-align">
-                                    <button class="my-button btn" ng-class="userColor" style="color: white;padding: 4px 2px;font-size: 14px;margin: 0" ng-click="showContext()">
+                                    <!-- <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="showContext()">
                                         <i class="fa fa-close" style="margin: 0 7px"></i>
-                                    </button>
-                                    <button class="my-button btn" ng-class="userColor" style="color: white;padding: 4px 2px;font-size: 14px;margin: 0" ng-click="maxWindow()">
-                                        <i class="fa fa-window-restore pointer" style="margin: 0 7px"></i>
-                                    </button>
-                                    <button class="my-button btn" ng-class="userColor"  style="color: white;padding: 4px 2px;font-size: 14px;margin: 0" ng-click="minWindow()">
-                                        <i class="fa fa-window-minimize pointer" style="margin: 0 7px"></i>
-                                    </button>
+                                    </button> -->
+
+                                    
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="right-align">
-                                        <button class="my-button btn center" ng-click="sharingForm()" ng-class="userColor" style="color: white;padding: 4px 5px;font-size: 14px;">
+                                        <button class="my-button btn center" ng-click="sharingForm()" style="padding: 4px 5px;font-size: 14px;">
                                             <i class="fa fa-share-alt" style="margin: 0 7px"></i>     
                                         </button>
-                                        <button class="my-button btn center" ng-click="showContext()" ng-class="userColor" style="color: white;padding: 4px 5px;font-size: 14px;">
+                                        <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="minWindow()">
+                                            <i class="fa fa-window-minimize pointer" style="margin: 0 7px"></i>
+                                        </button>
+                                        <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="maxWindow()">
+                                            <i class="fa fa-window-restore pointer" style="margin: 0 7px"></i>
+                                        </button>
+                                        <button class="my-button btn center" ng-click="showContext()" style="padding: 4px 5px;font-size: 14px;">
                                             <i class="fa fa-arrow-right"  style="margin: 0 7px"></i>     
                                         </button>
                                     </div>
                                 </div>
                             </div>
+                            <hr style="margin: 5px auto;width: 100%;">
                             <div ng-include="number"></div>
                         </div>
                     </div>
