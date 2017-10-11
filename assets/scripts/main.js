@@ -722,7 +722,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // first page cookie for system page
     $scope.systemToLoad = function (x) {
         localStorage.setItem("parent_id", x);
-        window.location.href = "portotype.html";
+        window.location.href = "portotype.min.html";
     }
     $scope.gettingSystem = function (x, y) {
         localStorage.setItem("parent_id", x);
@@ -1030,13 +1030,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             // }
             // else {
-            if ($event.keyCode == 39) {
-                $scope.finalPagination($scope.currentPage - 1, false, '/' + $scope.host + '/api/user')
-            }
-            if ($event.keyCode == 37) {
-                $scope.finalPagination($scope.currentPage + 1, false, '/' + $scope.host + '/api/user')
-            }
+            
             // }
+        }
+        if ($event.keyCode == 39) {
+            $scope.finalPagination($scope.currentPage - 1, false, '/' + $scope.host + '/api/user')
+        }
+        if ($event.keyCode == 37) {
+            $scope.finalPagination($scope.currentPage + 1, false, '/' + $scope.host + '/api/user')
         }
         // if ($event.altKey || evtobj.altKey) {
         //     
