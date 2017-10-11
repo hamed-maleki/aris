@@ -547,7 +547,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.getHeight = function () {
         if (SHeight == true) {
             setTimeout(function () {
-                $("#chart1").css("height", $(".system-con").height() - 32 + "px");
+                $("#chart1").css("height", $(".system-con").height() - 28 + "px");
                 $http.get('data/chart.json')
                     .then(function (response) {
                         var users = response.data
@@ -1091,7 +1091,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $scope.puttingInsideInput();
                     setTimeout(function () {
                         $(".user").css("background-color", "#FFFFFF");
-                        $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+                        $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
                     }, 100)
                 }
                 $(".paginationOrder").val("");
@@ -1102,7 +1102,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             })
             $scope.paginationToShow(x);
         }
-
     }
     $scope.tableSearch = function(search){
         console.log(search);
@@ -1404,7 +1403,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
-        $("#user" + $scope.editingUserData.user.id).css("background-color", "yellow");
+        $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
         $scope.puttingInsideInput();
     }
     $scope.socialNoFormat = function (x) {
@@ -2290,6 +2289,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.chartTree = [];
     $scope.chartTreeMaker = function(item,person,parent){
+        var id;
         var icon;
         if(person == 0){
             icon = "fa-ban";
@@ -2299,7 +2299,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         else{
             icon = "fa-users";
         }
-        var id = $scope.chartTree.length;
+        if($scope.chartTree.length != 0){
+            id = $scope.chartTree.length * -1;
+        }
+        else{
+            id = 0;
+        }
         var itemToPush = {
             "name": item,
             "person":person,
@@ -2318,7 +2323,23 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
         
     }
+    $scope.chartTreeUpdate = function(x, y,z){
+        $scope.chartTree[z].name = x;
+        if(y == 0){
+            $scope.chartTree[z].icon = "fa-ban"
+        }
+        else if(y == 1){
+            $scope.chartTree[z].icon = "fa-user"
+        }
+        else {
+            $scope.chartTree[z].icon = "fa-users"
+        }
+        $scope.chartTreeAppend (0)
+    }
+    $scope.edit = "edit";
+    $scope.update = "update";
     $scope.chartTreeAppend = function(x){
+        
         $("#chart-tree-" + x).html("");
         for(var i = 0;i < $scope.chartTree.length; i++){
             if($scope.chartTree[i].parent == x){
@@ -2331,7 +2352,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                         <i class='fa fa-close pointer' ng-click='chartDelete("+$scope.chartTree[i].id+")'></i>\
                                     </div>\
                                     <div class='col-sm-8 right-align'>\
-                                        <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+$scope.chartTree[i].id+")'></i>\
+                                        <i class='fa fa-pencil pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.update+")'></i>\
+                                        <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.edit+")'></i>\
                                     </div>\
                                     <div class='clearfix'></div>\
                                     <div class='col-sm-4 left-align'>\
@@ -2343,10 +2365,53 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                         </span>\
                                     </div>\
                                 </div>\
+                                <div class='formal-chart-edit hide' id='chart-update-"+$scope.chartTree[i].id+"'>\
+                                <div class='row'>\
+                                    <div class='col-sm-12 left-align'>\
+                                        <i class='fa fa-close' ng-click=closeEdit("+$scope.chartTree[i].id+","+$scope.update+")></i>\
+                                    </div>\
+                                    <div class='col-sm-8  my-margin-top'>\
+                                        <select  style='height: 30px;width: 100% !important;font-size: 12px' ng-model='type'\
+                                            class='form-control my-form' name='kindDocument'>\
+                                            <option value=0  selected>ندارد</option>\
+                                            <option value=1 >تک نفر</option>\
+                                            <option value=2 >چند گانه</option>\
+                                        </select>\
+                                    </div>\
+                                    <div class='col-sm-4 left-align  my-margin-top' style='padding: 0'>\
+                                        <label>انتخاب سردسته :</label>\
+                                    </div>\
+                                    <div class='clearfix'></div>\
+                                    <div class='col-sm-8 my-margin-top'>\
+                                        <input type='text' ng-model='updateName' placeholder='"+$scope.chartTree[i].name+"' class='form-control' ng-model='itemName'>\
+                                    </div>\
+                                    <div class='col-sm-4 left-align my-margin-top' style='padding: 0'>\
+                                        <label>نام زیر دسته :</label>\
+                                    </div>\
+                                    <div class='clearfix'></div>\
+                                    <div class='col-sm-8  my-margin-top'>\
+                                        <select ng-model='updatePerson'  style='height: 30px;width: 100% !important;font-size: 12px' ng-model='type'\
+                                            class='form-control my-form' name='kindDocument'>\
+                                                <option value=0  selected>ندارد</option>\
+                                                <option value=1 >تک نفر</option>\
+                                                <option value=2 >چند گانه</option>\
+                                            </select>\
+                                    </div>\
+                                    <div class='col-sm-4 left-align  my-margin-top' style='padding: 0'>\
+                                        <label>انتصاب فرد :</label>\
+                                    </div>\
+                                    <div class='clearfix'></div>\
+                                    <div class='col-sm-8 my-margin-top left-align'>\
+                                        <button class='btn btn-primary' ng-click='chartTreeUpdate(updateName,updatePerson, "+i+")'>\
+                                                ثبت تغییرات : \
+                                        </button>\
+                                    </div>\
+                                </div>\
+                            </div>\
                                 <div class='formal-chart-edit hide' id='chart-edit-"+$scope.chartTree[i].id+"'>\
                                     <div class='row'>\
                                         <div class='col-sm-12 left-align'>\
-                                            <i class='fa fa-close' ng-click=closeEdit("+$scope.chartTree[i].id+")></i>\
+                                            <i class='fa fa-close' ng-click=closeEdit("+$scope.chartTree[i].id+","+$scope.edit+")></i>\
                                         </div>\
                                         <div class='clearfix'></div>\
                                         <div class='col-sm-8 my-margin-top'>\
@@ -2387,12 +2452,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
     }
-    $scope.showingEdit = function(x){
-        $(".formal-chart-edit").addClass("hide");
-        $("#chart-edit-"+x).removeClass("hide");
+    $scope.showingEdit = function(x,y){
+        $(".formal-chart-"+y).addClass("hide");
+        $("#chart-"+y+"-"+x).removeClass("hide");
     }
-    $scope.closeEdit = function(x){
-        $("#chart-edit-"+x).addClass("hide");
+    $scope.closeEdit = function(x,y){
+        $("#chart-"+y+"-"+x).addClass("hide");
     }
     $scope.chartDelete = function(x){
         var id;

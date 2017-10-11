@@ -211,6 +211,23 @@ p{
      top: 100%;
      left:0;
  }
+ .inside-alarm {
+     position: absolute;
+     top: 0;
+     right: 0;
+     width: 100%;
+     height: 100%;
+ }
+ .alarm-message {
+    /* height: 127px;
+    overflow-y: hidden; */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 0;
+}
  .barImg {
      position: absolute;
      bottom: 0;
@@ -614,11 +631,6 @@ nav a:hover {
     filter: blur(30px);
     background-color: rgba(255,255,255,0.5);
 }
-
-#alarm {
-    max-height: 168px;
-    /*overflow: scroll;*/
-}
 .my-margin-top {
     margin-top: 15px;
 }
@@ -884,7 +896,6 @@ nav a:hover {
     height: 100vh;
     top: -15px;
     right: 0;
-    z-index: 3;
 }
 .min-anime {
     position: absolute;
@@ -894,7 +905,7 @@ nav a:hover {
     border: 1px solid lightgray;
     z-index: 3;
     top: 18vh;
-    left: 20vh;
+    right: 45vh;
     animation: minimize 0.25s;
     border-radius: 5px;
     display: none;
@@ -902,22 +913,22 @@ nav a:hover {
 @keyframes minimize {
     from{
         top: 18vh;
-        left: 20vh;
+        right: 45vh;
     }
     to{
         top: 95vh;
-        left: 68vh;
+        right: 108vh;
     }
 }
 
 @-webkit-keyframes minimize {
     from{
         top: 18vh;
-        left: 20vh;
+        right: 45vh;
     }
     to{
         top: 95vh;
-        left: 68vh;
+        right: 108vh;
     }
 }
  .sub-system {
@@ -1666,23 +1677,21 @@ tfoot tr td {
 
 @-webkit-keyframes slideInDown {
   0% {
-    opacity: 0;
-    min-height: 0;
+    height: 0;
   }
 
   100% {
-      min-height: 200px;
+      height: 100%;
   }
 }
 
 @keyframes slideInDown {
   0% {
-    opacity: 0;
-    min-height: 0;
+    height: 0;
   }
 
   100% {
-      min-height: 200px;
+    height: 100%;
   }
 }
 
@@ -1734,8 +1743,8 @@ tfoot tr td {
 
 @keyframes animation5{
     from{
-        -webkit-transform: rotateX(30deg); /* Chrome, Safari, Opera  */
-        transform: rotateX(30deg);
+        -webkit-transform: rotateX(90deg); /* Chrome, Safari, Opera  */
+        transform: rotateX(90deg);
     }
     to{
         -webkit-transform: rotateX(0deg); /* Chrome, Safari, Opera  */
@@ -1745,8 +1754,8 @@ tfoot tr td {
 
 @-webkit-keyframes animation5{
    from{
-        -webkit-transform: rotateX(30deg); /* Chrome, Safari, Opera  */
-        transform: rotateX(30deg);
+        -webkit-transform: rotateX(90deg); /* Chrome, Safari, Opera  */
+        transform: rotateX(90deg);
     }
     to{
         -webkit-transform: rotateX(0deg); /* Chrome, Safari, Opera  */
@@ -2459,11 +2468,12 @@ tfoot tr td {
 }
 
 #alarm {
-    min-height: 200px;
+    /* min-height: 200px; */
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    margin-top: -40px;
-    position: relative;
+    /* margin-top: -40px;
+    position: relative; */
+    height: 100%;
 }
 
 #alarm p{
@@ -2472,15 +2482,12 @@ tfoot tr td {
     border-radius: 5px;
 }
 
-#alarm img{
-    height: 222px;
-}
-
 .alarmTitle {
     background-color: rgba(0,0,0,0.3);
     border-radius: 5px;
     padding:0px 5px;
-    margin: 0 5px;
+    margin: 0 2px;
+    text-align: center;
 }
 
 .alarmTitle h4 {
@@ -2637,11 +2644,11 @@ body {
 .ps-scrollbar-x {
     display: none;
 }
-.alarm-message {
+/* .alarm-message {
     perspective: 150px;
     -webkit-perspective: 150px;
      min-height: 200px;
-}
+} */
 .alarm-icon {
     text-align: right;
     padding-right: 30px;
@@ -2674,10 +2681,7 @@ body {
         font-size: 29px;
         margin: 26px 0;
     }
-    .alarm-message {
-        height: 127px;
-        overflow-y: hidden;
-    }
+
     .alarm-con {
         height: 181px;
         overflow: hidden;
@@ -2687,12 +2691,7 @@ body {
     .my-col-sm-6 i {
         margin: 19px auto;
     }
-    .min-window {
-        height: 79vh;
-    }
-    .window-height {
-        height: 79vh;
-    }
+    
     .center-align {
         padding: 0 120px;
         display: block;
@@ -2710,7 +2709,7 @@ body {
     }
     .tools-icon i {
         font-size: 36px;
-        margin: 22px auto;
+        margin: 21px auto;
     }
     .alarm-con {
         height: 181px;
@@ -2718,6 +2717,18 @@ body {
     }
 }
 @media screen and (max-width: 1280px){
+    .min-window {
+        height: 81vh;
+    }
+    .window-height {
+        height: 81vh;
+    }
+    footer a {
+        padding: 0 5px;
+    }
+    .logo-holder {
+        height: 52px !important;
+    }
     .perssonel-name {
         font-size: 14px;
     }
@@ -2812,14 +2823,14 @@ body {
         min-height: 172px !important;
     }
 
-    #alarm{
+    /* #alarm{
         min-height: 172px;
         top: -14px;
-    }
+    } */
 
-    #alarm img{
+    /* #alarm img{
         height: 172px;
-    }
+    } */
 
     #chart1 {
         height: 328px !important;
@@ -2868,9 +2879,9 @@ body {
         min-height: 127px !important;
     }
 
-    #alarm img{
+    /* #alarm img{
         height: 127px;
-    }
+    } */
 
     #chart1 {
         height: 244px !important;

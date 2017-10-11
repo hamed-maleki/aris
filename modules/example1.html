@@ -281,7 +281,8 @@
                             <i class='fa fa-close pointer'></i>
                         </div>
                         <div class='col-sm-8 right-align'>
-                            <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit(0)'></i>
+                            <i class="fa fa-pencil pointer" ng-click='showingEdit(0,"update")'></i>
+                            <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit(0,"edit")'></i>
                         </div>
                         <div class='clearfix'></div>
                         <div class='col-sm-4 left-align'>
@@ -294,10 +295,53 @@
                             <span class="pointer" data-toggle="collapse" data-target="#chart-tree-{{chartTree[0].id}}">{{chartTree[0].name}}</span>
                         </div>
                     </div>
+                    <div class='formal-chart-edit hide' id="chart-update-0">
+                        <div class='row'>
+                            <div class='col-sm-12 left-align'>
+                                <i class='fa fa-close' ng-click='closeEdit(0,"update")'></i>
+                            </div>
+                            <div class='col-sm-8  my-margin-top'>
+                                <select  style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type"
+                                    class='form-control my-form' name='kindDocument'>
+                                    <option value=0  selected>ندارد</option>
+                                    <option value=1 >تک نفر</option>
+                                    <option value=2 >چند گانه</option>
+                                </select>
+                            </div>
+                            <div class='col-sm-4 left-align  my-margin-top' style="padding: 0">
+                                <label>انتخاب سردسته :</label>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-8 my-margin-top'>
+                                <input type='text' ng-model="updateName" placeholder="{{chartTree[0].name}}" value="" class='form-control' ng-model="itemName">
+                            </div>
+                            <div class='col-sm-4 left-align my-margin-top' style="padding: 0">
+                                <label>نام زیر دسته :</label>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-8  my-margin-top'>
+                                <select ng-model="updatePerson" placeholder="{{chartTree[0].person}}" style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type"
+                                    class='form-control my-form' name='kindDocument'>
+                                        <option value=0  selected>ندارد</option>
+                                        <option value=1 >تک نفر</option>
+                                        <option value=2 >چند گانه</option>
+                                    </select>
+                            </div>
+                            <div class='col-sm-4 left-align  my-margin-top' style="padding: 0">
+                                <label>انتصاب فرد :</label>
+                            </div>
+                            <div class='clearfix'></div>
+                            <div class='col-sm-8 my-margin-top left-align'>
+                                <button class='btn btn-primary' ng-click="chartTreeUpdate(updateName,updatePerson,0)">
+                                        ایجاد زیر دسته
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class='formal-chart-edit hide' id="chart-edit-0">
                         <div class='row'>
                             <div class='col-sm-12 left-align'>
-                                <i class='fa fa-close' ng-click='closeEdit(0)'></i>
+                                <i class='fa fa-close' ng-click='closeEdit(0,"edit")'></i>
                             </div>
                             <div class='clearfix'></div>
                             <div class='col-sm-8 my-margin-top'>

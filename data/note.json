@@ -37,7 +37,7 @@
                 "left":"20px"
             },
             "content":"2",
-            "class":"animation2"
+            "class":"animation5"
         },
         {
             "style":{
@@ -59,7 +59,7 @@
                 "right":"20px"
             },
             "content":"4",
-            "class":"animation2"
+            "class":"animation5"
         }
 
     ]

@@ -39,10 +39,6 @@
     <script src="assets/scripts/intro.js"></script>
     <script src="assets/scripts/main.js"></script>
     <style>
-        /* body {
-            overflow: hidden;
-        } */
-
         .my-col-sm-6 {
             width: 100%;
         }
@@ -54,7 +50,6 @@
             line-height: 0.5cm;
             color: white;
             position: relative;
-            /* text-align: left; */
             justify-content: center;
             transition: padding 0.5s, background-color 0.5s;
             cursor: pointer;
@@ -182,7 +177,6 @@
     </nav>
     <div class="container-fluid" ng-init="systemToShow()">
         <div class="row">
-
             <!-- <div class="col-sm-1" style="height: 72vh;display: flex;align-items: center;justify-content: center;margin-top: -10px">
                 <div class="row">
                     <div class="clearfix"></div>
@@ -252,12 +246,22 @@
             </div>
         </div>
     </div>
+    <div class="side-tool">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12" style="text-align: left;margin-top: 35px">
+                    <p class="sub-color" style="padding-right: 15px;margin-top: 25px;text-align: left">
+                        <i class="fa fa-close" style="color: white;margin-left: -5px;margin-top: 8px" ng-click="sideBarClose()"></i>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+                <sidebar></sidebar>
+            </div>
+        </div>
+    </div>
     <footer class="container-fluid container-filter" ng-class="userSubColor" ng-include="'modules/footer.html'">
     </footer>
     <script>
-        // function systemTest() {
-        //     $(".system-container").toggleClass("hide");
-        // }
         $(function () {
             Ps.initialize(document.getElementById('myDemo'));
             // Ps.initialize(document.getElementById('system-scroll'));
