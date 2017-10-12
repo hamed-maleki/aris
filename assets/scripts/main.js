@@ -1127,6 +1127,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.maxWindow = function () {
         $("#loadedPage").toggleClass('max-window');
+        if($("#loadedPage").hasClass('max-window')){
+            $("#min-window-right").css("z-index","-1");
+        }
+        else{
+            $("#min-window-right").css("z-index","0");
+        }
     }
     $scope.minWindow = function () {
         var j = 0;
@@ -2348,8 +2354,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     $compile(
                         "<div class='chart-tree-view' >\
                             <div class='formal-chart formal-chart-right-border' ng-drop='true' ng-drop-success='chartDrop($data,$event,0)'>\
-                                <div class='row' ng-class='userColor'>\
-                                    <div class='col-sm-12' ng-drag-data='" +i+ "' ng-drag='true'>\
+                                <div class='row' ng-class='userColor'  ng-drag-data='" +i+ "' ng-drag='true'>\
+                                    <div class='col-sm-12'>\
                                         <div class='row'>\
                                             <div class='col-sm-4 left-align'>\
                                                 <i class='fa fa-close pointer' ng-click='chartDelete("+$scope.chartTree[i].id+")'></i>\
