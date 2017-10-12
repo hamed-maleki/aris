@@ -2346,24 +2346,28 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if($scope.chartTree[i].parent == x){
                 $("#chart-tree-"+x).append(
                     $compile(
-                        "<div class='chart-tree-view'>\
-                            <div class='formal-chart formal-chart-right-border'>\
+                        "<div class='chart-tree-view' >\
+                            <div class='formal-chart formal-chart-right-border' ng-drop='true' ng-drop-success='chartDrop($data,$event,0)'>\
                                 <div class='row' ng-class='userColor'>\
-                                    <div class='col-sm-4 left-align'>\
-                                        <i class='fa fa-close pointer' ng-click='chartDelete("+$scope.chartTree[i].id+")'></i>\
-                                    </div>\
-                                    <div class='col-sm-8 right-align'>\
-                                        <i class='fa fa-pencil pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.update+")'></i>\
-                                        <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.edit+")'></i>\
-                                    </div>\
-                                    <div class='clearfix'></div>\
-                                    <div class='col-sm-4 left-align'>\
-                                        <i class='fa "+$scope.chartTree[i].icon+"'></i>\
-                                    </div>\
-                                    <div class='co-sm-8 center'>\
-                                        <span class='pointer' data-toggle='collapse' data-target='#chart-tree-"+$scope.chartTree[i].id+"'>\
-                                            "+ $scope.chartTree[i].name+"\
-                                        </span>\
+                                    <div class='col-sm-12' ng-drag-data='" +i+ "' ng-drag='true'>\
+                                        <div class='row'>\
+                                            <div class='col-sm-4 left-align'>\
+                                                <i class='fa fa-close pointer' ng-click='chartDelete("+$scope.chartTree[i].id+")'></i>\
+                                            </div>\
+                                            <div class='col-sm-8 right-align'>\
+                                                <i class='fa fa-pencil pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.update+")'></i>\
+                                                <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.edit+")'></i>\
+                                            </div>\
+                                            <div class='clearfix'></div>\
+                                            <div class='col-sm-4 left-align'>\
+                                                <i class='fa "+$scope.chartTree[i].icon+"'></i>\
+                                            </div>\
+                                            <div class='co-sm-8 center'   >\
+                                                <span class='pointer' data-toggle='collapse' data-target='#chart-tree-"+$scope.chartTree[i].id+"'>\
+                                                    "+ $scope.chartTree[i].name+"\
+                                                </span>\
+                                            </div>\
+                                        </div>\
                                     </div>\
                                 </div>\
                                 <div class='formal-chart-edit hide' id='chart-update-"+$scope.chartTree[i].id+"'>\
@@ -2416,7 +2420,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                         </div>\
                                         <div class='clearfix'></div>\
                                         <div class='col-sm-8 my-margin-top'>\
-                                            <input type='text' class='form-control'ng-model='itemName'>\
+                                            <input type='text' onclick='this.select()' class='form-control'ng-model='itemName'>\
                                         </div>\
                                         <div class='col-sm-4 left-align my-margin-top'>\
                                             <label>نام زیر دسته :</label>\
@@ -2441,7 +2445,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                     </div>\
                                 </div>\
                             </div>\
-                            <div class='chart-tree-border collapse in' id='chart-tree-"+$scope.chartTree[i].id+"'></div>\
+                            <div class='chart-tree-border collapse in' id='chart-tree-"+$scope.chartTree[i].id+"' ></div>\
                         </div>"
                     )($scope)
                 )
@@ -2482,6 +2486,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
         }
+    }
+    $scope.chartDrop = function(data, evt,parent){
+        console.log(data);
+        $scope.chartTree[data].parent = parent;
+        $scope.chartTreeAppend(0);
     }
     // creating second level and deeper levels by using laoded data
     $scope.creatingNode = function (x) {

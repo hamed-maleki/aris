@@ -285,7 +285,7 @@
         </div>
         <div class="col-sm-12 my-margin-top right-align" ng-if="chartTree.length != 0">
             <div class="chart-tree-view">
-                <div class="formal-chart">
+                <div class="formal-chart" ng-drop="true" ng-drop-success="chartDrop($data,$event,0)">
                     <div class='row' ng-class='userColor'>
                         <div class='col-sm-4 left-align'>
                             <i class='fa fa-close pointer'></i>
