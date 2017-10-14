@@ -429,7 +429,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // }
     //    note json loader
     $scope.note = [];
-    if(localStorage.note != undefined){
+    if (localStorage.note != undefined) {
         $scope.note = JSON.parse(localStorage.note);
     }
     var sliderTime;
@@ -1030,7 +1030,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             // }
             // else {
-            
+
             // }
         }
         if ($event.keyCode == 39) {
@@ -1104,7 +1104,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.paginationToShow(x);
         }
     }
-    $scope.tableSearch = function(search){
+    $scope.tableSearch = function (search) {
         console.log(search);
     }
     $scope.pageToGo = false;
@@ -1127,11 +1127,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.maxWindow = function () {
         $("#loadedPage").toggleClass('max-window');
-        if($("#loadedPage").hasClass('max-window')){
-            $("#min-window-right").css("z-index","-1");
+        if ($("#loadedPage").hasClass('max-window')) {
+            $("#min-window-right").css("z-index", "-1");
         }
-        else{
-            $("#min-window-right").css("z-index","0");
+        else {
+            $("#min-window-right").css("z-index", "0");
         }
     }
     $scope.minWindow = function () {
@@ -1442,7 +1442,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $scope.searchFormToggle = function(){
+    $scope.searchFormToggle = function () {
         $("#search-form").slideToggle();
         $("#search-chevron").toggleClass('fa-chevron-down');
         $("#search-chevron").toggleClass('fa-chevron-up');
@@ -1721,19 +1721,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.eventNumber = 0;
     $scope.events = [];
-    if(localStorage.event != undefined){
+    if (localStorage.event != undefined) {
         $scope.events = JSON.parse(localStorage.event);
     }
     var date = new Date();
-        var month = (date.getMonth() + 1);
-        var day = date.getDate();
-        var year = date.getFullYear();
-        var today = (year + '/' + month + '/' + day).toString();
-        for (var i = 0; i < $scope.events.length; i++) {
-            if ($scope.events[i].start == today) {
-                $scope.eventNumber += 1;
-            }
+    var month = (date.getMonth() + 1);
+    var day = date.getDate();
+    var year = date.getFullYear();
+    var today = (year + '/' + month + '/' + day).toString();
+    for (var i = 0; i < $scope.events.length; i++) {
+        if ($scope.events[i].start == today) {
+            $scope.eventNumber += 1;
         }
+    }
     // event of day declaring
     // $http({
     //     method: "GET",
@@ -2042,7 +2042,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     //     $("#fontRange").val($scope.tableFontSize);
     //     console.log($("#fontRange").val())
     // }
-    $scope.tablefontChange = function (size) { 
+    $scope.tablefontChange = function (size) {
         $("#fontRange").val($scope.tableFontSize);
         // $("tr").css("font-size",size+"px");
         $scope.tableFontSize = size;
@@ -2161,10 +2161,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     // fullfiling aside (calnedar and note and top link container)
     $scope.sidecontainer = function (x) {
         if (x == 1) {
-            if(localStorage.note != undefined){
+            if (localStorage.note != undefined) {
                 $scope.note = JSON.parse(localStorage.note);
             }
-            
+
             $http({
                 method: "GET",
                 url: "data/note.json",
@@ -2276,7 +2276,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // slideing next level of tree for first time it get data from sever and in next steps it just slide 
     $scope.nodeSlide = function (x) {
-        
+
         if ($("#tree" + x).hasClass("flag")) {
             $("#tree" + x).slideToggle();
         }
@@ -2291,30 +2291,30 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         } else {
             $("#treeIcon" + x).removeClass("fa-folder-open-o")
             $("#treeIcon" + x).addClass("fa-folder-o")
-            
+
         }
     }
     $scope.chartTree = [];
-    $scope.chartTreeMaker = function(item,person,parent){
+    $scope.chartTreeMaker = function (item, person, parent) {
         var id;
         var icon;
-        if(person == 0){
+        if (person == 0) {
             icon = "fa-ban";
-        }else if (person == 1){
+        } else if (person == 1) {
             icon = "fa-user";
         }
-        else{
+        else {
             icon = "fa-users";
         }
-        if($scope.chartTree.length != 0){
+        if ($scope.chartTree.length != 0) {
             id = $scope.chartTree.length * -1;
         }
-        else{
+        else {
             id = 0;
         }
         var itemToPush = {
             "name": item,
-            "person":person,
+            "person": person,
             "id": id,
             "parent": parent,
             "icon": icon
@@ -2328,101 +2328,101 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // else{
         //     
         // }
-        
+
     }
-    $scope.chartTreeUpdate = function(x, y,z){
-        $scope.chartTree[z].name = x;
-        if(y == 0){
+    $scope.chartTreeUpdate = function (x, y, z) {
+        if (x != undefined) {
+            $scope.chartTree[z].name = x;
+        }
+        if($scope.fatherToChange != 'nochange'){
+            $scope.chartTree[z].parent = $scope.fatherToChange;
+        }
+        
+        if (y == 0) {
             $scope.chartTree[z].icon = "fa-ban"
         }
-        else if(y == 1){
+        else if (y == 1) {
             $scope.chartTree[z].icon = "fa-user"
         }
         else {
             $scope.chartTree[z].icon = "fa-users"
         }
-        $scope.chartTreeAppend (0)
+        $scope.chartTreeAppend(0);
+        $scope.fatherChange = false;
+        $("#drag"+$scope.fatherToChange).removeClass("redNode");
     }
     $scope.edit = "edit";
     $scope.update = "update";
-    $scope.chartTreeAppend = function(x){
-        
+    $scope.chartTreeAppend = function (x) {
         $("#chart-tree-" + x).html("");
-        for(var i = 0;i < $scope.chartTree.length; i++){
-            if($scope.chartTree[i].parent == x){
-                $("#chart-tree-"+x).append(
+        for (var i = 0; i < $scope.chartTree.length; i++) {
+            if ($scope.chartTree[i].parent == x) {
+                $("#chart-tree-" + x).append(
                     $compile(
                         "<div class='chart-tree-view' >\
-                            <div class='formal-chart formal-chart-right-border' ng-drop='true' ng-drop-success='chartDrop($data,$event,0)'>\
-                                <div class='row' ng-class='userColor'  ng-drag-data='" +i+ "' ng-drag='true'>\
-                                    <div class='col-sm-12'>\
+                            <div class='formal-chart formal-chart-right-border' >\
+                                <div class='row'  ng-drop='true' ng-drop-success='chartDrop($data,$event,0)'>\
+                                    <div class='col-sm-12 drag' id='drag"+ $scope.chartTree[i].id + "' ng-click='selectedFather("+ $scope.chartTree[i].id + ")' ng-class='userColor' ng-drag-end='chartDrop($data,$event,0)' draggable='true' ng-drag-data='" + i + "' ng-drag='true'>\
                                         <div class='row'>\
                                             <div class='col-sm-4 left-align'>\
-                                                <i class='fa fa-close pointer' ng-click='chartDelete("+$scope.chartTree[i].id+")'></i>\
+                                                <i class='fa fa-close pointer' ng-click='chartDelete("+ $scope.chartTree[i].id + ")'></i>\
                                             </div>\
                                             <div class='col-sm-8 right-align'>\
-                                                <i class='fa fa-pencil pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.update+")'></i>\
-                                                <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+$scope.chartTree[i].id+","+$scope.edit+")'></i>\
+                                                <i class='fa fa-pencil pointer' ng-click='showingEdit("+ $scope.chartTree[i].id + "," + $scope.update + ")'></i>\
+                                                <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit("+ $scope.chartTree[i].id + "," + $scope.edit + ")'></i>\
                                             </div>\
                                             <div class='clearfix'></div>\
                                             <div class='col-sm-4 left-align'>\
-                                                <i class='fa "+$scope.chartTree[i].icon+"'></i>\
+                                                <i class='fa "+ $scope.chartTree[i].icon + "'></i>\
                                             </div>\
-                                            <div class='co-sm-8 center'   >\
+                                            <div class='co-sm-8 center'>\
                                                 <span class='pointer' data-toggle='collapse' data-target='#chart-tree-"+$scope.chartTree[i].id+"'>\
-                                                    "+ $scope.chartTree[i].name+"\
+                                                    "+ $scope.chartTree[i].name + "\
                                                 </span>\
                                             </div>\
                                         </div>\
                                     </div>\
+                                    <div class='clearfix'></div>\
                                 </div>\
-                                <div class='formal-chart-edit hide' id='chart-update-"+$scope.chartTree[i].id+"'>\
-                                <div class='row'>\
-                                    <div class='col-sm-12 left-align'>\
-                                        <i class='fa fa-close' ng-click=closeEdit("+$scope.chartTree[i].id+","+$scope.update+")></i>\
-                                    </div>\
-                                    <div class='col-sm-8  my-margin-top'>\
-                                        <select  style='height: 30px;width: 100% !important;font-size: 12px' ng-model='type'\
-                                            class='form-control my-form' name='kindDocument'>\
-                                            <option value=0  selected>ندارد</option>\
-                                            <option value=1 >تک نفر</option>\
-                                            <option value=2 >چند گانه</option>\
-                                        </select>\
-                                    </div>\
-                                    <div class='col-sm-4 left-align  my-margin-top' style='padding: 0'>\
-                                        <label>انتخاب سردسته :</label>\
-                                    </div>\
-                                    <div class='clearfix'></div>\
-                                    <div class='col-sm-8 my-margin-top'>\
-                                        <input type='text' ng-model='updateName' placeholder='"+$scope.chartTree[i].name+"' class='form-control' ng-model='itemName'>\
-                                    </div>\
-                                    <div class='col-sm-4 left-align my-margin-top' style='padding: 0'>\
-                                        <label>نام زیر دسته :</label>\
-                                    </div>\
-                                    <div class='clearfix'></div>\
-                                    <div class='col-sm-8  my-margin-top'>\
-                                        <select ng-model='updatePerson'  style='height: 30px;width: 100% !important;font-size: 12px' ng-model='type'\
-                                            class='form-control my-form' name='kindDocument'>\
+                                <div class='formal-chart-edit hide' id='chart-update-"+ $scope.chartTree[i].id + "'>\
+                                    <div class='row'>\
+                                        <div class='col-sm-12 left-align'>\
+                                            <i class='fa fa-close' ng-click=closeEdit("+ $scope.chartTree[i].id + "," + $scope.update + ")></i>\
+                                        </div>\
+                                        <div class='col-sm-12 center'>\
+                                            <button class='btn btn-danger' ng-click='chartTreeFather()'>تغییر سردسته</button>\
+                                        </div>\
+                                        <div class='clearfix'></div>\
+                                        <div class='col-sm-8 my-margin-top'>\
+                                            <input type='text' ng-model='updateName' placeholder='"+ $scope.chartTree[i].name + "' class='form-control' ng-model='itemName'>\
+                                        </div>\
+                                        <div class='col-sm-4 left-align my-margin-top' style='padding: 0'>\
+                                            <label>نام زیر دسته :</label>\
+                                        </div>\
+                                        <div class='clearfix'></div>\
+                                        <div class='col-sm-8  my-margin-top'>\
+                                            <select ng-model='updatePerson'  style='height: 30px;width: 100% !important;font-size: 12px' ng-model='type'\
+                                                class='form-control my-form' name='kindDocument'>\
                                                 <option value=0  selected>ندارد</option>\
                                                 <option value=1 >تک نفر</option>\
                                                 <option value=2 >چند گانه</option>\
                                             </select>\
-                                    </div>\
-                                    <div class='col-sm-4 left-align  my-margin-top' style='padding: 0'>\
-                                        <label>انتصاب فرد :</label>\
-                                    </div>\
-                                    <div class='clearfix'></div>\
-                                    <div class='col-sm-8 my-margin-top left-align'>\
-                                        <button class='btn btn-primary' ng-click='chartTreeUpdate(updateName,updatePerson, "+i+")'>\
-                                                ثبت تغییرات : \
-                                        </button>\
+                                        </div>\
+                                        <div class='col-sm-4 left-align  my-margin-top' style='padding: 0'>\
+                                            <label>انتصاب فرد :</label>\
+                                        </div>\
+                                        <div class='clearfix'></div>\
+                                        <div class='col-sm-8 my-margin-top left-align'>\
+                                            <button class='btn btn-primary' ng-click='chartTreeUpdate(updateName,updatePerson, "+ i + ")'>\
+                                                    ثبت تغییرات  \
+                                            </button>\
+                                        </div>\
                                     </div>\
                                 </div>\
-                            </div>\
-                                <div class='formal-chart-edit hide' id='chart-edit-"+$scope.chartTree[i].id+"'>\
+                                <div class='formal-chart-edit hide' id='chart-edit-"+ $scope.chartTree[i].id + "'>\
                                     <div class='row'>\
                                         <div class='col-sm-12 left-align'>\
-                                            <i class='fa fa-close' ng-click=closeEdit("+$scope.chartTree[i].id+","+$scope.edit+")></i>\
+                                            <i class='fa fa-close' ng-click=closeEdit("+ $scope.chartTree[i].id + "," + $scope.edit + ")></i>\
                                         </div>\
                                         <div class='clearfix'></div>\
                                         <div class='col-sm-8 my-margin-top'>\
@@ -2444,56 +2444,85 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                         </div>\
                                         <div class='clearfix'></div>\
                                         <div class='col-sm-8 left-align my-margin-top'>\
-                                            <button class='btn btn-primary' ng-click='chartTreeMaker(itemName,person,"+$scope.chartTree[i].id+")'>\
+                                            <button class='btn btn-primary' ng-click='chartTreeMaker(itemName,person,"+ $scope.chartTree[i].id + ")'>\
                                                     ایجاد زیر دسته\
                                                 </button>\
                                         </div>\
                                     </div>\
                                 </div>\
                             </div>\
-                            <div class='chart-tree-border collapse in' id='chart-tree-"+$scope.chartTree[i].id+"' ></div>\
+                            <div class='chart-tree-border collapse in' id='chart-tree-"+ $scope.chartTree[i].id + "'></div>\
                         </div>"
                     )($scope)
                 )
-                for(var j = 0; j< $scope.chartTree.length;j++){
-                    if($scope.chartTree[j].parent == $scope.chartTree[i].id){
+                for (var j = 0; j < $scope.chartTree.length; j++) {
+                    if ($scope.chartTree[j].parent == $scope.chartTree[i].id) {
                         $scope.chartTreeAppend($scope.chartTree[i].id);
                     }
                 }
             }
         }
     }
-    $scope.showingEdit = function(x,y){
-        $(".formal-chart-"+y).addClass("hide");
-        $("#chart-"+y+"-"+x).removeClass("hide");
+    $scope.fatherChange = false;
+    $scope.chartTreeFather = function () {
+        $scope.fatherChange = true;
     }
-    $scope.closeEdit = function(x,y){
-        $("#chart-"+y+"-"+x).addClass("hide");
+    $scope.selectedFather = function (x) {
+        var condition = false;
+        if ($scope.fatherChange) {
+            if ($("#drag" + x).hasClass("redNode")) {
+                condition = true;
+                $scope.fatherToChange = 'nochange';
+            }
+            else{
+                $scope.fatherToChange = x;
+            }
+
+            if (condition == true) {
+                $("#drag" + x).removeClass("redNode");
+            }
+            else {
+                $(".drag").removeClass("redNode");
+                $("#drag"+x).addClass("redNode");
+            }
+            console.log($scope.fatherToChange);
+        }
+
     }
-    $scope.chartDelete = function(x){
+    $scope.showingEdit = function (x, y) {
+        $(".formal-chart-" + y).addClass("hide");
+        $("#chart-" + y + "-" + x).removeClass("hide");
+    }
+    $scope.closeEdit = function (x, y) {
+        $("#chart-" + y + "-" + x).addClass("hide");
+    }
+    $scope.chartDelete = function (x) {
         var id;
         var child = 0;
-        for(var j = 0; j < $scope.chartTree.length; j ++){
-            if($scope.chartTree[j].parent == x){
-                child= child + 1;
+        for (var j = 0; j < $scope.chartTree.length; j++) {
+            if ($scope.chartTree[j].parent == x) {
+                child = child + 1;
             }
         }
         console.log(child)
-        if(child > 0){
+        if (child > 0) {
             $scope.error[0] = "شما نمیتوانید سرشاخه را حذف کنید";
             $("#error").modal();
         }
-        else{
-            for(var i = 0; i< $scope.chartTree.length;i++){
-                if($scope.chartTree[i].id == x){
+        else {
+            for (var i = 0; i < $scope.chartTree.length; i++) {
+                if ($scope.chartTree[i].id == x) {
                     id = $scope.chartTree[i].parent
-                    $scope.chartTree.splice(i,1);      
+                    $scope.chartTree.splice(i, 1);
                     $scope.chartTreeAppend(id);
                 }
             }
         }
     }
-    $scope.chartDrop = function(data, evt,parent){
+    $scope.test = function (x) {
+        // console.log(x);
+    }
+    $scope.chartDrop = function (data, evt, parent) {
         console.log(data);
         $scope.chartTree[data].parent = parent;
         $scope.chartTreeAppend(0);
@@ -2503,9 +2532,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#tree" + x).html("")
         for (var i = 0; i < $scope.tree.length; i++) {
             if ($scope.tree[i].parent == x) {
-                if($scope.tree[i].leaf == false){
+                if ($scope.tree[i].leaf == false) {
                     // $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' ng-drag-data='"+$scope.tree[i].id+"' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' ng-click='selectingTree(" + $scope.tree[i].id + ")'>" + $scope.tree[i].name + "</span><input type='checkbox' style='display:none'><i class='fa fa-angle-down pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div><div class='clearfix'></div>")($scope))
-                $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' style='margin-right:0px' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span><i style='margin-left:-12px' class='fa fa-folder-o pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div>")($scope))
+                    $("#tree" + x).append($compile("<div class='tree-view' ><span ng-drag='true' style='margin-right:0px' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span><i style='margin-left:-12px' class='fa fa-folder-o pointer' id='treeIcon" + $scope.tree[i].id + "' ng-click='nodeSlide(" + $scope.tree[i].id + ")'></i><div id='tree" + $scope.tree[i].id + "'></div></div>")($scope))
                 }
                 else {
                     $("#tree" + x).append($compile("<div class='tree-view1' ><span ng-drag='true' ng-drag-data='" + $scope.tree[i].id + "' ng-drag-success='mydrag($data,$event);' class='tree-span fontchange' id='treeRow" + $scope.tree[i].id + "' style='cursor:grab'>" + $scope.tree[i].name + "</span></div>")($scope))

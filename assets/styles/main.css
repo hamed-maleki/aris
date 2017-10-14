@@ -769,7 +769,7 @@ nav a:hover {
 }
 
 .red {
-    color: red;
+    color: red ;
 }
 
 .green {
@@ -893,7 +893,7 @@ nav a:hover {
 .max-window {
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100vh !important;
     top: -15px;
     right: 0;
 }
@@ -2259,9 +2259,8 @@ tfoot tr td {
 }
 
 .redNode {
-    background-color: #d62d20;
+    background-color: #d62d20 !important;
     color: white;
-    border-radius: 5px;
 }
 
 .editingTree {
@@ -2504,6 +2503,7 @@ tfoot tr td {
 }
 
 .searchResult {
+    display: none;
     position: absolute;
     color: #037BC0;
     right: -14px;
