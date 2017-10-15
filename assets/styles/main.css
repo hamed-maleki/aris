@@ -769,11 +769,11 @@ nav a:hover {
 }
 
 .red {
-    color: red ;
+    color: red !important;
 }
 
 .green {
-    color: green;
+    color: green !important;
 }
 
 .color-select {
@@ -817,7 +817,14 @@ nav a:hover {
     padding-right: 20px;
     position: relative;
     margin-top: 10px;
+    width: 100%;
 }
+/* .chart-tree-border {
+    position: relative;
+    top: 0px;
+    right: 20px;
+    width: 100%;
+} */
 .chart-tree-view .chart-tree-border::before {
     content: '';
     display: block;
@@ -2655,7 +2662,15 @@ body {
     position: relative;
     z-index: 3;
 }
+@media screen and (max-width: 1440px){
+    .system-li, .system-li ul li{
+        font-size: 15px !important;
+    }
+}
 @media screen and (max-width: 1366px) and (min-width: 1360px){
+    .system-li, .system-li ul li{
+        font-size: 14px !important;
+    }
     .perssonel-name {
         font-size: 14px;
     }
@@ -2717,6 +2732,9 @@ body {
     }
 }
 @media screen and (max-width: 1280px){
+    .system-li, .system-li ul li {
+        font-size: 12px !important;
+    }
     .min-window {
         height: 81vh;
     }

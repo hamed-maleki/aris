@@ -9,7 +9,7 @@
     </div>
     <div class="col-sm-2 pointer" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
         جستجوی پیشرفته
-        <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px" ></i>
+        <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px"></i>
     </div>
     <div class="clearfix"></div>
     <div class="col-sm-12 collapse" id="search-form">
@@ -93,13 +93,17 @@
                         <div class="col-sm-8">
                             <div class="radio" tabindex="37" style="margin: 0">
                                 <label>
-                                    <input  type="radio"  name="searchGender"  value="1" >
-                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                    <input type="radio" name="searchGender" value="1">
+                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white">
+                                        <i class="cr-icon fa fa-circle"></i>
+                                    </span>
                                     <span>زن</span>
                                 </label>
                                 <label>
-                                    <input  type="radio"  name="searchGender"  value="0" checked>
-                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                    <input type="radio" name="searchGender" value="0" checked>
+                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white">
+                                        <i class="cr-icon fa fa-circle"></i>
+                                    </span>
                                     <span>مرد</span>
                                 </label>
                             </div>
@@ -124,8 +128,8 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <select tabindex="40" style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form" name="kindDocument">
-                                <option value="true"  selected>فعال</option>
-                                <option value="false" >غیرفعال</option>
+                                <option value="true" selected>فعال</option>
+                                <option value="false">غیرفعال</option>
                             </select>
                         </div>
                         <div class="col-sm-4 left-align">
@@ -147,7 +151,7 @@
                 <div class="col-sm-4 my-margin-top">
                     <div class="row">
                         <div class="col-sm-8 left-align">
-                            <button class="btn btn-primary" >جستجو</button>
+                            <button class="btn btn-primary">جستجو</button>
                         </div>
                     </div>
                 </div>
@@ -155,7 +159,7 @@
         </form>
     </div>
     <div class="col-sm-12 my-margin-top">
-        <div class="table-responsive my-margin-top printable my-margin-top">
+        <div class="table-responsive printable my-margin-top">
             <table class="table table-hover table-bordered right-align my-margin-top">
                 <thead>
                     <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
@@ -175,7 +179,7 @@
                             <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
                             <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
-                            <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i>                            نام کاربری
+                            <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> نام کاربری
                         </th>
                         <th style="width: 300px;" id="thName">نام </th>
                         <th style="width: 300px">نام خانوادگی</th>
@@ -255,26 +259,44 @@
                     </div> -->
                     <div class="col-sm-12">
                         <ul class="pagination" style="margin: 0">
-                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه"
-                                    ng-click="finalPagination(1,false,'/Aris/api/user' )"><i class="fa fa-angle-double-right" style="margin: 0 auto"></i></a></li>
-                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل"
-                                    ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right" style="margin: 0 auto"></i></a></li>
                             <li>
-                                <a href="#" style="color: black">
-                                    <input  type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}"> 
+                                <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه"
+                                    ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                                    <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
                                 </a>
                             </li>
-                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد"
-                                    ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )"><i class="fa fa-angle-left" style="margin: 0 auto"></i></a></li>
-                            <li><a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه"
-                                    ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )"><i class="fa fa-angle-double-left" style="margin: 0 auto"></i></a></li>
+                            <li>
+                                <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل"
+                                    ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                                    <i class="fa fa-angle-right" style="margin: 0 auto"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" style="color: black">
+                                    <input type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد"
+                                    ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                                    <i class="fa fa-angle-left" style="margin: 0 auto"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه"
+                                    ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                                    <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-sm-3 right-align">
-                <i class="fa fa-search pointer table-accessory-tools" style="margin-right: 0" data-toggle="modal" data-target="#search-user"
-                    data-toggle="tooltip" data-placement="left" title="جستجو پیشرفته"></i>
+                <span data-toggle="tooltip" data-placement="left" title="جستجو پیشرفته">
+                    <i class="fa fa-search pointer table-accessory-tools" style="margin-right: 0"  data-toggle="modal" data-target="#search-user"></i>
+                </span>
+
                 <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction()" data-toggle="tooltip"
                     data-placement="left" title="تنظیمات جدول"></i>
 
@@ -288,10 +310,10 @@
                         </div>
                         <div class="col-sm-12 right-align">
                             <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
-                                    <option value="5"> 5</option>
-                                    <option value="10"> 10</option>
-                                    <option value="15"> 15</option>
-                                </select>
+                                <option value="5"> 5</option>
+                                <option value="10"> 10</option>
+                                <option value="15"> 15</option>
+                            </select>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-sm-12 my-margin-top">
@@ -307,8 +329,8 @@
                                     18
                                 </div>
                                 <form>
-                                    <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr" ng-model="size"
-                                        ng-change="tablefontChange(size)" />
+                                    <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
+                                        ng-model="size" ng-change="tablefontChange(size)" />
                                 </form>
                             </div>
                         </div>
@@ -366,13 +388,17 @@
                             <div class="col-sm-8">
                                 <div class="radio " style="margin: 0">
                                     <label>
-                                        <input  type="radio"  name="modalGender"  value="1" required>
-                                        <span class="cr"  style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                        <input type="radio" name="modalGender" value="1" required>
+                                        <span class="cr" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                            <i class="cr-icon fa fa-circle"></i>
+                                        </span>
                                         <span>زن</span>
                                     </label>
                                     <label>
-                                        <input  type="radio"  name="modalGender"  value="0" required checked>
-                                        <span class="cr" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                        <input type="radio" name="modalGender" value="0" required checked>
+                                        <span class="cr" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                            <i class="cr-icon fa fa-circle"></i>
+                                        </span>
                                         <span>مرد</span>
                                     </label>
                                 </div>
@@ -417,7 +443,7 @@
                     <div class="col-sm-6 my-margin-top">
                         <div class="row">
                             <div class="col-sm-8">
-                                <input type="tel" class="form-control"/>
+                                <input type="tel" class="form-control" />
                             </div>
                             <div class="col-sm-4 left-align">
                                 <label>شماره موبایل :</label>
@@ -427,7 +453,7 @@
                     <div class="col-sm-6 my-margin-top">
                         <div class="row">
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"/>
+                                <input type="text" class="form-control" />
                             </div>
                             <div class="col-sm-4 left-align">
                                 <label>شماره پرسنلی :</label>
@@ -439,8 +465,8 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <select style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form">
-                                    <option value="true"  selected>فعال</option>
-                                    <option value="false" >غیرفعال</option>
+                                    <option value="true" selected>فعال</option>
+                                    <option value="false">غیرفعال</option>
                                 </select>
                             </div>
                             <div class="col-sm-4 left-align">
@@ -529,13 +555,17 @@
                                         <div class="col-sm-8 my-margin-top">
                                             <div class="radio " style="margin: 0">
                                                 <label>
-                                                    <input  type="radio"  name="registerGender" tabindex="24" value="1" ng-model="register.gender" required>
-                                                    <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                                    <input type="radio" name="registerGender" tabindex="24" value="1" ng-model="register.gender" required>
+                                                    <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                        <i class="cr-icon fa fa-circle"></i>
+                                                    </span>
                                                     <span>زن</span>
                                                 </label>
                                                 <label>
-                                                    <input  type="radio"  name="registerGender" tabindex="24" value="0" ng-model="register.gender" required checked>
-                                                    <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                                    <input type="radio" name="registerGender" tabindex="24" value="0" ng-model="register.gender" required checked>
+                                                    <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                        <i class="cr-icon fa fa-circle"></i>
+                                                    </span>
                                                     <span>مرد</span>
                                                 </label>
                                             </div>
@@ -630,8 +660,8 @@
                                         <div class="col-sm-8">
                                             <select style="height: 30px;width: 100% !important;font-size: 12px" ng-model="register.isActive" tabindex="31" class="form-control my-form"
                                                 name="kindDocument">
-                                                <option value="true"  selected>فعال</option>
-                                                <option value="false" >غیرفعال</option>
+                                                <option value="true" selected>فعال</option>
+                                                <option value="false">غیرفعال</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-4 label-container">
@@ -670,8 +700,8 @@
                                 <div class="clearfix"></div>
                                 <div class="col-sm-12 my-margin-top">
                                     <button class="btn btn-primary" type="submit" tabindex="34" style="float: left;" value="1" id="button1" ng-click="register.close = 1">ثبت و خروج</button>
-                                    <button class="btn btn-primary" type="submit" tabindex="35" style="float: left; margin-left: 15px;" id="button2"
-                                        ng-click="register.close = 2" value="2">ثبت و جدید</button>
+                                    <button class="btn btn-primary" type="submit" tabindex="35" style="float: left; margin-left: 15px;" id="button2" ng-click="register.close = 2"
+                                        value="2">ثبت و جدید</button>
                                 </div>
                             </div>
                         </div>
@@ -726,13 +756,17 @@
                                 <div class="col-sm-8 my-margin-top">
                                     <div class="radio " style="margin: 0">
                                         <label>
-                                            <input  type="radio"  name="gender" ng-value="1" ng-model="$parent.editor.gender" required>
-                                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                            <input type="radio" name="gender" ng-value="1" ng-model="$parent.editor.gender" required>
+                                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                <i class="cr-icon fa fa-circle"></i>
+                                            </span>
                                             <span>زن</span>
                                         </label>
                                         <label>
-                                            <input  type="radio"  name="gender" ng-value="0" ng-model="$parent.editor.gender" required checked>
-                                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white"><i class="cr-icon fa fa-circle"></i></span>
+                                            <input type="radio" name="gender" ng-value="0" ng-model="$parent.editor.gender" required checked>
+                                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                <i class="cr-icon fa fa-circle"></i>
+                                            </span>
                                             <span>مرد</span>
                                         </label>
                                     </div>
@@ -862,7 +896,7 @@
         </div>
     </div>
 </div>
-<script src="assets/scripts/dargging.js"></script>
+<!-- <script src="assets/scripts/dargging.js"></script> -->
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();

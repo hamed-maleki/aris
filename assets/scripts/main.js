@@ -1080,6 +1080,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 headers: authHeaders
             }).then(function (response) {
                 $scope.limitedEdition = response.data;
+                console.log($scope.limitedEdition);
                 currentpage = x;
                 if (y != false) {
                     if (y == 1) {
@@ -2331,10 +2332,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
     }
     $scope.chartTreeUpdate = function (x, y, z) {
+        console.log(x);
+        console.log(y);
+        console.log($scope.fatherToChange);
         if (x != undefined) {
             $scope.chartTree[z].name = x;
         }
-        if($scope.fatherToChange != 'nochange'){
+        if($scope.fatherToChange != 'nochange' && $scope.fatherToChange != undefined){
             $scope.chartTree[z].parent = $scope.fatherToChange;
         }
         
@@ -2350,9 +2354,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.chartTreeAppend(0);
         $scope.fatherChange = false;
         $("#drag"+$scope.fatherToChange).removeClass("redNode");
+        $scope.fatherToChange = 'nochange';
+        $("input").val("");
     }
     $scope.edit = "edit";
     $scope.update = "update";
+    $scope.testData;
+    $scope.test1 = function(x){
+        $scope.testData = x;
+    }
     $scope.chartTreeAppend = function (x) {
         $("#chart-tree-" + x).html("");
         for (var i = 0; i < $scope.chartTree.length; i++) {
@@ -2362,7 +2372,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         "<div class='chart-tree-view' >\
                             <div class='formal-chart formal-chart-right-border' >\
                                 <div class='row'  ng-drop='true' ng-drop-success='chartDrop($data,$event,0)'>\
-                                    <div class='col-sm-12 drag' id='drag"+ $scope.chartTree[i].id + "' ng-click='selectedFather("+ $scope.chartTree[i].id + ")' ng-class='userColor' ng-drag-end='chartDrop($data,$event,0)' draggable='true' ng-drag-data='" + i + "' ng-drag='true'>\
+                                    <div class='col-sm-12 drag' id='drag"+ $scope.chartTree[i].id + "' ng-mouseenter='test1("+i+")' ng-click='selectedFather("+ $scope.chartTree[i].id + ")' ng-class='userColor' ng-drag-end='test()' draggable='true' ng-drag-data='" + i+ "' ng-drag='true'>\
                                         <div class='row'>\
                                             <div class='col-sm-4 left-align'>\
                                                 <i class='fa fa-close pointer' ng-click='chartDelete("+ $scope.chartTree[i].id + ")'></i>\
@@ -2451,6 +2461,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                     </div>\
                                 </div>\
                             </div>\
+                            <div class='clearfix'></div>\
                             <div class='chart-tree-border collapse in' id='chart-tree-"+ $scope.chartTree[i].id + "'></div>\
                         </div>"
                     )($scope)
@@ -2495,6 +2506,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.closeEdit = function (x, y) {
         $("#chart-" + y + "-" + x).addClass("hide");
+        $("input").val("");
     }
     $scope.chartDelete = function (x) {
         var id;
@@ -2519,12 +2531,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         }
     }
-    $scope.test = function (x) {
-        // console.log(x);
+    $scope.test = function () {
+        console.log($scope.testData);
     }
     $scope.chartDrop = function (data, evt, parent) {
+        console.log("data");
         console.log(data);
-        $scope.chartTree[data].parent = parent;
+        $scope.chartTree[$scope.testData].parent = parent;
         $scope.chartTreeAppend(0);
     }
     // creating second level and deeper levels by using laoded data
