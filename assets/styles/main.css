@@ -1402,6 +1402,16 @@ nav a:hover {
     animation: aris 0.25s;
     background-color: rgba(0,0,0,1);
 }
+.modal-table-setting {
+    width: 185%;
+    min-height: 300px;
+    position: absolute;
+    top: 0;
+    right: 85%;
+    z-index: 3;
+    animation: aris 0.25s;
+    background-color: rgba(0,0,0,1);
+}
 .table-setting label{
     color: white;
 }
@@ -1422,6 +1432,15 @@ nav a:hover {
     border-bottom: 10px solid transparent;
     position: absolute;
     bottom: 20px;
+    right: -10px;
+}
+.modal-table-setting::before {
+    content: '';
+    border-top: 10px solid transparent;
+    border-left: 10px solid rgba(0,0,0,1);
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    top: 5px;
     right: -10px;
 }
 select option {
@@ -1485,10 +1504,41 @@ tfoot tr td {
     color: red;
     cursor: pointer;
 }
-
+.table-moving-right {
+    right: -1300px;
+    position: relative;
+    animation: table-move-right 1s forwards;
+    animation-direction: alternate;
+}
+.table-moving-right1 {
+    right: -1300px;
+    position: relative;
+    animation: table-move-right 1s forwards;
+    animation-direction: reverse;
+}
+.table-moving-left {
+    left: -1300px;
+    position: relative;
+    animation: table-move-left 1s forwards;
+    animation-direction: alternate-reverse;
+}
+.table-moving-left1 {
+    left: -1300px;
+    position: relative;
+    animation: table-move-left 1s forwards;
+    animation-direction: alternate;
+}
+#modal-second-table {
+    position: absolute;
+    top:0;
+    width: 100%;
+    margin-top: 20px;
+    display: none;
+    margin-right: -45px;
+}
 /*end of modals*/
 /*animations*/
-@keyframes table-move{
+@keyframes table-move-left{
     form{
         left: -1300px;
     }
@@ -1497,12 +1547,29 @@ tfoot tr td {
     }
 }
 
-@-webkit-keyframes table-move{
+@-webkit-keyframes table-move-left{
     form{
         left: -1300px;
     }
     to{
         left: 0;
+    }
+}
+@keyframes table-move-right{
+    form{
+        right: -1300px;
+    }
+    to{
+        right: 20px;
+    }
+}
+
+@-webkit-keyframes table-move-right{
+    form{
+        right: -1300px;
+    }
+    to{
+        right: 20px;
     }
 }
 
@@ -1808,7 +1875,12 @@ tfoot tr td {
 .border-right {
     border-right: 1px dotted white;
 }
-
+.table-special-icon {
+    color: gray;
+}
+.table-special-icon:hover {
+    color: black;
+}
 .border-left {
     border-left: 1px dotted white;
     padding: 0 28px;

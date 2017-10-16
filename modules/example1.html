@@ -439,19 +439,16 @@
                             <th>
                                 <input type="text" class="form-control" ng-model="search.name" />
                             </th>
-                            <th>
-                                <input type="text" class="form-control" ng-model="search.familyName" />
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-mouseenter="hovering = true" ng-mouseleave="hovering = false">
                             <td>sdfsd</td>
                             <td>hczxjcz
-                                <i class="fa fa-user-circle-o pointer" onmouseenter="$(this).tooltip('show')" data-toggle="modal" data-target="#tableperiod"
-                                    data-toggle="tooltip" data-placement="left" title="تایید" ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0 5px 0 30px;float: left"></i>
-                                <i class="fa fa-history pointer" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right" title="عدم تایید"
-                                    ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0 5px;float: left"></i>
+                                <i class="fa fa-user-circle-o pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="modal" data-target="#tableperiod"
+                                    data-toggle="tooltip" data-placement="top" title="نوع پست بازه زمانی" style="font-size: 16px;padding: 0;margin: 0 5px 0 30px;float: left"></i>
+                                <i class="fa fa-history pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="top" title="بازه زمانی"
+                                    style="font-size: 16px;padding: 0;margin: 0 5px;float: left"></i>
                             </td>
                             <!-- <td class="center">
                                 <i class="fa fa-user-circle-o pointer" data-toggle="tooltip" data-placement="right" title="عنوان" style="font-size: 18px;"></i>
@@ -477,10 +474,10 @@
                         <tr>
                             <td>sdfsd</td>
                             <td>hczxjcz
-                                <i class="fa fa-tags green pointer" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right" title="تایید"
-                                    ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
-                                <i class="fa fa-tags red pointer" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="left" title="عدم تایید"
-                                    ng-if="hovering" style="font-size: 16px;padding: 0;margin: 0"></i>
+                                <i class="fa fa-tags green pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right" title="نوع پست برای بازه زمانی"
+                                    style="font-size: 16px;padding: 0;margin: 0"></i>
+                                <i class="fa fa-tags red pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="left" title="عدم تایید"
+                                    style="font-size: 16px;padding: 0;margin: 0"></i>
                             </td>
                             <!-- <td class="center">
                                 <i class="fa fa-user-circle-o pointer" style="font-size: 18px;"></i>
@@ -531,12 +528,12 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction()" data-toggle="tooltip"
+                    <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction(0)" data-toggle="tooltip"
                         data-placement="left" title="تنظیمات جدول"></i>
                     <div class="table-setting container" ng-if="tableSetting">
                         <div class="row">
                             <div class="col-sm-12 right-align">
-                                <i class="fa fa-close" ng-click="tableSettingFunction()"></i>
+                                <i class="fa fa-close" ng-click="tableSettingFunction(0)"></i>
                             </div>
                             <div class="col-sm-12 right-align">
                                 <label>تعداد ردیف : </label>
@@ -591,128 +588,179 @@
             <div id="tableperiod" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-body container">
-                            <div class="col-sm-12">
-                                <div class="table-responsive printable my-margin-top">
-                                    <table class="table table-hover table-bordered right-align my-margin-top">
-                                        <thead>
-                                            <tr ng-class="userColor">
-                                                <th>
-                                                    عنوان
-                                                </th>
-                                                <th>
-                                                    کالا
-                                                </th>
-                                                <th>
-                                                    میزان سهمیه
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>sjdfs</td>
-                                                <td>asdgasd</td>
-                                                <td>askdas</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="modal-body container" style="overflow-x: hidden;">
+                            <div id="tableMove">
+                                <div class="col-sm-12">
+                                    <p class="center">بازه زمانی فلان</p>
+                                    <div class="table-responsive printable my-margin-top">
+                                        <table class="table table-hover table-bordered right-align my-margin-top">
+                                            <thead>
+                                                <tr ng-class="userColor">
+                                                    <th>
+                                                        پست
+                                                    </th>
+                                                    <th>
+                                                        کالا
+                                                    </th>
+                                                    <th>
+                                                        میزان سهمیه
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>sjdfs</td>
+                                                    <td>asdgasd</td>
+                                                    <td>askdas</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-2 center">
+                                <div class="row">
+                                    <div class="col-sm-2 center">
 
-                                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
-                                        data-placement="right" title="بازه جدید" onmouseenter="$(this).tooltip('show')" data-step="5"
-                                        data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right' style="margin-left: 6px"></i>
-                                </div>
-                                <div class="col-sm-8 center">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <ul class="pagination" style="margin: 0">
-                                                <li>
-                                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه" ng-click="finalPagination(1,false,'/Aris/api/user' )">
-                                                        <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
-                                                        <i class="fa fa-angle-right" style="margin: 0 auto"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" style="color: black">
-                                                        <input type="text" class="form-control paginationOrder" style="font-size: 13px;height: 24px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
-                                                        <i class="fa fa-angle-left" style="margin: 0 auto"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه" ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
-                                                        <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                        <i class="fa fa-plus pointer table-accessory-tools" data-toggle="tooltip" data-placement="top" title="بازه جدید" onmouseenter="$(this).tooltip('show')"
+                                            data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right' style="margin-left: 6px"
+                                            ng-click="modalPlus()"></i>
+                                    </div>
+                                    <div class="col-sm-8 center">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <ul class="pagination" style="margin: 0">
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه" ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-right" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black">
+                                                            <input type="text" class="form-control paginationOrder" style="font-size: 13px;height: 24px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-left" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه" ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 center">
+                                        <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 6px" ng-click="tableSettingFunction(1)" data-toggle="tooltip"
+                                            data-placement="top" title="تنظیمات جدول"></i>
+                                        <div class="table-setting modal-table-setting container" ng-if="tableSetting1">
+                                            <div class="row">
+                                                <div class="col-sm-12 right-align">
+                                                    <i class="fa fa-close" ng-click="tableSettingFunction(1)"></i>
+                                                </div>
+                                                <div class="col-sm-12 right-align">
+                                                    <label>تعداد ردیف : </label>
+                                                </div>
+                                                <div class="col-sm-12 right-align">
+                                                    <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                                                        <option value="5"> 5</option>
+                                                        <option value="10"> 10</option>
+                                                        <option value="15"> 15</option>
+                                                    </select>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-12 my-margin-top">
+                                                    <label>اندازه فونت : </label>
+                                                    <div class="row right-align">
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                                            14
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                                            16
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                                            18
+                                                        </div>
+                                                        <form>
+                                                            <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
+                                                                ng-model="size" ng-change="tablefontChange(size)" />
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <hr style="width: 100%;border-top-color: #BFBFBF">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label>export :</label>
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                                            <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                                            <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                                            <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-2 center">
-                                    <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 6px" ng-click="tableSettingFunction()" data-toggle="tooltip"
-                                        data-placement="left" title="تنظیمات جدول"></i>
-                                    <div class="table-setting container" ng-if="tableSetting">
-                                        <div class="row">
-                                            <div class="col-sm-12 right-align">
-                                                <i class="fa fa-close" ng-click="tableSettingFunction()"></i>
+                            </div>
+                            <div id="modal-second-table">
+                                <div class="row">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary center" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="chartTreeMaker(firstChartItem,0,null)">
+                                                    <i style="margin: 0 5px;" class="fa fa-ellipsis-h"></i>
+                                                </button>
                                             </div>
-                                            <div class="col-sm-12 right-align">
-                                                <label>تعداد ردیف : </label>
-                                            </div>
-                                            <div class="col-sm-12 right-align">
-                                                <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
-                                                    <option value="5"> 5</option>
-                                                    <option value="10"> 10</option>
-                                                    <option value="15"> 15</option>
-                                                </select>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="col-sm-12 my-margin-top">
-                                                <label>اندازه فونت : </label>
-                                                <div class="row right-align">
-                                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
-                                                        14
-                                                    </div>
-                                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
-                                                        16
-                                                    </div>
-                                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
-                                                        18
-                                                    </div>
-                                                    <form>
-                                                        <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
-                                                            ng-model="size" ng-change="tablefontChange(size)" />
-                                                    </form>
+                                            <input class="form-control right-align login-input" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align">
+                                        <label>پست :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
+                                            <div class="input-group">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-primary center" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="chartTreeMaker(firstChartItem,0,null)">
+                                                        <i style="margin: 0 5px;" class="fa fa-ellipsis-h"></i>
+                                                    </button>
                                                 </div>
-                                            </div>
-                                            <hr style="width: 100%;border-top-color: #BFBFBF">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <label>export :</label>
-                                                    </div>
-                                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                                        <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
-                                                    </div>
-                                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                                        <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
-                                                    </div>
-                                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
-                                                        <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
-                                                    </div>
-                                                </div>
+                                                <input class="form-control right-align login-input" />
                                             </div>
                                         </div>
+                                    <div class="col-sm-4 left-align my-margin-top">
+                                        <label>کالا :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6 my-margin-top">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-sm-4 left-align my-margin-top">
+                                        <label>میزان سهمیه :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2 my-margin-top"></div>
+                                    <div class="col-sm-6 my-margin-top left-align">
+                                        <button class="btn btn-primary" ng-click="modalPlus()">
+                                            ثبت 
+                                        </button>
                                     </div>
                                 </div>
                             </div>

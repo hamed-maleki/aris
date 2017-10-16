@@ -2028,15 +2028,52 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.tableFontSize = 14;
     $scope.tableSetting = false;
-    $scope.tableSettingFunction = function () {
-        if ($scope.tableSetting == false) {
-            $scope.tableSetting = true;
-
+    $scope.tableSetting1 = false;
+    $scope.tableSettingFunction = function (x) {
+        if(x == 0){
+            if ($scope.tableSetting == false) {
+                $scope.tableSetting = true;
+    
+            }
+            else {
+                $scope.tableSetting = false;
+            }
         }
-        else {
-            $scope.tableSetting = false;
+        else if (x == 1){
+            if ($scope.tableSetting1 == false) {
+                $scope.tableSetting1 = true;
+    
+            }
+            else {
+                $scope.tableSetting1 = false;
+            }
         }
 
+    }
+    $scope.secondTable = false;
+    $scope.modalPlus = function(){
+        if($scope.secondTable == false){
+            $("#tableMove").addClass("table-moving-left");
+            $("#modal-second-table").css("display","block");
+            $("#modal-second-table").addClass("table-moving-right");
+            $scope.secondTable = true;
+            setTimeout(function(){
+                $("#tableMove").css("display","none");
+                $("#tableMove").removeClass("table-moving-left")
+                $("#modal-second-table").removeClass("table-moving-right")
+            },1000)
+        }
+        else{
+            $("#modal-second-table").addClass("table-moving-right1");
+            $("#tableMove").addClass("table-moving-left1");
+            $("#tableMove").css("display","block");
+            $scope.secondTable = false;
+            setTimeout(function(){
+                $("#modal-second-table").removeClass("table-moving-right1");
+                $("#modal-second-table").css("display","none");
+                $("#tableMove").removeClass("table-moving-left1");
+            },1000)
+        } 
     }
     // $scope.setFont = function(){
     //     console.log($scope.tableFontSize)
