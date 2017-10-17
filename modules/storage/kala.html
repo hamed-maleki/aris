@@ -1,0 +1,176 @@
+<div class="table-responsive printable my-margin-top">
+    <table class="table table-hover table-bordered right-align my-margin-top">
+        <thead>
+            <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
+                <th>
+                    <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
+                    <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
+                    <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
+                    <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> کد کالا
+                </th>
+                <th>
+                    نام کالا
+                </th>
+                <th>
+                    گروه کالا
+                </th>
+                <th>
+                    توضیحات
+                </th>
+            </tr>
+            <tr id="search-part" class="collapse" ng-class="userSubColor">
+                <th>
+                    <input type="text" class="form-control" ng-model="search.userName" />
+                </th>
+                <th>
+                    <input type="text" class="form-control" ng-model="search.name" />
+                </th>
+                <th>
+                    <input type="text" class="form-control" ng-model="search.name" />
+                </th>
+                <th>
+                    <input type="text" class="form-control" ng-model="search.name" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10001</td>
+                <td>خودکار</td>
+                <td>نوشت افزار</td>
+                <td>توضیحات</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-sm-3" style="text-align: left">
+        <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
+            data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+            data-position='right' ng-if="!modalContainer"></i>
+            <i class="fa fa-plus pointer table-accessory-tools"  data-toggle="tooltip"
+            data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+            data-position='right' ng-if="modalContainer" ng-click="modalPlus('modal-third-table','modal-forth-table',false)"></i>
+    </div>
+    <div class="col-sm-6 center">
+        <div class="row">
+            <!-- <div class="col-sm-12">
+                    <ul class="pagination" style="margin: 0">
+                        <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
+                        <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
+                        <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'/Aris/api/user')">{{x}}</a></li>
+                        <li>
+                            <a id="pageLink" href="#" style="color:black;padding: 0;height: 40px;min-width: 39px">
+                                <span id="pageSpan" ng-click="findPage(0)">...</span>
+                                <div class="input-group" ng-if="pageToGo" style="width: 80%;margin: 0 auto;direction: ltr;">
+                                    <div class="input-group-btn" style="position: absolute;top: 2px">
+                                        <button class="btn btn-default log-btn center" style="margin-top:0;background-color: #CF4133" ng-click="findPage(myPageNumber)">
+                                            <i style="margin: 0 -3px" class="fa fa-arrow-left"></i>
+                                        </button>
+                                    </div>
+                                    <input class="form-control right-align login-input" ng-model="myPageNumber" type="text" tabindex="2" style="margin-top: 2px;"/>
+                                </div>
+                            </a>
+                        </li>
+                        <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )"><i class="fa fa-angle-left"></i></a></li>
+                        <li>
+                            <a href="#" style="color: black" ng-click="paginationToShow('last')">
+                                <i class="fa fa-angle-double-left" ></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
+            <div class="col-sm-12" style="padding: 0">
+                <ul class="pagination" style="margin: 0">
+                    <li>
+                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه" ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                            <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                            <i class="fa fa-angle-right" style="margin: 0 auto"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" style="color: black">
+                            <input type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                            <i class="fa fa-angle-left" style="margin: 0 auto"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه" ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                            <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 right-align">
+        <span data-toggle="tooltip" data-placement="left" title="جستجو پیشرفته">
+            <i class="fa fa-search pointer table-accessory-tools" style="margin-right: 0" data-toggle="modal" data-target="#search-user"></i>
+        </span>
+
+        <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction(0)" data-toggle="tooltip"
+            data-placement="left" title="تنظیمات جدول"></i>
+
+        <div class="table-setting container" ng-if="tableSetting">
+            <div class="row">
+                <div class="col-sm-12 right-align">
+                    <i class="fa fa-close" ng-click="tableSettingFunction(0)"></i>
+                </div>
+                <div class="col-sm-12 right-align">
+                    <label>تعداد ردیف : </label>
+                </div>
+                <div class="col-sm-12 right-align">
+                    <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                        <option value="5"> 5</option>
+                        <option value="10"> 10</option>
+                        <option value="15"> 15</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12 my-margin-top">
+                    <label>اندازه فونت : </label>
+                    <div class="row right-align">
+                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                            14
+                        </div>
+                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                            16
+                        </div>
+                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                            18
+                        </div>
+                        <form>
+                            <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
+                                ng-model="size" ng-change="tablefontChange(size)" />
+                        </form>
+                    </div>
+                </div>
+                <hr style="width: 100%;border-top-color: #BFBFBF">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>export :</label>
+                        </div>
+                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                            <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
+                        </div>
+                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                            <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
+                        </div>
+                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                            <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

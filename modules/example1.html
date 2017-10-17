@@ -444,8 +444,8 @@
                             <td>hczxjcz
                                 <i class="fa fa-user-circle-o pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="modal" data-target="#tableperiod"
                                     data-toggle="tooltip" data-placement="top" title="نوع پست بازه زمانی" style="font-size: 16px;padding: 0;margin: 0 5px 0 30px;float: left"></i>
-                                <i class="fa fa-history pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="top" title="بازه زمانی"
-                                    style="font-size: 16px;padding: 0;margin: 0 5px;float: left"></i>
+                                <i class="fa fa-history pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="top"
+                                    title="بازه زمانی" style="font-size: 16px;padding: 0;margin: 0 5px;float: left"></i>
                             </td>
                         </tr>
                         <tr>
@@ -459,10 +459,10 @@
                         <tr>
                             <td>sdfsd</td>
                             <td>hczxjcz
-                                <i class="fa fa-tags green pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right" title="نوع پست برای بازه زمانی"
-                                    style="font-size: 16px;padding: 0;margin: 0"></i>
-                                <i class="fa fa-tags red pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="left" title="عدم تایید"
-                                    style="font-size: 16px;padding: 0;margin: 0"></i>
+                                <i class="fa fa-tags green pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="right"
+                                    title="نوع پست برای بازه زمانی" style="font-size: 16px;padding: 0;margin: 0"></i>
+                                <i class="fa fa-tags red pointer table-special-icon" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip" data-placement="left"
+                                    title="عدم تایید" style="font-size: 16px;padding: 0;margin: 0"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -603,7 +603,7 @@
 
                                         <i class="fa fa-plus pointer table-accessory-tools" data-toggle="tooltip" data-placement="top" title="بازه جدید" onmouseenter="$(this).tooltip('show')"
                                             data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right' style="margin-left: 6px"
-                                            ng-click="modalPlus()"></i>
+                                            ng-click="modalPlus('tableMove','modal-second-table',false)"></i>
                                     </div>
                                     <div class="col-sm-8 center">
                                         <div class="row">
@@ -697,17 +697,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="modal-second-table">
+                            <div id="modal-second-table" class="modal-nth-table" ng-init="lookupFlag = false">
                                 <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('tableMove','modal-second-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-6" style="direction: ltr">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="chartTreeMaker(firstChartItem,0,null)">
-                                                    <i style="margin: 0 5px;color: white" class="fa fa-ellipsis-h"></i>
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="lookupFlag ? lookupFlag = flase : lookupFlag = true">
+                                                    <i style="margin: 0 5px;color: white" class="fa fa-chevron-down"></i>
                                                 </button>
                                             </div>
-                                            <input class="form-control right-align login-input" />
+                                            <input class="form-control right-align login-input" id="post-type" style="font-size: 13px;" ng-model="postType" />
+                                            <div class="white-background" id="lookup" ng-if="lookupFlag" ng-init="gettingTree()">
+                                                <ul>
+                                                    <li ng-repeat="x in tree |filter : postType">
+                                                        <a href="#" ng-click="filling(x.name)">{{x.name}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 left-align">
@@ -716,22 +727,29 @@
                                     <div class="clearfix"></div>
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-6 my-margin-top" style="direction: ltr">
-                                            <div class="input-group">
-                                                <div class="input-group-btn">
-                                                    <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="chartTreeMaker(firstChartItem,0,null)">
-                                                        <i style="margin: 0 5px;color: white;" class="fa fa-ellipsis-h"></i>
-                                                    </button>
-                                                </div>
-                                                <input class="form-control right-align login-input" />
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="modalPlus('modal-second-table','modal-third-table',false)">
+                                                    <i style="margin: 0 5px;color: white;" class="fa fa-ellipsis-h"></i>
+                                                </button>
                                             </div>
+                                            <input class="form-control right-align login-input" />
                                         </div>
+                                    </div>
                                     <div class="col-sm-4 left-align my-margin-top">
                                         <label>کالا :</label>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="col-sm-2"></div>
-                                    <div class="col-sm-6 my-margin-top">
-                                        <input type="text" class="form-control">
+                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;padding: 6px;color: white">
+                                                    ...
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" type="number" />
+                                        </div>
                                     </div>
                                     <div class="col-sm-4 left-align my-margin-top">
                                         <label>میزان سهمیه :</label>
@@ -739,11 +757,29 @@
                                     <div class="clearfix"></div>
                                     <div class="col-sm-2 my-margin-top"></div>
                                     <div class="col-sm-6 my-margin-top left-align">
-                                        <button class="btn btn-primary" ng-click="modalPlus()">
-                                            ثبت 
+                                        <button class="btn btn-primary" ng-click="modalPlus('tableMove','modal-second-table',true)">
+                                            ثبت
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+                            <div id="modal-third-table" class="modal-nth-table" ng-init="modalContainer = true">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-second-table','modal-third-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
+                                    <div class="col-sm-12 my-margin-top" ng-include="'modules/storage/kala.html'"></div>
+                                </div>
+                            </div>
+                            <div class="modal-nth-table" style="margin-left: 25px" id="modal-forth-table">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-third-table','modal-forth-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
+                                </div>
+                                <div  ng-include="'modules/storage/kalaplus.html'"></div>
                             </div>
                         </div>
                     </div>

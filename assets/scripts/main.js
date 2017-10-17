@@ -2051,27 +2051,29 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
     }
     $scope.secondTable = false;
-    $scope.modalPlus = function(){
-        if($scope.secondTable == false){
-            $("#tableMove").addClass("table-moving-left");
-            $("#modal-second-table").css("display","block");
-            $("#modal-second-table").addClass("table-moving-right");
+    $scope.filling = function(x){
+        $("#post-type").val(x);
+    }
+    $scope.modalPlus = function(x,y,z){
+        if(z == false){
+            $("#"+x).addClass("table-moving-left");
+            $("#"+y).css("display","block");
+            $("#"+y).addClass("table-moving-right");
             $scope.secondTable = true;
             setTimeout(function(){
-                $("#tableMove").css("display","none");
-                $("#tableMove").removeClass("table-moving-left")
-                $("#modal-second-table").removeClass("table-moving-right")
+                $("#"+x).css("display","none");
+                $("#"+x).removeClass("table-moving-left")
+                $("#"+y).removeClass("table-moving-right")
             },1000)
         }
         else{
-            $("#modal-second-table").addClass("table-moving-right1");
-            $("#tableMove").addClass("table-moving-left1");
-            $("#tableMove").css("display","block");
-            $scope.secondTable = false;
+            $("#"+y).addClass("table-moving-right1");
+            $("#"+x).addClass("table-moving-left1");
+            $("#"+x).css("display","block");
             setTimeout(function(){
-                $("#modal-second-table").removeClass("table-moving-right1");
-                $("#modal-second-table").css("display","none");
-                $("#tableMove").removeClass("table-moving-left1");
+                $("#"+y).removeClass("table-moving-right1");
+                $("#"+y).css("display","none");
+                $("#"+x).removeClass("table-moving-left1");
             },1000)
         } 
     }
@@ -2302,6 +2304,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.treeToShow = []
     // first level of showing tree's nodes
     $scope.gettingTree = function () {
+        Ps.initialize(document.getElementById('lookup'));
         $scope.treeToShow = [];
         $http.get("data/tree.json").then(function (response) {
             $scope.tree = response.data.tree;
