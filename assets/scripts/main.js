@@ -946,6 +946,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // users loading
     $scope.users = function () {
+        console.log("this is happening");
         var sendUser = {
             "Pn": 1,
             "Ps": $scope.pagelength,
@@ -959,6 +960,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
+            console.log(response.data);
             $scope.limitedEdition = response.data;
             $scope.editingLength = 0;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
@@ -971,6 +973,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             $scope.paginationToShow(1);
         }).catch(function (xhr, status, error) {
+            console.log(xhr);
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.users, 0);
             }
@@ -1952,6 +1955,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.table = function (value, mypageId) {
+        console.log(value);
         $scope.currentPageId = mypageId;
         $scope.currentValue = value;
         $(".leaf").removeClass("myselect");
@@ -1960,7 +1964,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         var mydata = {
             pageId: mypageId
         }
-        // $scope.number = "modules/" + value;
+        $scope.number = "modules/" + value;
         $http({
             url: myhost + "/system/elements",
             method: "GET",
@@ -1969,9 +1973,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
+            console.log(response);
             $scope.permission = response.data;
-            $scope.number = "modules/" + value;
+            // $scope.number = "modules/" + value;
         }).catch(function (xhr, error) {
+            console.log(xhr);
             if (refreshtoken && xhr.status === 401) {
                 // $scope.refreshlocal($scope.drop, x);
             } else if (xhr.status === 404) {
@@ -1991,6 +1997,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
             }
         }
+    }
+
+    $scope.orgchart = [];
+    $scope.orgChartRegister = function(orgchart){
+        $scope.orgchart.push(orgchart);
     }
     // cartable part 
     $scope.myDatePicker = function () {
@@ -2304,7 +2315,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.treeToShow = []
     // first level of showing tree's nodes
     $scope.gettingTree = function () {
-        Ps.initialize(document.getElementById('lookup'));
+        // Ps.initialize(document.getElementById('lookup'));
         $scope.treeToShow = [];
         $http.get("data/tree.json").then(function (response) {
             $scope.tree = response.data.tree;

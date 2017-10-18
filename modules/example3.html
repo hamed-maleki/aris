@@ -1,13 +1,13 @@
-<div ng-init="users()" id="myDemo1">
+<div ng-init="users()"  id="myDemo3">
     <!-- <div class="col-sm-12 my-margin-top">
     </div> -->
     <!-- <div class="col-sm-1" style="margin-bottom: 25px;font-size: 16px;">
         
     </div> -->
-    <div class="col-sm-10" style="margin-bottom: 25px">
+    <div class="col-sm-9" style="margin-bottom: 25px">
         <hr style="width: 100%">
     </div>
-    <div class="col-sm-2 pointer" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
+    <div class="col-sm-3 pointer" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
         جستجوی پیشرفته
         <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px"></i>
     </div>
@@ -175,15 +175,15 @@
                         <th style="width: 300px;" ng-if="isAuth('tdName',1)" id="thName">نام </th>
                         <th style="width: 300px" ng-if="isAuth('tdFamily',1)">نام خانوادگی</th>
                         <th style="width: 300px" ng-if="isAuth('tdFatherName',4)">نام پدر</th> -->
-                        <th style="width: 150px;">
+                        <th >
                             <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
                             <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> نام کاربری
                         </th>
-                        <th style="width: 300px;" id="thName">نام </th>
-                        <th style="width: 300px">نام خانوادگی</th>
-                        <th style="width: 300px">نام پدر</th>
+                        <th id="thName">نام </th>
+                        <th >نام خانوادگی</th>
+                        <th >نام پدر</th>
                     </tr>
                     <tr id="search-part" class="collapse" ng-class="userSubColor">
                         <span ng-if="searchFlag" style="position: absolute;top:75px;right:48%;color: #CF4133;font-size: 20px">
@@ -229,7 +229,7 @@
                     data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
                     data-position='right'></i>
             </div>
-            <div class="col-sm-6 center">
+            <div class="col-sm-6 center" style="padding: 0">
                 <div class="row">
                     <!-- <div class="col-sm-12">
                         <ul class="pagination" style="margin: 0">

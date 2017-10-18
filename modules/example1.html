@@ -712,7 +712,7 @@
                                                 </button>
                                             </div>
                                             <input class="form-control right-align login-input" id="post-type" style="font-size: 13px;" ng-model="postType" />
-                                            <div class="white-background" id="lookup" ng-if="lookupFlag" ng-init="gettingTree()">
+                                            <div class="white-background" id="lookup" ng-if="lookupFlag" >
                                                 <ul>
                                                     <li ng-repeat="x in tree |filter : postType">
                                                         <a href="#" ng-click="filling(x.name)">{{x.name}}</a>
@@ -745,7 +745,7 @@
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;padding: 6px;color: white">
-                                                    ...
+                                                    کیلوگرم
                                                 </button>
                                             </div>
                                             <input class="form-control right-align login-input" type="number" />
@@ -768,7 +768,7 @@
                                     <div class="col-sm-12 left-align">
                                         <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-second-table','modal-third-table',true)"></i>
                                     </div>
-                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
+                                    <hr style="border-color: white;width: 100%;margin-right: -5px">
                                     <div class="col-sm-12 my-margin-top" ng-include="'modules/storage/kala.html'"></div>
                                 </div>
                             </div>
@@ -777,9 +777,18 @@
                                     <div class="col-sm-12 left-align">
                                         <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-third-table','modal-forth-table',true)"></i>
                                     </div>
-                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
+                                    <hr style="border-color: white;width: 100%;">
                                 </div>
                                 <div  ng-include="'modules/storage/kalaplus.html'"></div>
+                            </div>
+                            <div class="modal-nth-table" id="modal-fifth-table" style="margin-left: 25px">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-forth-table','modal-fifth-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;">
+                                    <!-- <div ng-init="table('example3.html',4)" ng-include="'modules/example3.html'"></div> -->
+                                </div>
                             </div>
                         </div>
                     </div>

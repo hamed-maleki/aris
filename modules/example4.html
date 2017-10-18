@@ -130,7 +130,7 @@
         </div>
     </div>
 </form> -->
-<div class="container-fluid" id="myDemo1">
+<!-- <div class="container-fluid" id="myDemo1">
     <div class="row">
         <div class="col-sm-12" ng-if="!reportTitling">
             <div class="row">
@@ -169,8 +169,6 @@
                                             {{row.name}}
                                             <i class="fa fa-close"></i>
                                         </td>
-                                        <!-- <td ng-repeat="data in mytable.col">
-                                        </td> -->
                                     </tr>
                                 </tbody>
                                 <caption ng-if="mytable.length != 0" class="center" ng-style="tableFont">{{mytable.name}}</caption>
@@ -200,4 +198,215 @@
         </div>
     </div>
 </div>
-<script src="assets/scripts/dargging.js"></script>
+<script src="assets/scripts/dargging.js"></script> -->
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-sm-12 my-margin-top" ng-if="!treeFirstItem">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-3 left-align">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary center" tabindex="31" style="margin-top:0;border-radius: 0" ng-click="chartTreeMaker(firstChartItem,0,null)">
+                                <i style="margin: 0 5px" class="fa fa-arrow-left"></i>
+                            </button>
+                        </div>
+                        <input class="form-control right-align login-input" tabindex="30" ng-model="firstChartItem" />
+                    </div>
+                </div>
+                <div class="col-sm-2 left-align">
+                    <label>سردسته اول :</label>
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <div class="col-sm-12 my-margin-top right-align" ng-if="chartTree.length != 0">
+            <div class="chart-tree-view">
+                <div class="formal-chart">
+                    <div class='row' ng-class="userColor" ng-drop="true" ng-drag-start="test(1)" ng-drop-success="chartDrop($data,$event,0)">
+                        <div class="col-sm-12" id='drag0' ng-click='selectedFather(0)' ng-drag-data="0" ng-drag='true' draggable="true">
+                            <div class="row" >
+                                <div class='col-sm-4 left-align'>
+                                    <i class='fa fa-close pointer'></i>
+                                </div>
+                                <div class='col-sm-8 right-align'>
+                                    <i class="fa fa-pencil pointer" ng-click='showingEdit(0,"update")'></i>
+                                    <i class='fa fa-ellipsis-h pointer' ng-click='showingEdit(0,"edit")'></i>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-4 left-align'>
+                                    <span class='fa-stack' ng-if="chartTree[0].person == 0">
+                                        <i class='fa fa-user fa-stack-1x'></i>
+                                        <i class='fa fa-ban fa-stack-2x text-danger'></i>
+                                    </span>
+                                </div>
+                                <div class='col-sm-8 right-align'>
+                                    <span class="pointer" data-toggle="collapse" data-target="#chart-tree-0">{{chartTree[0].name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class='formal-chart-edit hide' id="chart-update-0">
+                            <div class='row'>
+                                <div class='col-sm-12 left-align'>
+                                    <i class='fa fa-close' ng-click='closeEdit(0,"update")'></i>
+                                </div>
+                                <div class='col-sm-8  my-margin-top'>
+                                    <select style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type" class='form-control my-form' name='kindDocument'>
+                                        <option value=0 selected>ندارد</option>
+                                        <option value=1>تک نفر</option>
+                                        <option value=2>چند گانه</option>
+                                    </select>
+                                </div>
+                                <div class='col-sm-4 left-align  my-margin-top' style="padding: 0">
+                                    <label>انتخاب سردسته :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8 my-margin-top'>
+                                    <input type='text' ng-model="updateName" placeholder="{{chartTree[0].name}}" value="" class='form-control' ng-model="itemName">
+                                </div>
+                                <div class='col-sm-4 left-align my-margin-top' style="padding: 0">
+                                    <label>نام زیر دسته :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8  my-margin-top'>
+                                    <select ng-model="updatePerson" placeholder="{{chartTree[0].person}}" style='height: 30px;width: 100% !important;font-size: 12px'
+                                        ng-model="type" class='form-control my-form' name='kindDocument'>
+                                        <option value=0 selected>ندارد</option>
+                                        <option value=1>تک نفر</option>
+                                        <option value=2>چند گانه</option>
+                                    </select>
+                                </div>
+                                <div class='col-sm-4 left-align  my-margin-top' style="padding: 0">
+                                    <label>انتصاب فرد :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8 my-margin-top left-align'>
+                                    <button class='btn btn-primary' ng-click="chartTreeUpdate(updateName,updatePerson,0)">
+                                        ثبت تغییرات
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='formal-chart-edit hide' id="chart-edit-0">
+                            <div class='row'>
+                                <div class='col-sm-12 left-align'>
+                                    <i class='fa fa-close' ng-click='closeEdit(0,"edit")'></i>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8 my-margin-top'>
+                                    <input type='text' value="" class='form-control' onclick='this.select()' ng-model="itemName">
+                                </div>
+                                <div class='col-sm-4 left-align my-margin-top'>
+                                    <label>نام زیر دسته :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8  my-margin-top'>
+                                    <select style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type" class='form-control my-form' name='kindDocument'>
+                                        <option value=0 selected>ندارد</option>
+                                        <option value=1>تک نفر</option>
+                                        <option value=2>چند گانه</option>
+                                    </select>
+                                </div>
+                                <div class='col-sm-4 left-align  my-margin-top'>
+                                    <label>انتصاب فرد :</label>
+                                </div>
+                                <div class='clearfix'></div>
+                                <div class='col-sm-8 my-margin-top left-align'>
+                                    <button class='btn btn-primary' ng-click="chartTreeMaker(itemName,type,chartTree[0].id)">
+                                        ایجاد زیر دسته
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="chart-tree-border collapse in" id="chart-tree-{{chartTree[0].id}}">
+                    
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-4 right-align my-margin-top" style="margin-bottom: 15px;">
+                <button class="btn btn-primary">
+                    ثبت نهایی چارت سازمانی
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div> -->
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-2 right-float" ng-repeat="chartElement in orgchart">
+            <div ng-class="userColor" style="color: white;">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{chartElement.orgcharttypeName}}
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6" style="padding: 0">
+                                <i class="fa fa-ban" ng-if="chartElement.Assigntype == 0"></i>
+                                <i class="fa fa-user" ng-if="chartElement.Assigntype == 1"></i>
+                                <i class="fa fa-users" ng-if="chartElement.Assigntype == 2"></i>
+                            </div>
+                            <div class="col-sm-6" style="padding: 0; font-size: 12px">
+                                <span ng-if="chartElement.charttype == 0">نرمال</span>
+                                <span ng-if="chartElement.charttype == 1">موازی</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-sm-7 my-margin-top"></div>
+        <div class="col-sm-5 my-margin-top">
+            <div class="row">
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="myorgchart.orgcharttypeName">
+                </div>
+                <div class="col-sm-4 left-align">
+                    <label>
+                        نوع پست :
+                    </label>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-8 my-margin-top">
+                    <select ng-model="myorgchart.charttype" style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type" class='form-control my-form'
+                        name='kindDocument'>
+                        <option value=0 selected>ندارد</option>
+                        <option value=1>تک نفر</option>
+                        <option value=2>چند گانه</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 my-margin-top left-align">
+                    <label>
+                        قابلت نصبت فرد :
+                    </label>
+                </div>
+                <div class="col-sm-8 my-margin-top">
+                    <select ng-model="myorgchart.Assigntype" style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type" class='form-control my-form'
+                        name='kindDocument'>
+                        <option value=0 selected>نرمال</option>
+                        <option value=1>موازی</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 left-align my-margin-top">
+                    <label>
+                        وضعیت پست :
+                    </label>
+                </div>
+                <div class="col-sm-8 my-margin-top left-align">
+                    <button class="btn btn-primary" ng-click="orgChartRegister(orgchart)">
+                        ثبت
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1557,6 +1557,9 @@ tfoot tr td {
     width: 100%;
     margin-right: -45px;
 }
+#modal-fifth-table {
+    width: 95%;
+}
 .modal .col-sm-8 .btn {
     font-size: 11px;
 }
