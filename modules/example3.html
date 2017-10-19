@@ -1,9 +1,10 @@
-<div ng-init="users()"  id="myDemo3">
+<div ng-init="gettingOrgChart('/user/get')"  id="myDemo3">
     <!-- <div class="col-sm-12 my-margin-top">
     </div> -->
     <!-- <div class="col-sm-1" style="margin-bottom: 25px;font-size: 16px;">
         
     </div> -->
+    <!-- <button ng-click="gettingOrgChart('/user')"></button> -->
     <div class="col-sm-9" style="margin-bottom: 25px">
         <hr style="width: 100%">
     </div>
@@ -210,10 +211,12 @@
                     <tr ng-style="testfont" data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
                         ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
                         ng-click="editUser(data.user.id)">
-                        <td ng-style="testfont;tableFont">{{data.user.name}}</td>
-                        <td ng-style="testfont;tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td>
-                        <td ng-style="testfont;tableFont" ng-if="isAuth('tdFamily',1)">{{data.personnel.family}}</td>
-                        <td ng-style="testfont;tableFont" style="width: 50px;" ng-if="isAuth('tdFatherName',4)">
+                        <td ng-style="testfont;tableFont" style="width: 200px">{{data.user.name}}</td>
+                        <!-- <td ng-style="testfont;tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td> -->
+                        <td ng-style="testfont;tableFont" style="width: 200px">{{data.personnel.name}}</td>
+                        <!-- <td ng-style="testfont;tableFont" ng-if="isAuth('tdFamily',1)">{{data.personnel.family}}</td> -->
+                        <td ng-style="testfont;tableFont" style="width: 200px">{{data.personnel.family}}</td>
+                        <td ng-style="testfont;tableFont" style="width: 200px;">
                             <p style="line-height: 0.2cm;margin: 5px">{{data.personnel.fatherName}}
                                 <i class="fa fa-pencil-square-o pointer" onmouseenter="$(this).tooltip('show')" ng-if="hover" style="float: left" data-toggle="modal"
                                     data-target="#tableEdit" data-toggle="tooltip" data-placement="right" title="ویرایش {{data.personnel.name}} {{data.personnel.family}}"></i>

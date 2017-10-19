@@ -337,74 +337,263 @@
     </div>
 </div>
 </div> -->
-<div class="container">
+<!-- first type for chart assignment -->
+<!-- <div class="container">
     <div class="row">
-
-        <div class="col-sm-2 right-float" ng-repeat="chartElement in orgchart">
+        <div class="col-sm-2 my-margin-top right-float" ng-repeat="chartElement in orgchart">
             <div ng-class="userColor" style="color: white;">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 left-align">
+                        <i class="fa fa-close"></i>
+                    </div>
+                    <div class="col-sm-6" style="padding-right: 25px">
                         {{chartElement.orgcharttypeName}}
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 left-align" style="font-size: 14px;">
+                        <i class="fa fa-ban" ng-if="chartElement.Assigntype == 0"></i>
+                        <i class="fa fa-user" ng-if="chartElement.Assigntype == 1"></i>
+                        <i class="fa fa-users" ng-if="chartElement.Assigntype == 2"></i>
+                    </div>
+                    <div class="col-sm-6" style="padding-right: 25px">
+                        <span ng-if="chartElement.charttype == 0" style="font-size: 14px;">نرمال</span>
+                        <span ng-if="chartElement.charttype == 1" style="font-size: 14px;">موازی</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-7 my-margin-top"></div>
+        <div class="col-sm-5 my-margin-top">
+            <form ng-submit="orgChartRegister(myorg)">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="myorg.chartname">
+                    </div>
+                    <div class="col-sm-4 left-align">
+                        <label>
+                            نوع پست :
+                        </label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-8 my-margin-top">
+                        <select ng-model="myorg.Assigntype" style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form'>
+                            <option value=0 selected>ندارد</option>
+                            <option value=1>تک نفر</option>
+                            <option value=2>چند گانه</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4 my-margin-top left-align">
+                        <label>
+                            قابلت نصبت فرد :
+                        </label>
+                    </div>
+                    <div class="col-sm-8 my-margin-top">
+                        <select ng-model="myorg.charttype" style='height: 30px;width: 100% !important;font-size: 12px' class='form-control my-form'>
+                            <option value=0 selected>نرمال</option>
+                            <option value=1>موازی</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4 left-align my-margin-top">
+                        <label>
+                            وضعیت پست :
+                        </label>
+                    </div>
+                    <div class="col-sm-8 my-margin-top left-align">
+                        <button class="btn btn-primary" type="submit">
+                            ثبت
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+<!-- second type for chart assignment -->
+<div class="container" ng-init="gettingOrgChart('/orgcharttype/get')">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive my-margin-top">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr ng-class="userColor">
+                            <th>
+                                نوع پست
+                            </th>
+                            <th>
+                                نصبت دادن افراد
+                            </th>
+                            <th>
+                                ویژگی پست
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="chartElement in orgchart">
+                            <td>
+                                {{chartElement.name}}
+                            </td>
+                            <td class="center">
+                                <i class="fa fa-ban" ng-if="chartElement.assignType == 0"></i>
+                                <i class="fa fa-user" ng-if="chartElement.assignType == 1"></i>
+                                <i class="fa fa-users" ng-if="chartElement.assignType == 2"></i>
+                            </td>
+                            <td class="center">
+                                <span ng-if="chartElement.chartType == 0" style="font-size: 14px;">نرمال</span>
+                                <span ng-if="chartElement.chartType == 1" style="font-size: 14px;">موازی</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="text-align: left">
+                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlus" data-toggle="tooltip" data-placement="right"
+                        title="اضافه کردن نوع پست" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+                        data-position='right'></i>
+                </div>
+                <div class="col-sm-6 center" style="padding: 0">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="pagination" style="margin: 0">
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه" ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-right" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black">
+                                        <input type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-left" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه" ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 right-align">
+                    <span data-toggle="tooltip" data-placement="left" title="جستجو پیشرفته">
+                        <i class="fa fa-search pointer table-accessory-tools" style="margin-right: 0" data-toggle="modal" data-target="#search-user"></i>
+                    </span>
+
+                    <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction(0)" data-toggle="tooltip"
+                        data-placement="left" title="تنظیمات جدول"></i>
+
+                    <div class="table-setting container" ng-if="tableSetting">
                         <div class="row">
-                            <div class="col-sm-6" style="padding: 0">
-                                <i class="fa fa-ban" ng-if="chartElement.Assigntype == 0"></i>
-                                <i class="fa fa-user" ng-if="chartElement.Assigntype == 1"></i>
-                                <i class="fa fa-users" ng-if="chartElement.Assigntype == 2"></i>
+                            <div class="col-sm-12 right-align">
+                                <i class="fa fa-close" ng-click="tableSettingFunction(0)"></i>
                             </div>
-                            <div class="col-sm-6" style="padding: 0; font-size: 12px">
-                                <span ng-if="chartElement.charttype == 0">نرمال</span>
-                                <span ng-if="chartElement.charttype == 1">موازی</span>
+                            <div class="col-sm-12 right-align">
+                                <label>تعداد ردیف : </label>
+                            </div>
+                            <div class="col-sm-12 right-align">
+                                <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                                    <option value="5"> 5</option>
+                                    <option value="10"> 10</option>
+                                    <option value="15"> 15</option>
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 my-margin-top">
+                                <label>اندازه فونت : </label>
+                                <div class="row right-align">
+                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                        14
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                        16
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                        18
+                                    </div>
+                                    <form>
+                                        <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
+                                            ng-model="size" ng-change="tablefontChange(size)" />
+                                    </form>
+                                </div>
+                            </div>
+                            <hr style="width: 100%;border-top-color: #BFBFBF">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label>export :</label>
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                        <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                        <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                        <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="clearfix"></div>
-        <div class="col-sm-7 my-margin-top"></div>
-        <div class="col-sm-5 my-margin-top">
-            <div class="row">
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" ng-model="myorgchart.orgcharttypeName">
-                </div>
-                <div class="col-sm-4 left-align">
-                    <label>
-                        نوع پست :
-                    </label>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-sm-8 my-margin-top">
-                    <select ng-model="myorgchart.charttype" style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type" class='form-control my-form'
-                        name='kindDocument'>
-                        <option value=0 selected>ندارد</option>
-                        <option value=1>تک نفر</option>
-                        <option value=2>چند گانه</option>
-                    </select>
-                </div>
-                <div class="col-sm-4 my-margin-top left-align">
-                    <label>
-                        قابلت نصبت فرد :
-                    </label>
-                </div>
-                <div class="col-sm-8 my-margin-top">
-                    <select ng-model="myorgchart.Assigntype" style='height: 30px;width: 100% !important;font-size: 12px' ng-model="type" class='form-control my-form'
-                        name='kindDocument'>
-                        <option value=0 selected>نرمال</option>
-                        <option value=1>موازی</option>
-                    </select>
-                </div>
-                <div class="col-sm-4 left-align my-margin-top">
-                    <label>
-                        وضعیت پست :
-                    </label>
-                </div>
-                <div class="col-sm-8 my-margin-top left-align">
-                    <button class="btn btn-primary" ng-click="orgChartRegister(orgchart)">
-                        ثبت
-                    </button>
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="tablePlus">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
+                <div class="row">
+                    <form ng-submit="orgChartRegister(myorg)">
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="myorg.chartname">
+                        </div>
+                        <div class="col-sm-4 left-align">
+                            <label>
+                                نوع پست :
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-8 my-margin-top">
+                            <select ng-model="myorg.Assigntype" style='width: 100% !important;' class='form-control my-form'>
+                                <option value=0 selected>ندارد</option>
+                                <option value=1>تک نفر</option>
+                                <option value=2>چند گانه</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 my-margin-top left-align">
+                            <label>
+                                قابلت نصبت فرد :
+                            </label>
+                        </div>
+                        <div class="col-sm-8 my-margin-top">
+                            <select ng-model="myorg.charttype" style='width: 100% !important;' class='form-control my-form'>
+                                <option value=0 selected>نرمال</option>
+                                <option value=1>موازی</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 left-align my-margin-top">
+                            <label>
+                                وضعیت پست :
+                            </label>
+                        </div>
+                        <div class="col-sm-8 my-margin-top left-align">
+                            <button class="btn btn-primary" type="submit">
+                                ثبت
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

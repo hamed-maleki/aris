@@ -262,16 +262,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
+        
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
         var load = $http({
-            url: myhost + "/system/subsystem",
+            url: myhost + "/system/"+$scope.systemIdToLoad+"/subsystems",
             method: "GET",
             dataType: 'json',
             // type: "HEAD",
             ContentType: 'application/x-www-form-urlencoded',
-            params: {
-                parentId: $scope.systemIdToLoad
-            },
             headers: authHeaders,
             eventHandlers: {
                 progress: function (e) {
@@ -320,6 +318,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.subSystemSituation.push(subItem);
             }
         }).catch(function (xhr, status, error) {
+            console.log(xhr);
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.systemToShow, 0);
             }
@@ -342,11 +341,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($scope.subsystem.length == 0) {
             if (leaf == false) {
                 $http({
-                    url: myhost + "/system/subsystem",
+                    url: myhost + "/system/"+id+"/subsystems",
                     method: "GET",
-                    params: {
-                        parentId: id
-                    },
                     headers: authHeaders,
                 }).then(function (response) {
                     $scope.subsystem = response.data
@@ -361,11 +357,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             else {
                 $http({
-                    url: myhost + "/system/pages",
+                    url: myhost + "/system/"+id+"/pages",
                     method: "GET",
-                    params: {
-                        systemId: id
-                    },
                     headers: authHeaders,
                 }).then(function (response) {
                     $scope.subsystem = [];
@@ -493,7 +486,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     var setItemToFix = []
     $scope.gettingSystemJson = function () {
         $http({
-            url: myhost + "/system/main",
+            url: myhost + "/system",
             method: "GET",
             headers: authHeaders
         }).then(function (response) {
@@ -509,6 +502,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.facebookLoader = 1;
         })
             .catch(function (xhr, status, error) {
+                // console.log(xhr)
                 if (refreshtoken && xhr.status === 401) {
                     $scope.refreshlocal($scope.gettingSystemJson, 0);
                 }
@@ -1961,21 +1955,20 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $(".leaf").removeClass("myselect");
         $("#leaf" + mypageId).addClass("myselect");
         // $scope.number = "modules/" + value;
-        var mydata = {
-            pageId: mypageId
-        }
-        $scope.number = "modules/" + value;
+        // var mydata = {
+        //     pageId: mypageId
+        // }
+        // $scope.number = "modules/" + value;
         $http({
-            url: myhost + "/system/elements",
+            url: myhost + "/system/page/"+mypageId+"/elements",
             method: "GET",
             ContentType: 'application/x-www-form-urlencoded',
-            params: mydata,
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
             console.log(response);
             $scope.permission = response.data;
-            // $scope.number = "modules/" + value;
+            $scope.number = "modules/" + value;
         }).catch(function (xhr, error) {
             console.log(xhr);
             if (refreshtoken && xhr.status === 401) {
@@ -2000,8 +1993,66 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
 
     $scope.orgchart = [];
-    $scope.orgChartRegister = function(orgchart){
-        $scope.orgchart.push(orgchart);
+    $scope.orgChartRegister = function(x){
+        var item ={
+            "name":x.chartname,
+            "chartType":x.charttype,
+            "assignType":x.Assigntype
+    }
+    console.log(item);
+    $http({
+        url:myhost+"/orgcharttype/create",
+        method: "POST",
+        data: JSON.stringify(item),
+        ContentType: 'application/json; charset = utf-8',
+        dataType: 'JSON',
+        headers : authHeaders
+    }).then(function(response){
+        $scope.orgchart.push(item);
+        
+    }).catch(function (xhr, status, error) {
+        console.log(xhr);
+        if(xhr.status == 422){
+            $("#tablePlus").modal('toggle');
+            $scope.error[0] = xhr.data;
+            $("#error").modal();
+        }
+    })   
+    }
+    $scope.gettingOrgChart = function(myUrl){
+        var sendusers = {
+            "Pn":1,
+            "Ps": $scope.pagelength,
+            "Orders":[{"Col":"Id","Asc":true}]
+        }
+        console.log(myhost+myUrl);
+        $http({
+            url:myhost+myUrl,
+            method:"POST",
+            ContentType:"application/json; charset = utf-8",
+            data: JSON.stringify(sendusers),
+            dataType: 'JSON',
+            headers: authHeaders
+        }).then(function(response){
+            console.log(response);
+            $scope.orgchart = response.data;
+            console.log(response.data);
+            $scope.limitedEdition = response.data;
+            console.log($scope.limitedEdition);
+            $scope.editingLength = 0;
+            $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+            var pageNumber;
+            $scope.paginationNumber = [];
+            $scope.rowsCount = $scope.limitedEdition[0].rowsCount
+            pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
+            for (var conter = 1; conter < pageNumber + 1; conter++) {
+                $scope.paginationNumber.push(conter);
+            }
+            $scope.paginationToShow(1);
+        }).catch(function(xhr){
+            console.log("Error");
+            console.log(xhr);
+        })
     }
     // cartable part 
     $scope.myDatePicker = function () {
