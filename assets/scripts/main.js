@@ -262,10 +262,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     // system page on load to chek if there is any cookie
     $scope.systemToShow = function () {
-        
+
         $scope.systemIdToLoad = localStorage.getItem("parent_id");
         var load = $http({
-            url: myhost + "/system/"+$scope.systemIdToLoad+"/subsystems",
+            url: myhost + "/system/" + $scope.systemIdToLoad + "/subsystems",
             method: "GET",
             dataType: 'json',
             // type: "HEAD",
@@ -341,7 +341,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($scope.subsystem.length == 0) {
             if (leaf == false) {
                 $http({
-                    url: myhost + "/system/"+id+"/subsystems",
+                    url: myhost + "/system/" + id + "/subsystems",
                     method: "GET",
                     headers: authHeaders,
                 }).then(function (response) {
@@ -357,7 +357,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             else {
                 $http({
-                    url: myhost + "/system/"+id+"/pages",
+                    url: myhost + "/system/" + id + "/pages",
                     method: "GET",
                     headers: authHeaders,
                 }).then(function (response) {
@@ -982,7 +982,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (evtobj.keyCode == 13) {
             if ($(".paginationOrder").is(":focus")) {
                 var page = $(".paginationOrder").val();
-                $scope.finalPagination(page, false, '/Aris/api/user');
+                $scope.finalPagination(page, false, '/Aris/api/user/get');
             }
         }
         if ($event.altKey || evtobj.altKey) {
@@ -995,7 +995,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
+                if ($scope.editingUserData.user != undefined) {
+                    $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
+                }
+                else {
+                    $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,153)");
+                }
+
             }
             if ($event.keyCode == 40) {
                 if ($scope.firstStep != 0 && $scope.editingLength < $scope.limitedEdition.length - 1) {
@@ -1007,7 +1013,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
+                if ($scope.editingUserData.user != undefined) {
+                    $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
+                }
+                else {
+                    $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,153)");
+                }
             }
 
             if ($event.keyCode == 13) {
@@ -1031,10 +1042,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // }
         }
         if ($event.keyCode == 39) {
-            $scope.finalPagination($scope.currentPage - 1, false, '/' + $scope.host + '/api/user')
+            $scope.finalPagination($scope.currentPage - 1, false, '/' + $scope.host + '/api/user/get')
         }
         if ($event.keyCode == 37) {
-            $scope.finalPagination($scope.currentPage + 1, false, '/' + $scope.host + '/api/user')
+            $scope.finalPagination($scope.currentPage + 1, false, '/' + $scope.host + '/api/user/get')
         }
         // if ($event.altKey || evtobj.altKey) {
         //     
@@ -1053,7 +1064,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $scope.paginationNumber = [];
         $scope.paginationToShow(1);
         // $scope.pages = [];
-        $scope.users();
+        $scope.gettingOrgChart('/user/get');
 
         // $("#userpagination" + x).addClass("active");
     }
@@ -1117,7 +1128,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.pageToGo = false;
             $("#pageSpan").css("float", "none");
             if (x != 0) {
-                $scope.finalPagination(x, false, '/' + $scope.host + '/api/user')
+                $scope.finalPagination(x, false, '/' + $scope.host + '/api/user/get')
             }
         }
     }
@@ -1291,7 +1302,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
     }
     $scope.editSubmit = function (x) {
-        console.log(x)
         if (x.name != undefined) {
             $scope.editingUserData.personnel.name = x.name;
         }
@@ -1329,21 +1339,24 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             User: $scope.editingUserData.user,
             Personnel: $scope.editingUserData.personnel
         }
+        console.log(Model);
         $http({
             url: myhost + "/user/Update/UserPersonnel",
             method: "POST",
-            ContentType: 'application/x-www-form-urlencoded',
-            data: Model,
+            ContentType: 'application/json; charset = utf-8',
+            data: JSON.stringify(Model),
             dataType: 'json',
             headers: authHeaders,
         }).then(function (response) {
+            console.log(response);
             $("#editMessage").html("تغییرات با موفقیت ثبت شد");
             $("#myFocus").focus();
         }).catch(function (xhr) {
+            console.log(xhr);
             if (refreshtoken && xhr.status === 401) {
                 $scope.refreshlocal($scope.editSubmit, x);
             }
-            $("#editMessage").html(xhr.data[0]);
+            $("#editMessage").html(xhr.data);
         })
     }
     $scope.editUser = function (x) {
@@ -1379,11 +1392,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
-                    $scope.finalPagination(1, 1, myhost + '/user')
+                    $scope.finalPagination(1, 1, myhost + '/user/get')
                     return;
                 }
                 else {
-                    $scope.finalPagination(currentpage + 1, 1, myhost + '/user')
+                    $scope.finalPagination(currentpage + 1, 1, myhost + '/user/get')
                     return;
                 }
             }
@@ -1396,7 +1409,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         else {
             if ($scope.editingLength - 1 < 0) {
 
-                $scope.finalPagination(currentpage - 1, -1, myhost + '/user')
+                $scope.finalPagination(currentpage - 1, -1, myhost + '/user/get')
                 return;
 
             }
@@ -1484,98 +1497,100 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // angular.forEach(data, function (value, key) {
         //     photo.append(key, value);
         // })
-        if (codeCheck == true) {
-            var person = {
-                Name: x.name,
-                Family: x.family,
-                FatherName: x.fatherName,
-                Code: x.personnelCode,
-                NationalCode: code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11],
-                BirthCertificateNo: x.birthCertificateNo,
-                Gender: x.gender,
-                Photo: $scope.fileList[0].file
-            }
-            var user = {
-                Email: x.mail,
-                Name: x.userName,
-                PasswordHash: x.passwordHash,
-                MobileNo: x.mobileNo,
-                IsActive: x.isActive
-            }
-            var Model = {
-                User: user,
-                Personnel: person
-            }
-            Model = JSON.stringify(Model);
+        // if (codeCheck == true) {
+        var person = {
+            Name: x.name,
+            Family: x.family,
+            FatherName: x.fatherName,
+            Code: x.personnelCode,
+            NationalCode: code[0] + code[1] + code[2] + code[4] + code[5] + code[6] + code[7] + code[8] + code[9] + code[11],
+            BirthCertificateNo: x.birthCertificateNo,
+            Gender: x.gender
+            // Photo: $scope.fileList[0].file
+        }
+        var user = {
+            Email: x.mail,
+            Name: x.userName,
+            PasswordHash: x.passwordHash,
+            MobileNo: x.mobileNo,
+            IsActive: x.isActive
+        }
+        var Model = {
+            User: user,
+            Personnel: person
+        }
+        Model = JSON.stringify(Model);
+        console.log(Model);
+        $http({
+            url: myhost + "/user/Create/UserPersonnel",
+            method: "POST",
+            ContentType: 'application/json; charset = utf-8',
+            data: Model,
+            dataType: 'json',
+            headers: authHeaders,
+            eventHandlers: {
+                progress: function (e) {
+                    if (e.lengthComputable) {
+                        $scope.progressBar = (e.loaded / e.total) * 100;
+                        $scope.progressCounter = $scope.progressBar;
+                        $("#myBar").css("top", "20%");
+                        $("#loadingImage").removeClass('rotate');
+                        $("#myBar").fadeIn();
+                        var elem = document.getElementById("inside-progress")
+                        // $scope.myinterval = setInterval($scope.myprogressBar(),20)
+                        $scope.myinterval = $interval(
+                            function () {
 
-            $http({
-                url: myhost + "/user/Create/UserPersonnel",
-                method: "POST",
-                ContentType: 'application/x-www-form-urlencoded',
-                data: Model,
-                dataType: 'json',
-                headers: authHeaders,
-                eventHandlers: {
-                    progress: function (e) {
-                        if (e.lengthComputable) {
-                            $scope.progressBar = (e.loaded / e.total) * 100;
-                            $scope.progressCounter = $scope.progressBar;
-                            $("#myBar").css("top", "20%");
-                            $("#loadingImage").removeClass('rotate');
-                            $("#myBar").fadeIn();
-                            var elem = document.getElementById("inside-progress")
-                            // $scope.myinterval = setInterval($scope.myprogressBar(),20)
-                            $scope.myinterval = $interval(
-                                function () {
-
-                                    var elem = document.getElementById("myBar");
-                                    // var width = 1;
-                                    if ($scope.progressCounter >= 100) {
-                                        $interval.cancel($scope.myinterval);
-                                        $("#loadingImage").addClass('rotate');
-                                        $("#myBar").delay(500).animate({ top: "-20%" });
-                                        $("#myBar").delay(1000).fadeOut();
-                                        // $("#myBar").css("display", "none");
-                                    } else {
-                                        elem.style.height = $scope.progressCounter + '%';
-                                        elem.style.top = 100 - $scope.progressCounter + '%';
-                                    }
-                                }, 20);
-                        }
+                                var elem = document.getElementById("myBar");
+                                // var width = 1;
+                                if ($scope.progressCounter >= 100) {
+                                    $interval.cancel($scope.myinterval);
+                                    $("#loadingImage").addClass('rotate');
+                                    $("#myBar").delay(500).animate({ top: "-20%" });
+                                    $("#myBar").delay(1000).fadeOut();
+                                    // $("#myBar").css("display", "none");
+                                } else {
+                                    elem.style.height = $scope.progressCounter + '%';
+                                    elem.style.top = 100 - $scope.progressCounter + '%';
+                                }
+                            }, 20);
                     }
                 }
-            }).then(function (response) {
-                $scope.paginationNumber = [];
-                $scope.rowsCount++;
-                pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
-                for (var conter = 1; conter < pageNumber + 1; conter++) {
-                    $scope.paginationNumber.push(conter);
+            }
+        }).then(function (response) {
+            console.log(response);
+            $scope.paginationNumber = [];
+            $scope.rowsCount++;
+            pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
+            for (var conter = 1; conter < pageNumber + 1; conter++) {
+                $scope.paginationNumber.push(conter);
+            }
+            if (x.close == 1) {
+                $("#tablePlusUser").modal('toggle');
+                $("#focusPlace").focus();
+                $scope.responseAlarm("ثبت کاربران با موفقیت انجام شد");
+            }
+            else {
+                $(".form-control").val('');
+                $("#name").focus();
+            }
+            $scope.imgLoading = false;
+            // $('#myimg').css();
+        })
+            .catch(function (xhr, status, error) {
+                console.log(xhr);
+                if (refreshtoken && xhr.status === 401) {
+                    $scope.refreshlocal($scope.registerUser, x);
                 }
-                if (x.close == 1) {
-                    $("#tablePlusUser").modal('toggle');
-                    $("#focusPlace").focus();
-                    $scope.responseAlarm("ثبت کاربران با موفقیت انجام شد");
-                }
-                else {
-                    $(".form-control").val('');
-                    $("#name").focus();
-                }
-                $scope.imgLoading = false;
-                // $('#myimg').css();
+                $("#registerAlarm").html(xhr.data);
             })
-                .catch(function (xhr, status, error) {
-                    if (refreshtoken && xhr.status === 401) {
-                        $scope.refreshlocal($scope.registerUser, x);
-                    }
-                    $("#registerAlarm").html(xhr.data[0]);
-                })
-            $scope.paginationToShow(currentpage);
-        }
-        else {
-            $("#registerAlarm").html("کد ملی معتبر نمیباشد");
-            $("#social-no").css("border", "1px solid red");
-            $("#social_no").focus();
-        }
+        $scope.paginationToShow(currentpage);
+        // }
+        // else {
+        //     $("#registerAlarm").html("کد ملی معتبر نمیباشد");
+        //     $("#social-no").css("border", "1px solid red");
+        //     $("#social_no").focus();
+        // }
     }
     $scope.responseAlarm = function (responeMessage) {
         // $scope.responsing = true;
@@ -1960,7 +1975,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
         // $scope.number = "modules/" + value;
         $http({
-            url: myhost + "/system/page/"+mypageId+"/elements",
+            url: myhost + "/system/page/" + mypageId + "/elements",
             method: "GET",
             ContentType: 'application/x-www-form-urlencoded',
             dataType: 'json',
@@ -1968,6 +1983,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).then(function (response) {
             console.log(response);
             $scope.permission = response.data;
+            $scope.currentPage = 1;
             $scope.number = "modules/" + value;
         }).catch(function (xhr, error) {
             console.log(xhr);
@@ -1975,6 +1991,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 // $scope.refreshlocal($scope.drop, x);
             } else if (xhr.status === 404) {
                 $scope.permission = [];
+                $scope.currentPage = 1;
                 $scope.number = "modules/" + value;
             }
         })
@@ -1993,52 +2010,79 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
 
     $scope.orgchart = [];
-    $scope.orgChartRegister = function(x){
-        var item ={
-            "name":x.chartname,
-            "chartType":x.charttype,
-            "assignType":x.Assigntype
+    $scope.orgchartDelete = function () {
+        $('.chart-check').each(function (index) {
+            if (this.checked == true) {
+                var myid = this.value;
+                console.log(myid);
+                $http({
+                    url: myhost + "/orgcharttype/Delete/"+myid,
+                    method: "POST",
+                    ContentType: 'application/json; charset = utf-8',
+                    dataType: 'JSON',
+                    headers: authHeaders
+                }).then(function (response) {
+                    for(var i = 0; i < $scope.limitedEdition.length; i++){
+                        if(myid == $scope.limitedEdition[i].id){
+                            $scope.limitedEdition.splice(i,1);
+                        }
+                    }
+
+                }).catch(function (xhr, status, error) {
+                    console.log(xhr);
+                })
+                // for (var i = 0; i < $scope.cartable.length; i++) {
+                //     if (myid == $scope.cartable[i].id) {
+                //         $scope.cartable.splice(i, 1);
+                //     }
+                // }
+            }
+        });
     }
-    console.log(item);
-    $http({
-        url:myhost+"/orgcharttype/create",
-        method: "POST",
-        data: JSON.stringify(item),
-        ContentType: 'application/json; charset = utf-8',
-        dataType: 'JSON',
-        headers : authHeaders
-    }).then(function(response){
-        $scope.orgchart.push(item);
-        
-    }).catch(function (xhr, status, error) {
-        console.log(xhr);
-        if(xhr.status == 422){
-            $("#tablePlus").modal('toggle');
-            $scope.error[0] = xhr.data;
-            $("#error").modal();
+    $scope.orgChartRegister = function (x) {
+        var item = {
+            "name": x.chartname,
+            "chartType": x.charttype,
+            "assignType": x.Assigntype
         }
-    })   
-    }
-    $scope.gettingOrgChart = function(myUrl){
-        var sendusers = {
-            "Pn":1,
-            "Ps": $scope.pagelength,
-            "Orders":[{"Col":"Id","Asc":true}]
-        }
-        console.log(myhost+myUrl);
         $http({
-            url:myhost+myUrl,
-            method:"POST",
-            ContentType:"application/json; charset = utf-8",
+            url: myhost + "/orgcharttype/create",
+            method: "POST",
+            data: JSON.stringify(item),
+            ContentType: 'application/json; charset = utf-8',
+            dataType: 'JSON',
+            headers: authHeaders
+        }).then(function (response) {
+            $scope.gettingOrgChart('/orgcharttype/get')
+
+        }).catch(function (xhr, status, error) {
+            console.log(xhr);
+            if (xhr.status == 422) {
+                $("#tablePlus").modal('toggle');
+                $scope.error[0] = xhr.data;
+                $("#error").modal();
+            }
+        })
+    }
+    $scope.gettingOrgChart = function (myUrl) {
+        var sendusers = {
+            "Pn": 1,
+            "Ps": $scope.pagelength,
+            "Orders": [{ "Col": "Id", "Asc": true }]
+        }
+        console.log(myhost + myUrl);
+        $http({
+            url: myhost + myUrl,
+            method: "POST",
+            ContentType: "application/json; charset = utf-8",
             data: JSON.stringify(sendusers),
             dataType: 'JSON',
             headers: authHeaders
-        }).then(function(response){
-            console.log(response);
-            $scope.orgchart = response.data;
-            console.log(response.data);
+        }).then(function (response) {
+            // $scope.orgchart = response.data;
             $scope.limitedEdition = response.data;
-            console.log($scope.limitedEdition);
+            $scope.toshowEdit = $scope.limitedEdition[0];
+            console.log($scope.toshowEdit);
             $scope.editingLength = 0;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             var pageNumber;
@@ -2049,7 +2093,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.paginationNumber.push(conter);
             }
             $scope.paginationToShow(1);
-        }).catch(function(xhr){
+        }).catch(function (xhr) {
             console.log("Error");
             console.log(xhr);
         })
@@ -2092,19 +2136,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.tableSetting = false;
     $scope.tableSetting1 = false;
     $scope.tableSettingFunction = function (x) {
-        if(x == 0){
+        if (x == 0) {
             if ($scope.tableSetting == false) {
                 $scope.tableSetting = true;
-    
+
             }
             else {
                 $scope.tableSetting = false;
             }
         }
-        else if (x == 1){
+        else if (x == 1) {
             if ($scope.tableSetting1 == false) {
                 $scope.tableSetting1 = true;
-    
+
             }
             else {
                 $scope.tableSetting1 = false;
@@ -2113,31 +2157,31 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
 
     }
     $scope.secondTable = false;
-    $scope.filling = function(x){
+    $scope.filling = function (x) {
         $("#post-type").val(x);
     }
-    $scope.modalPlus = function(x,y,z){
-        if(z == false){
-            $("#"+x).addClass("table-moving-left");
-            $("#"+y).css("display","block");
-            $("#"+y).addClass("table-moving-right");
+    $scope.modalPlus = function (x, y, z) {
+        if (z == false) {
+            $("#" + x).addClass("table-moving-left");
+            $("#" + y).css("display", "block");
+            $("#" + y).addClass("table-moving-right");
             $scope.secondTable = true;
-            setTimeout(function(){
-                $("#"+x).css("display","none");
-                $("#"+x).removeClass("table-moving-left")
-                $("#"+y).removeClass("table-moving-right")
-            },1000)
+            setTimeout(function () {
+                $("#" + x).css("display", "none");
+                $("#" + x).removeClass("table-moving-left")
+                $("#" + y).removeClass("table-moving-right")
+            }, 1000)
         }
-        else{
-            $("#"+y).addClass("table-moving-right1");
-            $("#"+x).addClass("table-moving-left1");
-            $("#"+x).css("display","block");
-            setTimeout(function(){
-                $("#"+y).removeClass("table-moving-right1");
-                $("#"+y).css("display","none");
-                $("#"+x).removeClass("table-moving-left1");
-            },1000)
-        } 
+        else {
+            $("#" + y).addClass("table-moving-right1");
+            $("#" + x).addClass("table-moving-left1");
+            $("#" + x).css("display", "block");
+            setTimeout(function () {
+                $("#" + y).removeClass("table-moving-right1");
+                $("#" + y).css("display", "none");
+                $("#" + x).removeClass("table-moving-left1");
+            }, 1000)
+        }
     }
     // $scope.setFont = function(){
     //     console.log($scope.tableFontSize)
@@ -2440,10 +2484,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x != undefined) {
             $scope.chartTree[z].name = x;
         }
-        if($scope.fatherToChange != 'nochange' && $scope.fatherToChange != undefined){
+        if ($scope.fatherToChange != 'nochange' && $scope.fatherToChange != undefined) {
             $scope.chartTree[z].parent = $scope.fatherToChange;
         }
-        
+
         if (y == 0) {
             $scope.chartTree[z].icon = "fa-ban"
         }
@@ -2455,14 +2499,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         $scope.chartTreeAppend(0);
         $scope.fatherChange = false;
-        $("#drag"+$scope.fatherToChange).removeClass("redNode");
+        $("#drag" + $scope.fatherToChange).removeClass("redNode");
         $scope.fatherToChange = 'nochange';
         $("input").val("");
     }
     $scope.edit = "edit";
     $scope.update = "update";
     $scope.testData;
-    $scope.test1 = function(x){
+    $scope.test1 = function (x) {
         $scope.testData = x;
     }
     $scope.chartTreeAppend = function (x) {
@@ -2474,7 +2518,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         "<div class='chart-tree-view' >\
                             <div class='formal-chart formal-chart-right-border' >\
                                 <div class='row'  ng-drop='true' ng-drop-success='chartDrop($data,$event,0)'>\
-                                    <div class='col-sm-12 drag' id='drag"+ $scope.chartTree[i].id + "' ng-mouseenter='test1("+i+")' ng-click='selectedFather("+ $scope.chartTree[i].id + ")' ng-class='userColor' ng-drag-end='test()' draggable='true' ng-drag-data='" + i+ "' ng-drag='true'>\
+                                    <div class='col-sm-12 drag' id='drag"+ $scope.chartTree[i].id + "' ng-mouseenter='test1(" + i + ")' ng-click='selectedFather(" + $scope.chartTree[i].id + ")' ng-class='userColor' ng-drag-end='test()' draggable='true' ng-drag-data='" + i + "' ng-drag='true'>\
                                         <div class='row'>\
                                             <div class='col-sm-4 left-align'>\
                                                 <i class='fa fa-close pointer' ng-click='chartDelete("+ $scope.chartTree[i].id + ")'></i>\
@@ -2488,7 +2532,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                                                 <i class='fa "+ $scope.chartTree[i].icon + "'></i>\
                                             </div>\
                                             <div class='co-sm-8 center'>\
-                                                <span class='pointer' data-toggle='collapse' data-target='#chart-tree-"+$scope.chartTree[i].id+"'>\
+                                                <span class='pointer' data-toggle='collapse' data-target='#chart-tree-"+ $scope.chartTree[i].id + "'>\
                                                     "+ $scope.chartTree[i].name + "\
                                                 </span>\
                                             </div>\
@@ -2587,7 +2631,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 condition = true;
                 $scope.fatherToChange = 'nochange';
             }
-            else{
+            else {
                 $scope.fatherToChange = x;
             }
 
@@ -2596,7 +2640,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
             else {
                 $(".drag").removeClass("redNode");
-                $("#drag"+x).addClass("redNode");
+                $("#drag" + x).addClass("redNode");
             }
             console.log($scope.fatherToChange);
         }

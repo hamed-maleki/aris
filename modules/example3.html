@@ -1,4 +1,4 @@
-<div ng-init="gettingOrgChart('/user/get')"  id="myDemo3">
+<div id="myDemo3">
     <!-- <div class="col-sm-12 my-margin-top">
     </div> -->
     <!-- <div class="col-sm-1" style="margin-bottom: 25px;font-size: 16px;">
@@ -13,7 +13,7 @@
         <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px"></i>
     </div>
     <div class="clearfix"></div>
-    <div class="col-sm-12 collapse" id="search-form">
+    <div class="col-sm-12 collapse" id="search-form" ng-init="gettingOrgChart('/user/get')">
         <form>
             <div class="row">
                 <div class="col-sm-4">
@@ -264,13 +264,13 @@
                         <ul class="pagination" style="margin: 0">
                             <li>
                                 <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه"
-                                    ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                                    ng-click="finalPagination(1,false,'/Aris/api/user/get' )">
                                     <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل"
-                                    ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                                    ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user/get' )">
                                     <i class="fa fa-angle-right" style="margin: 0 auto"></i>
                                 </a>
                             </li>
@@ -281,13 +281,13 @@
                             </li>
                             <li>
                                 <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد"
-                                    ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                                    ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user/get' )">
                                     <i class="fa fa-angle-left" style="margin: 0 auto"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه"
-                                    ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                                    ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user/get' )">
                                     <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
                                 </a>
                             </li>
@@ -727,7 +727,7 @@
                             <div class="row" ng-if="isAuth('tdName',4)">
                                 <div class="col-sm-8">
                                     <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
-                                        id="edit-name" placeholder="نام" tabindex="1">
+                                        id="edit-name" placeholder="نام" tabindex="1" required>
                                 </div>
                                 <div class="col-sm-4 label-container change">
                                     <label for="usr" class="my-label">نام:</label>
@@ -738,7 +738,7 @@
                             <div class="row" ng-if="isAuth('tdFamily',4)">
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
-                                        ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2">
+                                        ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2" required>
                                 </div>
                                 <div class="col-sm-4 label-container change">
                                     <label for="family" class="my-label">نام خانوادگی:</label>
@@ -750,7 +750,7 @@
                             <div class="row" ng-if="isAuth('tdFatherName',4)">
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
-                                        id="edit-father" placeholder="نام پدر" tabindex="3">
+                                        id="edit-father" placeholder="نام پدر" tabindex="3" >
                                 </div>
                                 <div class="col-sm-4 label-container change">
                                     <label for="father" class="my-label">نام پدر:</label>
@@ -796,7 +796,7 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
-                                        value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6">
+                                        value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6" required>
                                 </div>
                                 <div class="col-sm-4 label-container change">
                                     <label for="id-badge" class="my-label">شماره شناسنامه:</label>
@@ -808,7 +808,7 @@
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
                                         id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X"
-                                        tabindex="7">
+                                        tabindex="7" required>
                                 </div>
                                 <div class="col-sm-4 label-container change">
                                     <label for="social-no" class="my-label">کد ملی:</label>
@@ -820,7 +820,7 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
-                                        value="{{editingUserData.personnelCode}}" placeholder="شماره شناسنامه" tabindex="8">
+                                        value="{{editingUserData.personnelCode}}" placeholder="کد پرسنلی" tabindex="8" required>
                                 </div>
                                 <div class="col-sm-4 label-container change">
                                     <label for="personnelCode" class="my-label">کد پرسنلی:</label>
@@ -868,7 +868,7 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
-                                        placeholder="نام کاربری" tabindex="12">
+                                        placeholder="نام کاربری" tabindex="12" required>
                                 </div>
                                 <div class="col-sm-4 label-container">
                                     <label for="user-name" class="my-label">نام کاربری:</label>
@@ -879,7 +879,7 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
-                                        value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13">
+                                        value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13" required>
                                 </div>
                                 <div class="col-sm-4 label-container">
                                     <label for="password" class="my-label">رمز عبور:</label>
