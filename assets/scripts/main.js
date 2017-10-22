@@ -1392,11 +1392,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
-                    $scope.finalPagination(1, 1, myhost + '/user/get')
+                    $scope.finalPagination(1, 1, myhost + '/user/get');
                     return;
                 }
                 else {
-                    $scope.finalPagination(currentpage + 1, 1, myhost + '/user/get')
+                    $scope.finalPagination(currentpage + 1, 1, myhost + '/user/get');
                     return;
                 }
             }
@@ -1408,8 +1408,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             if ($scope.editingLength - 1 < 0) {
-
-                $scope.finalPagination(currentpage - 1, -1, myhost + '/user/get')
+                $scope.finalPagination(currentpage - 1, -1, myhost + '/user/get');
                 return;
 
             }
@@ -1612,7 +1611,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         else {
 
         }
-        // if(currentpage == 1 && x == -1)
     }
     $scope.paginationToShow = function (x) {
         if (x == "last") {
@@ -2039,6 +2037,27 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         });
     }
+    $scope.orgchartUpdate = function(x){
+        var data = {
+            "name":x.name,
+            "chartType":x.chartType,
+            "assignType":x.assignType,
+            "id":$scope.editingUserData.id
+        };
+        data = JSON.stringify(data);
+        $http({
+            url: myhost + "/orgcharttype/Update",
+            method: "POST",
+            data: data,
+            ContentType: 'application/json; charset = utf-8',
+            dataType: 'JSON',
+            headers: authHeaders
+        }).then(function(response){
+            $scope.gettingOrgChart('/orgcharttype/get');
+        }).catch(function(xhr){
+            console.log(xhr);
+        })
+    }
     $scope.orgChartRegister = function (x) {
         var item = {
             "name": x.chartname,
@@ -2294,7 +2313,13 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.sideBar = function (x) {
         $(".side-tool p .fa-close").css("display", "block");
         $scope.sidecontainer(x);
-        $(".side-tool").animate({ width: "390px" }, 'slow');
+        if(window.innerWidth > 768){
+            $(".side-tool").animate({ width: "30%" }, 'slow');
+        }
+        else{
+            $(".side-tool").animate({ width: "90%" }, 'slow');
+        }
+        
         // $(".side-filter").animate({ width: "318px" }, 'slow');
         // $(".container-filter a").css("pointer-events", 'none');
         // $("nav a").css("pointer-events", 'none');

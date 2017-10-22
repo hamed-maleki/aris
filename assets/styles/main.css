@@ -1236,7 +1236,6 @@ nav a:hover {
 
 .tools-logo {
     width: 39%;
-    margin-top: 15px;
 }
 
 /*end of grid system*/
@@ -3026,8 +3025,92 @@ body {
         margin: 0 11px !important;
     }
 }
-
+.min-width {
+    min-width: 196px;
+}
+.my-sub-system  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media screen and (max-width:765px) {
+    .ct-chart-bar .ct-label.ct-horizontal.ct-end{
+        font-size: 10px;
+    }
+    #alarm {
+        height: 78%;
+    }
+    .left-align {
+        text-align: right;
+    }
+    .label-container {
+        text-align: right;
+        padding-right: 15px;
+    }
+    .dropdown-menu {
+        position: relative;
+    }
+    .time-event i {
+        display: none;
+    }
+    /* .timeline-border {
+        display: none;
+    } */
+    .responsive-button {
+        width: auto !important;
+    }
+    .extra-info {
+        top: 10px;
+        left: -41px !important;
+        width: 322px !important;
+    }
+    .table tbody > tr > td {
+        line-height: 0.5cm !important;
+    }
+    th {
+        min-width: 150px;
+    }
+    .window-height {
+        height: auto;
+    }
+    .min-window {
+        height: auto;
+    }
+    body{
+        overflow-y: scroll !important;
+    }
+    .paginationOrder {
+        width: 73px;
+        font-size: 9px !important;
+    }
+    .logo-holder {
+        height: 92px;
+    }
+    #aris-typo {
+        margin-top: 5px;
+        float: left !important;
+    }
+    .table-accessory-tools-responsive{
+        position: relative;
+        top: -84px;
+        margin-right: 2px;
+    }
+    .my-padding {
+        padding: 0 !important;
+    }
+    .center-align {
+        padding:  0 44px;
+    }
+    .my-col-sm-6 {
+        padding: 0 7px 0 6px;
+    }
+    footer {
+        position: static;
+        height: auto;
+    }
+    .min-width {
+        min-width: 0px;
+    }
     .ps-scrollbar-x {
         display: block;
     }
@@ -3036,17 +3119,16 @@ body {
     }
 
     .tools-logo{
-        width: 21%;
-        margin-top: 5px;
+        width: 37%;
     }
 
-    .my-padding ,.alarm-con{
-        padding: 0 44px !important;
+    .alarm-con{
+        padding: 0 !important;
     }
 
-    .my-col-sm-6 {
+    /* .my-col-sm-6 {
         padding: 0px 32px 0px 28px;
-    }
+    } */
 
     .searchContainer{
         position: static;
@@ -3089,18 +3171,16 @@ body {
     }
 
     .border-left{
-        margin: 15px;
+        margin: 5px;
+        padding: 5px;
     }
-
+    .pagination > li > a, .pagination > li > span {
+        padding: 4px 7px;
+    }
     .system-icon {
     font-size: 90px;
     margin-top: 30px;
     }
-
-    #alarm{
-        min-height: 238px;
-    }
-
     footer p{
     display: none;
     }
@@ -3131,12 +3211,9 @@ body {
     .right-float {
         float: none !important;
     }
-    /*#user-info {
-        width: 51%;
-        top: 168px;
-        left: 25px;
-    }*/
-
+    #user-info {
+        width: 70%;
+    }
     #setting-bar {
         width: 90%;
         left: 18px;
@@ -3241,10 +3318,10 @@ body {
     }
 
     #aris-logo {
-        width: 12%;
-        margin: 0 auto;
+        width: 11%;
+        margin: 4px auto;
         display: inline-block;
-        height: 52px;
+        height: 47px;
     }
     .center-align {
         display: block;

@@ -452,7 +452,7 @@
                             <td class="center">
                                 <span ng-if="chartElement.chartType == 0" style="font-size: 14px;float: right">نرمال</span>
                                 <span ng-if="chartElement.chartType == 1" style="font-size: 14px;float: right">موازی</span>
-                                <i class="fa fa-pencil-square-o" style="float: left" ng-if="tableEdit" data-toggle="modal" data-target="#tableEdit"></i>
+                                <i class="fa fa-pencil-square-o pointer" style="float: left" ng-if="tableEdit" data-toggle="modal" data-target="#tableEdit"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -569,49 +569,52 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
-
-                <form ng-submit="orgChartRegister(myorg)">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="myorg.chartname">
+                <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" data-dismiss="modal">&times;</button>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-11">
+                    <form ng-submit="orgChartRegister(myorg)">
+                        <div class="row">
+                            <div class="col-sm-4 col-sm-push-8 left-align">
+                                <label>
+                                    نوع پست :
+                                </label>
+                            </div>
+                            <div class="col-sm-8 col-sm-pull-4">
+                                <input type="text" class="form-control" ng-model="myorg.chartname">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
+                                <label>
+                                    قابلت نصبت فرد :
+                                </label>
+                            </div>
+                            <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                                <select ng-model="myorg.Assigntype" style='width: 100% !important;' class='form-control my-form'>
+                                    <option value=0 selected>ندارد</option>
+                                    <option value=1>تک نفر</option>
+                                    <option value=2>چند گانه</option>
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-4 col-sm-push-8 left-align my-margin-top">
+                                <label>
+                                    وضعیت پست :
+                                </label>
+                            </div>
+                            <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                                <select ng-model="myorg.charttype" style='width: 100% !important;' class='form-control my-form'>
+                                    <option value=0 selected>نرمال</option>
+                                    <option value=1>موازی</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-8 my-margin-top left-align">
+                                <button class="btn btn-primary" type="submit" style="margin-left: 15px;">
+                                    ثبت
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-sm-4 left-align">
-                            <label>
-                                نوع پست :
-                            </label>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-sm-8 my-margin-top">
-                            <select ng-model="myorg.Assigntype" style='width: 100% !important;' class='form-control my-form'>
-                                <option value=0 selected>ندارد</option>
-                                <option value=1>تک نفر</option>
-                                <option value=2>چند گانه</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-4 my-margin-top left-align">
-                            <label>
-                                قابلت نصبت فرد :
-                            </label>
-                        </div>
-                        <div class="col-sm-8 my-margin-top">
-                            <select ng-model="myorg.charttype" style='width: 100% !important;' class='form-control my-form'>
-                                <option value=0 selected>نرمال</option>
-                                <option value=1>موازی</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-4 left-align my-margin-top">
-                            <label>
-                                وضعیت پست :
-                            </label>
-                        </div>
-                        <div class="col-sm-8 my-margin-top left-align">
-                            <button class="btn btn-primary" type="submit">
-                                ثبت
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -619,42 +622,49 @@
 <div class="modal fade" role="dialog" id="tableEdit">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-body" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <input class="form-control" type="text" value="{{toshowEdit.name}}">
+            <div class="modal-body" ng-init="update = []" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
+                <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" data-dismiss="modal">&times;</button>
+                <form ng-submit="orgchartUpdate(update)">
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-push-8 left-align">
+                            <label>
+                                نوع پست :
+                            </label>
+                        </div>
+                        <div class="col-sm-8 col-sm-pull-4">
+                            <input class="form-control" type="text"  ng-model="update.name">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
+                            <label>
+                                قابلیت انتصاب افراد
+                            </label>
+                        </div>
+                        <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                            <select ng-model="update.assignType" style='width: 100% !important;' class='form-control my-form'>
+                                <option value=0>ندارد</option>
+                                <option value=1>تک نفر</option>
+                                <option value=2>چند گانه</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
+                            <label>
+                                وضعیت پست :
+                            </label>
+                        </div>
+                        <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                            <select ng-model="update.chartType" style='width: 100% !important;' class='form-control my-form'>
+                                <option value=0 selected>نرمال</option>
+                                <option value=1>موازی</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-sm-8 my-margin-top left-align">
+                            <button class="btn btn-primary" type="submit">ثبت تغییرات</button>
+                        </div>
                     </div>
-                    <div class="col-sm-4 left-align">
-                        <label>
-                            نوع پست :
-                        </label>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-8 my-margin-top">
-                        <select ng-model="toshowEdit.Assigntype" style='width: 100% !important;' class='form-control my-form'>
-                            <option value=0>ندارد</option>
-                            <option value=1>تک نفر</option>
-                            <option value=2>چند گانه</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4 my-margin-top left-align">
-                        <label>
-                            قابلیت انتصاب افراد
-                        </label>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-sm-8 my-margin-top">
-                        <select ng-model="myorg.charttype" style='width: 100% !important;' class='form-control my-form'>
-                            <option value=0 selected>نرمال</option>
-                            <option value=1>موازی</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4 my-margin-top left-align">
-                        <label>
-                            وضعیت پست :
-                        </label>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

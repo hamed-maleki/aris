@@ -169,6 +169,19 @@
                 overflow-y: hidden;
             }
         }
+        @media screen and (max-height: 765px){
+            body{
+                overflow-y: scroll;
+            }
+            
+            .main-arrow {
+                padding: 5px 22px 5px 0;
+            }
+            .main-arrow p {
+                font-size: 10px;
+            }
+            
+        }
     </style>
 </head>
 
@@ -209,7 +222,17 @@
                     </div>
                 </div>
             </div> -->
-            <div class="col-sm-10 right-align my-margin-top min-window" id="loadedPage" >
+            <div class="col-sm-2 col-sm-push-10 right-align my-margin-top" id="min-window-right" style="padding: 0 0 0 10px" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">
+                <div id="myDemo" class="window-height" ng-class="userSubColor">
+                    <ul>
+                        <li class="system-li pointer" ng-repeat="list in subsystem" ng-style="testfont" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
+                        </li>
+                        <li class="system-li pointer leaf" ng-repeat="list in leaf" ng-style="testfont" id="leaf{{list.id}}" ng-click="table(list.path,list.id)">{{list.title}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-10 col-sm-pull-2 right-align my-margin-top min-window" id="loadedPage" >
                 <div class="container-fluid" id="myFocus" ng-keyup="detector($event)" tabindex="1">
                     <div class="col-sm-12 my-margin-top right-align" style="direction: rtl">
                         <div class="main-arrow center"  data-step="3" data-intro="مسیر دسترسی به سیستم ورد نظر شما">
@@ -220,13 +243,13 @@
                         </div>
                     </div>
                     <div class="col-sm-12 right-align" ng-if="number != 'modules/unload.html'">
-                        <button class="my-button btn center" ng-click="sharingForm()" style="padding: 4px 5px;font-size: 14px;">
+                        <button class="my-button btn center responsive-button" ng-click="sharingForm()" style="padding: 4px 5px;font-size: 14px;">
                             <i class="fa fa-share-alt" style="margin: 0 7px"></i>     
                         </button>
-                        <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="minWindow()">
+                        <button class="my-button btn responsive-button" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="minWindow()">
                             <i class="fa fa-window-minimize pointer" style="margin: 0 7px"></i>
                         </button>
-                        <button class="my-button btn" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="maxWindow()">
+                        <button class="my-button btn responsive-button" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="maxWindow()">
                             <i class="fa fa-window-restore pointer" style="margin: 0 7px"></i>
                         </button>
                     </div>
@@ -234,16 +257,7 @@
                     <div ng-include="number" class="keyControl"></div>
                 </div>
             </div>
-            <div class="col-sm-2 right-align my-margin-top" id="min-window-right" style="padding: 0 0 0 10px" data-step="4" data-intro="سیستم های قابل دسترسی برای شما">
-                <div id="myDemo" class="window-height" ng-class="userSubColor">
-                    <ul>
-                        <li class="system-li pointer" ng-repeat="list in subsystem" ng-style="testfont" ng-click="childrenLoader(list.parent,list.id,list.isLeaf,list.title)">{{list.title}}
-                        </li>
-                        <li class="system-li pointer leaf" ng-repeat="list in leaf" ng-style="testfont" id="leaf{{list.id}}" ng-click="table(list.path,list.id)">{{list.title}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            
         </div>
     </div>
     <div class="side-tool">

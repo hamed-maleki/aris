@@ -509,7 +509,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 0" ng-click="tableSettingFunction(0)" data-toggle="tooltip"
+                    <i class="fa fa-gear pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" ng-click="tableSettingFunction(0)" data-toggle="tooltip"
                         data-placement="left" title="تنظیمات جدول"></i>
                     <div class="table-setting container" ng-if="tableSetting">
                         <div class="row">
@@ -799,20 +799,20 @@
                     <div class="modal-content">
                         <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
                             <div class="row">
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-sm-4 left-align" style="padding: 0">
+                                <div class="col-sm-4 col-sm-push-8 left-align" style="padding: 0">
                                     <label>
                                         عنوان بازه زمانی :
                                     </label>
                                 </div>
-                                <div class="clearfix"></div>
-                                <div class="col-sm-8 my-margin-top">
-                                    <input class="form-control" type="text">
+                                <div class="col-sm-8 col-sm-pull-4">
+                                    <input type="text" class="form-control">
                                 </div>
-                                <div class="col-sm-4 left-align my-margin-top" style="padding: 0">
+                                <div class="clearfix"></div>
+                                <div class="col-sm-4 col-sm-push-8 left-align my-margin-top" style="padding: 0">
                                     <label>طول (برحسب روز):</label>
+                                </div>
+                                <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                                    <input class="form-control" type="text">
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-sm-8 my-margin-top left-align">
