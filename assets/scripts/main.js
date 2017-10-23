@@ -24,7 +24,8 @@ app.directive("sidebar", function () {
 
 app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval', '$compile', '$window', function ($scope, $http, $timeout, $filter, $interval, $compile, $window) {
     // 'use strict';
-    $scope.host = $(location).attr('pathname');
+    $scope.host = $(location).attr('pathname') + "/api";
+    $scope.tableView  = true;
     $scope.minimizedFolder = [];
     $scope.host.indexOf(1);
     $scope.host.toLowerCase();
@@ -982,7 +983,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (evtobj.keyCode == 13) {
             if ($(".paginationOrder").is(":focus")) {
                 var page = $(".paginationOrder").val();
-                $scope.finalPagination(page, false, '/Aris/api/user/get');
+                $scope.finalPagination(page, false, $scope.urlToGet);
             }
         }
         if ($event.altKey || evtobj.altKey) {
@@ -1022,8 +1023,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
 
             if ($event.keyCode == 13) {
-                $scope.puttingInsideInput();
                 $("#tableEdit").modal();
+                $scope.puttingInsideInput();
                 // $("#myFocus").blur();
             }
             if ($event.keyCode == 61) {
@@ -1042,10 +1043,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // }
         }
         if ($event.keyCode == 39) {
-            $scope.finalPagination($scope.currentPage - 1, false, '/' + $scope.host + '/api/user/get')
+            $scope.finalPagination($scope.currentPage - 1, false,  $scope.urlToGet)
         }
         if ($event.keyCode == 37) {
-            $scope.finalPagination($scope.currentPage + 1, false, '/' + $scope.host + '/api/user/get')
+            $scope.finalPagination($scope.currentPage + 1, false, $scope.urlToGet)
         }
         // if ($event.altKey || evtobj.altKey) {
         //     
@@ -1064,11 +1065,14 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $scope.paginationNumber = [];
         $scope.paginationToShow(1);
         // $scope.pages = [];
-        $scope.gettingOrgChart('/user/get');
+        $scope.gettingOrgChart($scope.urlToGet);
 
         // $("#userpagination" + x).addClass("active");
     }
     $scope.finalPagination = function (x, y, z) {
+        
+        z = myhost + z;
+        console.log(z);
         if (x > 0 && x < $scope.paginationNumber.length + 1) {
             $scope.firstStep = 0;
             $(".pagination li").removeClass("active");
@@ -1128,7 +1132,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.pageToGo = false;
             $("#pageSpan").css("float", "none");
             if (x != 0) {
-                $scope.finalPagination(x, false, '/' + $scope.host + '/api/user/get')
+                $scope.finalPagination(x, false,$scope.urlToGet)
             }
         }
     }
@@ -1392,11 +1396,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
-                    $scope.finalPagination(1, 1, myhost + '/user/get');
+                    $scope.finalPagination(1, 1, $scope.urlToGet);
                     return;
                 }
                 else {
-                    $scope.finalPagination(currentpage + 1, 1, myhost + '/user/get');
+                    $scope.finalPagination(currentpage + 1, 1, $scope.urlToGet);
                     return;
                 }
             }
@@ -1408,7 +1412,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         else {
             if ($scope.editingLength - 1 < 0) {
-                $scope.finalPagination(currentpage - 1, -1, myhost + '/user/get');
+                $scope.finalPagination(currentpage - 1, -1, $scope.urlToGet);
                 return;
 
             }
@@ -1420,8 +1424,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
-        $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
-        $scope.puttingInsideInput();
+        if($scope.editingUserData.user != undefined){
+            $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
+            $scope.puttingInsideInput();
+        }
+        else{
+            console.log("#user" + $scope.editingUserData.id);
+            $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
+        }
+        
     }
     $scope.socialNoFormat = function (x) {
         var a = x.split('.', 3);
@@ -2012,7 +2023,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $('.chart-check').each(function (index) {
             if (this.checked == true) {
                 var myid = this.value;
-                console.log(myid);
+                console.log(myhost + "/orgcharttype/Delete/"+myid);
                 $http({
                     url: myhost + "/orgcharttype/Delete/"+myid,
                     method: "POST",
@@ -2083,13 +2094,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         })
     }
+    $scope.urlMaker = function(url){
+        console.log("this is happening");
+        $scope.urlToGet = url;
+        
+        console.log($scope.urlToGet);
+        $scope.gettingOrgChart($scope.urlToGet);
+    }
     $scope.gettingOrgChart = function (myUrl) {
         var sendusers = {
             "Pn": 1,
             "Ps": $scope.pagelength,
             "Orders": [{ "Col": "Id", "Asc": true }]
         }
-        console.log(myhost + myUrl);
         $http({
             url: myhost + myUrl,
             method: "POST",

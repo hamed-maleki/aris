@@ -1411,7 +1411,7 @@ nav a:hover {
     width: 75%;
     min-height: 300px;
     position: absolute;
-    bottom: -10px;
+    bottom: -127px;
     right: 25%;
     z-index: 3;
     animation: aris 0.25s;
@@ -1446,7 +1446,7 @@ nav a:hover {
     border-left: 10px solid rgba(0,0,0,1);
     border-bottom: 10px solid transparent;
     position: absolute;
-    bottom: 20px;
+    bottom: 133px;
     right: -10px;
 }
 .modal-table-setting::before {
@@ -3284,7 +3284,7 @@ body {
     .tools {
         width: 41%;
         float: right;
-        margin: 0 10px;
+        margin: 0 9px;
     }
 
     .chart {
