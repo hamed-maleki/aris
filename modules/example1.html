@@ -406,16 +406,10 @@
             <div class="table-responsive printable my-margin-top">
                 <table class="table table-hover table-bordered right-align my-margin-top">
                     <thead>
-                        <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
-                            <span style="position: absolute;top:57px;right:48%;color: #CF4133;font-size: 20px">
-                                <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
-                            </span>
-                            <span style="position: absolute;top:33px;left:-2%;color: #CF4133;font-size: 20px">
-                                <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
-                            </span>
+                        <tr ng-class="userColor">
                             <th style="width: 350px;">
-                                <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
-                                <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
+
+                                <i class="fa fa-ellipsis-v pointer" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
                                 <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
                                 <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> عنوان
                             </th>
@@ -424,12 +418,6 @@
                             </th>
                         </tr>
                         <tr id="search-part" class="collapse" ng-class="userSubColor">
-                            <span ng-if="searchFlag" style="position: absolute;top:109px;right:48%;color: #CF4133;font-size: 20px">
-                                <i class="fa fa-search pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
-                            </span>
-                            <span ng-if="searchFlag" style="position: absolute;top:79px;left:-2%;color: #CF4133;font-size: 20px">
-                                <i class="fa fa-search pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
-                            </span>
                             <th>
                                 <input type="text" class="form-control" ng-model="search.userName" />
                             </th>
@@ -509,8 +497,8 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <i class="fa fa-gear pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" ng-click="tableSettingFunction(0)" data-toggle="tooltip"
-                        data-placement="left" title="تنظیمات جدول"></i>
+                    <i class="fa fa-gear pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" ng-click="tableSettingFunction(0)"
+                        data-toggle="tooltip" data-placement="left" title="تنظیمات جدول"></i>
                     <div class="table-setting container" ng-if="tableSetting">
                         <div class="row">
                             <div class="col-sm-12 right-align">
@@ -712,7 +700,7 @@
                                                 </button>
                                             </div>
                                             <input class="form-control right-align login-input" id="post-type" style="font-size: 13px;" ng-model="postType" />
-                                            <div class="white-background" id="lookup" ng-if="lookupFlag" >
+                                            <div class="white-background" id="lookup" ng-if="lookupFlag">
                                                 <ul>
                                                     <li ng-repeat="x in tree |filter : postType">
                                                         <a href="#" ng-click="filling(x.name)">{{x.name}}</a>
@@ -779,7 +767,7 @@
                                     </div>
                                     <hr style="border-color: white;width: 100%;">
                                 </div>
-                                <div  ng-include="'modules/storage/kalaplus.html'"></div>
+                                <div ng-include="'modules/storage/kalaplus.html'"></div>
                             </div>
                             <div class="modal-nth-table" id="modal-fifth-table" style="margin-left: 25px">
                                 <div class="row">
@@ -826,3 +814,10 @@
         </div>
     </div>
 </div>
+
+<!-- 
+    <div>
+    در این سرای بی کسی کسی به در نمیزند
+    به دشت پرملال ما پرنده سر نمیزند
+    یکی زشب گرفتگان چرا برنمیکند    
+    </div> -->

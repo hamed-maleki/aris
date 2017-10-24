@@ -1915,6 +1915,8 @@ tfoot tr td {
 }
 .table-special-icon {
     color: gray;
+    font-size: 16px;
+    margin-top: 5px;
 }
 .table-special-icon:hover {
     color: black;

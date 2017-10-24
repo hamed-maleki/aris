@@ -16,5 +16,6 @@
     "userSystemColor":"second-systemcolor",
     "testfont": {
         "font-family": "dubai"
-    }
+    },
+    "img":"media/1.jpg"
 }

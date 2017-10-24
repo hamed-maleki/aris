@@ -211,7 +211,7 @@
                 <tbody>
                     <tr ng-style="testfont" data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
                         ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
-                        ng-click="editUser(data.user.id)">
+                        ng-click="editUser(data.user.id,$index)">
                         <td ng-style="testfont;tableFont" style="width: 200px">{{data.user.name}}</td>
                         <!-- <td ng-style="testfont;tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td> -->
                         <td ng-style="testfont;tableFont" style="width: 200px">{{data.personnel.name}}</td>

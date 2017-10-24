@@ -1,10 +1,10 @@
 <div class="table-responsive printable my-margin-top">
     <table class="table table-hover table-bordered right-align my-margin-top">
         <thead>
-            <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
+            <tr ng-class="userColor" >
                 <th>
-                    <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
-                    <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
+                    
+                    <i class="fa fa-ellipsis-v pointer" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
                     <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
                     <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> کد کالا
                 </th>

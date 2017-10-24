@@ -106,7 +106,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/example1.html";
+    $scope.number = "modules/storage/producer.html";
     $scope.limitedNote = [];
 
     $scope.reading = 0;
@@ -1363,17 +1363,28 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#editMessage").html(xhr.data);
         })
     }
-    $scope.editUser = function (x) {
+    $scope.editUser = function (x,index) {
+        console.log(index);
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
         $("#user" + x).css("background-color", "rgb(255,255,153)");
-        for (var i = 0; i < $scope.limitedEdition.length; i++) {
-            if (x == $scope.limitedEdition[i].user.id) {
-                $scope.editingUserData = $scope.limitedEdition[i];
-                $scope.editingLength = i;
-                $scope.puttingInsideInput();
-                $scope.firstStep = 1;
-            }
+        // for (var i = 0; i < $scope.limitedEdition.length; i++) {
+        //     if ( $scope.limitedEdition[i].user != undefined && x == $scope.limitedEdition[i].user.id) {
+        //         // $scope.editingUserData = $scope.limitedEdition[i];
+        //         $scope.editingLength = i;
+        //         $scope.puttingInsideInput();
+        //         $scope.firstStep = 1;
+        //     }
+        //     else if(x == $scope.limitedEdition[i].id){
+        //         $scope.editingLength = i;
+        //         $scope.firstStep = 1;
+        //     }
+        // }
+        $scope.editingUserData = $scope.limitedEdition[index];
+        $scope.editingLength = index;
+        $scope.firstStep = 1;
+        if($scope.editingUserData.user != undefined){
+            $scope.puttingInsideInput();
         }
         $("#myFocus").focus();
     }
@@ -2035,20 +2046,25 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                         if(myid == $scope.limitedEdition[i].id){
                             $scope.limitedEdition.splice(i,1);
                         }
+                        $("#tableDelete").modal('hide');
                     }
 
                 }).catch(function (xhr, status, error) {
                     console.log(xhr);
                 })
-                // for (var i = 0; i < $scope.cartable.length; i++) {
-                //     if (myid == $scope.cartable[i].id) {
-                //         $scope.cartable.splice(i, 1);
-                //     }
-                // }
             }
         });
     }
     $scope.orgchartUpdate = function(x){
+        if(x.name == undefined){
+            x.name = $scope.editingUserData.name;
+        }
+        if(x.chartType == undefined){
+            x.chartType = $scope.editingUserData.chartType;
+        }
+        if(x.assignType == undefined){
+            x.assignType = $scope.editingUserData.assignType;
+        }
         var data = {
             "name":x.name,
             "chartType":x.chartType,

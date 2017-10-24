@@ -1,0 +1,484 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="table-responsive my-margin-top">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr ng-class="userColor">
+                            <th>
+                                <i class="fa fa-ellipsis-v pointer" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
+                                نام شرکت
+                            </th>
+                            <th>
+                                شماره اقتصادی
+                            </th>
+                        </tr>
+                        <tr id="search-part" class="collapse" ng-class="userSubColor">
+                            <th>
+                                <input class="form-control" type="text">
+                            </th>
+                            <th>
+                                <input class="form-control" type="text">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                شرکت فراراه سازان گستر جهادی
+                            </td>
+                            <td>
+                                1236456
+                                <i class="fa fa-map-signs table-special-icon pointer" style="float: left;" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip"
+                                    data-placement="top" title="تعیین شاخص"></i>
+                                <i class="fa fa-shopping-basket table-special-icon pointer" style="float: left" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip"
+                                    data-placement="top" title="تعیین خدمت/ کالا"></i>
+                                <span class="fa-stack " style="float: left;margin-left: 3px" onmouseenter="$(this).tooltip('show')" data-toggle="tooltip"
+                                    data-placement="top" title="لیست سیاه">
+                                    <i class="fa fa-credit-card fa-stack-1x" style="color: gray"></i>
+                                    <i class="fa fa-ban fa-stack-2x text-danger pointer"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 left-align">
+
+                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
+                        data-placement="right" title="بازه جدید" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+                        data-position='right'></i>
+                </div>
+                <div class="col-sm-6 center">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="pagination" style="margin: 0">
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه" ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-right" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black">
+                                        <input type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-left" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه" ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                                        <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <i class="fa fa-gear pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" ng-click="tableSettingFunction(0)"
+                        data-toggle="tooltip" data-placement="left" title="تنظیمات جدول"></i>
+                    <div class="table-setting container" ng-if="tableSetting">
+                        <div class="row">
+                            <div class="col-sm-12 right-align">
+                                <i class="fa fa-close" ng-click="tableSettingFunction(0)"></i>
+                            </div>
+                            <div class="col-sm-12 right-align">
+                                <label>تعداد ردیف : </label>
+                            </div>
+                            <div class="col-sm-12 right-align">
+                                <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                                    <option value="5"> 5</option>
+                                    <option value="10"> 10</option>
+                                    <option value="15"> 15</option>
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 my-margin-top">
+                                <label>اندازه فونت : </label>
+                                <div class="row right-align">
+                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                        14
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                        16
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                        18
+                                    </div>
+                                    <form>
+                                        <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
+                                            ng-model="size" ng-change="tablefontChange(size)" />
+                                    </form>
+                                </div>
+                            </div>
+                            <hr style="width: 100%;border-top-color: #BFBFBF">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label>export :</label>
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                        <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                        <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
+                                    </div>
+                                    <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                        <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tableperiod" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body container" style="overflow-x: hidden;">
+                            <div id="tableMove">
+                                <div class="col-sm-12">
+                                    <p class="center">بازه زمانی فلان</p>
+                                    <div class="table-responsive printable my-margin-top">
+                                        <table class="table table-hover table-bordered right-align my-margin-top">
+                                            <thead>
+                                                <tr ng-class="userColor">
+                                                    <th>
+                                                        پست
+                                                    </th>
+                                                    <th>
+                                                        کالا
+                                                    </th>
+                                                    <th>
+                                                        میزان سهمیه
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>sjdfs</td>
+                                                    <td>asdgasd</td>
+                                                    <td>askdas</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 center">
+
+                                        <i class="fa fa-plus pointer table-accessory-tools" data-toggle="tooltip" data-placement="top" title="بازه جدید" onmouseenter="$(this).tooltip('show')"
+                                            data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right' style="margin-left: 6px"
+                                            ng-click="modalPlus('tableMove','modal-second-table',false)"></i>
+                                    </div>
+                                    <div class="col-sm-8 center">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <ul class="pagination" style="margin: 0">
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="اولین صفحه" ng-click="finalPagination(1,false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-double-right" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="right" title="صفحه قبل" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-right" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black">
+                                                            <input type="text" class="form-control paginationOrder" style="font-size: 13px;height: 24px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-left" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="آخرین صفحه" ng-click="finalPagination(paginationNumber[paginationNumber.length-1],false,'/Aris/api/user' )">
+                                                            <i class="fa fa-angle-double-left" style="margin: 0 auto"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 center">
+                                        <i class="fa fa-gear pointer table-accessory-tools" style="margin-right: 6px" ng-click="tableSettingFunction(1)" data-toggle="tooltip"
+                                            data-placement="top" title="تنظیمات جدول"></i>
+                                        <div class="table-setting modal-table-setting container" ng-if="tableSetting1">
+                                            <div class="row">
+                                                <div class="col-sm-12 right-align">
+                                                    <i class="fa fa-close" ng-click="tableSettingFunction(1)"></i>
+                                                </div>
+                                                <div class="col-sm-12 right-align">
+                                                    <label>تعداد ردیف : </label>
+                                                </div>
+                                                <div class="col-sm-12 right-align">
+                                                    <select style="font-size: 15px;width: 100%;height: 22px;" ng-model="pagelength" ng-change="paginationRow(pagelength)">
+                                                        <option value="5"> 5</option>
+                                                        <option value="10"> 10</option>
+                                                        <option value="15"> 15</option>
+                                                    </select>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-12 my-margin-top">
+                                                    <label>اندازه فونت : </label>
+                                                    <div class="row right-align">
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                                            14
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                                            16
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 16px;">
+                                                            18
+                                                        </div>
+                                                        <form>
+                                                            <input type="range" id="fontRange" min="14" max="18" step="2" style="width: 85%;margin: 0 auto;display: block;direction: ltr"
+                                                                ng-model="size" ng-change="tablefontChange(size)" />
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <hr style="width: 100%;border-top-color: #BFBFBF">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label>export :</label>
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                                            <i class="fa fa-file-pdf-o pointer" style="margin: 0"></i>
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                                            <i class="fa fa-file-excel-o pointer" style="margin: 0"></i>
+                                                        </div>
+                                                        <div class="col-sm-4 center" style="color: white;font-size: 24px;">
+                                                            <i class="fa fa-file-word-o pointer" style="margin: 0"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="modal-second-table" class="modal-nth-table" ng-init="lookupFlag = false">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('tableMove','modal-second-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="lookupFlag ? lookupFlag = flase : lookupFlag = true">
+                                                    <i style="margin: 0 5px;color: white" class="fa fa-chevron-down"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" id="post-type" style="font-size: 13px;" ng-model="postType" />
+                                            <div class="white-background" id="lookup" ng-if="lookupFlag">
+                                                <ul>
+                                                    <li ng-repeat="x in tree |filter : postType">
+                                                        <a href="#" ng-click="filling(x.name)">{{x.name}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align">
+                                        <label>پست :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="modalPlus('modal-second-table','modal-third-table',false)">
+                                                    <i style="margin: 0 5px;color: white;" class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align my-margin-top">
+                                        <label>کالا :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;padding: 6px;color: white">
+                                                    کیلوگرم
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" type="number" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align my-margin-top">
+                                        <label>میزان سهمیه :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2 my-margin-top"></div>
+                                    <div class="col-sm-6 my-margin-top left-align">
+                                        <button class="btn btn-primary" ng-click="modalPlus('tableMove','modal-second-table',true)">
+                                            ثبت
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="modal-third-table" class="modal-nth-table" ng-init="modalContainer = true">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-second-table','modal-third-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;margin-right: -5px">
+                                    <div class="col-sm-12 my-margin-top" ng-include="'modules/storage/kala.html'"></div>
+                                </div>
+                            </div>
+                            <div class="modal-nth-table" style="margin-left: 25px" id="modal-forth-table">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-third-table','modal-forth-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;">
+                                </div>
+                                <div ng-include="'modules/storage/kalaplus.html'"></div>
+                            </div>
+                            <div class="modal-nth-table" id="modal-fifth-table" style="margin-left: 25px">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-forth-table','modal-fifth-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;">
+                                    <!-- <div ng-init="table('example3.html',4)" ng-include="'modules/example3.html'"></div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tablePlusUser" class="modal fade" role="dialog" ng-keydown="detector($event)" tabindex="2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
+                            <div class="row" style="width: 100%">
+                                <div class="col-sm-6 right-float">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-push-8 left-align">
+                                            <label>
+                                                عنوان :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8 col-sm-pull-4">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 right-float">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-push-8 left-align">
+                                            <label>
+                                                شماره تلفن :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8 col-sm-pull-4">
+                                            <input class="form-control" type="tel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6 right-float my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-push-8 left-align">
+                                            <label>
+                                                شماره ملی :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8 col-sm-pull-4">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 right-float my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-push-8 left-align">
+                                            <label>
+                                                شماره اقتصادی :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8 col-sm-pull-4">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-2 col-sm-push-10 left-align my-margin-top" style="padding: 0">
+                                    <label>
+                                        نوع شرکت :
+                                    </label>
+                                </div>
+                                <div class="col-sm-10 col-sm-pull-2 my-margin-top">
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6 right-float my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label style="margin-right: 16px">امکان انتخاب در صورت وجود در لیست سیاه:</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 right-float my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-push-8 left-align">
+                                            <label style="margin-right: 16px">
+                                                نوع شرکت :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6 right-float">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
+                                            <label>
+                                                آدرس :
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-8 my-margin-top left-align">
+                                    <button class="btn btn-primary">ثبت دوره</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
