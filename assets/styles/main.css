@@ -90,7 +90,10 @@ body::-webkit-scrollbar-thumb {
 a {
     text-decoration: none;
 }
-
+textarea {
+    font-size: 11px !important;
+    padding: 0 5px;
+}
 a:hover {
     text-decoration: none;
 }
@@ -234,6 +237,27 @@ p{
     height: 150px;
     right: 0;
     z-index: 2;
+}
+.producers {
+    position: absolute;
+    top: 3px;
+    left: 43px;
+    width: 89%;
+    height: 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.producers span{
+    /* background-color: gray; */
+    font-size: 10px;
+    color: white;
+    margin: 3px 1px 0 1px;
+    padding: 0 3px;
+    float: left;
+}
+.producers span i{
+    margin-right: 3px;
+    font-size: 10px;
 }
 #lookup li {
     margin-top: 5px;

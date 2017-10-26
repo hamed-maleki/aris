@@ -373,7 +373,8 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;min-height: 200px">
-                            <div class="row" style="width: 100%">
+                            <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" data-dismiss="modal">&times;</button>
+                            <div class="row my-margin-top" style="width: 100%">
                                 <div class="col-sm-6 right-float">
                                     <div class="row">
                                         <div class="col-sm-4 col-sm-push-8 left-align">
@@ -429,46 +430,134 @@
                                         نوع شرکت :
                                     </label>
                                 </div>
-                                <div class="col-sm-10 col-sm-pull-2 my-margin-top">
-                                    <input type="text" class="form-control">
+                                <div class="col-sm-10 col-sm-pull-2 my-margin-top" style="position: relative">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button class="btn center" ng-click="lookUping()" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;padding: 4px 12px">
+                                                <i class="fa fa-chevron-down" style="margin: 0"></i>
+                                            </button>
+                                        </div>
+                                        <input class="form-control right-align login-input" type="text" />
+                                        <div class="producers" id="produce">
+                                            <span ng-class="userSubColor" ng-repeat="x in producers">
+                                                {{x.author}}
+                                                <i class="fa fa-close" ng-click="removingProducer($index,x.id)"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div ng-init="send()" class="white-background hide" id="producer-type" style="position: absolute;height: 150px;width: 93%;z-index: 2;">
+                                        <input class="form-control" style="margin: 5px auto;width: 90%;" placeholder="جستجو" ng-model="filtering" type="text" />
+                                        <ul>
+                                            <li class="my-margin-top" ng-repeat="item in sendMails| filter: filtering">
+                                                <div class="checkbox" style="margin-top: -15px">
+                                                    <label style="display: inline-block">
+                                                        <input type="checkbox" tabindex="24" id="producer{{item.id}}" value="1" ng-click="producerCheck($index,item.id)">
+                                                        <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: gray;background-color: white">
+                                                            <i class="cr-icon fa fa-check"></i>
+                                                        </span>
+                                                        <span style="margin-right: 5px">{{item.author}}</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <hr>
+                                        <div class="container my-margin-top">
+                                            <div class="row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-10" style="margin-bottom: 10px;">
+                                                    <div class="input-group">
+                                                        <div class="input-group-btn">
+                                                            <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;padding: 4px 12px">
+                                                                <i class="fa fa-plus" style="margin: 0"></i>
+                                                            </button>
+                                                        </div>
+                                                        <input class="form-control right-align login-input" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-6 right-float my-margin-top">
+                                <div class="col-sm-12 right-float my-margin-top">
+                                    <div class="row">
+                                        <div class="col-sm-2 col-sm-push-10 left-align" style="padding: 0">
+                                            <label style="margin-right: 16px">
+                                                نوع :
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-10 col-sm-pull-2"></div>
+                                        <div class="clearfix"></div>
+                                        <div class="col-sm-12 my-margin-top">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <div class="checkbox" style="margin-top: -25px">
+                                                        <label style="display: inline-block">
+                                                            <input type="checkbox" tabindex="24" value="1" required>
+                                                            <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                                <i class="cr-icon fa fa-check"></i>
+                                                            </span>
+                                                            <span style="margin-right: 5px">تامین کننده</span>
+                                                        </label>
+                                                        <label style="display: inline-block">
+                                                            <input type="checkbox" tabindex="24" value="0" required>
+                                                            <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                                <i class="cr-icon fa fa-check"></i>
+                                                            </span>
+                                                            <span style="margin-right: 5px">خدمات دهنده</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-12 right-float my-margin-top">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <label style="margin-right: 16px">امکان انتخاب در صورت وجود در لیست سیاه:</label>
                                         </div>
                                         <div class="col-sm-12">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 right-float my-margin-top">
-                                    <div class="row">
-                                        <div class="col-sm-4 col-sm-push-8 left-align">
-                                            <label style="margin-right: 16px">
-                                                نوع شرکت :
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <input class="form-control" type="text">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <div class="radio" style="margin-top: 3px;">
+                                                        <label>
+                                                            <input type="radio" name="registerGender" tabindex="24" value="1" ng-model="register.gender" required>
+                                                            <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                                <i class="cr-icon fa fa-circle"></i>
+                                                            </span>
+                                                            <span>دارد</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="registerGender" tabindex="24" value="0" ng-model="register.gender" required checked>
+                                                            <span class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                                                <i class="cr-icon fa fa-circle"></i>
+                                                            </span>
+                                                            <span>ندارد</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-sm-6 right-float">
+                                <div class="col-sm-6 right-float my-margin-top">
                                     <div class="row">
-                                        <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
+                                        <div class="col-sm-4 col-sm-push-8  left-align">
                                             <label>
                                                 آدرس :
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="clearfix"></div>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control"></textarea>
+                                    <textarea class="form-control right-align"></textarea>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-sm-8 my-margin-top left-align">
@@ -482,3 +571,9 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        Ps.initialize(document.getElementById('producer-type'));
+        Ps.initialize(document.getElementById('produce'));
+    });
+</script>

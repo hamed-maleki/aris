@@ -126,6 +126,28 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.events.push(calendar);
         localStorage.setItem('event', JSON.stringify($scope.events));
     }
+    $scope.lookupFlag = false;
+    $scope.lookUping =function(){
+        $("#producer-type").toggleClass("hide");
+    }
+    $scope.producers = [];
+    $scope.producerCheck = function(x,id){
+        if($("#producer" + id).is(":checked")){
+            $scope.producers.push($scope.sendMails[x]);
+        }
+        else{
+            for(var i =0; i < $scope.producers.length; i++){
+                if(id == $scope.producers[i].id){
+                    $scope.producers.splice(i,1);
+                }
+            }
+        }
+    }
+    $scope.removingProducer = function(x, id){
+        $scope.producers.splice(x,1);
+        $("#producer"+id).attr('checked', false);
+
+    }
     // cartable json load and number of unread message
     $http.get("data/cartable.json")
         .then(function (response) {
