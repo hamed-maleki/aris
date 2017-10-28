@@ -244,6 +244,9 @@
                         </div>
                     </div>
                     <div class="col-sm-12 right-align" ng-if="number != 'modules/unload.html'">
+                        <button class="my-button btn responsive-button" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="gettingOrgChart(urlToGet)">
+                            <i class="fa fa-refresh pointer" style="margin: 0 7px"></i>
+                        </button>
                         <button class="my-button btn center responsive-button" ng-click="sharingForm()" style="padding: 4px 5px;font-size: 14px;">
                             <i class="fa fa-share-alt" style="margin: 0 7px"></i>     
                         </button>
@@ -253,12 +256,12 @@
                         <button class="my-button btn responsive-button" style="padding: 4px 2px;font-size: 14px;margin: 0" ng-click="maxWindow()">
                             <i class="fa fa-window-restore pointer" style="margin: 0 7px"></i>
                         </button>
+
                     </div>
                     <hr style="margin: 10px auto;width: 100%;">
                     <div ng-include="number" class="keyControl"></div>
                 </div>
             </div>
-            
         </div>
     </div>
     <div class="side-tool">

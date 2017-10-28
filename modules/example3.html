@@ -5,17 +5,20 @@
         
     </div> -->
     <!-- <button ng-click="gettingOrgChart('/user')"></button> -->
-    <div class="col-sm-9" style="margin-bottom: 25px">
+    <!-- <div class="col-sm-9" style="margin-bottom: 25px">
         <hr style="width: 100%">
     </div>
     <div class="col-sm-3 pointer" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
         جستجوی پیشرفته
         <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px"></i>
     </div>
-    <div class="clearfix"></div>
+    <div class="clearfix"></div> -->
     <div class="col-sm-12 collapse" id="search-form" ng-init="urlMaker('/user/get')">
         <form>
             <div class="row">
+                <div class="col-sm-12 left-align">
+                    <i class="fa fa-close" ng-click="searchFormToggle()" style="color: gray"></i>
+                </div>
                 <div class="col-sm-4 right-float">
                     <div class="row">
                         <div class="col-sm-4 left-align col-sm-push-8">
@@ -161,16 +164,11 @@
         </form>
     </div>
     <div class="col-sm-12 my-margin-top">
+        <p id="error-message" class="center red"></p>
         <div class="table-responsive printable my-margin-top">
             <table class="table table-hover table-bordered right-align my-margin-top">
                 <thead>
                     <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
-                        <span style="position: absolute;top:20px;right:48%;color: #CF4133;font-size: 20px">
-                            <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
-                        </span>
-                        <span style="position: absolute;top:0px;left:-2%;color: #CF4133;font-size: 20px">
-                            <i class="fa fa-chevron-down pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:2px 3px 5px;background-color: lightgray"></i>
-                        </span>
                         <!-- <th style="width: 150px;">
                             نام کاربری
                         </th>
@@ -178,8 +176,7 @@
                         <th style="width: 300px" ng-if="isAuth('tdFamily',1)">نام خانوادگی</th>
                         <th style="width: 300px" ng-if="isAuth('tdFatherName',4)">نام پدر</th> -->
                         <th>
-                            <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
-                            <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
+                            <i class="fa fa-ellipsis-v pointer" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> نام کاربری
                         </th>
@@ -188,23 +185,89 @@
                         <th>نام پدر</th>
                     </tr>
                     <tr id="search-part" class="collapse" ng-class="userSubColor">
-                        <span ng-if="searchFlag" style="position: absolute;top:75px;right:48%;color: #CF4133;font-size: 20px">
-                            <i class="fa fa-search pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
-                        </span>
-                        <span ng-if="searchFlag" style="position: absolute;top:45px;left:-2%;color: #CF4133;font-size: 20px">
-                            <i class="fa fa-search pointer" id="search-toggle-icon" ng-click="searchToggle()" style="border-radius: 50%;padding:3px 5px;background-color: lightgray"></i>
-                        </span>
-                        <th>
-                            <input type="text" class="form-control" ng-model="search.userName" />
+                        <th ng-init="search[0].Col = 'Name'">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="first-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="first-drop">
+                                        <li ng-click="search[0].operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[0].operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[0].operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[0].Value"/>
+                            </div>
                         </th>
-                        <th>
-                            <input type="text" class="form-control" ng-model="search.name" />
+                        <th ng-init="search[1].Col = 'personnel.Name'">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="second-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="second-drop">
+                                        <li ng-click="search[1].operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[1].operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[1].operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[1].Value"/>
+                            </div>
                         </th>
-                        <th>
-                            <input type="text" class="form-control" ng-model="search.familyName" />
+                        <th ng-init="search[2].Col = 'personnel.family'">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="third-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="third-drop">
+                                        <li ng-click="search[2].operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[2].operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[2].operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[2].Value"/>
+                            </div>
                         </th>
-                        <th>
-                            <input type="text" class="form-control" ng-model="search.fatherName">
+                        <th ng-init="search[3].Col = 'personnel.fatherName'">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="forth-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="forth-drop">
+                                        <li ng-click="search[3].operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[3].operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[3].operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[3].Value" />
+                            </div>
                         </th>
                     </tr>
                 </thead>
@@ -279,7 +342,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage + 1,false,urlToGet )">
+                                <a href="#" style="color: black" data-toggle="tooltip" data-placement="left" title="صفحه بعد" ng-click="finalPagination(currentPage+1,false,urlToGet )">
                                     <i class="fa fa-angle-left" style="margin: 0 auto"></i>
                                 </a>
                             </li>
@@ -294,8 +357,7 @@
             </div>
             <div class="col-sm-3 right-align">
                 <span data-toggle="tooltip" data-placement="left" title="جستجو پیشرفته">
-                    <i class="fa fa-search pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" data-toggle="modal"
-                        data-target="#search-user"></i>
+                    <i class="fa fa-search pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" ng-click="searchFormToggle()"></i>
                 </span>
 
                 <i class="fa fa-gear pointer table-accessory-tools table-accessory-tools-responsive" style="margin-right: 0" ng-click="tableSettingFunction(0)"

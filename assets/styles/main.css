@@ -238,8 +238,19 @@ p{
     right: 0;
     z-index: 2;
 }
+.input-group{
+    direction: ltr;
+}
+.input-group  ul  li {
+    color: black;
+    text-align: right;
+    margin: 5px auto;
+    padding-right: 10px;
+}
 .producers {
     position: absolute;
+    padding-left: 5px;
+    margin-bottom: 10px;
     top: 3px;
     left: 43px;
     width: 89%;
@@ -1271,6 +1282,7 @@ nav a:hover {
 }
 .selected-row {
     background-color: #F5F5F5!important;
+    font-weight: bold;
 }
 .editor {
     display: none;
@@ -2467,6 +2479,7 @@ tfoot tr td {
     color: white;
     animation: unload 0.5s alternate infinite;
     width: 100%;
+    margin-top: 15px;
 }
 .log-btn {
     background-color: #F6921E;
