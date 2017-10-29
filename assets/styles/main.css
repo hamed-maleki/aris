@@ -2825,7 +2825,6 @@ body {
     }
     .center-align {
         height: 50vh;
-        padding: 0 91px;
         margin-top: 120px;
     }
     .min-window,.window-height {
@@ -2857,7 +2856,6 @@ body {
     }
     
     .center-align {
-        padding: 0 120px;
         display: block;
         margin-bottom: 0px;
         height: 40vh;
@@ -2869,7 +2867,7 @@ body {
         margin-top: 17px !important;
     }
     .my-col-sm-6 .sub-system{
-        min-height: 75px !important;
+        min-height: 60px !important;
     }
     .tools-icon i {
         font-size: 36px;
@@ -2901,9 +2899,6 @@ body {
     }
     .tools-logo {
         width: 55%;
-    }
-    .center-align {
-        padding: 0 120px;
     }
     #aris-logo {
         width: 17%;
@@ -3073,6 +3068,10 @@ body {
     align-items: center;
 }
 @media screen and (max-width:765px) {
+
+    .my-col-sm-6 .sub-system {
+        height: 80px;
+    }
     .ct-chart-bar .ct-label.ct-horizontal.ct-end{
         font-size: 10px;
     }

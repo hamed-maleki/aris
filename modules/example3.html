@@ -25,7 +25,28 @@
                             <label>نام :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="text" tabindex="31" class="form-control" />
+                            <div class="input-group" ng-init="search[0].Col = 'personnel.Name'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="first-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="first-advanced-search">
+                                        <li ng-click="search[0].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[0].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[0].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div ng-class="userSubColor" style="width: 10%;position: absolute;color: white;font-size: 10px">
+                                    {{search[0].Operation}}
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[0].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,7 +56,25 @@
                             <label>نام خانوادگی :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="text" tabindex="32" class="form-control" />
+                            <div class="input-group" ng-init="search[1].Col = 'personnel.family'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="second-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="second-advanced-search">
+                                        <li ng-click="search[1].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[1].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[1].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[1].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,7 +84,25 @@
                             <label>نام پدر :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="text" tabindex="33" class="form-control" />
+                            <div class="input-group" ng-init="search[2].Col = 'personnel.fatherName'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="third-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="third-advanced-search">
+                                        <li ng-click="search[2].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[2].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[2].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[2].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,7 +113,25 @@
                             <label>شماره شناسنامه :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="text" tabindex="34" class="form-control" />
+                            <div class="input-group" ng-init="search[3].Col = 'personnel.birthCertificate.No'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="forth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="forth-advanced-search">
+                                        <li ng-click="search[3].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[3].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[3].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[3].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +141,25 @@
                             <label>کد ملی :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="text" tabindex="35" id="search-social-number" class="form-control" />
+                            <div class="input-group" ng-init="search[4].Col = 'personnel.nationalCode'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="fifth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="fifth-advanced-search">
+                                        <li ng-click="search[4].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[4].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[4].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[4].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +169,25 @@
                             <label>شماره پرسنلی :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="text" tabindex="36" class="form-control" />
+                            <div class="input-group" ng-init="search[5].Col = 'personnel.code'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="sixth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="sixth-advanced-search">
+                                        <li ng-click="search[5].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[5].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[5].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[5].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,17 +197,17 @@
                         <div class="col-sm-4 left-align col-sm-push-8">
                             <label>جنسیت :</label>
                         </div>
-                        <div class="col-sm-8 col-sm-pull-4">
-                            <div class="radio" tabindex="37" style="margin: 0">
+                        <div class="col-sm-8 col-sm-pull-4" ng-init="search[6].Col = 'personnel.gender'">
+                            <div class="radio" tabindex="37" style="margin: 0" ng-init="search[6].Operation = 'Equal'">
                                 <label>
-                                    <input type="radio" name="searchGender" value="1">
+                                    <input type="radio" name="searchGender" value="1" ng-model="search[6].Value">
                                     <span class="cr" style="top:6px; margin-right: 14px;background-color: white">
                                         <i class="cr-icon fa fa-circle"></i>
                                     </span>
                                     <span>زن</span>
                                 </label>
                                 <label>
-                                    <input type="radio" name="searchGender" value="0" checked>
+                                    <input type="radio" name="searchGender" value="0" checked ng-model="search[6].Value">
                                     <span class="cr" style="top:6px; margin-right: 14px;background-color: white">
                                         <i class="cr-icon fa fa-circle"></i>
                                     </span>
@@ -113,7 +224,25 @@
                             <label>شماره موبایل :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="tel" tabindex="38" class="form-control" />
+                            <div class="input-group" ng-init="search[7].Col = 'mobileNo'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="seventh-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="seventh-advanced-search">
+                                        <li ng-click="search[7].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[7].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[7].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[7].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,17 +254,35 @@
                             <label>نام کاربری :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input tabindex="39" type="text" class="form-control" />
+                            <div class="input-group" ng-init="search[8].Col = 'Name'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="eigth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="eigth-advanced-search">
+                                        <li ng-click="search[8].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[8].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[8].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[8].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4 my-margin-top right-float">
                     <div class="row">
-                        <div class="col-sm-4 left-align col-sm-push-8">
+                        <div class="col-sm-4 left-align col-sm-push-8" ng-init="search[9].Col = 'isActive'">
                             <label>نوع کاربری :</label>
                         </div>
-                        <div class="col-sm-8 col-sm-pull-4">
-                            <select tabindex="40" style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form" name="kindDocument">
+                        <div class="col-sm-8 col-sm-pull-4" ng-init="search[9].Operation = 'Equal'">
+                            <select tabindex="40" ng-model="search[9].Value"  style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form" name="kindDocument">
                                 <option value="true" selected>فعال</option>
                                 <option value="false">غیرفعال</option>
                             </select>
@@ -148,7 +295,25 @@
                             <label>email :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4">
-                            <input type="email" tabindex="41" class="form-control" />
+                            <div class="input-group" ng-init="search[10].Col = 'email'">
+                                <div class="input-group-btn">
+                                    <button class="btn center" data-toggle="dropdown" id="ninth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
+                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="ninth-advanced-search">
+                                        <li ng-click="search[10].Operation = 'Contain'">
+                                            شامل
+                                        </li>
+                                        <li ng-click="search[10].Operation = 'Equal'">
+                                            برابر
+                                        </li>
+                                        <li ng-click="search[10].Operation = 'NotEqual'">
+                                            مخالف
+                                        </li>
+                                    </ul>
+                                </div>
+                                <input class="form-control right-align login-input" type="text" ng-model="search[10].Value" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,7 +321,7 @@
                 <div class="col-sm-4 my-margin-top">
                     <div class="row">
                         <div class="col-sm-8 left-align">
-                            <button class="btn btn-primary">جستجو</button>
+                            <button class="btn btn-primary" ng-click="tableSearch(search)">جستجو</button>
                         </div>
                     </div>
                 </div>
@@ -177,7 +342,7 @@
                         <th style="width: 300px" ng-if="isAuth('tdFatherName',4)">نام پدر</th> -->
                         <th>
                             <i class="fa fa-ellipsis-v pointer" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
-                            <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(search)" style="float: right;margin-top: 7px"></i>
+                            <i class="fa fa-search pointer" ng-if="searchFlag" ng-click="tableSearch(simpleSearch)" style="float: right;margin-top: 7px"></i>
                             <i class="fa fa-search" ng-if="!searchFlag" style="float: right;opacity: 0;margin-top: 7px"></i> نام کاربری
                         </th>
                         <th id="thName">نام </th>
@@ -185,96 +350,95 @@
                         <th>نام پدر</th>
                     </tr>
                     <tr id="search-part" class="collapse" ng-class="userSubColor">
-                        <th ng-init="search[0].Col = 'Name'">
+                        <th ng-init="simpleSearch[3].Col = 'Name'">
                             <div class="input-group">
                                 <div class="input-group-btn">
                                     <button class="btn center" data-toggle="dropdown" id="first-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
                                         <i class="fa fa-ellipsis-v" style="margin: 0"></i>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="first-drop">
-                                        <li ng-click="search[0].operation = 'Contain'">
+                                        <li ng-click="simpleSearch[3].Operation = 'Contain'">
                                             شامل
                                         </li>
-                                        <li ng-click="search[0].operation = 'Equal'">
+                                        <li ng-click="simpleSearch[3].Operation = 'Equal'">
                                             برابر
                                         </li>
-                                        <li ng-click="search[0].operation = 'NotEqual'">
+                                        <li ng-click="simpleSearch[3].Operation = 'NotEqual'">
                                             مخالف
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[0].Value"/>
+                                <input class="form-control right-align login-input" type="text" ng-model="simpleSearch[3].Value" />
                             </div>
                         </th>
-                        <th ng-init="search[1].Col = 'personnel.Name'">
+                        <th ng-init="simpleSearch[0].Col = 'personnel.Name'">
                             <div class="input-group">
                                 <div class="input-group-btn">
                                     <button class="btn center" data-toggle="dropdown" id="second-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
                                         <i class="fa fa-ellipsis-v" style="margin: 0"></i>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="second-drop">
-                                        <li ng-click="search[1].operation = 'Contain'">
+                                        <li ng-click="simpleSearch[0].Operation = 'Contain'">
                                             شامل
                                         </li>
-                                        <li ng-click="search[1].operation = 'Equal'">
+                                        <li ng-click="simpleSearch[0].Operation = 'Equal'">
                                             برابر
                                         </li>
-                                        <li ng-click="search[1].operation = 'NotEqual'">
+                                        <li ng-click="simpleSearch[0].Operation = 'NotEqual'">
                                             مخالف
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[1].Value"/>
+                                <input class="form-control right-align login-input" type="text" ng-model="simpleSearch[0].Value" />
                             </div>
                         </th>
-                        <th ng-init="search[2].Col = 'personnel.family'">
+                        <th ng-init="simpleSearch[1].Col = 'personnel.family'">
                             <div class="input-group">
                                 <div class="input-group-btn">
                                     <button class="btn center" data-toggle="dropdown" id="third-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
                                         <i class="fa fa-ellipsis-v" style="margin: 0"></i>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="third-drop">
-                                        <li ng-click="search[2].operation = 'Contain'">
+                                        <li ng-click="simpleSearch[1].Operation = 'Contain'">
                                             شامل
                                         </li>
-                                        <li ng-click="search[2].operation = 'Equal'">
+                                        <li ng-click="simpleSearch[1].Operation = 'Equal'">
                                             برابر
                                         </li>
-                                        <li ng-click="search[2].operation = 'NotEqual'">
+                                        <li ng-click="simpleSearch[1].Operation = 'NotEqual'">
                                             مخالف
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[2].Value"/>
+                                <input class="form-control right-align login-input" type="text" ng-model="simpleSearch[1].Value" />
                             </div>
                         </th>
-                        <th ng-init="search[3].Col = 'personnel.fatherName'">
+                        <th ng-init="simpleSearch[2].Col = 'personnel.fatherName'">
                             <div class="input-group">
                                 <div class="input-group-btn">
                                     <button class="btn center" data-toggle="dropdown" id="forth-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
                                         <i class="fa fa-ellipsis-v" style="margin: 0"></i>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="forth-drop">
-                                        <li ng-click="search[3].operation = 'Contain'">
+                                        <li ng-click="simpleSearch[2].Operation = 'Contain'">
                                             شامل
                                         </li>
-                                        <li ng-click="search[3].operation = 'Equal'">
+                                        <li ng-click="simpleSearch[2].Operation = 'Equal'">
                                             برابر
                                         </li>
-                                        <li ng-click="search[3].operation = 'NotEqual'">
+                                        <li ng-click="simpleSearch[2].Operation = 'NotEqual'">
                                             مخالف
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[3].Value" />
+                                <input class="form-control right-align login-input" type="text" ng-model="simpleSearch[2].Value" />
                             </div>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-style="testfont" data-step="4" data-intro="فرد مورد نظر برای  ویرایش را انتخاب کنید" data-position='right' ng-mouseenter="hover = true"
-                        ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.user.id}}"
-                        ng-click="editUser(data.user.id,$index)">
+                        ng-mouseleave="hover = false" class="user" ng-repeat="data in limitedEdition" id="user{{data.id}}" ng-click="editUser(data.id,$index)">
                         <td ng-style="testfont;tableFont" style="width: 200px">{{data.user.name}}</td>
                         <!-- <td ng-style="testfont;tableFont" ng-if="isAuth('tdName',1)">{{data.personnel.name}}</td> -->
                         <td ng-style="testfont;tableFont" style="width: 200px">{{data.personnel.name}}</td>
@@ -798,7 +962,7 @@
                                     <label for="usr" class="my-label">نام:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" value="{{editingUserData.personnelName}}"
+                                    <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" ng-value="editingUserData.personnel.name"
                                         id="edit-name" placeholder="نام" tabindex="1" required>
                                 </div>
 
@@ -810,7 +974,7 @@
                                     <label for="family" class="my-label">نام خانوادگی:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" class="form-control" style="height: 30px !important" id="edit-family" value="{{editingUserData.personnelFamily}}"
+                                    <input type="text" class="form-control" style="height: 30px !important" id="edit-family" ng-value="editingUserData.personnel.family"
                                         ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2" required>
                                 </div>
                             </div>
@@ -822,8 +986,8 @@
                                     <label for="father" class="my-label">نام پدر:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" class="form-control" ng-model="$parent.editor.fatherName" style="height: 30px !important" value="{{editingUserData.personnelFatherName}}"
-                                        id="edit-father" placeholder="نام پدر" tabindex="3">
+                                    <input type="text" class="form-control" ng-value="editingUserData.personnel.fatherName" ng-model="$parent.editor.fatherName"
+                                        style="height: 30px !important" id="edit-father" placeholder="نام پدر" tabindex="3">
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-sm-4 col-sm-push-8 label-container change my-margin-top">
@@ -832,14 +996,14 @@
                                 <div class="col-sm-8 col-sm-pull-4 my-margin-top">
                                     <div class="radio " style="margin: 0">
                                         <label>
-                                            <input type="radio" name="gender" ng-value="1" ng-model="$parent.editor.gender" required>
+                                            <input type="radio" name="gender" ng-value="1" ng-model="editingUserData.personnel.gender" value="1" required>
                                             <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
                                                 <i class="cr-icon fa fa-circle"></i>
                                             </span>
                                             <span>زن</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="gender" ng-value="0" ng-model="$parent.editor.gender" required checked>
+                                            <input type="radio" name="gender" ng-value="0" ng-model="editingUserData.personnel.gender" required checked>
                                             <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
                                                 <i class="cr-icon fa fa-circle"></i>
                                             </span>
@@ -869,8 +1033,9 @@
                                     <label for="id-badge" class="my-label">شماره شناسنامه:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" class="form-control" ng-model="editor.birthCertificateNo" style="height: 30px !important" id="edit-id-badge"
-                                        value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه" tabindex="6" required>
+                                    <input type="text" class="form-control" ng-model="editor.birthCertificateNo" ng-value="editingUserData.personnel.birthCertificateNo"
+                                        style="height: 30px !important" id="edit-id-badge" value="{{editingUserData.personnelId}}"
+                                        placeholder="شماره شناسنامه" tabindex="6" required>
                                 </div>
                             </div>
                         </div>
@@ -880,9 +1045,9 @@
                                     <label for="social-no" class="my-label">کد ملی:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" class="form-control right-align" ng-model="editor.nationalCode" style="height: 30px !important;direction: ltr;"
-                                        id="edit-social-no" value="{{editingUserData.nationalCode}}" placeholder="XXX-XXXXXX-X"
-                                        tabindex="7" required>
+                                    <input type="text" class="form-control right-align" ng-model="editor.nationalCode" ng-value="editingUserData.personnel.nationalCode"
+                                        style="height: 30px !important;direction: ltr;" id="edit-social-no" value="{{editingUserData.nationalCode}}"
+                                        placeholder="XXX-XXXXXX-X" tabindex="7" required>
                                 </div>
                             </div>
                         </div>
@@ -893,8 +1058,8 @@
                                     <label for="personnelCode" class="my-label">کد پرسنلی:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" class="form-control" ng-model="editor.personnelCode" style="height: 30px !important" id="personnelCode"
-                                        value="{{editingUserData.personnelCode}}" placeholder="کد پرسنلی" tabindex="8" required>
+                                    <input type="text" class="form-control" ng-value="editingUserData.personnel.code" ng-model="editor.personnelCode" style="height: 30px !important"
+                                        id="personnelCode" placeholder="کد پرسنلی" tabindex="8" required>
                                 </div>
                             </div>
                         </div>
@@ -904,8 +1069,8 @@
                                     <label for="phone" class="my-label">شماره موبایل:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="tel" class="form-control" ng-model="editor.phone" style="height: 30px !important" id="edit-phone" value="{{editingUserData.phone}}"
-                                        placeholder="شماره موبایل" tabindex="9">
+                                    <input type="tel" class="form-control" ng-model="editor.phone" ng-value="editingUserData.user.mobileNo" style="height: 30px !important"
+                                        id="edit-phone" value="{{editingUserData.phone}}" placeholder="شماره موبایل" tabindex="9">
                                 </div>
                             </div>
                         </div>
@@ -916,8 +1081,8 @@
                                     <label for="email" class="my-label">email:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="email" class="form-control" ng-model="editor.email" style="height: 30px !important" id="edit-email" value="{{editingUserData.email}}"
-                                        placeholder="example@exa.com" tabindex="10">
+                                    <input type="email" class="form-control" ng-model="editor.email" ng-value="editingUserData.user.email" style="height: 30px !important"
+                                        id="edit-email" value="{{editingUserData.email}}" placeholder="example@exa.com" tabindex="10">
                                 </div>
                             </div>
                         </div>
@@ -928,7 +1093,7 @@
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
                                     <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive"
-                                        tabindex="11" class="form-control my-form">
+                                        tabindex="11" class="form-control my-form" ng-value="editingUserData.user.isActive">
                                         <option value="true">فعال</option>
                                         <option value="false">غیرفعال</option>
                                     </select>
@@ -941,8 +1106,9 @@
                                     <label for="user-name" class="my-label">نام کاربری:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="text" class="form-control" ng-model="editor.userName" style="height: 30px !important" id="edit-user-name" value="{{editingUserData.userName}}"
-                                        placeholder="نام کاربری" tabindex="12" required>
+                                    <input type="text" class="form-control" ng-value="editingUserData.user.name" ng-model="editor.userName" style="height: 30px !important"
+                                        id="edit-user-name" value="{{editingUserData.userName}}" placeholder="نام کاربری" tabindex="12"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -952,15 +1118,17 @@
                                     <label for="password" class="my-label">رمز عبور:</label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4">
-                                    <input type="password" class="form-control" ng-model="editor.passwordHash" style="height: 30px !important" id="edit-password"
-                                        value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13" required>
+                                    <input type="password" class="form-control" ng-value="editingUserData.user.passwordHash" ng-model="editor.passwordHash" style="height: 30px !important"
+                                        id="edit-password" value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13"
+                                        required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 my-margin-top">
                             <div class="row">
                                 <div class="col-sm-8">
-                                    <button class="btn btn-primary" type="submit" style="float: left;width: 100%" tabindex="14">ثبت </button>
+                                    <button class="btn btn-primary" ng-click="editSubmit(editor,editingUserData.personnelName)" type="submit" style="float: left;width: 100%"
+                                        tabindex="14">ثبت </button>
                                 </div>
                             </div>
                         </div>

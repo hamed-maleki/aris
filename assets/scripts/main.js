@@ -106,7 +106,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#documentDebt").html($scope.numberFormat(debtSum.toString()) + "/" + $scope.float(debtSum));
         $("#documentCredit").html($scope.numberFormat(creditSum.toString()) + "/" + $scope.float(creditSum));
     })
-    $scope.number = "modules/storage/producer.html";
+    $scope.number = "modules/example1.html";
     $scope.limitedNote = [];
 
     $scope.reading = 0;
@@ -999,7 +999,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.firstStep = 0;
     $scope.detector = function ($event) {
-        console.log("this is happening");
         var evtobj = window.event ? event : $event;
         if (evtobj.keyCode == 13) {
             if ($(".paginationOrder").is(":focus")) {
@@ -1017,12 +1016,8 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $(".user").css("background-color", "#FFFFFF");
-                if ($scope.editingUserData.user != undefined) {
-                    $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
-                }
-                else {
-                    $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,153)");
-                }
+
+                $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,153)");
 
             }
             if ($event.keyCode == 40) {
@@ -1035,17 +1030,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 }
                 $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $(".user").css("background-color", "#FFFFFF");
-                if ($scope.editingUserData.user != undefined) {
-                    $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,153)");
-                }
-                else {
-                    $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,153)");
-                }
+                $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,153)");
             }
 
             if ($event.keyCode == 13) {
                 $("#tableEdit").modal();
-                $scope.puttingInsideInput();
+                // $scope.puttingInsideInput();
                 // $("#myFocus").blur();
             }
             if ($event.keyCode == 61) {
@@ -1055,13 +1045,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             if ($event.keyCode == 190) {
                 $scope.editUserSlide(-1);
             }
-            if ($event.keyCode == 188) {
+            if ($event.keyCode == 188 || $event.keyCode == 60) {
                 $scope.editUserSlide(1);
             }
-            // }
-            // else {
-
-            // }
         }
         if ($event.keyCode == 39) {
             $scope.finalPagination($scope.currentPage - 1, false, $scope.urlToGet)
@@ -1080,9 +1066,11 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.currentPage = 1;
     $scope.pagelength = 5;
     $scope.search = [];
+    $scope.simpleSearch = [];
     $scope.searchingresult = false;
     $scope.searchToSend = [];
     $scope.gettingOrgChart = function (myUrl) {
+        console.log(myUrl);
         var sendusers = {
             "Pn": 1,
             "Ps": $scope.pagelength,
@@ -1097,6 +1085,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             headers: authHeaders
         }).then(function (response) {
             $("#error-message").html("");
+            console.log(response.data);
             $scope.searchingresult = false;
             $scope.limitedEdition = response.data;
             $scope.toshowEdit = $scope.limitedEdition[0];
@@ -1116,14 +1105,15 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             console.log(xhr);
         })
     }
-    $scope.tableSearch = function (search) {
-        for (var i = 0; i < $scope.search.length; i++) {
-            if ($scope.search[i].Operation == undefined) {
-                $scope.search[i].Operation = 'Contain';
+    $scope.tableSearch = function (x) {
+        for (var i = 0; i < x.length; i++) {
+            if (x[i].Operation == undefined) {
+                x[i].Operation = 'Contain';
             }
-            if ($scope.search[i].Value != null) {
-                if ($scope.search[i].Value != undefined && $scope.search[i].Value != '') {
-                    $scope.searchToSend.push($scope.search[i]);
+            if (x[i].Value != null) {
+                if (x[i].Value != undefined && x[i].Value != '') {
+                    $scope.searchToSend.push(x[i]);
+
                 }
             }
         }
@@ -1145,6 +1135,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             // $scope.orgchart = response.data;
             $scope.limitedEdition = response.data;
             $scope.toshowEdit = $scope.limitedEdition[0];
+            $scope.currentPage = 1;
             $scope.editingLength = 0;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
             var pageNumber;
@@ -1155,11 +1146,12 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                 $scope.paginationNumber.push(conter);
             }
             $scope.paginationToShow(1);
+            $scope.searchToKeep = $scope.searchToSend;
             $scope.searchToSend = [];
             $scope.searchingresult = true;
         }).catch(function (xhr) {
             $scope.searchToSend = [];
-            if(xhr.status == 404){
+            if (xhr.status == 404) {
                 $("#error-message").html("موردی با این مشخصات پیدا نشد")
             }
             console.log("Error");
@@ -1182,21 +1174,21 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $("#userpagination" + x).addClass("active");
     }
     $scope.searchPagination = function (x) {
-        for (var i = 0; i < $scope.search.length; i++) {
-            if ($scope.search[i].Operation == undefined) {
-                $scope.search[i].Operation = 'Contain';
-            }
-            if ($scope.search[i].Value != null) {
-                if ($scope.search[i].Value != undefined && $scope.search[i].Value != '') {
-                    $scope.searchToSend.push($scope.search[i]);
-                }
-            }
-        }
+        // for (var i = 0; i < $scope.search.length; i++) {
+        //     if ($scope.search[i].Operation == undefined) {
+        //         $scope.search[i].Operation = 'Contain';
+        //     }
+        //     if ($scope.search[i].Value != null) {
+        //         if ($scope.search[i].Value != undefined && $scope.search[i].Value != '') {
+        //             $scope.searchToSend.push($scope.search[i]);
+        //         }
+        //     }
+        // }
         var sendusers = {
             "Pn": x,
             "Ps": $scope.pagelength,
             "Orders": [{ "Col": "Id", "Asc": true }],
-            "WhereClauses": $scope.searchToSend
+            "WhereClauses": $scope.searchToKeep
         }
         $http({
             url: myhost + $scope.urlToGet,
@@ -1214,10 +1206,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $(".paginationOrder").val("");
             setTimeout(function () {
                 $(".user").css("background-color", "#FFFFFF");
-                $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
+                $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
             }, 100)
         }).catch(function (xhr) {
-            if(xhr.status == 404){
+            if (xhr.status == 404) {
                 alert("موردی با این مشخصات پیدا نشد");
             }
             console.log("Error");
@@ -1230,51 +1222,50 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         if ($scope.searchingresult) {
             $scope.searchPagination(x);
         }
-        // else {
-        //     $scope.tableSearch();
-        // }
-        z = myhost + z;
-        if (x > 0 && x < $scope.paginationNumber.length + 1) {
-            $scope.firstStep = 0;
-            $(".pagination li").removeClass("active");
-            $("#userpagination" + x).addClass("active");
+        else {
+            z = myhost + z;
+            if (x > 0 && x < $scope.paginationNumber.length + 1) {
+                $scope.firstStep = 0;
+                $(".pagination li").removeClass("active");
+                $("#userpagination" + x).addClass("active");
 
-            var sendUser = {
-                "Pn": x,
-                "Ps": $scope.pagelength,
-                "Orders": [{ "Col": "Id", "Asc": true }]
-            }
-            $http({
-                url: z,
-                method: "POST",
-                ContentType: 'application/x-www-form-urlencoded',
-                data: sendUser,
-                dataType: 'json',
-                headers: authHeaders
-            }).then(function (response) {
-                $scope.limitedEdition = response.data;
-                $scope.currentPage = x;
-                if (y != false) {
-                    if (y == 1) {
-                        $scope.editingLength = 0;
+                var sendUser = {
+                    "Pn": x,
+                    "Ps": $scope.pagelength,
+                    "Orders": [{ "Col": "Id", "Asc": true }]
+                }
+                $http({
+                    url: z,
+                    method: "POST",
+                    ContentType: 'application/x-www-form-urlencoded',
+                    data: sendUser,
+                    dataType: 'json',
+                    headers: authHeaders
+                }).then(function (response) {
+                    $scope.limitedEdition = response.data;
+                    $scope.currentPage = x;
+                    if (y != false) {
+                        if (y == 1) {
+                            $scope.editingLength = 0;
 
-                    } else if (y == -1) {
-                        $scope.editingLength = $scope.limitedEdition.length - 1;
+                        } else if (y == -1) {
+                            $scope.editingLength = $scope.limitedEdition.length - 1;
+                        }
+                        $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                        // $scope.puttingInsideInput();
+                        setTimeout(function () {
+                            $(".user").css("background-color", "#FFFFFF");
+                            $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
+                        }, 100)
                     }
-                    $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-                    $scope.puttingInsideInput();
-                    setTimeout(function () {
-                        $(".user").css("background-color", "#FFFFFF");
-                        $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
-                    }, 100)
-                }
-                $(".paginationOrder").val("");
-            }).catch(function (xhr, status, error) {
-                if (refreshtoken && xhr.status === 401) {
-                    $scope.refreshlocal($scope.finalPagination, x);
-                }
-            })
-            $scope.paginationToShow(x);
+                    $(".paginationOrder").val("");
+                }).catch(function (xhr, status, error) {
+                    if (refreshtoken && xhr.status === 401) {
+                        $scope.refreshlocal($scope.finalPagination, x);
+                    }
+                })
+                $scope.paginationToShow(x);
+            }
         }
     }
     $scope.pageToGo = false;
@@ -1463,43 +1454,44 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // }
     }
     $scope.editSubmit = function (x) {
-        if (x.name != undefined) {
-            $scope.editingUserData.personnel.name = x.name;
+        if (x != undefined) {
+            if (x.name != undefined) {
+                $scope.editingUserData.personnel.name = x.name;
+            }
+            if (x.family != undefined) {
+                $scope.editingUserData.personnel.family = x.family;
+            }
+            if (x.fatherName != undefined) {
+                $scope.editingUserData.personnel.fatherName = x.fatherName;
+            }
+            if (x.birthCertificateNo != undefined) {
+                $scope.editingUserData.personnel.birthCertificateNo = x.birthCertificateNo;
+            }
+            if (x.nationalCode != undefined) {
+                $scope.editingUserData.personnel.nationalCode = x.nationalCode[0] + x.nationalCode[1] + x.nationalCode[2] + x.nationalCode[4] + x.nationalCode[5] + x.nationalCode[6] + x.nationalCode[7] + x.nationalCode[8] + x.nationalCode[9] + x.nationalCode[11];
+            }
+            if (x.personnelCode != undefined) {
+                $scope.editingUserData.personnel.code = x.personnelCode;
+            }
+            if (x.phone != undefined) {
+                $scope.editingUserData.user.MobileNo = x.phone;
+            }
+            if (x.email != undefined) {
+                $scope.editingUserData.user.email = x.email;
+            }
+            if (x.passwordHash != undefined) {
+                $scope.editingUserData.user.passwordHash = x.passwordHash;
+            }
+            if (x.isActive != undefined) {
+                $scope.editingUserData.user.isActive = x.isActive;
+            }
         }
-        if (x.family != undefined) {
-            $scope.editingUserData.personnel.family = x.family;
-        }
-        if (x.fatherName != undefined) {
-            $scope.editingUserData.personnel.fatherName = x.fatherName;
-        }
-        if (x.birthCertificateNo != undefined) {
-            $scope.editingUserData.personnel.birthCertificateNo = x.birthCertificateNo;
-        }
-        if (x.nationalCode != undefined) {
-            $scope.editingUserData.personnel.nationalCode = x.nationalCode[0] + x.nationalCode[1] + x.nationalCode[2] + x.nationalCode[4] + x.nationalCode[5] + x.nationalCode[6] + x.nationalCode[7] + x.nationalCode[8] + x.nationalCode[9] + x.nationalCode[11];
-        }
-        if (x.personnelCode != undefined) {
-            $scope.editingUserData.personnel.code = x.personnelCode;
-        }
-        if (x.phone != undefined) {
-            $scope.editingUserData.user.MobileNo = x.phone;
-        }
-        if (x.email != undefined) {
-            $scope.editingUserData.user.email = x.email;
-        }
-        if (x.passwordHash != undefined) {
-            $scope.editingUserData.user.passwordHash = x.passwordHash;
-        }
-        if (x.isActive != undefined) {
-            $scope.editingUserData.user.isActive = x.isActive;
-        }
-        if (x.gender != undefined) {
-            $scope.editingUserData.personnel.gender = x.gender;
-        }
+
         var Model = {
             User: $scope.editingUserData.user,
             Personnel: $scope.editingUserData.personnel
         }
+        console.log(Model);
         $http({
             url: myhost + "/user/Update/UserPersonnel",
             method: "POST",
@@ -1537,68 +1529,63 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $scope.editingUserData = $scope.limitedEdition[index];
         $scope.editingLength = index;
         $scope.firstStep = 1;
-        if ($scope.editingUserData.user != undefined) {
-            $scope.puttingInsideInput();
-        }
+        // $scope.puttingInsideInput();
         $("#myFocus").focus();
     }
-    $scope.puttingInsideInput = function () {
-        $("#edit-name").val($scope.editingUserData.personnel.name);
-        $("#edit-family").val($scope.editingUserData.personnel.family);
-        $("#edit-father").val($scope.editingUserData.personnel.fatherName);
-        $("#edit-id-badge").val($scope.editingUserData.personnel.birthCertificateNo);
-        $("#personnelCode").val($scope.editingUserData.personnel.code);
-        $("#edit-social-no").val($scope.editingUserData.personnel.nationalCode);
-        $("#edit-phone").val($scope.editingUserData.user.mobileNo);
-        $("#edit-email").val($scope.editingUserData.user.email);
-        $("#edit-user-name").val($scope.editingUserData.user.name);
-        $("#edit-password").val($scope.editingUserData.user.passwordHash);
-        $("#activation").val('' + $scope.editingUserData.user.isActive + '');
-        $("input[name=gender][value=" + $scope.editingUserData.personnel.gender + "]").prop('checked', true);
-    }
+    // $scope.puttingInsideInput = function () {
+    //     console.log("this is putting");
+    //     console.log($scope.editingUserData);
+    //     $("#edit-name").val($scope.editingUserData.personnel.name);
+    //     $("#edit-family").val($scope.editingUserData.personnel.family);
+    //     $("#edit-father").val($scope.editingUserData.personnel.fatherName);
+    //     $("#edit-id-badge").val($scope.editingUserData.personnel.birthCertificateNo);
+    //     $("#personnelCode").val($scope.editingUserData.personnel.code);
+    //     $("#edit-social-no").val($scope.editingUserData.personnel.nationalCode);
+    //     $("#edit-phone").val($scope.editingUserData.user.mobileNo);
+    //     $("#edit-email").val($scope.editingUserData.user.email);
+    //     $("#edit-user-name").val($scope.editingUserData.user.name);
+    //     $("#edit-password").val($scope.editingUserData.user.passwordHash);
+    //     $("#activation").val('' + $scope.editingUserData.user.isActive + '');
+    //     $("input[name=gender][value=" + $scope.editingUserData.personnel.gender + "]").prop('checked', true);
+    // }
     var currentpage = 1;
     $scope.editUserSlide = function (x) {
-        
+
         if (x == 1) {
             if ($scope.editingLength + 2 > $scope.limitedEdition.length) {
                 if (currentpage + 1 > $scope.paginationNumber[$scope.paginationNumber.length - 1]) {
                     $scope.finalPagination(1, 1, $scope.urlToGet);
                     return;
-                    
+
                 }
                 else {
                     $scope.finalPagination($scope.currentPage + 1, 1, $scope.urlToGet);
+                    $scope.editingLength = 0;
                     return;
                 }
             }
             else {
                 $scope.editingLength = $scope.editingLength + 1;
-                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $scope.firstStep = 1;
             }
         }
         else {
             if ($scope.editingLength - 1 < 0) {
                 $scope.finalPagination($scope.currentPage - 1, -1, $scope.urlToGet);
+                $scope.editingLength = $scope.limitedEdition.length;
                 return;
 
             }
             else {
                 $scope.editingLength = $scope.editingLength - 1;
-                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
                 $scope.firstStep = 1;
             }
         }
+        $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+        // $scope.puttingInsideInput();
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
-        if ($scope.editingUserData.user != undefined) {
-            $("#user" + $scope.editingUserData.user.id).css("background-color", "rgb(255,255,125)");
-            $scope.puttingInsideInput();
-        }
-        else {
-            $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
-        }
-        console.log("this is happening");
+        $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
     }
     $scope.socialNoFormat = function (x) {
         var a = x.split('.', 3);
@@ -1630,9 +1617,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.searchFormToggle = function () {
+        // $scope.search = [];
+        $("#search-part").slideUp();
         $("#search-form").slideToggle();
-        $("#search-chevron").toggleClass('fa-chevron-down');
-        $("#search-chevron").toggleClass('fa-chevron-up');
+        $scope.searchFlag = false;
     }
     $scope.fileList = [];
     $scope.ImageProperty = {
@@ -2364,9 +2352,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
     }
     $scope.searchToggle = function () {
+        // $scope.search = [];
         $("#search-part").slideToggle();
-        $("#search-toggle-icon").toggleClass("fa-chevron-down");
-        $("#search-toggle-icon").toggleClass("fa-chevron-up");
+        $("#search-form").slideUp();
         if ($scope.searchFlag) {
             $scope.searchFlag = false;
         }
