@@ -1,18 +1,4 @@
 <div id="myDemo3">
-    <!-- <div class="col-sm-12 my-margin-top">
-    </div> -->
-    <!-- <div class="col-sm-1" style="margin-bottom: 25px;font-size: 16px;">
-        
-    </div> -->
-    <!-- <button ng-click="gettingOrgChart('/user')"></button> -->
-    <!-- <div class="col-sm-9" style="margin-bottom: 25px">
-        <hr style="width: 100%">
-    </div>
-    <div class="col-sm-3 pointer" ng-style="testfont" style="margin-bottom: 25px;font-size: 16px" ng-click="searchFormToggle()">
-        جستجوی پیشرفته
-        <i class="fa fa-chevron-down pointer" id="search-chevron" style="margin-top: 9px"></i>
-    </div>
-    <div class="clearfix"></div> -->
     <div class="col-sm-12 collapse" id="search-form" ng-init="urlMaker('/user/get')">
         <form>
             <div class="row">
@@ -27,8 +13,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[0].Col = 'personnel.Name'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="first-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="first-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 9px 5px">
+                                        <span ng-if="search[0].Operation == null || search[0].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[0].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[0].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="first-advanced-search">
                                         <li ng-click="search[0].Operation = 'Contain'">
@@ -42,10 +36,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div ng-class="userSubColor" style="width: 10%;position: absolute;color: white;font-size: 10px">
-                                    {{search[0].Operation}}
+                                <input class="form-control right-align login-input" type="text" style="border-left: none" ng-model="search[0].Value" />
+                                <div ng-if="search[0].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[0].Value = null" style="color: gray"></i>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[0].Value" />
                             </div>
                         </div>
                     </div>
@@ -58,8 +52,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[1].Col = 'personnel.family'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="second-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="second-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 9px 5px">
+                                        <span ng-if="search[1].Operation == null || search[1].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[1].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[1].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="second-advanced-search">
                                         <li ng-click="search[1].Operation = 'Contain'">
@@ -73,7 +75,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[1].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[1].Value" />
+                                <div ng-if="search[1].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[1].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,9 +91,18 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[2].Col = 'personnel.fatherName'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="third-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="third-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size:10px;padding: 9px 5px;">
+                                        <span ng-if="search[2].Operation == null || search[2].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[2].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[2].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
+
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="third-advanced-search">
                                         <li ng-click="search[2].Operation = 'Contain'">
                                             شامل
@@ -101,7 +115,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[2].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[2].Value" />
+                                <div ng-if="search[2].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[2].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -115,8 +132,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[3].Col = 'personnel.birthCertificate.No'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="forth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="forth-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 8.8px 5px">
+                                        <span ng-if="search[3].Operation == null || search[3].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[3].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[3].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="forth-advanced-search">
                                         <li ng-click="search[3].Operation = 'Contain'">
@@ -130,7 +155,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[3].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[3].Value" />
+                                <div ng-if="search[3].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[3].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -143,8 +171,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[4].Col = 'personnel.nationalCode'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="fifth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="fifth-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 8.8px 5px">
+                                        <span ng-if="search[4].Operation == null || search[4].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[4].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[4].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="fifth-advanced-search">
                                         <li ng-click="search[4].Operation = 'Contain'">
@@ -158,7 +194,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[4].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[4].Value" />
+                                <div ng-if="search[4].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[4].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -171,8 +210,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[5].Col = 'personnel.code'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="sixth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="sixth-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 8.8px 5px">
+                                        <span ng-if="search[5].Operation == null || search[5].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[5].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[5].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="sixth-advanced-search">
                                         <li ng-click="search[5].Operation = 'Contain'">
@@ -186,7 +233,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[5].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[5].Value" />
+                                <div ng-if="search[5].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[5].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -213,6 +263,13 @@
                                     </span>
                                     <span>مرد</span>
                                 </label>
+                                <label>
+                                    <input type="radio" name="searchGender" value=" " checked ng-model="search[6].Value">
+                                    <span class="cr" style="top:6px; margin-right: 14px;background-color: white">
+                                        <i class="cr-icon fa fa-circle"></i>
+                                    </span>
+                                    <span>هردو</span>
+                                </label>
                             </div>
                         </div>
 
@@ -226,8 +283,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[7].Col = 'mobileNo'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="seventh-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="seventh-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 8.8px 5px;">
+                                        <span ng-if="search[7].Operation == null || search[7].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[7].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[7].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="seventh-advanced-search">
                                         <li ng-click="search[7].Operation = 'Contain'">
@@ -241,7 +306,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[7].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[7].Value" />
+                                <div ng-if="search[7].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[7].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -256,8 +324,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[8].Col = 'Name'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="eigth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="eigth-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 8.8px 5px">
+                                        <span ng-if="search[8].Operation == null || search[8].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[8].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[8].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="eigth-advanced-search">
                                         <li ng-click="search[8].Operation = 'Contain'">
@@ -271,7 +347,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[8].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[8].Value" />
+                                <div ng-if="search[8].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[8].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,9 +361,11 @@
                             <label>نوع کاربری :</label>
                         </div>
                         <div class="col-sm-8 col-sm-pull-4" ng-init="search[9].Operation = 'Equal'">
-                            <select tabindex="40" ng-model="search[9].Value"  style="height: 30px;width: 100% !important;font-size: 12px" class="form-control my-form" name="kindDocument">
+                            <select tabindex="40" ng-model="search[9].Value" style="height: 30px;width: 100% !important;font-size: 12px;direction: rtl"
+                                class="form-control my-form" name="kindDocument">
                                 <option value="true" selected>فعال</option>
                                 <option value="false">غیرفعال</option>
+                                <option value=" ">همه موراد</option>
                             </select>
                         </div>
                     </div>
@@ -297,8 +378,16 @@
                         <div class="col-sm-8 col-sm-pull-4">
                             <div class="input-group" ng-init="search[10].Col = 'email'">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="ninth-advanced-search" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="ninth-advanced-search" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 10px;padding: 8.8px 5px">
+                                        <span ng-if="search[10].Operation == null || search[10].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="search[10].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="search[10].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="ninth-advanced-search">
                                         <li ng-click="search[10].Operation = 'Contain'">
@@ -312,7 +401,10 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input class="form-control right-align login-input" type="text" ng-model="search[10].Value" />
+                                <input class="form-control right-align login-input" style="border-left: none" type="text" ng-model="search[10].Value" />
+                                <div ng-if="search[10].Value != null" style="position: absolute;display: inline-block;left: 33px">
+                                    <i class="fa fa-close" ng-click="search[10].Value = null" style="color: gray"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -353,8 +445,16 @@
                         <th ng-init="simpleSearch[3].Col = 'Name'">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="first-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="first-drop" tabindex="31" style="margin-top:0;border-radius: 0;">
+                                        <span ng-if="simpleSearch[3].Operation == null || simpleSearch[3].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="simpleSearch[3].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="simpleSearch[3].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="first-drop">
                                         <li ng-click="simpleSearch[3].Operation = 'Contain'">
@@ -374,8 +474,16 @@
                         <th ng-init="simpleSearch[0].Col = 'personnel.Name'">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="second-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="second-drop" tabindex="31" style="margin-top:0;border-radius: 0;">
+                                        <span ng-if="simpleSearch[0].Operation == null || simpleSearch[0].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="simpleSearch[0].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="simpleSearch[0].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="second-drop">
                                         <li ng-click="simpleSearch[0].Operation = 'Contain'">
@@ -395,8 +503,16 @@
                         <th ng-init="simpleSearch[1].Col = 'personnel.family'">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="third-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="third-drop" tabindex="31" style="margin-top:0;border-radius: 0;">
+                                        <span ng-if="simpleSearch[1].Operation == null || simpleSearch[1].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="simpleSearch[1].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="simpleSearch[1].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="third-drop">
                                         <li ng-click="simpleSearch[1].Operation = 'Contain'">
@@ -416,8 +532,16 @@
                         <th ng-init="simpleSearch[2].Col = 'personnel.fatherName'">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <button class="btn center" data-toggle="dropdown" id="forth-drop" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;color: white;">
-                                        <i class="fa fa-ellipsis-v" style="margin: 0"></i>
+                                    <button class="btn center search-button" data-toggle="dropdown" id="forth-drop" tabindex="31" style="margin-top:0;border-radius: 0;">
+                                        <span ng-if="simpleSearch[2].Operation == null || simpleSearch[2].Operation == 'Contain'">
+                                            شامل
+                                        </span>
+                                        <span ng-if="simpleSearch[2].Operation == 'Equal'">
+                                            برابر
+                                        </span>
+                                        <span ng-if="simpleSearch[2].Operation == 'NotEqual'">
+                                            مخالف
+                                        </span>
                                     </button>
                                     <ul class="dropdown-menu" ng-style="testFont" aria-labelledby="forth-drop">
                                         <li ng-click="simpleSearch[2].Operation = 'Contain'">

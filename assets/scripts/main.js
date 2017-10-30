@@ -1070,6 +1070,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.searchingresult = false;
     $scope.searchToSend = [];
     $scope.gettingOrgChart = function (myUrl) {
+        var pageNumber;
         console.log(myUrl);
         var sendusers = {
             "Pn": 1,
@@ -1092,7 +1093,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.currentPage = 1;
             $scope.editingLength = 0;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-            var pageNumber;
+            
             $scope.paginationNumber = [];
             $scope.rowsCount = $scope.limitedEdition[0].rowsCount
             pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
@@ -1103,6 +1104,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).catch(function (xhr) {
             console.log("Error");
             console.log(xhr);
+            if(xhr.status == 404){
+                $scope.currentPage = 1;
+                $scope.paginationNumber = [];
+            }
         })
     }
     $scope.tableSearch = function (x) {
@@ -1134,6 +1139,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).then(function (response) {
             // $scope.orgchart = response.data;
             $scope.limitedEdition = response.data;
+            $("#error-message").html(" ")
             $scope.toshowEdit = $scope.limitedEdition[0];
             $scope.currentPage = 1;
             $scope.editingLength = 0;
@@ -1173,7 +1179,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         // $("#userpagination" + x).addClass("active");
     }
-    $scope.searchPagination = function (x) {
+    $scope.searchPagination = function (x , y) {
         // for (var i = 0; i < $scope.search.length; i++) {
         //     if ($scope.search[i].Operation == undefined) {
         //         $scope.search[i].Operation = 'Contain';
@@ -1198,11 +1204,24 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             dataType: 'JSON',
             headers: authHeaders
         }).then(function (response) {
-            console.log(response.data);
             $scope.limitedEdition = response.data;
             $scope.toshowEdit = $scope.limitedEdition[0];
             $scope.currentPage = x;
             $scope.searchingresult = true;
+            if (y != false) {
+                if (y == 1) {
+                    $scope.editingLength = 0;
+
+                } else if (y == -1) {
+                    $scope.editingLength = $scope.limitedEdition.length - 1;
+                }
+                $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
+                // $scope.puttingInsideInput();
+                setTimeout(function () {
+                    $(".user").css("background-color", "#FFFFFF");
+                    $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
+                }, 100)
+            }
             $(".paginationOrder").val("");
             setTimeout(function () {
                 $(".user").css("background-color", "#FFFFFF");
@@ -1220,7 +1239,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $scope.urlToGet = z;
         // $scope.currentPage = x;
         if ($scope.searchingresult) {
-            $scope.searchPagination(x);
+            $scope.searchPagination(x , y);
         }
         else {
             z = myhost + z;
@@ -1572,7 +1591,6 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         else {
             if ($scope.editingLength - 1 < 0) {
                 $scope.finalPagination($scope.currentPage - 1, -1, $scope.urlToGet);
-                $scope.editingLength = $scope.limitedEdition.length;
                 return;
 
             }
@@ -1585,7 +1603,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         // $scope.puttingInsideInput();
         $("#editMessage").html(" ")
         $(".user").css("background-color", "#FFFFFF");
-        $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
+        $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255, 255, 153)");
     }
     $scope.socialNoFormat = function (x) {
         var a = x.split('.', 3);
@@ -2148,7 +2166,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             console.log(xhr);
             if (refreshtoken && xhr.status === 401) {
                 // $scope.refreshlocal($scope.drop, x);
-            } else if (xhr.status === 404) {
+            } else if (xhr.status == 404) {
                 $scope.permission = [];
                 $scope.currentPage = 1;
                 $scope.number = "modules/" + value;

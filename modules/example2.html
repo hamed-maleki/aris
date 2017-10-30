@@ -378,7 +378,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" ng-init="urlMaker('/Get/root/childs')">
     <div class="row">
         <div class="col-sm-12 right-align">
             <i class="fa fa-sitemap pointer" style="color: #6B6B6B;margin-right: 11px" ng-click="tableView = false"></i>
@@ -389,6 +389,7 @@
                 <table class="table table-hover table-bordered right-align my-margin-top">
                     <thead>
                         <tr ng-class="userColor" ng-mouseenter="dotShow = true" ng-mouseleave="dotShow = false">
+                            <th style="width: 50px"></th>
                             <th style="width: 450px;">
                                 <i class="fa fa-ellipsis-v" style="opacity: 0;float: right" ng-if="!dotShow"></i>
                                 <i class="fa fa-ellipsis-v pointer" ng-if="dotShow" ng-click="searchToggle()" style="float: right;margin-top: 7px"></i>
@@ -400,6 +401,7 @@
                             </th>
                         </tr>
                         <tr id="search-part" class="collapse" ng-class="userSubColor">
+                            <th></th>
                             <th>
                                 <input type="text" class="form-control" ng-model="search.familyName" />
                             </th>
@@ -411,6 +413,16 @@
                     <tbody>
                         <tr ng-mouseenter="editTable = true" ng-mouseleave="editTable = false">
                             <td>
+                                <div class="checkbox">
+                                    <label>
+                                        <input class="select chart-check" type="checkbox" value="{{chartElement.id}}">
+                                        <span class="cr" style="margin-right: 14px;background-color: white;border: 1px solid gray">
+                                            <i class="cr-icon fa fa-check"></i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
                                 مدیریت
                             </td>
                             <td>
@@ -418,43 +430,19 @@
                                 <i class="fa fa-pencil-square-o pointer" style="float: left" ng-if="editTable" data-toggle="modal" data-target="#addingUser"></i>
                             </td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
             <div class="row">
                 <div class="col-sm-3" style="text-align: left">
-                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
-                        data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5"
-                        data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right'></i>
+                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-placement="right"
+                        title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
+                        data-position='right'></i>
                 </div>
                 <div class="col-sm-6 center" style="padding: 0">
                     <div class="row">
-                        <!-- <div class="col-sm-12">
-                            <ul class="pagination" style="margin: 0">
-                                <li><a href="#" style="color: black" ng-click="paginationToShow(1)"><i class="fa fa-angle-double-right" ></i></a></li>
-                                <li><a href="#" style="color: black" ng-click="finalPagination(currentPage - 1,false,'/Aris/api/user' )"><i class="fa fa-angle-right"></i></a></li>
-                                <li ng-repeat="x in pages" id="userpagination{{x}}"><a href="#" ng-click="finalPagination(x,false,'/Aris/api/user')">{{x}}</a></li>
-                                <li>
-                                    <a id="pageLink" href="#" style="color:black;padding: 0;height: 40px;min-width: 39px">
-                                        <span id="pageSpan" ng-click="findPage(0)">...</span>
-                                        <div class="input-group" ng-if="pageToGo" style="width: 80%;margin: 0 auto;direction: ltr;">
-                                            <div class="input-group-btn" style="position: absolute;top: 2px">
-                                                <button class="btn btn-default log-btn center" style="margin-top:0;background-color: #CF4133" ng-click="findPage(myPageNumber)">
-                                                    <i style="margin: 0 -3px" class="fa fa-arrow-left"></i>
-                                                </button>
-                                            </div>
-                                            <input class="form-control right-align login-input" ng-model="myPageNumber" type="text" tabindex="2" style="margin-top: 2px;"/>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li><a href="#" style="color: black" ng-click="finalPagination(currentPage + 1,false,'/Aris/api/user' )"><i class="fa fa-angle-left"></i></a></li>
-                                <li>
-                                    <a href="#" style="color: black" ng-click="paginationToShow('last')">
-                                        <i class="fa fa-angle-double-left" ></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
+
                         <div class="col-sm-12">
                             <ul class="pagination" style="margin: 0">
                                 <li>
@@ -549,18 +537,122 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" role="dialog" id="tablePlusUser">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;overflow-x: hidden;min-height: 200px;overflow-y: visible">
+                            <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" data-dismiss="modal">&times;</button>
+                            <div id="tableMove" style="width: 100%;">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-push-8 left-align">
+                                                <label>
+                                                    نام :
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-pull-4">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-sm-4 col-sm-push-8 left-align my-margin-top">
+                                                <label>
+                                                    نوع :
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                                                <div class="input-group">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn center" ng-click="modalPlus('tableMove','modal-second-table',false)" ng-class="userColor" tabindex="31"
+                                                            style="margin-top:0;border-radius: 0;color: white;padding: 6px 12px 7px">
+                                                            <i class="fa fa-ellipsis-h" style="margin: 0"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input class="form-control right-align login-input" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="modal-second-table" class="modal-nth-table" ng-init="lookupFlag = false">
+                                <div class="row">
+                                    <div class="col-sm-12 left-align">
+                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('tableMove','modal-second-table',true)"></i>
+                                    </div>
+                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="lookupFlag ? lookupFlag = flase : lookupFlag = true">
+                                                    <i style="margin: 0 5px;color: white" class="fa fa-chevron-down"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" id="post-type" style="font-size: 13px;" ng-model="postType" />
+                                            <div class="white-background" id="lookup" ng-if="lookupFlag">
+                                                <ul>
+                                                    <li ng-repeat="x in tree |filter : postType">
+                                                        <a href="#" ng-click="filling(x.name)">{{x.name}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align">
+                                        <label>پست :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="modalPlus('modal-second-table','modal-third-table',false)">
+                                                    <i style="margin: 0 5px;color: white;" class="fa fa-ellipsis-h"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align my-margin-top">
+                                        <label>کالا :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;padding: 6px;color: white">
+                                                    کیلوگرم
+                                                </button>
+                                            </div>
+                                            <input class="form-control right-align login-input" type="number" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 left-align my-margin-top">
+                                        <label>میزان سهمیه :</label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-sm-2 my-margin-top"></div>
+                                    <div class="col-sm-6 my-margin-top left-align">
+                                        <button class="btn btn-primary" ng-click="modalPlus('tableMove','modal-second-table',true)">
+                                            ثبت
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script src="assets/scripts/treant.js"></script>
 <script src="assets/scripts/raphael.js"></script>
-<!-- <script src="assets/scripts/collapsable.js"></script> -->
 <script src="assets/scripts/basic-example.js"></script>
-<!-- <script src="assets/scripts/example6.js"></script> -->
-<!-- <div class="chart" id="OrganiseChart6"></div> -->
-<!-- <input type="text" class="form-control elementClass"> -->
 <div class="chart" id="basic-example" ng-init="treeLoad()" style="margin-top: -100px" ng-if="!tableView"></div>
-<!-- <div class="chart" id="collapsable-example" ng-init="treeLoad()"></div> -->
 
 <script>
     new Treant(chart_config);
@@ -582,4 +674,9 @@
         handle: ".modal-body"
     });
 
+</script>
+<script>
+    $(function () {
+        Ps.initialize(document.getElementById('producer-type'));
+    });
 </script>

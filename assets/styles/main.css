@@ -134,7 +134,7 @@ hr{
 }
 
 label {
-    color: gray;
+    color: black;
     font-size: 12px;
     direction: rtl;
     font-family: "iran-sans";
@@ -207,6 +207,26 @@ p{
  /* thead tr {
      color: white !important;
  } */
+ .stripted {
+    background: repeating-linear-gradient(
+        45deg,
+        #6C89C6,
+        #6C89C6 5px,
+        rgb(139, 158, 196) 5px,
+        rgb(139, 158, 196) 10px
+      );
+ }
+ .search-button {
+     background-color: lightgray;
+     color: gray;
+     border: 1px solid #ccc;
+     border-right: none;
+     font-size: 10px;
+     padding: 9px 5px;
+ }
+ .search-button:hover{
+     color: gray !important;
+ }
  #inside-progress{
      background-color: #F16521;
      height: 0%;
@@ -2486,6 +2506,9 @@ tfoot tr td {
     color: white;
     border-right: none !important;
     border-radius: 0;
+}
+.log-btn:hover {
+    background-color: #F6921E;
 }
 .log-btn:focus {
     background-color: #F6921E;
