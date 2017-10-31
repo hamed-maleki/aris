@@ -378,8 +378,8 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" ng-init="urlMaker('/Get/root/childs')">
-    <div class="row">
+<div class="container-fluid" ng-init="urlMaker('/orgchart/get/root/childs')">
+    <div class="row" ng-init="firsturlMaker('/orgchart/get/root/childs')">
         <div class="col-sm-12 right-align">
             <i class="fa fa-sitemap pointer" style="color: #6B6B6B;margin-right: 11px" ng-click="tableView = false"></i>
             <i class="fa fa-th-list pointer" style="color: #6B6B6B;margin-right: 3px;" ng-click="tableView = true"></i>
@@ -413,11 +413,11 @@
                     <tbody>
                         <tr ng-mouseenter="editTable = true" ng-mouseleave="editTable = false">
                             <td>
-                                <div class="checkbox">
+                                <div class="radio" style="padding: 0;margin: 0">
                                     <label>
-                                        <input class="select chart-check" type="checkbox" value="{{chartElement.id}}">
+                                        <input class="select chart-check" type="radio" name="fatherNode">
                                         <span class="cr" style="margin-right: 14px;background-color: white;border: 1px solid gray">
-                                            <i class="cr-icon fa fa-check"></i>
+                                            <i class="cr-icon fa fa-circle"></i>
                                         </span>
                                     </label>
                                 </div>
@@ -436,7 +436,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3" style="text-align: left">
-                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-placement="right"
+                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser1" data-placement="right"
                         title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')" data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید"
                         data-position='right'></i>
                 </div>
@@ -537,11 +537,11 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" role="dialog" id="tablePlusUser">
+            <div class="modal fade" role="dialog" id="tablePlusUser1">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-body container" style="display: flex;justify-content: center;align-items: center;overflow-x: hidden;min-height: 200px;overflow-y: visible">
-                            <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" data-dismiss="modal">&times;</button>
+                        <div class="modal-body container"  ng-init="modalPlus('tableMove','modal-second-table',true)" style="display: flex;justify-content: center;align-items: center;overflow-x: hidden;overflow-y: visible">
+                            <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" ng-click="closingModal()">&times;</button>
                             <div id="tableMove" style="width: 100%;">
                                 <div class="col-sm-2"></div>
                                 <div class="col-sm-10">
@@ -553,7 +553,7 @@
                                                 </label>
                                             </div>
                                             <div class="col-sm-8 col-sm-pull-4">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" ng-model="orgChartName">
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="col-sm-4 col-sm-push-8 left-align my-margin-top">
@@ -565,80 +565,52 @@
                                                 <div class="input-group">
                                                     <div class="input-group-btn">
                                                         <button class="btn center" ng-click="modalPlus('tableMove','modal-second-table',false)" ng-class="userColor" tabindex="31"
-                                                            style="margin-top:0;border-radius: 0;color: white;padding: 6px 12px 7px">
+                                                            style="margin-top:0;border-radius: 0;color: white;padding: 6px 12px">
                                                             <i class="fa fa-ellipsis-h" style="margin: 0"></i>
                                                         </button>
                                                     </div>
-                                                    <input class="form-control right-align login-input" type="text" />
+                                                    <input class="form-control right-align login-input" ng-value="orgChartToRegister.name" type="text" />
                                                 </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-sm-4 col-sm-push-8 left-align my-margin-top">
+                                                <label>
+                                                    سردسته :
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-sm-8 my-margin-top left-align">
+                                                <button class="btn btn-primary" style="margin-left: 15px" ng-click="registerOrgChart(orgChartName)">
+                                                    ثبت
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <div id="modal-second-table" class="modal-nth-table" ng-init="lookupFlag = false">
+                            <div id="modal-second-table" style="margin: 30px 0;display: flex;justify-content: center;align-items: center;" class="modal-nth-table" ng-init="userPlus = true">
+                                <div class="col-sm-12 left-align">
+                                    <i class="fa fa-arrow-left pointer" ng-click="modalPlus('tableMove','modal-second-table',true)"></i>
+                                </div>
+                                <div class="row" style="padding: 0">
+                                    <div class="col-sm-12">
+                                        <div ng-if="mytest" ng-include="'modules/example4.html'" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="modal-third-table" class="modal-nth-table">
+                                <div class="col-sm-12 left-align">
+                                    <i class="fa fa-arrow-left pointer" ng-click="modalPlus('modal-second-table','modal-third-table',true)"></i>
+                                </div>
+
                                 <div class="row">
-                                    <div class="col-sm-12 left-align">
-                                        <i class="fa fa-arrow-left pointer" ng-click="modalPlus('tableMove','modal-second-table',true)"></i>
-                                    </div>
-                                    <hr style="border-color: white;width: 100%;margin-right: 15px">
                                     <div class="col-sm-2"></div>
-                                    <div class="col-sm-6" style="direction: ltr">
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="lookupFlag ? lookupFlag = flase : lookupFlag = true">
-                                                    <i style="margin: 0 5px;color: white" class="fa fa-chevron-down"></i>
-                                                </button>
-                                            </div>
-                                            <input class="form-control right-align login-input" id="post-type" style="font-size: 13px;" ng-model="postType" />
-                                            <div class="white-background" id="lookup" ng-if="lookupFlag">
-                                                <ul>
-                                                    <li ng-repeat="x in tree |filter : postType">
-                                                        <a href="#" ng-click="filling(x.name)">{{x.name}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                    <div class="col-sm-10">
+                                        <div ng-include="'modules/orgChartType/creatingOrgChartType.html'">
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4 left-align">
-                                        <label>پست :</label>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;" ng-click="modalPlus('modal-second-table','modal-third-table',false)">
-                                                    <i style="margin: 0 5px;color: white;" class="fa fa-ellipsis-h"></i>
-                                                </button>
-                                            </div>
-                                            <input class="form-control right-align login-input" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 left-align my-margin-top">
-                                        <label>کالا :</label>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-6 my-margin-top" style="direction: ltr">
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button class="btn center" ng-class="userColor" tabindex="31" style="margin-top:0;border-radius: 0;font-size: 11px;padding: 6px;color: white">
-                                                    کیلوگرم
-                                                </button>
-                                            </div>
-                                            <input class="form-control right-align login-input" type="number" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 left-align my-margin-top">
-                                        <label>میزان سهمیه :</label>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="col-sm-2 my-margin-top"></div>
-                                    <div class="col-sm-6 my-margin-top left-align">
-                                        <button class="btn btn-primary" ng-click="modalPlus('tableMove','modal-second-table',true)">
-                                            ثبت
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -648,35 +620,49 @@
             </div>
         </div>
     </div>
-</div>
-<script src="assets/scripts/treant.js"></script>
-<script src="assets/scripts/raphael.js"></script>
-<script src="assets/scripts/basic-example.js"></script>
-<div class="chart" id="basic-example" ng-init="treeLoad()" style="margin-top: -100px" ng-if="!tableView"></div>
+    <script src="assets/scripts/treant.js"></script>
+    <script src="assets/scripts/raphael.js"></script>
+    <script src="assets/scripts/basic-example.js"></script>
+    <div class="chart" id="basic-example" ng-init="treeLoad()" style="margin-top: -100px" ng-if="!tableView"></div>
 
-<script>
-    new Treant(chart_config);
-    $(document).ready(function () {
-        $(".node").click(function () {
-            for (var i = 0; i < this.childNodes.length; i++) {
-                if (this.childNodes[i].className == "node-id") {
-                    $("#addingUser").modal();
-                    $("#unitCode").html(this.childNodes[1].innerHTML);
-                    $("#unitName").html(this.childNodes[0].innerHTML)
+    <script>
+        new Treant(chart_config);
+        $(document).ready(function () {
+            $(".node").click(function () {
+                for (var i = 0; i < this.childNodes.length; i++) {
+                    if (this.childNodes[i].className == "node-id") {
+                        $("#addingUser").modal();
+                        $("#unitCode").html(this.childNodes[1].innerHTML);
+                        $("#unitName").html(this.childNodes[0].innerHTML)
+                    }
                 }
-            }
+            })
         })
-    })
 
-</script>
-<script>
-    $(".modal").draggable({
-        handle: ".modal-body"
-    });
+    </script>
+    <script>
+        $('.modal-body').on('shown.bs.modal', function () {
+            console.log("this is test");
+        });
+        $(".modal").draggable({
+            handle: ".modal-body"
+        });
 
-</script>
-<script>
-    $(function () {
-        Ps.initialize(document.getElementById('producer-type'));
-    });
-</script>
+    </script>
+    <script>
+        $(function () {
+            Ps.initialize(document.getElementById('producer-type'));
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $(".modal").draggable({
+                handle: ".modal-body"
+            });
+            $("#social-no").mask("999-999999-9");
+            $("#edit-social-no").mask("999-999999-9");
+            $("#search-social-number").mask("999-999999-9");
+        });
+
+    </script>

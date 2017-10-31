@@ -961,6 +961,16 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         $("#totalSum").html(totalSum);
         $scope.tableFormat();
     }
+    $scope.pagingNumber;
+    $scope.pageOrder = function (x, $event) {
+        var evtobj = window.event ? event : $event;
+        console.log(x);
+        if (evtobj.keyCode == 13) {
+            $scope.finalPagination(x, false, $scope.urlToGet);
+        }
+
+    }
+
     // users loading
     $scope.users = function () {
         var sendUser = {
@@ -998,13 +1008,23 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }, 400);
     }
     $scope.firstStep = 0;
+    $scope.closingModal = function () {
+        $(".modal").modal('hide');
+        $scope.finalPagination($scope.pageNumberToGo, false, $scope.firstUrlTogo);
+    }
     $scope.detector = function ($event) {
         var evtobj = window.event ? event : $event;
+        if (evtobj.keyCode == 27) {
+            $(".modal").modal('hide');
+            $scope.finalPagination($scope.pageNumberToGo, false, $scope.firstUrlTogo);
+        }
         if (evtobj.keyCode == 13) {
-            if ($(".paginationOrder").is(":focus")) {
-                var page = $(".paginationOrder").val();
-                $scope.finalPagination(page, false, $scope.urlToGet);
-            }
+            // console.log("this is happening");
+            // if ($(".paginationOrder").is(":focus")) {
+            //     var page = $(".paginationOrder").val();
+            //     console.log($scope.pagingNumber);
+            //     $scope.finalPagination(page, false, $scope.urlToGet);
+            // }
         }
         if ($event.altKey || evtobj.altKey) {
             if ($event.keyCode == 38) {
@@ -1069,6 +1089,40 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.simpleSearch = [];
     $scope.searchingresult = false;
     $scope.searchToSend = [];
+    $scope.addingOrgChart = function(){
+        var myid ;
+        $('.chart-check').each(function (index) {
+            if (this.checked == true) {
+                myid = this.value;
+            }
+        });
+        for(var i =0; i< $scope.limitedEdition.length; i++){
+            if(myid == $scope.limitedEdition[i].id){
+                $scope.orgChartToRegister = $scope.limitedEdition[i]
+            }
+        }
+        $scope.modalPlus('tableMove','modal-second-table',true);
+    }
+    $scope.registerOrgChart = function(x){
+        var orgChart = {
+            "Name":x,
+            "ChartTypeId":$scope.orgChartToRegister.id,
+            "ParentId": null
+        }
+        orgChart = JSON.stringify(orgChart);
+        $http({
+            url: myhost + "/orgchart/Create",
+            method: "POST",
+            ContentType: 'application/json; charset = utf-8',
+            data: orgChart,
+            dataType: 'json',
+            headers: authHeaders,
+        }).then(function(response){
+            console.log(response)
+        })
+        console.log(orgChart);
+
+    }
     $scope.gettingOrgChart = function (myUrl) {
         var pageNumber;
         console.log(myUrl);
@@ -1093,7 +1147,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $scope.currentPage = 1;
             $scope.editingLength = 0;
             $scope.editingUserData = $scope.limitedEdition[$scope.editingLength];
-            
+
             $scope.paginationNumber = [];
             $scope.rowsCount = $scope.limitedEdition[0].rowsCount
             pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
@@ -1104,9 +1158,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }).catch(function (xhr) {
             console.log("Error");
             console.log(xhr);
-            if(xhr.status == 404){
+            if (xhr.status == 404) {
                 $scope.currentPage = 1;
                 $scope.paginationNumber = [];
+                $scope.limitedEdition = [];
             }
         })
     }
@@ -1179,7 +1234,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         }
         // $("#userpagination" + x).addClass("active");
     }
-    $scope.searchPagination = function (x , y) {
+    $scope.searchPagination = function (x, y) {
         // for (var i = 0; i < $scope.search.length; i++) {
         //     if ($scope.search[i].Operation == undefined) {
         //         $scope.search[i].Operation = 'Contain';
@@ -1236,14 +1291,19 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
         })
     }
     $scope.finalPagination = function (x, y, z) {
+
         // $scope.urlToGet = z;
         // $scope.currentPage = x;
         if ($scope.searchingresult) {
-            $scope.searchPagination(x , y);
+            $scope.searchPagination(x, y);
         }
         else {
             z = myhost + z;
+            console.log("this is happening");
+            console.log(z);
+            console.log(x);
             if (x > 0 && x < $scope.paginationNumber.length + 1) {
+                console.log("this is condition");
                 $scope.firstStep = 0;
                 $(".pagination li").removeClass("active");
                 $("#userpagination" + x).addClass("active");
@@ -1253,6 +1313,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     "Ps": $scope.pagelength,
                     "Orders": [{ "Col": "Id", "Asc": true }]
                 }
+                console.log(sendUser);
                 $http({
                     url: z,
                     method: "POST",
@@ -1262,6 +1323,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                     headers: authHeaders
                 }).then(function (response) {
                     $scope.limitedEdition = response.data;
+                    console.log(response);
                     $scope.currentPage = x;
                     if (y != false) {
                         if (y == 1) {
@@ -1277,10 +1339,22 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
                             $("#user" + $scope.editingUserData.id).css("background-color", "rgb(255,255,125)");
                         }, 100)
                     }
+                    $scope.paginationNumber = [];
+                    $scope.rowsCount = $scope.limitedEdition[0].rowsCount
+                    pageNumber = Math.ceil($scope.rowsCount / $scope.pagelength);
+                    for (var conter = 1; conter < pageNumber + 1; conter++) {
+                        $scope.paginationNumber.push(conter);
+                    }
+                    console.log(response);
                     $(".paginationOrder").val("");
                 }).catch(function (xhr, status, error) {
                     if (refreshtoken && xhr.status === 401) {
                         $scope.refreshlocal($scope.finalPagination, x);
+                    }
+                    if (xhr.status == 404) {
+                        $scope.currentPage = 1;
+                        $scope.paginationNumber = [];
+                        $scope.limitedEdition = [];
                     }
                 })
                 $scope.paginationToShow(x);
@@ -2266,6 +2340,9 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }
         })
     }
+    $scope.firsturlMaker = function (url) {
+        $scope.firstUrlTogo = url;
+    }
     $scope.urlMaker = function (url) {
         $scope.urlToGet = url;
         $scope.gettingOrgChart($scope.urlToGet);
@@ -2335,6 +2412,10 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     }
     $scope.modalPlus = function (x, y, z) {
         if (z == false) {
+            if (y == 'modal-second-table') {
+                $scope.mytest = true;
+                $scope.pageNumberToGo = $scope.currentPage;
+            }
             $("#" + x).addClass("table-moving-left");
             $("#" + y).css("display", "block");
             $("#" + y).addClass("table-moving-right");

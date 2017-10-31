@@ -1,0 +1,43 @@
+<form ng-submit="orgChartRegister(myorg)">
+    <div class="row">
+        <div class="col-sm-4 col-sm-push-8 left-align">
+            <label>
+                نوع پست :
+            </label>
+        </div>
+        <div class="col-sm-8 col-sm-pull-4">
+            <input type="text" class="form-control" id="name" ng-model="myorg.chartname">
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
+            <label>
+                قابلت نصبت فرد :
+            </label>
+        </div>
+        <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+            <select ng-model="myorg.Assigntype" style='width: 100% !important;' class='form-control'>
+                <option value=0 selected>ندارد</option>
+                <option value=1>تک نفر</option>
+                <option value=2>چند گانه</option>
+            </select>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-4 col-sm-push-8 left-align my-margin-top">
+            <label>
+                وضعیت پست :
+            </label>
+        </div>
+        <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+            <select ng-model="myorg.charttype" style='width: 100% !important;' class='form-control'>
+                <option value=0 selected>نرمال</option>
+                <option value=1>موازی</option>
+            </select>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-8 my-margin-top left-align">
+            <button class="btn btn-primary" type="submit" style="margin-left: 15px;">
+                ثبت پست
+            </button>
+        </div>
+    </div>
+</form>

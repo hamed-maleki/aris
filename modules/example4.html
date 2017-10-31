@@ -460,11 +460,15 @@
             </div>
             <div class="row">
                 <div class="col-sm-3" style="text-align: left">
-                    <i class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
+                    <i ng-if="!userPlus" class="fa fa-plus pointer table-accessory-tools" data-toggle="modal" data-target="#tablePlusUser" data-toggle="tooltip"
                         data-placement="right" title="اضافه کردن نوع پست" onmouseenter="$(this).tooltip('show')" data-step="5"
                         data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right'></i>
-                    <i class="fa fa-trash-o pointer table-accessory-tools" onmouseenter="$(this).tooltip('show')" data-toggle="modal" data-target="#tableDelete" data-placement="right"
-                        title="پاک کردن" data-position='right' ></i>
+                    <i ng-if="!userPlus" class="fa fa-trash-o pointer table-accessory-tools" onmouseenter="$(this).tooltip('show')" data-toggle="modal"
+                        data-target="#tableDelete" data-placement="right" title="پاک کردن" data-position='right'></i>
+                    <i ng-if="userPlus" class="fa fa-plus pointer table-accessory-tools" ng-click="modalPlus('modal-second-table','modal-third-table',false)"
+                        data-toggle="tooltip" data-placement="right" title="اضافه کردن کاربر" onmouseenter="$(this).tooltip('show')"
+                        data-step="5" data-intro="برای ایجاد فرد جدید کلیک کنید" data-position='right'></i>
+                        <i ng-if="userPlus" class="fa fa-check pointer table-accessory-tools" ng-click="addingOrgChart()"></i>
                 </div>
                 <div class="col-sm-6 center" style="padding: 0">
                     <div class="row">
@@ -482,7 +486,8 @@
                                 </li>
                                 <li>
                                     <a href="#" style="color: black">
-                                        <input type="text" class="form-control paginationOrder" style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
+                                        <input type="text" class="form-control paginationOrder" ng-model="pagingNumber" ng-keypress="pageOrder(pagingNumber,$event)"
+                                            style="font-size: 13px" placeholder="صفحه {{currentPage}} از {{paginationNumber[paginationNumber.length-1]}}">
                                     </a>
                                 </li>
                                 <li>
@@ -572,49 +577,7 @@
                 <button type="button" class="close right-float" style="position: absolute;top: 10px;left: 10px" data-dismiss="modal">&times;</button>
                 <div class="col-sm-1"></div>
                 <div class="col-sm-11">
-                    <form ng-submit="orgChartRegister(myorg)">
-                        <div class="row">
-                            <div class="col-sm-4 col-sm-push-8 left-align">
-                                <label>
-                                    نوع پست :
-                                </label>
-                            </div>
-                            <div class="col-sm-8 col-sm-pull-4">
-                                <input type="text" class="form-control" id="name" ng-model="myorg.chartname">
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-sm-4 col-sm-push-8 my-margin-top left-align">
-                                <label>
-                                    قابلت نصبت فرد :
-                                </label>
-                            </div>
-                            <div class="col-sm-8 col-sm-pull-4 my-margin-top">
-                                <select ng-model="myorg.Assigntype" style='width: 100% !important;' class='form-control'>
-                                    <option value=0 selected>ندارد</option>
-                                    <option value=1>تک نفر</option>
-                                    <option value=2>چند گانه</option>
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-sm-4 col-sm-push-8 left-align my-margin-top">
-                                <label>
-                                    وضعیت پست :
-                                </label>
-                            </div>
-                            <div class="col-sm-8 col-sm-pull-4 my-margin-top">
-                                <select ng-model="myorg.charttype" style='width: 100% !important;' class='form-control'>
-                                    <option value=0 selected>نرمال</option>
-                                    <option value=1>موازی</option>
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-sm-8 my-margin-top left-align">
-                                <button class="btn btn-primary" type="submit" style="margin-left: 15px;">
-                                    ثبت پست
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <div ng-include="'modules/orgChartType/creatingOrgChartType.html'"></div>
                 </div>
             </div>
         </div>
@@ -660,7 +623,7 @@
                                     </label>
                                 </div>
                                 <div class="col-sm-8 col-sm-pull-4 my-margin-top">
-                                    <select ng-model="update.chartType" ng-value="editingUserData.chartType"  style='width: 100% !important;' class='form-control right-align'>
+                                    <select ng-model="update.chartType" ng-value="editingUserData.chartType" style='width: 100% !important;' class='form-control right-align'>
                                         <option value=0 selected>نرمال</option>
                                         <option value=1>موازی</option>
                                     </select>
@@ -694,7 +657,7 @@
                         <button class="btn btn-success my-margin-top" ng-click="orgchartDelete()">
                             <i class="fa fa-check" style="color:white;margin: 0 8px"></i>
                         </button>
-                        <button class="btn btn-danger my-margin-top"  data-dismiss="modal">
+                        <button class="btn btn-danger my-margin-top" data-dismiss="modal">
                             <i class="fa fa-close" style="color: white;margin: 0 8px;"></i>
                         </button>
                     </div>

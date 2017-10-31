@@ -1,0 +1,185 @@
+<form ng-submit="editSubmit(editor,editingUserData.personnelName)" style="padding: 0 7px;margin-left:25px ">
+    <div class="row" style="direction: rtl">
+        <div class="col-sm-6 right-float">
+            <div class="row" ng-if="isAuth('tdName',4)">
+                <div class="col-sm-4 col-sm-push-8 label-container change">
+                    <label for="usr" class="my-label">نام:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" ng-model="$parent.editor.name" class="form-control" style="height: 30px !important" ng-value="editingUserData.personnel.name"
+                        id="edit-name" placeholder="نام" tabindex="1" required>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row" ng-if="isAuth('tdFamily',4)">
+                <div class="col-sm-4 col-sm-push-8 label-container change">
+                    <label for="family" class="my-label">نام خانوادگی:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" class="form-control" style="height: 30px !important" id="edit-family" ng-value="editingUserData.personnel.family"
+                        ng-model="$paren.editor.family" placeholder=" نام خانوادگی" tabindex="2" required>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row" ng-if="isAuth('tdFatherName',4)">
+                <div class="col-sm-4 col-sm-push-8 label-container change">
+                    <label for="father" class="my-label">نام پدر:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" class="form-control" ng-value="editingUserData.personnel.fatherName" ng-model="$parent.editor.fatherName"
+                        style="height: 30px !important" id="edit-father" placeholder="نام پدر" tabindex="3">
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4 col-sm-push-8 label-container change my-margin-top">
+                    <label class="my-label">جنسیت :</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4 my-margin-top">
+                    <div class="radio " style="margin: 0">
+                        <label>
+                            <input type="radio" name="gender" ng-value="1" ng-model="editingUserData.personnel.gender" value="1" required>
+                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                <i class="cr-icon fa fa-circle"></i>
+                            </span>
+                            <span>زن</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" ng-value="0" ng-model="editingUserData.personnel.gender" required checked>
+                            <span tabindex="4" class="cr" tabindex="24" style="top:6px; margin-right: 14px;border-color: white;background-color: white">
+                                <i class="cr-icon fa fa-circle"></i>
+                            </span>
+                            <span>مرد</span>
+                        </label>
+                    </div>
+                    <!-- <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender" value="1" ng-model="editor.gender" required style="margin-top: -6px" />زن</label>
+                        <label class="radio-inline" style="margin-top: 5px"><input type="radio" tabindex="4" name="gender"  value="0" ng-model="editor.gender" checked required style="margin-top: -6px" />مرد</label> -->
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-8">
+                    <label for="id-badge" ng-click="fileSelect('editPhoto')">
+                        <img src="media/1.jpg" style="width: 55%;margin: auto;display: block;border-radius: 5px">
+                    </label>
+                    <input type="file" class="form-control" id="editPhoto" style="height: 30px !important" tabindex="5">
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container change">
+                    <label for="id-badge" class="my-label">شماره شناسنامه:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" class="form-control" ng-model="editor.birthCertificateNo" ng-value="editingUserData.personnel.birthCertificateNo"
+                        style="height: 30px !important" id="edit-id-badge" value="{{editingUserData.personnelId}}" placeholder="شماره شناسنامه"
+                        tabindex="6" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container change">
+                    <label for="social-no" class="my-label">کد ملی:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" class="form-control right-align" ng-model="editor.nationalCode" ng-value="editingUserData.personnel.nationalCode"
+                        style="height: 30px !important;direction: ltr;" id="edit-social-no" value="{{editingUserData.nationalCode}}"
+                        placeholder="XXX-XXXXXX-X" tabindex="7" required>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container change">
+                    <label for="personnelCode" class="my-label">کد پرسنلی:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" class="form-control" ng-value="editingUserData.personnel.code" ng-model="editor.personnelCode" style="height: 30px !important"
+                        id="personnelCode" placeholder="کد پرسنلی" tabindex="8" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container">
+                    <label for="phone" class="my-label">شماره موبایل:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="tel" class="form-control" ng-model="editor.phone" ng-value="editingUserData.user.mobileNo" style="height: 30px !important"
+                        id="edit-phone" value="{{editingUserData.phone}}" placeholder="شماره موبایل" tabindex="9">
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container">
+                    <label for="email" class="my-label">email:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="email" class="form-control" ng-model="editor.email" ng-value="editingUserData.user.email" style="height: 30px !important"
+                        id="edit-email" value="{{editingUserData.email}}" placeholder="example@exa.com" tabindex="10">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container">
+                    <label for="activity" class="my-label">نوع کاربری :</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <select id="activation" tabindex="11" style="height: 30px;width: 100% !important;font-size: 12px" ng-model="editor.isActive"
+                        tabindex="11" class="form-control my-form" ng-value="editingUserData.user.isActive">
+                        <option value="true">فعال</option>
+                        <option value="false">غیرفعال</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container">
+                    <label for="user-name" class="my-label">نام کاربری:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="text" class="form-control" ng-value="editingUserData.user.name" ng-model="editor.userName" style="height: 30px !important"
+                        id="edit-user-name" value="{{editingUserData.userName}}" placeholder="نام کاربری" tabindex="12" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 right-float my-margin-top">
+            <div class="row">
+                <div class="col-sm-4 col-sm-push-8 label-container">
+                    <label for="password" class="my-label">رمز عبور:</label>
+                </div>
+                <div class="col-sm-8 col-sm-pull-4">
+                    <input type="password" class="form-control" ng-value="editingUserData.user.passwordHash" ng-model="editor.passwordHash" style="height: 30px !important"
+                        id="edit-password" value="{{editingUserData.passwordHash}}" placeholder="رمز عبور" tabindex="13" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 my-margin-top">
+            <div class="row">
+                <div class="col-sm-8">
+                    <button class="btn btn-primary" ng-click="editSubmit(editor,editingUserData.personnelName)" type="submit" style="float: left;width: 100%"
+                        tabindex="14">ثبت </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("#social-no").mask("999-999999-9");
+        $("#edit-social-no").mask("999-999999-9");
+        $("#search-social-number").mask("999-999999-9");
+    });
+</script>
