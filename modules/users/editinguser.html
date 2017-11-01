@@ -25,11 +25,11 @@
         </div>
         <div class="clearfix"></div>
         <div class="col-sm-6 right-float my-margin-top">
-            <div class="row" ng-if="isAuth('tdFatherName',4)">
-                <div class="col-sm-4 col-sm-push-8 label-container change">
+            <div class="row" >
+                <div ng-if="isAuth('tdFatherName',4)" class="col-sm-4 col-sm-push-8 label-container change">
                     <label for="father" class="my-label">نام پدر:</label>
                 </div>
-                <div class="col-sm-8 col-sm-pull-4">
+                <div ng-if="isAuth('tdFatherName',4)" class="col-sm-8 col-sm-pull-4">
                     <input type="text" class="form-control" ng-value="editingUserData.personnel.fatherName" ng-model="$parent.editor.fatherName"
                         style="height: 30px !important" id="edit-father" placeholder="نام پدر" tabindex="3">
                 </div>

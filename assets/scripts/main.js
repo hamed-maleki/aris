@@ -1007,15 +1007,27 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             $("#userpagination1").addClass("active");
         }, 400);
     }
+    $scope.modalData = [];
     $scope.firstStep = 0;
     $scope.closingModal = function () {
         $(".modal").modal('hide');
+        for(var i=0; i< $scope.modalData.length; i++){
+            $scope.modalData[i] = false;
+        }
+        $(".modal-nth-table").css("display", "none");
+        $("#tableMove").css("display", "block");
+        console.log($scope.firstUrlTogo);
         $scope.finalPagination($scope.pageNumberToGo, false, $scope.firstUrlTogo);
     }
     $scope.detector = function ($event) {
         var evtobj = window.event ? event : $event;
         if (evtobj.keyCode == 27) {
             $(".modal").modal('hide');
+            $(".modal-nth-table").css("display", "none");
+            $("#tableMove").css("display", "block");
+            for(var i=0; i< $scope.modalData.length; i++){
+                $scope.modalData[i] = false;
+            }
             $scope.finalPagination($scope.pageNumberToGo, false, $scope.firstUrlTogo);
         }
         if (evtobj.keyCode == 13) {
@@ -1089,27 +1101,36 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.simpleSearch = [];
     $scope.searchingresult = false;
     $scope.searchToSend = [];
-    $scope.addingOrgChart = function(){
-        var myid ;
+    $scope.orgchartParent = function (x) {
+        $scope.parent = x;
+    }
+    $scope.addingOrgChart = function () {
+        var myid;
         $('.chart-check').each(function (index) {
             if (this.checked == true) {
                 myid = this.value;
             }
         });
-        for(var i =0; i< $scope.limitedEdition.length; i++){
-            if(myid == $scope.limitedEdition[i].id){
+        for (var i = 0; i < $scope.limitedEdition.length; i++) {
+            if (myid == $scope.limitedEdition[i].id) {
                 $scope.orgChartToRegister = $scope.limitedEdition[i]
             }
         }
-        $scope.modalPlus('tableMove','modal-second-table',true);
+        $scope.modalPlus('tableMove', 'modal-second-table', true);
     }
-    $scope.registerOrgChart = function(x){
+    $scope.registerOrgChart = function (x) {
         var orgChart = {
-            "Name":x,
-            "ChartTypeId":$scope.orgChartToRegister.id,
-            "ParentId": null
+            "Name": x,
+            "ChartTypeId": $scope.orgChartToRegister.id,
+            "ParentId": ""
+        }
+        if ($scope.parent == undefined) {
+            orgChart.ParentId = null
+        } else {
+            orgChart.ParentId = $scope.parent.id
         }
         orgChart = JSON.stringify(orgChart);
+        console.log(orgChart);
         $http({
             url: myhost + "/orgchart/Create",
             method: "POST",
@@ -1117,15 +1138,31 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             data: orgChart,
             dataType: 'json',
             headers: authHeaders,
-        }).then(function(response){
+        }).then(function (response) {
             console.log(response)
         })
-        console.log(orgChart);
-
+    }
+    $scope.chartPath = [];
+    $scope.orgchartChild = function (x, type, rowIndex) {
+        var url;
+        if (type == 'add') {
+            $scope.chartPath.push(x);
+            url = "/orgchart/get/" + x.id + "/childs";
+        }
+        else {
+            $scope.chartPath = $scope.chartPath.slice(0, rowIndex);
+            if (x.parentId == null) {
+                url = "/orgchart/get/root/childs";
+            }
+            else{
+                url = "/orgchart/get/" + x.parentId + "/childs";
+            }
+        }
+        $scope.urlMaker(url);
+        $scope.firsturlMaker(url);
     }
     $scope.gettingOrgChart = function (myUrl) {
         var pageNumber;
-        console.log(myUrl);
         var sendusers = {
             "Pn": 1,
             "Ps": $scope.pagelength,
@@ -2413,7 +2450,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
     $scope.modalPlus = function (x, y, z) {
         if (z == false) {
             if (y == 'modal-second-table') {
-                $scope.mytest = true;
+                $scope.modalData[0] = true;
                 $scope.pageNumberToGo = $scope.currentPage;
             }
             $("#" + x).addClass("table-moving-left");
@@ -2427,6 +2464,7 @@ app.controller('myCtrl', ['$scope', '$http', '$timeout', '$filter', '$interval',
             }, 1000)
         }
         else {
+            $scope.userPlus = false;
             $("#" + y).addClass("table-moving-right1");
             $("#" + x).addClass("table-moving-left1");
             $("#" + x).css("display", "block");

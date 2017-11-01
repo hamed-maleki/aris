@@ -219,6 +219,12 @@ p{
         rgb(139, 158, 196) 10px
       );
  }
+ .path {
+     color: #6B6B6B;
+ }
+ .path:hover {
+     color: lightskyblue;
+ }
  .search-button {
      background-color: lightgray;
      color: gray;
